@@ -184,3 +184,5 @@
 </body>
 <%-- Header 마무리에 따라 div 추가 닫기 --%>
 <jsp:include page="../footer.jsp" />
+
+<div>아아아아</div>
