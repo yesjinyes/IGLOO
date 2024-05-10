@@ -19,12 +19,12 @@ $(document).ready(function(){
 	//=== 로그인을 하지 않은 상태일 때 
 	//     로컬스토리지(localStorage)에 저장된 key가 'saveid' 인 userid 값을 불러와서 
 	//     input 태그 userid 에 넣어주기 ===
-	if(${empty sessionScope.login_user}){
+	if(${empty sessionScope.loginuser}){
 		
 		const loginUserid = localStorage.getItem('saveid');
 		// const loginPwd = localStorage.getItem('savepwd');
 		
-		console.log(loginUserid);
+		// console.log(loginUserid);
 		if(loginUserid != null){
 			$("input#loginUserid").val(loginUserid);
 			$("input:checkbox[id='saveid']").prop("checked", true);

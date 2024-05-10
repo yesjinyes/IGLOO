@@ -15,10 +15,10 @@
 	<nav id="searchList" class="navbar navbar-expand-sm justify-content-center">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-		    	<a class="nav-link" href="#">리스트로 검색</a>
+		    	<a class="nav-link" href="<%= ctxPath%>/store/searchList.ice">리스트로 검색</a>
 		    </li>
 		    <li class="nav-item">
-		      	<a class="nav-link" href="#">지도로 검색</a>
+		      	<a class="nav-link" href="<%= ctxPath%>/store/searchMap.ice">지도로 검색</a>
 		    </li>
 		</ul>
 	</nav>
@@ -31,7 +31,7 @@
 		<input class="my-sm-0" type="text" name="store_search" id="store_search" size="50" placeholder='지점명 또는 주소를 입력하세요' required="required">
 	</label>
 	<button id="btnSearch" class="btn my-sm-0" type="submit">
-		<img src="<%= ctxPath%>/images/search.png" class="img-fluid" alt="Responsive image">
+		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
 	</button>
 </div>
 
@@ -58,7 +58,7 @@
         			<div class="card-columns m-5">
 						<div class="card bg-primary text-white ">
 						    <div class="card-body text-center">
-						      	<img src="<%= ctxPath%>/images/map.png" class="img-fluid" alt="Responsive image" >
+						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
 						<div class="ml-5 pt-5">
@@ -85,11 +85,11 @@
         			<div class="card-columns m-5">
 						<div class="card bg-primary text-white ">
 						    <div class="card-body text-center">
-						      	<img src="<%= ctxPath%>/images/map.png" class="img-fluid" alt="Responsive image" >
+						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
 						<div class="ml-5 pt-5">
-						    <h1 class="card-text">지점1</h1>
+						    <h1 class="card-text">지점2</h1>
 						    <p class="card-text storeinfoDetails">주소</p>
 						    <p class="card-text storeinfoDetails">영업시간</p>
 						    <p class="card-text storeinfoDetails">전화번호</p>
@@ -112,11 +112,11 @@
         			<div class="card-columns m-5">
 						<div class="card bg-primary text-white ">
 						    <div class="card-body text-center">
-						      	<img src="<%= ctxPath%>/images/map.png" class="img-fluid" alt="Responsive image" >
+						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
 						<div class="ml-5 pt-5">
-						    <h1 class="card-text">지점1</h1>
+						    <h1 class="card-text">지점3</h1>
 						    <p class="card-text storeinfoDetails">주소</p>
 						    <p class="card-text storeinfoDetails">영업시간</p>
 						    <p class="card-text storeinfoDetails">전화번호</p>

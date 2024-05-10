@@ -40,7 +40,7 @@
 </head>
 <body>
 	<nav id="nav_top" class="navbar navbar-expand-lg navbar-light fixed-top">
-		<a class="navbar-brand" href="#"><img src="<%= ctxPath%>/images/igloo_logo.png" style="width:130px;"/></a>
+		<a class="navbar-brand" href="<%= ctxPath%>/"><img src="<%= ctxPath%>/images/igloo_logo.png" style="width:130px;"/></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -58,7 +58,7 @@
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
+		        	<a class="nav-link" href="<%= ctxPath%>/store/searchList.ice">
 						<span class="color-first">지점 찾기</span>
 					</a>
 		      	</li>
@@ -72,7 +72,7 @@
 						<span class="color-first">고객센터</span>
 					</a>
 		      	</li>
-		      	<c:if test="${not empty sessionScope.login_user and sessionScope.login_user.userid != 'admin'}">
+		      	<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid != 'admin'}">
 			      	<li class="nav-item dropdown">
 				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
 				        	회원전용
@@ -85,7 +85,7 @@
 				        </div>
 			      	</li>
 		      	</c:if>
-		      	<c:if test="${not empty sessionScope.login_user and sessionScope.login_user.userid == 'admin'}">
+		      	<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid == 'admin'}">
 			      	<li class="nav-item dropdown">
 			        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
 			          		관리자전용

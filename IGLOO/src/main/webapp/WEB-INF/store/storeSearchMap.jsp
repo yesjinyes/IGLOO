@@ -31,7 +31,7 @@
 		<input class="my-sm-0" type="text" name="store_search" id="store_search" size="50" placeholder='지점명 또는 주소를 입력하세요' required="required">
 	</label>
 	<button id="btnSearch" class="btn my-sm-0" type="submit">
-		<img src="<%= ctxPath%>/images/search.png" class="img-fluid" alt="Responsive image">
+		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
 	</button>
 </div>
 
@@ -44,7 +44,7 @@
         			<div class="card-columns m-5">
 						<div class="card bg-primary text-white ">
 						    <div class="card-body text-center">
-						      	<img src="<%= ctxPath%>/images/map.png" class="img-fluid" alt="Responsive image" >
+						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
 						<div class="ml-5 pt-5">
