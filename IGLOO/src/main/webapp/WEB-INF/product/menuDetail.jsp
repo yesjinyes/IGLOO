@@ -107,3 +107,5 @@
 <%-- 여기까지 컨텐츠 --%>
 
 <jsp:include page="../footer.jsp" />
+
+<div>2024.05.10 내용 변경</div>

@@ -5,7 +5,7 @@
     String ctxPath = request.getContextPath();
     //    /IGLOO
 %>
-
+<%-- 테스트 --%>
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/main/storeSearchList.css" />
 
