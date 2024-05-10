@@ -1,15 +1,11 @@
 @charset "UTF-8";
 
 
-body {
-	background-color:#f6fafe !important;
-	margin-top: 30%;
-}
 
 div.container {
 	border: solid 0px blue;
-	width: 100%;
-	margin-top: 250px;
+	width: 80%;
+	margin-top: 850px;
 
 }
 

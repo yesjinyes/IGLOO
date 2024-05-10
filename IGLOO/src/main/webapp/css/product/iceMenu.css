@@ -13,6 +13,22 @@ div.container {
 	
 }
 
+.hoverBorder{
+	border-radius: 20%;
+}
+
+
+.menu-list__image {
+        transition: transform 0.3s; /* 호버 시 이미지 변환 효과를 위한 transition */
+}
+
+.col-md-3:hover .menu-list__image {
+    transform: scale(1.1); /* 호버 시 이미지 확대 */
+}
+
+.col-md-3:hover .menu-list__hash {
+    color: pink; /* 호버 시 텍스트 색상 변경 */
+}
 
 
 div.container > h2{
@@ -27,7 +43,9 @@ body div.align{
 
 
 img {
-	border-radius: 20%;
+	width:200px;
+	height:200px;
+	
 }
 
 

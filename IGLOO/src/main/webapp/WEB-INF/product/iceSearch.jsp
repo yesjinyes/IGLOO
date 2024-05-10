@@ -9,21 +9,20 @@
     //    /IGLOO
 %>
 
-<%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/iceSearch.css" />
-
-
 <jsp:include page="../header.jsp" />
 
 
+<%-- 직접 만든 CSS --%>
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/iceSearch.css" />
+
+<%-- 직접 만든 JS --%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 
-
-<body>
-
-    <div class="container pt-5" >
-    
+    <div class="container mx-auto my-5 pt-5" >
       <h2 class="text-center" > <%-- ${requestScope.검색어}  --%> "__"검색결과 총 <%-- ${requestScope.검색결과개수} --%> __건</h2>
       
       <form name="ice_search_frm"   method="post">
@@ -149,6 +148,5 @@
       
     </div>
   
-</body>
 <%-- Header 마무리에 따라 div 추가 닫기 --%>
 <jsp:include page="../footer.jsp" />
