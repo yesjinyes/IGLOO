@@ -57,5 +57,7 @@
 		</div>
 		
 	</div>
+	
+<%-- 개인 브랜치와 연결됐는지 확인하는 주석 --%>
 
 <jsp:include page="../footer.jsp"></jsp:include>
