@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+div#divRegisterFrm {
+	text-align: center;
+}
+
+table#tblRegister {
+ /*	border: solid 1px red; */ 
+	width: 93%;
+	margin: 200px auto;
+}
+
+table#tblRegister th {
+    border: solid 1px gray; 
+}
+
+table#tblRegister th {
+	height: 60px;
+	background-color: silver;
+	font-size: 14pt;
+}
+
+table#tblRegister td {
+	line-height: 200%;
+	padding: 1.2% 0;
+}
+
+span.star {
+	color: red;
+	font-weight: bold;
+	font-size: 13pt;
+}
+
+table#tblRegister > tbody > tr > td:first-child {
+	width: 20%;
+	font-weight: bold;
+	text-align: left;
+}
+
+table#tblRegister > tbody > tr > td:nth-child(2) {
+	width: 80%;
+	text-align: left;
+}
+
+img#idcheck, img#zipcodeSearch {
+	cursor: pointer;
+}
+
+span#emailcheck {
+	border: solid 1px gray;
+	border-radius: 5px;
+	font-size: 8pt;
+	display: inline-block;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	margin-left: 10px;
+	cursor: pointer;
+}

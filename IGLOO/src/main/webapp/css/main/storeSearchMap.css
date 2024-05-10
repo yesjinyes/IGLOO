@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+div#storeSearch{
+	margin-top: 100px;
+}
+
+div#storeSearch > nav#searchList a{
+	color: black;
+	font-weight: blod;
+	font-size: 15pt;
+}
+
+div#collapseOne  {
+	/* border: solid 1px red; */
+	width: 80%;
+	margin: auto;
+	
+}
+
+div.input_text{
+	/* border: solid 1px red; */
+	position: relative;
+	width:100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div.input_text > label > input#store_search{
+	box-shadow: 0px 0px 0px 1px #ddd;
+	border-radius:4px;
+	outline:none;
+	border: 0px;
+	line-height: 30px;
+}
+
+div.input_text > label > div.search_icon{
+	position:absolute;
+	cursor:pointer;
+}
+
+div.input_text img{
+	width: 20px;
+	height: 20px;
+}
+
+p.storeinfoDetails{
+	/* border: solid 1px red; */
+	margin: 25px auto;
+}
+
+

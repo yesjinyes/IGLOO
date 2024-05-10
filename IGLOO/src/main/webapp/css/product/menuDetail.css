@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+div.container.contents {
+	border: solid 0px red;
+	height: 700px;
+	margin-top: 5%;
+}
+
+div#item_img {
+	border: solid 0px grey;
+	width: 40%;
+	height: 400px;
+	margin: 2% auto;
+	display: flex;
+	background-color: #b3e6ff;
+	border-top-left-radius: 50%; 
+	border-top-right-radius: 50%;
+}
+
+div#item_detail {
+	border: solid 0px grey;
+	width: 40%;
+	height: 400px;
+	margin: 2% auto;
+}
+
+div#detail_ingredient > div > div {
+	font-size: 8pt;
+}
+
+div#imgdiv {
+	border: solid 0px grey;
+	display: flex;
+	
+}
+
+img#shootingstar {
+	height: 400px;
+	margin: auto;
+}
+
+div#detail_ingredient {
+	display: flex;
+}
+
+div#detail_ingredient > div {
+	text-align: center;
+	font-size: 10pt;
+	margin: 2%;
+}
+
+div#Nutrition {
+	border: solid 0px grey;
+	height: 80px;
+}
+
+div.col-md-1.nu {
+	border: solid 0px grey;
+	height: 80px;
+	text-align: center;
+	font-size: 10pt;
+	padding: 1% 0 0 0;
+}
+
+div.col-md-3 {
+	text-align: center;
+	padding-top: 1%;
+}
+
+div#allergy {
+	font-size: 10pt;
+}
+
+div.col-md-1.nu > div:last-child {
+	color: red;
+}
+
+div#allergy > div:last-child {
+	color: red;
+}

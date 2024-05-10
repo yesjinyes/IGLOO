@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+
+body {
+	background-color:#f6fafe !important;
+	margin-top: 30%;
+}
+
+div.container {
+	border: solid 0px blue;
+	width: 100%;
+	margin-top: 250px;
+
+}
+
+img {
+	border-radius: 20%;
+}
+
+div.container > h2{
+	margin-bottom: 150px;
+}
+
+
+div.container > nav{
+	margin-top: 250px;
+}
+
+
+
+
+
+

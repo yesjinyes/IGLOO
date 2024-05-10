@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+body {
+	background-color:#f6fafe !important;
+}
+
+body > div#main_logo {
+	text-align: center;
+	margin-top: 5%;
+}
+
+img#logo_img {
+	width: 20%;
+}
+
+div.carousel-item.active {
+	border: solid 10px #99ebff;
+	border-radius: 15%;
+}
+
+img.main_img {
+	border-radius: 13.5%;
+	width: 1557px;
+	height: 534px;
+}
+
+div.card-columns {
+	margin: 5% 0 5% 26%;
+}

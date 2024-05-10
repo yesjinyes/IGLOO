@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+div.container > h4 {
+	border: solid 1px red;
+	width: 10%;
+}
+
+div.container {
+	margin: 10% auto;
+}
+
+div.card {
+	cursor: pointer;
+}
+
+img.card-img-top {
+	margin: 5% auto 0 auto;
+	width: 70%;
+	height: 60%;
+}
+
+
+.card:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2); 
+}
