@@ -55,13 +55,13 @@
 			<%-- 아코디언 내부 --%>
     		<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       			<div class="card-body">
-        			<div class="card-columns m-5">
-						<div class="card bg-primary text-white ">
-						    <div class="card-body text-center">
+        			<div class="card-columns m-5 row">
+						<div class="card bg-primary text-white col-lg-5 p-0">
+						    <div class="card-body text-center ">
 						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
-						<div class="ml-5 pt-5">
+						<div class="ml-5 pt-5 col-lg-3 col-md-4">
 						    <h1 class="card-text">지점1</h1>
 						    <p class="card-text storeinfoDetails">주소</p>
 						    <p class="card-text storeinfoDetails">영업시간</p>
@@ -82,13 +82,13 @@
     		</div>
     		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       			<div class="card-body">
-        			<div class="card-columns m-5">
-						<div class="card bg-primary text-white ">
+        			<div class="card-columns m-5 row">
+						<div class="card bg-primary text-white col-lg-5 p-0">
 						    <div class="card-body text-center">
 						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
-						<div class="ml-5 pt-5">
+						<div class="ml-5 pt-5 col-lg-3 col-md-4">
 						    <h1 class="card-text">지점2</h1>
 						    <p class="card-text storeinfoDetails">주소</p>
 						    <p class="card-text storeinfoDetails">영업시간</p>
@@ -109,13 +109,13 @@
     		</div>
    			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
       			<div class="card-body">
-        			<div class="card-columns m-5">
-						<div class="card bg-primary text-white ">
+        			<div class="card-columns m-5 row">
+						<div class="card bg-primary text-white col-lg-5 p-0">
 						    <div class="card-body text-center">
 						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
-						<div class="ml-5 pt-5">
+						<div class="ml-5 pt-5 col-lg-3 col-md-4">
 						    <h1 class="card-text">지점3</h1>
 						    <p class="card-text storeinfoDetails">주소</p>
 						    <p class="card-text storeinfoDetails">영업시간</p>

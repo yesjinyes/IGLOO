@@ -188,7 +188,7 @@ $(document).ready(function() {
 	<div id="orderPrice" class="mt-5 mb-5">
 		<div class="row justify-content-end">
 			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
-			<div class="col-4 col-sm-4 col-md-2 text-success my-auto">28300원</div>
+			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">28300원</div>
 			<div class="mb-5"></div>
 			<button type="button" class="btn btn-sm col-5 col-sm-4">2건 주문하기</button>
 			<div class="col-1"></div>
