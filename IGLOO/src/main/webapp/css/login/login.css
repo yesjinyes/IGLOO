@@ -1,20 +1,28 @@
 @charset "UTF-8";
 
-table#loginTbl {
-	width: 50%;
-	border: solid 1px gray; 
-    border-collapse: collapse;
-	margin: 250px auto;
+div#loginLogo{
+	margin-top: 120px;
+	margin-bottom: 50px;
+	padding: 0;
 }
 
-table#loginTbl th {
-	background-color: silver;
+table#loginTbl {
+	width: 450px;
+	border: solid 1px gray; 
+    border-collapse: collapse;
+	margin: 200px auto;
+	margin-top: 0;
+}
+
+table#loginTbl > thead > tr > th{
+	background-color: #81BEF7;
 	font-size: 14pt;
 	text-align: center;
 	height: 30px;
+	border-bottom: solid 1px #063460 !important;
 }
 
-table#loginTbl td {
+table#loginTbl > tbody > tr > td > input {
 	border: solid 1px gray;
 	line-height: 30px;
 }
@@ -42,6 +50,9 @@ table#loginTbl > tbody > tr:last-child > td {
 	line-height: 50px;
 }
 
-
+table#loginTbl > tbody > tr:last-child > td > button{
+	background-color: #81BEF7;
+	border: solid 2px #063460;
+}
 
 
