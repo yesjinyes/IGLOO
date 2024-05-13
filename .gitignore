@@ -95,6 +95,13 @@ replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
 
+## commit 제외 파일 ##
+.classpath
+.gitignore
+/IGLOO/src/main/webapp/WEB-INF/web.xml
+/IGLOO/src/main/webapp/WEB-INF/Command.properties
+
+
 
 
 
