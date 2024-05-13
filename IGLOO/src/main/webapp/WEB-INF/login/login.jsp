@@ -71,24 +71,25 @@ $(document).ready(function(){
                   	<%-- autoComplete="off" => password 자동입력 막기--%>
               	</tr>
               
-              	<%-- ==== 아이디 찾기, 비밀번호 찾기 ==== --%>
+              	<%-- === 아이디 저장 === --%>
               	<tr>
               		<td colspan="2">
               			<input type="checkbox" id="saveid" />&nbsp;<label for="saveid">아이디저장</label>
               		</td>
               	</tr>
-              
+              	<%-- === 로그인 === --%>
               	<tr>
                   	<td colspan="4">
-                     	<button type="button" id="btnSubmit" class="btn btn-sm ml-3 px-5">로그인</button> 
+                     	<button type="button" id="btnSubmit" class="btn btn-sm px-5">로그인</button> 
                   	</td>
               	</tr>
           	</tbody>
       	</table>
    </form>
+   <%-- === 아이디 찾기, 비밀번호 찾기 === --%>
    <div class="text-center mt-2 mb-5">
    		<a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal">아이디찾기</a>
-   		| 
+   		&nbsp;&nbsp;|&nbsp;
         <a style="cursor: pointer;" data-toggle="modal" data-target="#passwdFind" data-dismiss="modal" data-backdrop="static">비밀번호찾기</a>
    </div>
 <%-- ****** 아이디 찾기 Modal 시작 ****** --%>

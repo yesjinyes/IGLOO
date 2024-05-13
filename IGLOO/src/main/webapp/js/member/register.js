@@ -9,56 +9,29 @@ let b_zipcodeSearch_click = false;
 
 $(document).ready(function(){
 	
+    $("iframe#iframe_agree").hide();
+
+    // === 약관 내용 보기 === //
+    $("button#checkagreeContents").click(function(){
+        // alert("확인용 => 이용약관 자세히보기 버튼 클릭");
+        $("iframe#iframe_agree").toggle();
+    })
+
 	$("span.error").hide();
 
-    $("input[name='name']").focus();
-
-    // === 성명 focus === //
-    $("input#name").blur(e => {
-        const name = $(e.target).val().trim();
-        if(name == ""){     // 입력하지 않거나 공백만 입력했을 경우
-            
-            $("table#tblRegister:input").prop('disabled',true);  // 비활성화
-
-            $(e.target).prop("disabled",false);
-            $(e.target).val("").focus();
-            
-            $(e.target).parent().find("span.error").show();
-
-        }
-        else{   // 공백이 아닌 글자를 입력했을 경우
-
-            // 모든 input 태그 비활성화 풀기
-            $("table#tblRegister:input").prop('disabled',false);
-
-            $(e.target).parent().find("span.error").hide();   
-            
-        }   // end of if~else----------------
-
-    });     // end of $("input#name").blur(e => {-------------------
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    $("input[name='userid']").focus();
 
     // === 아이디 focus === //
     $("input#userid").blur(e => {
         const userid = $(e.target).val().trim();
         if(userid == ""){     // 입력하지 않거나 공백만 입력했을 경우
-            
-            $("table#tblRegister:input").prop('disabled',true);  // 비활성화
 
-            $(e.target).prop("disabled",false);
-            $(e.target).val("").focus();
+            $(e.target).val("");
             
             $(e.target).parent().find("span.error").show();
 
         }
         else{   // 공백이 아닌 글자를 입력했을 경우
-
-            // 모든 input 태그 비활성화 풀기
-            $("table#tblRegister:input").prop('disabled',false);
 
             $(e.target).parent().find("span.error").hide(); 
             
@@ -80,18 +53,12 @@ $(document).ready(function(){
 
         if(!bool){     // 암호가 정규표현식에 위배된 경우
             
-            $("table#tblRegister:input").prop('disabled',true);  // 비활성화
-        
-            $(e.target).prop("disabled",false);
-            $(e.target).val("").focus();
+            $(e.target).val("");
             
             $(e.target).parent().find("span.error").show();
 
         }
         else{   // 암호가 정규표현식에 맞는 경우
-
-            // 모든 input 태그 비활성화 풀기
-            $("table#tblRegister:input").prop('disabled',false);
 
             $(e.target).parent().find("span.error").hide();
 
@@ -108,20 +75,13 @@ $(document).ready(function(){
 
         if($("input#pwd").val() != $(e.target).val()){     // 값이 다른 경우
             
-            $("table#tblRegister:input").prop('disabled',true);  // 비활성화
-
-            $(e.target).prop("disabled",false);
-            $("input#pwd").prop("disabled",false);
             $(e.target).val("");
-            $("input#pwd").val("").focus();
+            $("input#pwd").val("");
             
             $(e.target).parent().find("span.error").show();
 
         }
         else{   // 암호가 정규표현식에 맞는 경우
-
-            // 모든 input 태그 비활성화 풀기
-            $("table#tblRegister:input").prop('disabled',false);
 
             $(e.target).parent().find("span.error").hide(); 
             
@@ -142,24 +102,40 @@ $(document).ready(function(){
 
         if(!bool){     // 이메일이 정규표현식에 위배된 경우
             
-            $("table#tblRegister:input").prop('disabled',true);  // 비활성화
-
-            $(e.target).prop("disabled",false);
-            $(e.target).val("").focus();
+            $(e.target).val("");
             
             $(e.target).parent().find("span.error").show();
 
         }
         else{   // 이메일이 정규표현식에 맞는 경우
 
-            // 모든 input 태그 비활성화 풀기
-            $("table#tblRegister:input").prop('disabled',false);
-
             $(e.target).parent().find("span.error").hide();    
 
         }   // end of if~else----------------
         
     });     // end of $("input#email").blur(e => {------------------------------
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // === 성명 focus === //
+    $("input#name").blur(e => {
+        const name = $(e.target).val().trim();
+        if(name == ""){     // 입력하지 않거나 공백만 입력했을 경우
+            
+            $(e.target).val("");
+            
+            $(e.target).parent().find("span.error").show();
+
+        }
+        else{   // 공백이 아닌 글자를 입력했을 경우
+
+            $(e.target).parent().find("span.error").hide();   
+            
+        }   // end of if~else----------------
+
+    });     // end of $("input#name").blur(e => {-------------------
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,17 +151,12 @@ $(document).ready(function(){
         
         if(!bool) {     // 연락처 국번이 정규표현식에 위배된 경우 
             
-            $("table#tblRegister:input").prop("disabled", true);  // 비활성화
-            $(e.target).prop("disabled", false); 
-            
             $(e.target).parent().find("span.error").show();
-                
-            $(e.target).val("").focus(); 
+            
+            $(e.target).val(""); 
         }
         else {      // 연락처 국번이 정규표현식에 맞는 경우 
 
-            $("table#tblRegister:input").prop("disabled", false);
-            
             $(e.target).parent().find("span.error").hide();
         }
            
@@ -205,15 +176,11 @@ $(document).ready(function(){
         
         if(!bool) {     // 마지막 전화번호 4자리가 정규표현식에 위배된 경우 
             
-            $("table#tblRegister:input").prop("disabled", true);  
-            $(e.target).prop("disabled", false); 
-            
             $(e.target).parent().find("span.error").show();
                 
-            $(e.target).val("").focus(); 
+            $(e.target).val(""); 
         }
         else {      // 마지막 전화번호 4자리가 정규표현식에 맞는 경우 
-            $("table#tblRegister:input").prop("disabled", false);
             
             $(e.target).parent().find("span.error").hide();
         }
@@ -234,15 +201,11 @@ $(document).ready(function(){
         
         if(!bool) {     // 우편번호가 정규표현식에 위배된 경우 
             
-            $("table#tblRegister:input").prop("disabled", true);  
-            $(e.target).prop("disabled", false); 
-            
             $(e.target).parent().find("span.error").show();
-                
-            $(e.target).val("").focus(); 
+              
+            $(e.target).val(""); 
         }
         else {      // 우편번호가 정규표현식에 맞는 경우 
-            $("table#tblRegister:input").prop("disabled", false);
             
             $(e.target).parent().find("span.error").hide();
         }
@@ -267,7 +230,7 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // === "우편번호찾기" 클릭 === //
-   $("img#zipcodeSearch").click(function(){
+   $("span#zipcodeSearch").click(function(){
       
         b_zipcodeSearch_click = true;   
     
@@ -325,7 +288,7 @@ $(document).ready(function(){
         // === 참고항목을 읽기전용(readonly) 으로 변경 === //
         $("input#extraAddress").attr("readonly", true);     // 필드에 값이 부여된 이후 읽기전용으로 변경
       
-    });// end of $("img#zipcodeSearch").click()------------
+    });// end of $("span#zipcodeSearch").click()------------
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -362,6 +325,7 @@ $(document).ready(function(){
     // === 전체 datepicker 옵션 일괄 설정하기 ===  
     //     한번의 설정으로 $("input#fromDate"), $('input#toDate')의 옵션을 모두 설정할 수 있다.
     $(function() {
+        
         //모든 datepicker에 대한 공통 옵션 설정
         $.datepicker.setDefaults({
              dateFormat: 'yy-mm-dd' //Input Display Format 변경
@@ -381,19 +345,13 @@ $(document).ready(function(){
         //  ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
         //  ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
         });
- 
+        
         // input을 datepicker로 선언
         $("input#fromDate").datepicker();                    
         $("input#toDate").datepicker();
         
-        // From의 초기값을 오늘 날짜로 설정
-        $('input#fromDate').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-        
-        // To의 초기값을 3일후로 설정
-        $('input#toDate').datepicker('setDate', '+3D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-
      });
-   
+
    ///////////////////////////////////////////////////////////////////////
 
     // 키보드로 입력못하게 하기
@@ -417,13 +375,13 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     // === "아이디 중복확인" 을 클릭 === //
-    $("img#idcheck").click(function(){
+    $("span#idcheck").click(function(){
 
         b_idcheck_click = true;     
         
         $.ajax({
 
-            url: "idDuplicateCheck.up"
+            url: "idDuplicateCheck.ice"
             , data: {"userid":$("input#userid").val()}    
             , type:"post"       // type을 생략하면 type: "get" 이다.   
             // [주의] method 가 아닌 type 작성!!
@@ -438,7 +396,7 @@ $(document).ready(function(){
                 // console.log("json => ", json);
                 // json => {"isExists":true}
                 // json => {"isExists":false}
-                // json 는 idDuplicateCheck.up 을 통해 가져온 결과물인 "{"isExists":true}" 또는 "{"isExists":false}" 로 되어지는 string 타입의 결과물이다.
+                // json 는 idDuplicateCheck.ice 을 통해 가져온 결과물인 "{"isExists":true}" 또는 "{"isExists":false}" 로 되어지는 string 타입의 결과물이다.
 
                 // console.log("~~~ json 의 데이터타입 : ", typeof json);
                 // ~~~ json 의 데이터타입 : object
@@ -462,7 +420,7 @@ $(document).ready(function(){
 
         }); // end of $.ajax({})-----------------------------
 
-    })  // end of $("img#idcheck").click(function(){})-------------------------
+    })  // end of $("span#idcheck").click(function(){})-------------------------
    
     // === 아이디 값 변경시 "아이디 중복확인" 클릭 해제 === //
     $("input#userid").bind("change",function(){
@@ -480,7 +438,7 @@ $(document).ready(function(){
 
         $.ajax({
 
-            url: "emailDuplicateCheck.up"
+            url: "emailDuplicateCheck.ice"
             , data: {"email":$("input#email").val()}
             , type:"post"       // type을 생략하면 type: "get" 이다.   
             // [주의] method 가 아닌 type 작성!!
@@ -495,7 +453,7 @@ $(document).ready(function(){
                 // console.log("json => ", json);
                 // json => {"isExists":true}
                 // json => {"isExists":false}
-                // json 는 EmailDuplicateCheck.up 을 통해 가져온 결과물인 "{"isExists":true}" 또는 "{"isExists":false}" 로 되어지는 string 타입의 결과물이다.
+                // json 는 EmailDuplicateCheck.ice 을 통해 가져온 결과물인 "{"isExists":true}" 또는 "{"isExists":false}" 로 되어지는 string 타입의 결과물이다.
 
 
                 // console.log("~~~ json 의 데이터타입 : ", typeof json);
@@ -528,6 +486,26 @@ $(document).ready(function(){
         b_emailcheck_click = false;
 
     })  // end of $("input#email").bind("change",function(){})----------------
+
+    // === 성별 선택에 따른 배경색 변경 === //
+    $('input[name="gender"]').change(function() {
+        // 선택된 라디오 버튼의 값 가져오기
+        const gender_value = $(this).val();
+
+        // 해당하는 카드의 배경색 변경
+        if (gender_value == "1") {      // 남자일 경우
+            $(this).closest('.card').addClass('bg-gender').removeClass('bg-outline-secondary');
+            
+            // 여자  배경색 초기화
+            $('#female').closest('.card').removeClass('bg-gender').addClass('bg-outline-secondary');
+        }
+        else if (gender_value == "2") {     // 여자일 경우
+            $(this).closest('.card').addClass('bg-gender').removeClass('bg-outline-secondary');
+            
+            // 남자 배경색 초기화
+            $('#male').closest('.card').removeClass('bg-gender').addClass('bg-outline-secondary');
+        }
+    })
 
 })	// end of $(document).ready(function(){})--------------------
 
@@ -654,6 +632,19 @@ function goReset(){
     $("span#idcheckResult").empty();
 
     $("span#emailCheckResult").empty();
+
+    $("input#userid").val("");
+    $("input#pwd").val("");
+    $("input#pwdcheck").val("");
+    $("input#email").val("");
+    $("input#name").val("");
+    $("input#hp2").val("");
+    $("input#hp3").val("");
+    $("input#postcode").val(""); 
+    $("input#datepicker").val(""); 
+    $("input#address").val(""); 
+    $("input#detailaddress").val(""); 
+    $("input#extraaddress").val(""); 
 
 }   // end of function goReset(){}------------
 
