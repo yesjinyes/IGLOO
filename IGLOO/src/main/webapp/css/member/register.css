@@ -1,23 +1,28 @@
 @charset "UTF-8";
 
+div#RegisterLogo{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	padding: 0;
+}
+
 div#divRegisterFrm {
 	text-align: center;
 }
 
 table#tblRegister {
- /*	border: solid 1px red; */ 
 	width: 93%;
-	margin: 200px auto;
 }
 
-table#tblRegister th {
-    border: solid 1px gray; 
+span.error{
+	font-size: small;
+	color: red;
 }
 
 table#tblRegister th {
 	height: 60px;
-	background-color: silver;
 	font-size: 14pt;
+	border-bottom: solid 1px black;
 }
 
 table#tblRegister td {
@@ -25,11 +30,6 @@ table#tblRegister td {
 	padding: 1.2% 0;
 }
 
-span.star {
-	color: red;
-	font-weight: bold;
-	font-size: 13pt;
-}
 
 table#tblRegister > tbody > tr > td:first-child {
 	width: 20%;
@@ -42,11 +42,11 @@ table#tblRegister > tbody > tr > td:nth-child(2) {
 	text-align: left;
 }
 
-img#idcheck, img#zipcodeSearch {
+span#idcheck, span#emailcheck, span#zipcodeSearch {
 	cursor: pointer;
 }
 
-span#emailcheck {
+span#idcheck, span#emailcheck, span#zipcodeSearch {
 	border: solid 1px gray;
 	border-radius: 5px;
 	font-size: 8pt;
@@ -56,4 +56,40 @@ span#emailcheck {
 	text-align: center;
 	margin-left: 10px;
 	cursor: pointer;
+}
+
+div#Registeragree{
+	position: relative;
+	border: solid 1px gray !important;
+}
+
+table#tblRegister > tbody > tr > td > input{
+	width: 70%;
+}
+
+table#tblRegister > tbody > tr > td > input[name='hp1']
+,table#tblRegister > tbody > tr > td > input[name='hp2']
+,table#tblRegister > tbody > tr > td > input[name='hp3']
+,table#tblRegister > tbody > tr > td > input[name='postcode']{
+	width: 21.5%;
+}
+
+table#tblRegister > tbody > tr > td > input[name='address']
+,table#tblRegister > tbody > tr > td > input[name='detailaddress']
+,table#tblRegister > tbody > tr > td > input[name='extraaddress']{
+	width: 84%;
+}
+
+form[name='registerFrm'] > div:last-child > input:first-child{
+	border: solid 2px #063460;
+}
+
+form[name='registerFrm'] > div:last-child > input:last-child{
+	background-color: #81BEF7; 
+	border: solid 2px #063460;
+}
+
+.bg-gender{
+	background-color: #b3ffff !important; 
+	border: solid 2px #063460 !important;
 }

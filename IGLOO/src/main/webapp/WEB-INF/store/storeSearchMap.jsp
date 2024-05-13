@@ -39,23 +39,24 @@
 <br><br>
 <hr>
 <%-- 지점 표시 --%>
-<div id="collapseOne" class="collapse show " aria-labelledby="headingOne" data-parent="#accordionExample">
-      			<div class="card-body ">
-        			<div class="card-columns m-5">
-						<div class="card bg-primary text-white ">
-						    <div class="card-body text-center">
-						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
-						    </div>
-						</div>
-						<div class="ml-5 pt-5">
-						    <h1 class="card-text">지점1</h1>
-						    <p class="card-text storeinfoDetails">주소</p>
-						    <p class="card-text storeinfoDetails">영업시간</p>
-						    <p class="card-text storeinfoDetails">전화번호</p>
-						</div>
-        			</div>
-      			</div>
-    		</div>
+<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+	<div class="card-body">
+    	<div class="card-columns m-5 row">
+			<div class="card bg-primary text-white col-lg-5 p-0">
+				<div class="card-body text-center ">
+					<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
+				</div>
+			</div>
+			<div class="ml-5 pt-5 col-lg-3 col-md-4">
+				<h1 class="card-text">지점1</h1>
+				<p class="card-text storeinfoDetails">주소</p>
+				<p class="card-text storeinfoDetails">영업시간</p>
+				<p class="card-text storeinfoDetails">전화번호</p>
+			</div>
+      	</div>
+    </div>
+</div>
+    	
 
 <%-- Header 마무리에 따라 div 추가 닫기 --%>
 <jsp:include page="../footer.jsp" />

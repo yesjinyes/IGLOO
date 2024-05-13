@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+div.container {
+	margin-top: 5%;
+	text-align: center;
+}
+
+div#helptop {
+	border: solid 0px grey;
+	width: 80%;
+	margin: 0 auto;
+	height: 300px;
+	text-align: center;
+	padding-top: 7%;
+}
+
+div#helptop > span {
+	font-size: 50pt;
+	color: rgb(89, 200, 236);
+	font-weight: bolder;
+}
+
+div#helptop > h5 {
+	color: rgb(89, 200, 236);
+	line-height: 150%;
+}
+
+
+div#faq {
+	height: 100px;
+}
+
+button#storebtn {
+	margin-top: 3%;
+	border: none;
+	background-color: rgb(207, 222, 231);
+	border-radius: 7px 7px;
+	font-size: 10pt;
+}
