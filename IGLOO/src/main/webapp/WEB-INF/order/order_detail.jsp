@@ -17,7 +17,7 @@
 
 	<div id="imgdiv" class="row">
 		<div id="item_img" class="col-xl-5 col-lg-5">
-			<img class="img-fluid" id="cupsize" src="<%= ctxPath%>/images/copsize.png" alt="Responsive image"/>
+			<img class="img-fluid" id="cupsize" src="<%= ctxPath%>/images/images_younggwan/copsize.png" alt="Responsive image"/>
 		</div>
 		<div id="item_detail">
 			<div class="p-0  my-auto">
@@ -93,7 +93,7 @@
 
 	<div id="image">
 		<div class="row justify-content-center">
-			<div class="col-md-7" style="font-weight: bold;"> <img class="img-fluid" alt="..." src="<%= ctxPath%>/images/cupsize_detai_pint.jpg"> </div>
+			<div class="col-md-7" style="font-weight: bold;"> <img class="img-fluid" alt="..." src="<%= ctxPath%>/images/images_younggwan/cupsize_detai_pint.png"> </div>
 		</div>
 	</div>
 	<hr style="border: solid 2px #4198e8;">
