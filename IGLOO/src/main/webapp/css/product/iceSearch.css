@@ -2,15 +2,30 @@
 
 
 
+body {
+	background-color:#f6fafe !important;
+	margin-top: 30%;
+}
+
 div.container {
 	border: solid 0px blue;
 	width: 80%;
-	margin-top: 850px;
+	margin-top: 250px;
+}
 
+#search_result{
+	border: solid 0px blue;
+	text-align: center;
 }
 
 img {
-	border-radius: 20%;
+	width:200px;
+	height:200px;
+}
+
+.page-header__title{
+	color: #8585b6;
+	text-decoration: underline;
 }
 
 div.container > h2{
@@ -18,9 +33,59 @@ div.container > h2{
 }
 
 
-div.container > nav{
-	margin-top: 250px;
+.ice{
+	border: solid 0px red;
+	background-color: white;
+	border-radius: 20%;
+	text-align: center;
+	width: 100%;
+	height:200px;
 }
+
+
+
+.img-fluid {
+    transition: transform 0.3s; /* 호버 시 이미지 변환 효과를 위한 transition */
+}
+
+.col-md-3:hover .img-fluid {
+    transform: scale(1.1); /* 호버 시 이미지 확대 */
+}
+
+.text-center{
+	font-weight: bold;
+}
+
+
+div.container  div.pn{
+	border: solid 0px red;
+	margin-top: 250px;
+	margin-bottom: 100px;
+	display: flex;
+    justify-content: center;
+	
+	
+}
+
+
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #8585b6;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+
 
 
 

@@ -8,37 +8,38 @@ body {
 
 div.container {
 	border: solid 0px blue;
-	width: 100%;
+	width: 80%;
 	margin-top: 250px;
 	
 }
 
+.col-md-3 {
+	text-align: center;
+}
+
 .hoverBorder{
+	position: relative;
+	background-color: white;
 	border-radius: 20%;
+	text-align: center;
+	width: 100%;
+	height:200px;
+	overflow: hidden;
 }
 
 
-.menu-list__image {
-        transition: transform 0.3s; /* 호버 시 이미지 변환 효과를 위한 transition */
-}
-
-.col-md-3:hover .menu-list__image {
-    transform: scale(1.1); /* 호버 시 이미지 확대 */
-}
-
-.col-md-3:hover .menu-list__hash {
-    color: pink; /* 호버 시 텍스트 색상 변경 */
-}
-
-
-div.container > h2{
-	margin-bottom: 150px;
+div.container > div#header{
+	margin-bottom: 130px;
 	color: #8585b6;
+}
+
+.page-header__title{
+	text-decoration: underline;
 }
 
 
 body div.align{
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 }
 
 
@@ -47,6 +48,55 @@ img {
 	height:200px;
 	
 }
+
+.text-center{
+	font-weight: bold;
+}
+/*-----------------호버--------------------------------*/
+.menu-list__hash {/*-------글자 호버------*/
+	border: solid 0px red;
+    position: absolute;
+    top: 30px;
+    left: 0; 
+    z-index: 10;
+	width: 100%; 
+    color: #000;
+    font-weight: var(--font-weight-sd-bold);
+    font-size: 15px;
+    text-align: center;
+    opacity: 0;    
+    font-weight: bold;
+}
+.col-md-3:hover  .menu-list__hash {
+	opacity: 1;
+	transform: translateY(10px);
+	transition-property: all;
+	transition-duration: 0.5s;
+	transition-delay: 0s;
+	transition: 1s ease;
+	text-align: center;
+	color: #8585b6;
+	
+}
+
+
+
+.col-md-3:hover  .hoverBorder {/*-------배경호버------*/
+    background: #f8f1f2;
+    transition: background .3s ease;
+}
+
+.col-md-3:hover .menu-list__image {/*-------이미지호버------*/
+	transform: translateY(80px);
+	transition-property: all;
+	transition-duration: 0.5s;
+	transition-delay: 0s;
+	position: relative;
+	
+}
+/*-------------------------------------------------*/
+
+
 
 
 
@@ -76,4 +126,8 @@ div.container  div.pn{
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+
+
 

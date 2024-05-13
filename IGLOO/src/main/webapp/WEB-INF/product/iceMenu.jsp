@@ -9,23 +9,23 @@
     //    /IGLOO
 %>
 
+
+<jsp:include page="../header.jsp" />
+
+
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/iceMenu.css" />
 
 
 
-<jsp:include page="../header.jsp" />
 
-
-
-
-
-
-<body>
 
     <div class="container pt-5" >
-      <h2 class="page-header__title">Ice Cream</h2>
-      
+    	<div id="header">
+	      <h2 class="page-header__title">Ice Cream</h2>
+	      <h10>한 입에 물면 달콤하게 사르르 녹는 아이스크림.<br>
+			   당신이 어떤 기분이든 이글루를 만난 당신의 기분은 아마 달콤해졌을 거예요.</h10>
+       </div>
     
     <div class="align">
       <span style="font-size: 12pt; font-weight: bold;">메뉴 정렬&nbsp;-&nbsp;</span>
@@ -39,100 +39,131 @@
      
       <div class="row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. c:foreach --%>
         <div class="col-md-3">
-        <div class="hoverBorder" style="border: solid 1px gray;">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           		<span class="menu-list__hash" style="color:#cdb4db">
-                    #이달의맛 #이상한 나라의 슈팅스타
-                </span>
-           </a>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-3">슈팅톡톡</div>
         </div>
+        
+        <div class="col-md-3">
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/3 블루베리 잼.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">블루베리 잼</div>
+        </div>
+        
+        <div class="col-md-3">
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/19 바람과 함께 날아가다.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">바람과 함께 날아가다</div>
+        </div>
+        
+        <div class="col-md-3">
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/26 아몬드 뿜뿜.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">아몬드 뿜뿜</div>
+        </div>
+      </div>
+      
+      
+      
+      <div class="row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. c:foreach --%>
+        <div class="col-md-3">
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
         	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
       </div>
       
       
       
-      <div class="row pt-5">
+      <div class="row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. c:foreach --%>
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
-        </div>
-      </div>
-      
-      
-      
-      <div class="row pt-5">
-        <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
-        </div>
-        
-        <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
-        </div>
-        
-        <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
-        </div>
-        
-        <div class="col-md-3">
-           <a href="#">
-             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-           </a>
-             <div class="text-center pt-2">슈팅톡톡</div>
+	        <div class="hoverBorder" >
+	           <a href="#">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           </a>
+	        </div>
+        	<div class="text-center pt-2">슈팅톡톡</div>
         </div>
       </div>
      
@@ -181,7 +212,6 @@
       
     </div>
   
-</body>
 <%-- Header 마무리에 따라 div 추가 닫기 --%>
 <jsp:include page="../footer.jsp" />
 
