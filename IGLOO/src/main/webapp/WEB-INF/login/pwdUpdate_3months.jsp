@@ -20,7 +20,6 @@
 <jsp:include page="../header.jsp"/>
 
 
-
 <div id="container">
   <div id="loginBox">
   
