@@ -16,83 +16,100 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/showReview.css" />
 
+<%-- 폰트어썸 --%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 
-<div id="container">
 
-	<div class="review">
-		
-		<div class="sumarry">
-			<div class="img">
-				제품 이미지
-			</div>
-			<div class="option">
-				<h2>파인트</h2>
-				<ul><%-- foreach --%>
-					<li>초코나무숲</li>
-					<li>초코나무숲</li>
-					<li>초코나무숲</li>
-				</ul>
-			</div>
-			<button class="btn" type="button" data-toggle="collapse" data-target="#hiddenContent" aria-expanded="false" aria-controls="hiddenContent">▼</button>
-		</div>
-		
-		
-		<div class="content collapse" id="hiddenContent">
-			<div class="storeName">이글루 홍대점
-				<span class="editBtn">
-					<button>수정</button>
-					<button>삭제</button>
-				</span>
-			</div>
-			<%-- <c:if test="사진 있다면, 없다면"></c:if> --%>
-			<div class="star">☆☆☆☆☆&nbsp;&nbsp;
-				<span class="date">2024.05.14</span>
-			</div>
-			<div class="text">
-			
-				맛도리
-			
-			</div>
-		</div>
-	</div>
-	
-	<br><br><br><br><br>
-	
+<div class="container">
 
 
+	<h2>my review(3)</h2>
 	
-	<div class="review">
-		<div class="sumarry">
-			<div class="img">
-			
-			</div>
-			<div class="option">
-			
-			</div>
-		</div>
-		
-		<div id="detail">
-			<div class="storeName">이글루 부평점
-				<button>수정</button>
-				<button>삭제</button>
-			</div>
-			<%-- <c:if test="사진 있다면, 없다면"></c:if> --%>
-			<div class="star">☆☆☆☆☆&nbsp;&nbsp;
-				<span class="date">2024.05.10</span>
-			</div>
-			<div class="text">
-			
-				아이스크림이 착하고 사장님이 맛있어요
-			
-			</div>
-		</div>
-	</div>
+	<hr>
+	<br>
 	
-	
-	
-</div>
+    <div class="col-md-12">
+      <div class="review">
+        <div class="sumarry">
+          <div class="img-container">
+            <img src="<%= ctxPath%>/images/cup_size/pint.png"/>
+          </div>
+          <div class="option-container">
+            <h3>파인트</h3>
+          	
+            <ul>
+              <li>초코나무숲</li>
+              <li>초코나무숲</li>
+              <li>초코나무숲</li>
+            </ul>
+          </div>
+          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#hiddenContent1" aria-expanded="false" aria-controls="hiddenContent1">▼</button>
+        </div>
+        <div class="content collapse" id="hiddenContent1">
+          <div class="bind">
+            <h3>이글루 홍대점</h3>
+            <div class="btns">
+              <button>수정</button>
+              <button>삭제</button>
+            </div>
+          </div>
+          <div class="reviewImgs">
+			<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없을때 --%>
+          </div>
+          <div class="star">☆☆☆☆☆&nbsp;&nbsp;
+            <span class="date">2024.05.14</span>
+          </div>
+          <div class="text">
+            맛도리
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+    <div class="col-md-12">
+      <div class="review">
+        <div class="sumarry">
+          <div class="img-container">
+            <img src="<%= ctxPath%>/images/cup_size/halfgallon.png"/>
+          </div>
+          <div class="option-container">
+            <h3>하프갤런</h3>
+            <ul>
+              <li>블루베리</li>
+              <li>블루베리</li>
+              <li>블루베리</li>
+              <li>블루베리</li>
+              <li>블루베리</li>
+              <li>블루베리</li>
+            </ul>
+          </div>
+          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#hiddenContent2" aria-expanded="false" aria-controls="hiddenContent2">▼</button>
+        </div>
+        <div class="content collapse" id="hiddenContent2">
+          <div class="bind">
+            <h3>이글루 홍대점</h3>
+            <div class="btns">
+              <button>수정</button>
+              <button>삭제</button>
+            </div>
+          </div>
+          <div class="reviewImgs">
+            <i class="fa-solid fa-image fa-10x"></i><i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없을때 --%>
+          </div>
+          <div class="star">☆☆☆☆☆&nbsp;&nbsp;
+            <span class="date">2024.05.10</span>
+          </div>
+          <div class="text">
+            아이스크림이 착하고 사장님이 맛있어요
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 
