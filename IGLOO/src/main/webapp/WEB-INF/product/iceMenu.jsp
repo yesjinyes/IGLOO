@@ -20,7 +20,7 @@
 
 
 
-    <div class="container pt-5" >
+<div class="container pt-5" >
     	<div id="header">
 	      <h2 class="page-header__title">Ice Cream</h2>
 	      <h10>한 입에 물면 달콤하게 사르르 녹는 아이스크림.<br>
@@ -210,9 +210,7 @@
 		</div>
       </div>
       
-    </div>
+</div>
   
 <%-- Header 마무리에 따라 div 추가 닫기 --%>
 <jsp:include page="../footer.jsp" />
-
-<div>아아아아</div>
