@@ -24,3 +24,9 @@ nav {
 	font-weight: bolder;
 }
 
+nav#nav_top.fixed {
+	
+		background-color: #99ebff;
+	
+	
+}
