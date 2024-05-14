@@ -37,3 +37,10 @@ button#storebtn {
 	border-radius: 7px 7px;
 	font-size: 10pt;
 }
+
+div#question_mark {
+	position: fixed;
+	left: 85%;
+	bottom: 100px;
+	cursor: pointer;
+}

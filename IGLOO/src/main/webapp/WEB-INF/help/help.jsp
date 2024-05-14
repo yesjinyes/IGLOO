@@ -19,13 +19,30 @@
 
 <%-- Optional JavaScript --%>
 <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js" ></script> 
+<script type="text/javascript" src="<%= ctxPath%>/js/jquery-3.7.1.min.js"></script>
 
-<%-- jQuery UI CSS 및 JS --%>
+<%-- J Query UI CSS 및 JS --%>
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
+<script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
+
+
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="/css/help/help.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/help/help.css" />
 
 <%-- 직접 만든 JS --%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("div#question_mark").click(()=>{
+			location.href="#";
+		});
+		
+		$("button#storebtn").click(()=>{
+			location.href="${pageContext.request.contextPath}/store/searchList.ice";
+		});
+	});
+</script>
 
 <jsp:include page="../header.jsp" />
 
@@ -39,7 +56,7 @@
 	<div id="faq">
 		<div style="display: flex; border: solid 0px blue;">
 			<div style="border: solid 0px red; padding: 1% 0; margin: 0 1%;">
-				<img src="/images/img_narae/4403555.png" style="width: 50px;"/>
+				<img src="<%= ctxPath%>/images/img_narae/4403555.png" style="width: 50px;"/>
 			</div>
 			<div style="border: solid 0px red; text-align: left;">
 				<h6 style="font-weight: bold; color: rgb(89, 200, 236)">자주하는 질문</h6>
@@ -47,7 +64,7 @@
 			</div>
 			<form style="border: solid 0px red; margin: auto 0 auto 45%;">
 				<input name="faqsearch" type="text" size="20" maxlength="50"/>
-				<button type="button" style="width: 25px; height: 25px; padding: 0; border: none;"><img src="/images/img_narae/다운로드.png" style="width: 25px;"/></button>
+				<button type="button" style="width: 25px; height: 25px; padding: 0; border: none;"><img src="<%= ctxPath%>/images/img_narae/다운로드.png" style="width: 25px;"/></button>
 			</form>
 		</div>
 	</div>
@@ -179,7 +196,7 @@
 		<div class="mb-1" style="text-align: left;"><span style="font-weight: bold;">고객 문의 접수채널</span></div>
 		<div class="pt-2 mb-5" style="border: solid 1px grey; border-radius: 10px 10px; display: flex;">
 			<div id="tel" style="margin: auto; display:flex;">
-				<div><img src="/images/img_narae/call.png"/></div>
+				<div><img src="<%= ctxPath%>/images/img_narae/call.png"/></div>
 				<div class="pt-2" style="text-align: left;">
 					<div style="font-size: 13pt; font-weight: bold;">전화</div>
 					<div style="font-weight: bold; color: rgb(89, 200, 236)">080-1234-1234</div>
@@ -187,7 +204,7 @@
 				</div>
 			</div>
 			<div id="homepage" style="margin: auto; display:flex;">
-				<div><img src="/images/img_narae/homepage.png"/></div>
+				<div><img src="<%= ctxPath%>/images/img_narae/homepage.png"/></div>
 				<div class="pt-2" style="text-align: left;">
 					<div style="font-size: 13pt; font-weight: bold;">홈페이지</div>
 					<div style="font-weight: bold; color: rgb(89, 200, 236)">고객센터 1:1 문의</div>
@@ -195,7 +212,7 @@
 				</div>
 			</div>
 			<div id="store" style="margin: auto; display:flex;">
-				<div><img src="/images/img_narae/store.png"/></div>
+				<div><img src="<%= ctxPath%>/images/img_narae/store.png"/></div>
 				<div class="pt-2" style="text-align: left;">
 					<div style="font-size: 13pt; font-weight: bold;">점포</div>
 					<div style="font-weight: bold; color: rgb(89, 200, 236)">구매점포 연락처 확인</div>
@@ -208,13 +225,8 @@
 	</div>
 	
 
-
-
-
-
-
-
-
 </div>
+
+<div id="question_mark"><img style="width: 50%;" src="<%= ctxPath%>/images/img_narae/question_mark.png" /></div>
 
 <jsp:include page="../footer.jsp" />

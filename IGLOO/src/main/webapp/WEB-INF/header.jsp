@@ -36,6 +36,26 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/header.css" />
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/main/header.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	const navbar = document.querySelector("#nav_top"); //from HTML
+	const navbarHeight = navbar.getBoundingClientRect().height;
+
+	document.addEventListener("scroll", () => {
+	  const scrollY = window.scrollY;
+
+	  //navbar의 높이가 현재까지 스크롤 된 Y값보다 작다면 navbar에 fixed라는 클래스를 넣어라.
+	  //1) 삼항연산자 사용
+	  navbarHeight < scrollY ? navbar.classList.add("fixed") : navbar.classList.remove("fixed");
+	  
+
+	});
+	
+});
+
+</script>
 
 </head>
 <body>
@@ -68,7 +88,7 @@
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
+		        	<a class="nav-link" href="<%= ctxPath%>/help/help.ice">
 						<span class="color-first">고객센터</span>
 					</a>
 		      	</li>

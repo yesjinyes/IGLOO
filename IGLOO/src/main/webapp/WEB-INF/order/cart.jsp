@@ -197,7 +197,7 @@ $(document).ready(function() {
 	
 	<%-- 하단 바 고정 --%>
 	<nav class="row justify-content-end navbar navbar-expand-sm bg-dark text-white navbar-dark fixed-bottom mx-3">
-	  	<p class="my-auto">
+	  	<p class="my-auto col-md-2">
 	  		총&nbsp;
 	  		<span style="font-weight: bold;">2건</span>
 	  		&nbsp;주문금액
