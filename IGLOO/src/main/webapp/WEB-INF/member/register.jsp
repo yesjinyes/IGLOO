@@ -14,17 +14,13 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/member/register.js"></script>
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 
-<div id="RegisterLogo" class="ml-3 mt-5 mb-3">
-	<a href="<%= ctxPath%>/"><img src="<%= ctxPath%>/images/igloo_logo.png" style="width:200px;"/></a>
-</div>
-
 <div class="row" id="divRegisterFrm">
    <div class="mx-auto p-0">
       <form name="registerFrm">
       	<table id="tblRegister">
         	<thead>
             	<tr>
-            		<th colspan="2" class="mb-3">
+            		<th colspan="2" class="mt-5 mb-3">
             			<a href="<%= ctxPath%>/"><img src="<%= ctxPath%>/images/igloo_logo.png" style="width:200px;"/></a>
                 	</th>
                 </tr>
@@ -190,5 +186,5 @@
 	  </form>
 	</div>
 </div>
-
+</div>
 <jsp:include page="../footer.jsp" />

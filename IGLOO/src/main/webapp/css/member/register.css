@@ -1,13 +1,8 @@
 @charset "UTF-8";
 
-div#RegisterLogo{
-	margin-top: 50px;
-	margin-bottom: 50px;
-	padding: 0;
-}
-
 div#divRegisterFrm {
 	text-align: center;
+	margin-top: 100px;
 }
 
 table#tblRegister {
