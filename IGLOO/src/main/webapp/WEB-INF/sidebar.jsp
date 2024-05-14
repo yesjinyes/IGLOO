@@ -14,7 +14,7 @@
 
 <div id="container" class="mx-auto">
 	<div class="row">
-		<div id="sidebar" class="col-3" style="border:solid 1px blue; text-align:center;">
+		<div id="sidebar" class="col-3 mt-5" style="border:solid 1px blue; text-align:center;">
 			<div id="sidebar" style="border:solid 3px #81BEF7; border-radius: 10px 10px; width:45%; margin-left:30%;">
 				<div style="font-weight: bold; margin-top:5%;">마이페이지</div>
 				<hr style="width: 80%;">
