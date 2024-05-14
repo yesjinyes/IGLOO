@@ -9,9 +9,13 @@ table#tblRegister {
 	width: 93%;
 }
 
-span.error{
+span.error, span#idcheckResult, span#emailCheckResult{
 	font-size: small;
 	color: red;
+}
+
+span#idcheckResult, span#emailCheckResult{
+	font-weight: bold;
 }
 
 table#tblRegister th {

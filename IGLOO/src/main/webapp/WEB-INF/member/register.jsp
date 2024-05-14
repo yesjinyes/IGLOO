@@ -111,9 +111,9 @@
                     	<i class="fa-solid fa-mobile-screen-button"></i>
                     </td>
                     <td>
-                       	<input type="text" name="hp1" id="hp1" maxlength="3" value="010" readonly />&nbsp;-&nbsp; 
-                       	<input type="text" name="hp2" id="hp2" maxlength="4" />&nbsp;-&nbsp;
-                       	<input type="text" name="hp3" id="hp3" maxlength="4" />    
+                       	<input type="text" name="hp1" id="hp1" maxlength="3" class="requiredInfo" value="010" readonly />&nbsp;-&nbsp; 
+                       	<input type="text" name="hp2" id="hp2" maxlength="4" class="requiredInfo"/>&nbsp;-&nbsp;
+                       	<input type="text" name="hp3" id="hp3" maxlength="4" class="requiredInfo" />    
                        	<div>
                        		<span class="error"> - 휴대폰 형식이 아닙니다.</span>
                     	</div>
@@ -128,9 +128,6 @@
                        	<input type="text" name="postcode" id="postcode" maxlength="5" placeholder="우편번호"/>&nbsp;&nbsp;
                        	<%-- 우편번호 찾기 --%>
                        	<span id="zipcodeSearch">우편번호찾기</span>
-                       	<div>
-                       		<span class="error"> - 우편번호 형식에 맞지 않습니다.</span>
-                    	</div>
                     </td>
                 </tr>
                 <%-- 주소 --%>
@@ -142,9 +139,6 @@
                        	<input type="text" name="address" id="address" maxlength="200" placeholder="주소" /><br>
                        	<input type="text" name="detailaddress" id="detailAddress" maxlength="200" placeholder="상세주소" />&nbsp;
                        	<input type="text" name="extraaddress" id="extraAddress" maxlength="200" placeholder="참고항목" />            
-                       	<div>
-                       		<span class="error">주소를 입력하세요.</span>
-                    	</div>
                     </td>
                 </tr>
 			</tbody>
@@ -185,6 +179,5 @@
         </div>
 	  </form>
 	</div>
-</div>
 </div>
 <jsp:include page="../footer.jsp" />

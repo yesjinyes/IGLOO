@@ -377,6 +377,11 @@ $(document).ready(function(){
     // === "아이디 중복확인" 을 클릭 === //
     $("span#idcheck").click(function(){
 
+        if($("input#userid").val() == "" || $("input#userid").val() == null){
+            $("span#idcheckResult").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
+            return;
+        }
+
         b_idcheck_click = true;     
         
         $.ajax({
@@ -402,13 +407,13 @@ $(document).ready(function(){
                 // ~~~ json 의 데이터타입 : object
 
                 if(json.isExists){      // DB 에 존재하는 아이디인 경우     
-                    $("span#idcheckResult").html($("input#userid").val()
-                        + " 은 이미 사용중 이므로 다른 아이디를 입력하세요").css({"color":"red"});
+                    $("span#idcheckResult").html(" - " + $("input#userid").val()
+                        + " 은 이미 사용중 이므로 다른 아이디를 입력하세요");
                     $("input#userid").val("").focus();
                 }
                 else{                   // DB 에 존재하지 않는 아이디인 경우
-                    $("span#idcheckResult").html($("input#userid").val()
-                        + " 은 사용가능합니다. ").css({"color":"navy"});
+                    $("span#idcheckResult").html(" - " + $("input#userid").val()
+                        + " 은 사용가능합니다. ").css({"color":"rgb(89, 200, 236)"});
                 }
 
             },
@@ -425,6 +430,7 @@ $(document).ready(function(){
     // === 아이디 값 변경시 "아이디 중복확인" 클릭 해제 === //
     $("input#userid").bind("change",function(){
 
+        $("span#idcheckResult").empty();
         b_idcheck_click = false;
 
     })  // end of $("input#userid").bind("change",function(){})----------------
@@ -433,6 +439,11 @@ $(document).ready(function(){
 
     // === "이메일 중복확인" 을 클릭 === //
     $("span#emailcheck").click(function(){
+
+        if($("input#email").val() == "" || $("input#email").val() == null){
+            $("span#emailcheck").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
+            return;
+        }
 
         b_emailcheck_click = true;  // 클릭 유무 파악
 
@@ -460,14 +471,14 @@ $(document).ready(function(){
                 // ~~~ json 의 데이터타입 :  object
 
                 if(json.isExists){      // DB 에 존재하는 이메일인 경우
-                    $("span#emailCheckResult").html($("input#email").val()
+                    $("span#emailCheckResult").html(" - " + $("input#email").val()
                         + " 은 이미 사용중 이므로 다른 이메일을 입력하세요").css({"color":"red"});
                     $("input#email").val("").focus();
 
                 }
                 else{                   // DB 에 존재하지 않는 이메일인 경우
-                    $("span#emailCheckResult").html($("input#email").val()
-                        + " 은 사용가능합니다. ").css({"color":"navy"});
+                    $("span#emailCheckResult").html(" - " + $("input#email").val()
+                        + " 은 사용가능합니다. ").css({"color":"rgb(89, 200, 236)"});
                 }
 
             },
@@ -483,6 +494,7 @@ $(document).ready(function(){
     // === 이메일 값 변경시 "이메일 중복확인" 클릭 해제 === //
     $("input#email").bind("change",function(){
 
+        $("span#emailCheckResult").empty();
         b_emailcheck_click = false;
 
     })  // end of $("input#email").bind("change",function(){})----------------
@@ -525,7 +537,7 @@ function goRegister(){
     for(let i=0; i<requiredInfo_list.length; i++){
         const val = requiredInfo_list[i].value.trim();
         if(val == ""){
-            alert("* 표시된 필수입력사항은 모두 입력하셔야 합니다.");
+            alert("모든 항목을 필수로 입력해주세요.");
             b_requiredInfo = false;
             return false;   //  break; 라는 뜻이다.
         }
@@ -535,6 +547,18 @@ function goRegister(){
         return;     // goRegister() 함수를 종료한다.
     }
     
+    // === 생년월일 값 입력 확인 === //
+    const birthday = $('input#datepicker').val().trim();
+
+    if(birthday == ""){
+        alert("생년월일을 입력하셔야 합니다.");
+        return; // goRegister() 함수를 종료한다.
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     ////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -589,18 +613,6 @@ function goRegister(){
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // === 생년월일 값 입력 확인 === //
-    const birthday = $('input#datepicker').val().trim();
-
-    if(birthday == ""){
-        alert("생년월일을 입력하셔야 합니다.");
-        return; // goRegister() 함수를 종료한다.
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
     // === 약관 동의 여부 확인 === //
     const checkbox_checked_length = $("input:checkbox[id='agree']:checked").length;
 
@@ -627,6 +639,10 @@ function goRegister(){
 // 에러메시지나 중복체크여부 지우기
 function goReset(){
 
+    javascript:history.back();
+
+    /* 
+    // === 리셋 할 경우 === //
     $("span.error").hide();
 
     $("span#idcheckResult").empty();
@@ -645,6 +661,7 @@ function goReset(){
     $("input#address").val(""); 
     $("input#detailaddress").val(""); 
     $("input#extraaddress").val(""); 
+    */
 
 }   // end of function goReset(){}------------
 
