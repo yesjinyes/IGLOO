@@ -8,8 +8,10 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/member/register.css" /> 
+
 <%-- 우편번호 JS --%>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
+
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/member/register.js"></script>
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
@@ -100,9 +102,6 @@
                     </td>
                     <td>
                        	<input type="text" name="birthday" id="datepicker" class="datepicker" maxlength="10" placeholder="생년월일"/>
-                       	<div>
-                       		<span class="error"> - 생년월일은 마우스로만 클릭하세요.</span>
-                    	</div>
                     </td>
                 </tr>
                 <%-- 휴대폰 번호 --%>
