@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+body {
+	background-color:#f6fafe !important;
+	margin-top: 30%;
+}
+
+div.container {
+	border: solid 1px blue;
+	width: 80%;
+	margin-top: 250px;
+	
+}
+.review {
+	border: solid 1px red;
+	
+}
+
+
+
+.sumarry{
+	
+	display: flex;
+}
+.img{
+	border: solid 1px pink;
+}
+.option{
+	border: solid 1px purple;
+}
+.btn{
+	border: solid 1px yellow;
+	
+}
+
+
+
+.content{
+	border: solid 1px green;
+}
+.editBtn{
+	border: solid 1px blue;
+}
+.storeName{
+	border: solid 1px pink;
+}
+button{
+	border: solid 1px blue;
+}
+
+
+
+
+
+
+
+
+
