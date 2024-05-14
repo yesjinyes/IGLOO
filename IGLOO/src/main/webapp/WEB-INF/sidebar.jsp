@@ -33,7 +33,7 @@
 		
 		<div id=”content” class="col-9" style="border:solid 1px red;">
 <%-- 	
-	본 내용에 이거 넣고 시작하기	
+	본 내용에 이거 넣고 마무리하기	
 			</div>
 		</div>
 	</div>
