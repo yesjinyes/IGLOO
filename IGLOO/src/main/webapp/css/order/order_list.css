@@ -1,22 +1,17 @@
 @charset "UTF-8";
 
-div#contents{
-	width: 80%;
-	margin-top: 100px;
-}
-
-div#contents > div#orderlistContents{
+div#orderlistContents{
 	/* border: solid 1px red; */
 	margin-left: 50px;
 }
 
-div#contents > div#orderlistContents > span#input_searchlist
-,div#contents > div#orderlistContents > div > div#setDuration{
+div#orderlistContents > span#input_searchlist
+,div#orderlistContents > div > div#setDuration{
 	font-weight: bold;
-	font-size: 1.5em
+	font-size: 20pt;
 }
 
-div#contents > div#orderlistContents > div.input_text{
+div#orderlistContents > div.input_text{
 	/* border: solid 1px red; */
 	position: relative;
 	width:100%;
@@ -39,25 +34,25 @@ div.input_text > label > div.search_icon{
 }
 
 div.input_text img{
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 }
 
-div#contents > div#orderlistContents > div > div#Periodgroup > div.btn-group{
+div#orderlistContents > div > div#Periodgroup > div.btn-group{
 	width: 80%;
 }
 
-div#contents > div#orderlistContents > div > div#Periodgroup button{
+div#orderlistContents > div > div#Periodgroup button{
 	border: solid 2px #063460;
 	font-weight: bold;
 }
 
-div#contents > div#orderlistContents > div#SearchorderlistContents > div.orderdate{
+div#orderlistContents > div#SearchorderlistContents > div.orderdate{
 	font-weight: bold;
 	font-size: 2em;
 }
 
-div#contents > div#orderlistContents > div#SearchorderlistContents > div.dateorderlist{
+div#orderlistContents > div#SearchorderlistContents > div.dateorderlist{
 	font-size: 13pt;
 }
 

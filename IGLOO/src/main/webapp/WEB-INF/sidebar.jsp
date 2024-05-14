@@ -14,7 +14,7 @@
 
 <div id="container" class="mx-auto">
 	<div class="row">
-		<div id="sidebar" class="col-3" style="border:solid 1px blue; text-align:center;">
+		<div id="sidebar" class="col-3 mt-5" style="border:solid 1px blue; text-align:center;">
 			<div id="sidebar" style="border:solid 3px #81BEF7; border-radius: 10px 10px; width:45%; margin-left:30%;">
 				<div style="font-weight: bold; margin-top:5%;">마이페이지</div>
 				<hr style="width: 80%;">
@@ -33,7 +33,7 @@
 		
 		<div id=”content” class="col-9" style="border:solid 1px red;">
 <%-- 	
-	본 내용에 이거 넣고 시작하기	
+	본 내용에 이거 넣고 마무리하기	
 			</div>
 		</div>
 	</div>
