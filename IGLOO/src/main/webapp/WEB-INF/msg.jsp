@@ -6,7 +6,7 @@
 	alert("${requestScope.message}");       
 	location.href = "${requestScope.loc}"; 
 
-	if( ${requestScope.memberEditEnd == true} ) 
+	if( ${requestScope.memberEditEnd == true} ) {
 		opener.history.go(0);
 		self.close();
 	}

@@ -92,3 +92,17 @@ form[name='registerFrm'] > div:last-child > input:last-child{
 	background-color: #b3ffff !important; 
 	border: solid 2px #063460 !important;
 }
+
+.yearselect{
+   float: left;
+   border : none;
+   max-width: 65px;
+   min-width: 65px;
+}
+
+.monthselect{
+   float: right;
+   border : none;
+   max-width : 65px;
+   min-width : 65px;
+}

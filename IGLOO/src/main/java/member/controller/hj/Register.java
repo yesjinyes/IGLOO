@@ -65,6 +65,9 @@ public class Register extends AbstractController {
 	               request.setAttribute("userid", userid);
 	               request.setAttribute("pwd", pwd);
 	               
+	               System.out.println(userid);
+	               System.out.println(pwd);
+	               
 	               super.setRedirect(false);
 	               super.setViewPage("/WEB-INF/login/register_after_autoLogin.jsp");
 	            }

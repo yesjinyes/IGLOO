@@ -39,7 +39,7 @@ public class Login extends AbstractController {
 			
 			// System.out.println("확인용 userid : " + userid);
 			// System.out.println("확인용 pwd : " + pwd);
-			// ㅇSystem.out.println("확인용 clientip : " + clientip);
+			// System.out.println("확인용 clientip : " + clientip);
 			
 			Map<String, String> paraMap = new HashMap<>();
 			paraMap.put("userid", userid);
@@ -66,7 +66,7 @@ public class Login extends AbstractController {
 				}
 				
 				// === 로그인 성공 === //
-				// System.out.println("확인용 => " + login_user.getName() + " 님 로그인 성공^-^");
+				System.out.println("확인용 => " + loginuser.getName() + " 님 로그인 성공^-^");
 				
 				HttpSession session = request.getSession();
 				
@@ -90,7 +90,7 @@ public class Login extends AbstractController {
 				super.setViewPage(request.getContextPath() + "/index.ice");
 			}
 			else {
-				// System.out.println("확인용 => 로그인 실패ㅠㅠ");
+				System.out.println("확인용 => 로그인 실패ㅠㅠ");
 				
 				String message = "로그인 실패";
 		        String loc = request.getContextPath() + "/login/login.ice";
