@@ -177,11 +177,29 @@ $(document).ready(function(){
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		    </form>
-		    
+		   
 	       <div class="text-end" style="margin-left: 2%;">
-              <a style="color:black; text-decoration: none;" href="<%= ctxPath %>/login/장바구니.up"><i class="fa-solid fa-user fa-xl"></i>&nbsp;&nbsp;<span style="font-size: 10pt;">${sessionScope.loginuser.name}님 로그인중</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-              <a style="color:black; text-decoration: none;" href="<%= ctxPath %>/login/마이페이지.up"><i class="fa-solid fa-cart-arrow-down fa-xl"></i>&nbsp;&nbsp;<span style="font-size: 10pt;">장바구니</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-              <a style="color:black; text-decoration: none;" href="<%= ctxPath %>/login/logout.up"><i class="fa-solid fa-right-from-bracket fa-xl"></i>&nbsp;&nbsp;<span style="font-size: 10pt;">로그아웃</span></a> 
+           		<a href="<%= ctxPath %>/member/mypage.ice">
+	              	<i class="fa-solid fa-user fa-xl"></i>
+	              	&nbsp;&nbsp;
+	              	<span>
+	              		${sessionScope.loginuser.name}님 로그인중
+	              	</span>
+              	</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              	<a href="<%= ctxPath %>/member/cart.ice">
+              		<i class="fa-solid fa-cart-arrow-down fa-xl"></i>
+              		&nbsp;&nbsp;
+              		<span>
+              			장바구니
+              		</span>
+              	</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              	<a href="<%= ctxPath %>/member/logout.ice">
+              		<i class="fa-solid fa-right-from-bracket fa-xl"></i>
+              		&nbsp;&nbsp;
+              		<span>
+              			로그아웃
+              		</span>
+              	</a> 
           </div>
 		</div>
 	</nav>
