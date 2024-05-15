@@ -519,6 +519,38 @@ $(document).ready(function(){
         }
     })
 
+    // === 남자 div 클릭하였을 때 해당값 클릭 적용 === //
+    $("div#divmale").click(function(){
+
+        // console.log("divmale클릭");
+
+        $(this).find("input:radio[name='gender']").prop("checked",true);
+        
+        // console.log($("input:radio[name='gender']:checked").length);
+
+        $('input[name="gender"]').closest('.card').addClass('bg-gender').removeClass('bg-outline-secondary');
+            
+        // 여자 배경색 초기화
+        $('#female').closest('.card').removeClass('bg-gender').addClass('bg-outline-secondary');
+        
+    })  // end of $("div#divmale").click(function(){--------------------
+
+    // === 여자 div 클릭하였을 때 해당값 클릭 적용 === //
+    $("div#divfemale").click(function(){
+
+        // console.log("divfemale클릭");
+
+        $(this).find("input:radio[name='gender']").prop("checked",true);
+        
+        // console.log($("input:radio[name='gender']:checked").length);
+
+        $('input[name="gender"]').closest('.card').addClass('bg-gender').removeClass('bg-outline-secondary');
+            
+        // 남자 배경색 초기화
+        $('#male').closest('.card').removeClass('bg-gender').addClass('bg-outline-secondary');
+   
+    })  // end of $("div#divmale").click(function(){--------------------
+
 })	// end of $(document).ready(function(){})--------------------
 
 ///////////////////////////////////////////////////////////////////////////////////////////
