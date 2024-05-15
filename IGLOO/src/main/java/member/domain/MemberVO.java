@@ -23,15 +23,16 @@ public class MemberVO {
     
     
     /////////////////////////////////////////////////////////////////////////
-    
-    // === Select 용 === //
     private boolean requirePwdChange = false;
     // 마지막으로 암호를 변경한 날짜가 현재 시각으로부터 3개월이 지났으면 true
     // 마지막으로 암호를 변경한 날짜가 현재 시각으로부터 3개월이 지나지 않았으면 false
 	
-    ////////////////////////////////////////////////////////////////////
 	
-    // === Getter, Setter === //
+	
+	
+	
+	
+	
 	public String getUserid() {
 		return userid;
 	}
