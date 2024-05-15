@@ -6,7 +6,7 @@ div#container{
 }
 
 div#container > div > div#sidebardiv{
-	border:solid 1px blue;
+	/* border:solid 1px blue; */
 	text-align:center;
 }
 
@@ -46,3 +46,8 @@ div#sidebar > div#mypageContents > a.mypagelink{
 	font-size: 0.7em;
 	display: block;
 }
+/*
+div#container > div > div#content{
+	border:solid 1px red;
+}
+*/
