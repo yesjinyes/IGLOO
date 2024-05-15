@@ -54,7 +54,7 @@
 		
 		</div>
 		
-		<div id=”content” class="col-9" style="border:solid 1px red;">
+		<div id=”content” class="col-9">
 <%-- 	
 	본 내용에 이거 넣고 마무리하기	
 			</div>
