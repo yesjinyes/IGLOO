@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%
 	
     String ctxPath = request.getContextPath();
@@ -22,24 +25,13 @@ $(document).ready(function(){
 	if(${empty sessionScope.loginuser}){
 		
 		const loginUserid = localStorage.getItem('saveid');
-		// const loginPwd = localStorage.getItem('savepwd');
-		
+
 		// console.log(loginUserid);
+		
 		if(loginUserid != null){
 			$("input#loginUserid").val(loginUserid);
 			$("input:checkbox[id='saveid']").prop("checked", true);
 		}
-		<%-- 
-		보안상 민감한 데이터는 로컬스토리지 또는 세션스토리지에 저장시켜두면 안된다.!!!
-		현재 암호저장 체크박스를 주석문 처리했다.
-		--%>
-		/*
-		if(loginPwd != null){
-			$("input#loginPwd").val(loginPwd);
-			$("input:checkbox[id='savepwd']".prop("checked", true);
-		}
-		*/
-	}	// end of if------------
 	
 })	// end of $(document).ready(function(){})----------------
 </script>
