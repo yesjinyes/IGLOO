@@ -46,8 +46,8 @@
 	        return;
 	    }
 		
-	 //	const frm = document.member_search_frm; // 회원을 찾는 폼에 보내겠다. // document.member_search_frm 뒤에 () 안넣게 조심,,
-	 	 
+	 //	const frm = document.member_search_frm; 
+	 
 	 //	frm.action = "memberList.up"; // form 태그에 action 이 명기되지 않았으면 현재보이는 URL 경로로 submit 되어진다.
 	 //	frm.method = "get"; // form 태그에 method 를 명기하지 않으면 "get" 방식이다.
 	 //	frm.submit(); 
