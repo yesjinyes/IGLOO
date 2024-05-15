@@ -16,14 +16,14 @@
 
 <%-- 주문내역 --%>
 <div id="orderlistContents" class="mt-5">
-	<span id="input_searchlist" class="ml-5">주문내역 검색</span>
+	<span id="input_searchlist">주문내역 검색</span>
 	
 	<%-- 검색창 --%>
-	<div class="input_text row justify-content-around mt-3">
-		<label class="my-auto col-6">
+	<div class="input_text row justify-content-center mt-3">
+		<label class="my-auto col-6 p-0">
 			<input class="my-sm-0" type="text" name="orderlist_search" id="orderlist_search" required="required">
 		</label>
-		<button id="btnSearch" class="btn my-sm-0 pl-0 pt-0 col-1" type="submit">
+		<button id="btnSearch" class="btn my-sm-0 px-0 pt-0 col-1" type="submit">
 			<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
 		</button>
 	</div>	
@@ -32,7 +32,7 @@
 		
 	<%-- 기간 설정 --%>
 	<div class="mb-5">
-		<div id="setDuration" class="ml-5 my-3">기간 설정</div>	
+		<div id="setDuration" class="ml-4 my-3">기간 설정</div>	
 		<div id="Periodgroup" class="mx-auto text-center">
 			<div class="btn-group" role="group" class="mx-auto">
 				<button type="button" class="btn btn-light">전체</button>
@@ -45,7 +45,7 @@
 	</div>
 		
 	<%-- 기간 표시 --%>
-	<div class="ml-5 my-3">
+	<div class="ml-4 my-3">
 		기간 : 2024.01.01 ~ 2024.05.13
 	</div>
 	
@@ -53,11 +53,11 @@
 	
 	<%-- 주문내역 결과창 --%>
 	<div id="SearchorderlistContents">
-		<div class="orderdate ml-5">2024.05.13</div>
+		<div class="orderdate ml-4">2024.05.13</div>
 		
 		<div class="Oneorderdate">
 			<%-- 해당 날짜 주문시간과 주문코드 --%>
-			<div class="dateorderlist my-3 ml-5">
+			<div class="dateorderlist my-3 ml-4">
 				<div>2024.05.13 23:33:35</div>
 				<div>주문코드 : P-000001</div>
 			</div>
