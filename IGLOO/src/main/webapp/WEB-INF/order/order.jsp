@@ -8,6 +8,17 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order.css" />
 
+<%-- 직접 만든 js --%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		
+		
+	});
+</script>
+
+
+
 <jsp:include page="../header.jsp"/>
 
 
