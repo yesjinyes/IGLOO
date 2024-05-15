@@ -60,3 +60,7 @@ where userid = '휴면계정아이디';
 -- === 휴면 아닌 회원만 로그기록 남기기 === --
 insert into tbl_loginhistory(historyno, fk_userid, clientip)
 values(seq_historyno.nextval, ?, ?);
+
+-- === 회원 테이블 확인 === --
+select *
+from tbl_member;
