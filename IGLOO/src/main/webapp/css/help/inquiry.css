@@ -3,7 +3,7 @@
 div.container {
 	border: solid 1px gray;
 	width: 80%;
-	height: 750px;
+	height: 765px;
 	margin-left: -0.5%;  
 }
 
@@ -21,8 +21,7 @@ div.container > h2 {
 	/* color: rgb(89, 200, 236) */
 }
 
-div.form-group > label,
-div.dropdown > p {
+div.form-group > label {
 	font-weight: bold;
 	font-size: 13pt;
 	margin: 0 0 2% 1%; 
