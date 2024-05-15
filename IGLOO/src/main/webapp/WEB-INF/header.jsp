@@ -131,7 +131,7 @@ $(document).ready(function(){
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
+		        	<a class="nav-link" href="<%= ctxPath%>/store/searchList.ice">
 						<span class="color-first">지점 찾기</span>
 					</a>
 		      	</li>
@@ -141,7 +141,7 @@ $(document).ready(function(){
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
+		        	<a class="nav-link" href="<%= ctxPath%>/help/help.ice">
 						<span class="color-first">고객센터</span>
 					</a>
 		      	</li>
