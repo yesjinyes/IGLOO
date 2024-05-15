@@ -59,6 +59,8 @@ $(document).ready(function(){
 
 </head>
 <body>
+<%-- === 로그인 전 === --%>
+<c:if test="${sessionScope.loginuser == null}">
 	<nav id="nav_top" class="navbar navbar-expand-lg navbar-light fixed-top">
 		<a class="navbar-brand" href="<%= ctxPath%>/"><img src="<%= ctxPath%>/images/igloo_logo.png" style="width:130px;"/></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,35 +94,6 @@ $(document).ready(function(){
 						<span class="color-first">고객센터</span>
 					</a>
 		      	</li>
-		      	<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid != 'admin'}">
-			      	<li class="nav-item dropdown">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-				        	회원전용
-				        </a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				        	<a class="dropdown-item" href="#">Action</a>
-				          	<a class="dropdown-item" href="#">Another action</a>
-				          	<div class="dropdown-divider"></div>
-				          	<a class="dropdown-item" href="#">Something else here</a>
-				        </div>
-			      	</li>
-		      	</c:if>
-		      	<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid == 'admin'}">
-			      	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-			          		관리자전용
-			        	</a>
-			        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          		<a class="dropdown-item" href="#">Action</a>
-			          		<a class="dropdown-item" href="#">Another action</a>
-			          		<div class="dropdown-divider"></div>
-			          		<a class="dropdown-item" href="#">Something else here</a>
-		        		</div>
-			      	</li>
-		      	</c:if>
-		      	<li class="nav-item">
-		        	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-		      	</li>
 		    </ul>
 		    
 			<form style="margin-right:8.1%;" name="searchFrm" action="<%= ctxPath%>/icecream/icecreamSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
@@ -134,4 +107,82 @@ $(document).ready(function(){
         	</div>
 		</div>
 	</nav>
-<%-- 로그인 처리 --%>
+</c:if>
+<%-- === 로그인 후 === --%>
+<c:if test="${not empty sessionScope.loginuser}">
+	<nav id="nav_top" class="navbar navbar-expand-lg navbar-light fixed-top ">
+		<a class="navbar-brand" href="<%= ctxPath%>/">
+			<i class="fa-solid fa-ice-cream fa-3x"></i>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto"> <!-- .mr-auto 는 css 의  margin-right: auto; 임. 즉, 가로축 미사용 공간 너비의 일부를 바깥 여백에 할당한다는 의미임. -->
+		    	<li class="nav-item active">
+		        	<a class="nav-link" href="#">
+		        		<span class="color-first">메뉴</span>
+		        	</a>
+		      	</li>
+		      	<li class="nav-item active">
+		        	<a class="nav-link text-info" href="#">
+						<span class="color-first">주문하기</span>
+					</a>
+		      	</li>
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="#">
+						<span class="color-first">지점 찾기</span>
+					</a>
+		      	</li>
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="#">
+						<span class="color-first">이벤트</span>
+					</a>
+		      	</li>
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="#">
+						<span class="color-first">고객센터</span>
+					</a>
+		      	</li>
+		      	<c:if test="${not empty sessionScope.login_user and sessionScope.login_user.userid != 'admin'}">
+			      	<li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
+				        	회원전용
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				        	<a class="dropdown-item" href="#">Action</a>
+				          	<a class="dropdown-item" href="#">Another action</a>
+				          	<div class="dropdown-divider"></div>
+				          	<a class="dropdown-item" href="#">Something else here</a>
+				        </div>
+			      	</li>
+		      	</c:if>
+		      	<c:if test="${not empty sessionScope.login_user and sessionScope.login_user.userid == 'admin'}">
+			      	<li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
+			          		관리자전용
+			        	</a>
+			        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          		<a class="dropdown-item" href="#">Action</a>
+			          		<a class="dropdown-item" href="#">Another action</a>
+			          		<div class="dropdown-divider"></div>
+			          		<a class="dropdown-item" href="#">Something else here</a>
+		        		</div>
+			      	</li>
+		      	</c:if>
+		    </ul>
+		    
+			<form name="searchFrm" action="<%= ctxPath%>/icecream/icecreamSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		    </form>
+		    
+	       <div class="text-end" style="margin-left: 2%;">
+              <a style="color:black; text-decoration: none;" href="<%= ctxPath %>/login/장바구니.up"><i class="fa-solid fa-user fa-xl"></i>&nbsp;&nbsp;<span style="font-size: 10pt;">${sessionScope.loginuser.name}님 로그인중</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a style="color:black; text-decoration: none;" href="<%= ctxPath %>/login/마이페이지.up"><i class="fa-solid fa-cart-arrow-down fa-xl"></i>&nbsp;&nbsp;<span style="font-size: 10pt;">장바구니</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a style="color:black; text-decoration: none;" href="<%= ctxPath %>/login/logout.up"><i class="fa-solid fa-right-from-bracket fa-xl"></i>&nbsp;&nbsp;<span style="font-size: 10pt;">로그아웃</span></a> 
+          </div>
+		</div>
+	</nav>
+</c:if>
