@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% String ctxPath = request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/faqlist.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/help/faqlist.css" />
 
 <jsp:include page="../sidebar.jsp" />
 
@@ -27,39 +29,92 @@
 			$("div#togglebtn").show();
 			$("div#hidebtn").hide();
 		});
+		
+		$("button#faqbtn").click(function(){
+			location.href="<%=ctxPath%>/help/inquiry.ice";
+		});
 	});
 	
 </script>
 
 <div id="content" class="mb-5">
+	<c:if test="${not empty requestScope.faqlist}">
 	<div>
 		<div class="mx-3 p-3 mt-4" style="display: flex; justify-content: space-between;">
 			<h2 style="font-weight: bold;">1:1 문의 내역</h2>
 			<button id="faqbtn" type="button">1:1 문의하기</button>
 		</div>
 		
+		<c:forEach var="faq" items="${requestScope.faqlist }">
+		
+		<div class="mb-5">
 			<div id="question" class="mx-3 p-3">
-				<div>
-					<span><span style="font-size: 15pt;">2024.05.13</span>&nbsp;&nbsp; 13:23:34</span>
-					<span>｜ 제품 문의</span>
+				<div> 
+					<span><span style="font-size: 15pt;">${fn:substring(faq.q_writeday, 0, 10)}</span>&nbsp;&nbsp; ${fn:substring(faq.q_writeday, 11, 19)}</span>
+					<span>｜ <c:choose>
+								<c:when test="${faq.fk_categoryno == 1 }">제품문의</c:when>
+								<c:when test="${faq.fk_categoryno == 2 }">픽업문의</c:when>
+								<c:when test="${faq.fk_categoryno == 3 }">지점문의</c:when>
+								<c:when test="${faq.fk_categoryno == 4 }">결제문의</c:when>
+								<c:when test="${faq.fk_categoryno == 5 }">기타문의</c:when>
+							</c:choose> </span>
 				</div>
 				
 				<div id="q_title" class="my-3" style="display: flex; justify-content: space-between;">
-					<div>맛 품절 언제 풀리나요?</div><div id="togglebtn" class="mx-3">▼</div><div id="hidebtn" class="mx-3">▲</div>
+					<div>${faq.q_title}</div><div id="togglebtn" class="mx-3">▼</div><div id="hidebtn" class="mx-3">▲</div>
 				</div>
-				<div id="q_content">이글루 홍대점 서울 치즈 케이크 품절 언제 풀려요?</div>
+				<div id="q_content">${faq.q_content }</div>
 			</div>
 			
+			<c:if test="${faq.a_content != null}">
+			
 			<div id="answer" class="mx-3 p-3">
-				<div id="a_title" class="my-3" style="text-align: center; font-size: 9pt; color: gray;">―――――――――――――――――― :::  1:1 문의 답변  ::: ―――――――――――――――――――――</div>
-				<div>2024.05.13&nbsp;&nbsp; 13:23:34</div>
+				<div id="a_title" class="my-3" style="text-align: center; font-size: 9pt; color: gray;">―――――――――――――――――― :::  1:1 문의 답변  ::: ――――――――――――――――――</div>
+				<div>답변 작성 일자: ${fn:substring(faq.a_writeday, 0, 10)}&nbsp;&nbsp; ${fn:substring(faq.a_writeday, 11, 19)}</div>
 				<div id="a_content">
-					안녕하세요? 저희 이글루에 관심 주셔서 감사드립니다.<br>지점의 제품 관련 문의는 지점 문의로 작성하셔야 합니다.<br>감사합니다.
+					${faq.a_content}
 				</div>
 			</div>
-
+			
+			</c:if>
+			
+			<c:if test="${faq.a_content == null}">
+			
+			<div id="answer" class="mx-3 p-3">
+				<div id="a_title" class="my-3" style="text-align: center; font-size: 9pt; color: gray;">―――――――――――――――――― :::  1:1 문의 답변  ::: ――――――――――――――――――</div>
+				<div id="a_content">
+					답변 대기 중입니다. 
+				</div>
+			</div>
+			
+			</c:if>
+			
+			
+		</div>
+		
+		</c:forEach>
+		
+		
 		
 	</div>
+	
+	</c:if>
+	
+	
+	<c:if test="${empty requestScope.faqlist}">
+	
+	1:1 문의내역이 존재하지 않습니다.
+	
+	</c:if>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </div>
 		
 

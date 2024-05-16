@@ -18,8 +18,8 @@
 		
 		<div class="card-deck mb-5">
 		
-		  <div class="card">
-		    <img src="<%= ctxPath%>/images/cup_size/pint.png" class="card-img-top" alt="...">
+		  <div class="card" id="card_pint">
+		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/pint.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">파인트</h5>
 		      <p class="card-text">3가지 맛 (320g)</p>
@@ -27,8 +27,8 @@
 		    </div>
 		  </div>
 		  
-		  <div class="card">
-		    <img src="<%= ctxPath%>/images/cup_size/quarter.png" class="card-img-top" alt="...">
+		  <div class="card" id="card_quarter">
+		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/quarter.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">쿼터</h5>
 		      <p class="card-text">4가지 맛 (620g)</p>
@@ -36,8 +36,8 @@
 		    </div>
 		  </div>
 		  
-		  <div class="card">
-		    <img src="<%= ctxPath%>/images/cup_size/family.png" class="card-img-top" alt="...">
+		  <div class="card" id="card_family">
+		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/family.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">패밀리</h5>
 		      <p class="card-text">5가지 맛 (960g)</p>
@@ -45,8 +45,8 @@
 		    </div>
 		  </div>
 		  
-		  <div class="card">
-		    <img src="<%= ctxPath%>/images/cup_size/halfgallon.png" class="card-img-top" alt="...">
+		  <div class="card" id="card_halfgallon">
+		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/halfgallon.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">하프갤런</h5>
 		      <p class="card-text">6가지 맛 (1200g)</p>
@@ -57,9 +57,5 @@
 		</div>
 		
 	</div>
-	
-<%-- 개인 브랜치와 연결됐는지 확인하는 주석 --%>
-
-<%-- 두번째로 확인합니다 --%>
 
 <jsp:include page="../footer.jsp"></jsp:include>
