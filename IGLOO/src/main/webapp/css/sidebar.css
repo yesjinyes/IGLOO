@@ -8,7 +8,10 @@ div#container{
 div#container > div > div#sidebardiv{
 	/* border:solid 1px blue; */
 	text-align:center;
-}
+/* 	position: fixed;
+	left:8%;
+	top:15%;
+ */}
 
 div#sidebar{
 	border-radius: 10px 10px;
@@ -16,23 +19,25 @@ div#sidebar{
 }
 
 div#sidebar > div#mypage{
-	background-color:#81BEF7;
-	border: solid 2px #063460;
+	background-color:#ccf2ff;
+	border: solid 2px  #6190BC;
+	border-radius: 10px 10px 0px 0px;
 }
 
 div#sidebar > div#mypage > div{
-	background-color:#81BEF7;
+	background-color:#ccf2ff;
 	vertical-align:center;
 	font-weight:bold;
 	margin: 10% auto;
 }
 
 div#sidebar > div#mypageContents{
-	border: solid 2px #063460;
+	border: solid 2px  #6190BC;
+	border-radius: 0px 0px 10px 10px;
 }
 
 div#sidebar > div#mypageContents > div.mypageTopmanage{
-	background-color:#81BEF7;
+	background-color:#ccf2ff;
 	border-radius: 10px 10px;
 	font-weight: bold;
 	width:80%;

@@ -32,6 +32,18 @@
 	                <tr>
 	                    <td colspan="2" style="line-height: 50%;">&nbsp;</td>
 	                </tr>
+					<%-- 성명 --%>
+	                <tr>
+	                    <td class="text-center">
+	                    	<i class="fa-solid fa-user"></i>
+	                    </td>
+	                    <td>
+	                       	<input type="text" name="name" id="name" maxlength="30" class="requiredInfo" placeholder="성명"/>
+	                       	<div>
+	                       		<span class="error"> - 성명은 필수입력 사항입니다.</span> 
+	                    	</div>
+	                    </td>
+	                </tr>
 	                <%-- 이메일 --%>
 	                <tr>
 	                    <td class="text-center">
@@ -45,18 +57,6 @@
 	                       		<span class="error">이메일 형식에 맞지 않습니다.</span>
 	                       </div>
 	                       <span id="emailCheckResult"></span>
-	                    </td>
-	                </tr>
-					<%-- 성명 --%>
-	                <tr>
-	                    <td class="text-center">
-	                    	<i class="fa-solid fa-user"></i>
-	                    </td>
-	                    <td>
-	                       	<input type="text" name="name" id="name" maxlength="30" class="requiredInfo" placeholder="성명"/>
-	                       	<div>
-	                       		<span class="error"> - 성명은 필수입력 사항입니다.</span> 
-	                    	</div>
 	                    </td>
 	                </tr>
 	                <%-- 생년월일 --%>
