@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order_list.css" />
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_list.js"></script>
-
+<script type="text/javascript" src="<%= ctxPath%>/js/order/Moreorder_list.js"></script>
 <%-- 주문내역 --%>
 <div id="orderlistContents" class="mt-5">
 	<span id="input_searchlist">주문내역 검색</span>
@@ -188,6 +188,18 @@
 			</div>	
 		</div>	
 	</div>
+	
+	<%-- 더보기 방식으로 페이징 처리 --%>
+	<%--
+	<div>
+		<p class="text-center">
+			<span id="end" style="display:block; margin:20px; font-size:14pt; font-weight:bold; color:red;"></span>
+			<button type="button" class="btn btn-secondary btn-lg" id="btnMoreOrderlist" value="">더보기...</button>
+			<span id="totalOrderlistCnt">${requestScope.totalOrderlistCnt}</span>
+			<span id="countOrderlist">0</span>
+		</p>
+	</div>
+	--%>
 </div>
 
 <%-- sidebar 닫기 --%>

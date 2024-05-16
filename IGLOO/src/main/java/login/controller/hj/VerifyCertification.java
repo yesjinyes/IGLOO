@@ -25,27 +25,32 @@ public class VerifyCertification extends AbstractController {
         	String certification_code = (String)session.getAttribute("certification_code");	// object 타입 string 으로 casting
         	
         	String message = "";
-        	String location = "";
+        	String loc = "";
+        	
+        	boolean pwdeditRequest = false;
+        	
         	if(certification_code.equals(userCertificationCode)) {
-        		message = "인증 성공되었습니다.";
-        		location = request.getContextPath() + "/login/pwdUpdateEnd.up?userid=" + userid;
+
+        		session.setAttribute("certification_ok", true);
+        		session.setAttribute("userid", userid);
+        		
+        		super.setRedirect(true);
+        		super.setViewPage(request.getContextPath() + "/login/pwdUpdate.ice");
+        		return;
+                ////////////////////////////////////////////////
         	}
         	else {
         		message = "발급된 인증코드가 아닙니다.\\n인증코드를 다시 발급받으세요!!";
         		// alert의 줄바꿈 => \\n
-        		location = request.getContextPath() + "/login/pwdFind.ice";
+        		loc = request.getContextPath() + "/login/pwdFind.ice";
+        		request.setAttribute("pwdeditRequest", pwdeditRequest);
+        		
+        		request.setAttribute("message", message);
+            	request.setAttribute("loc", loc);
+            	
+            	super.setRedirect(false);
+            	super.setViewPage("/WEB-INF/msg.jsp");
         	}
-        	
-        	request.setAttribute("message", message);
-        	request.setAttribute("location", location);
-        	
-        	super.setRedirect(false);
-        	super.setViewPage("/WEB-INF/msg.jsp");
-        	
-        	// !!!! 중요 !!!! //
-            // !!!! 세션에 저장된 인증코드 삭제하기 !!!! //
-        	session.removeAttribute(certification_code);
-			// [참고] session.invalidate();	// session 에 있는 모든 것을 없앤다.
         	
 		}	// end of if("POST".equalsIgnoreCase(method))-------------
 

@@ -32,8 +32,25 @@ $(document).ready(function(){
 			$("input#loginUserid").val(loginUserid);
 			$("input:checkbox[id='saveid']").prop("checked", true);
 		}
+
+	}
+	
+	if(${requestScope.pwdeditRequest == true}){
+		$("btn.passwdFindClose").click();
+	}
 	
 })	// end of $(document).ready(function(){})----------------
+
+window.closeModal = function(){
+    $('.modal').modal('hide');
+    javascript:history.go(0);
+};
+
+function changePwd() {
+	closeModal();
+	location.href="<%= ctxPath%>/login/pwdChange.ice";
+}
+
 </script>
 
 <div id="loginLogo" class="text-center mb-3">
