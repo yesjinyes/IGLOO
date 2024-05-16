@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <% String ctxPath = request.getContextPath(); %>
 
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/faqlist.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/help/faqlist.css" />
 
 <jsp:include page="../sidebar.jsp" />
 
@@ -26,6 +26,10 @@
 			$("div#question").removeClass("toggleq");
 			$("div#togglebtn").show();
 			$("div#hidebtn").hide();
+		});
+		
+		$("button#faqbtn").click(function(){
+			location.href="<%=ctxPath%>/help/inquiry.ice";
 		});
 	});
 	
