@@ -10,7 +10,7 @@
 <jsp:include page="../sidebar.jsp"/>
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/inquiry.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/help/inquiry.css" />
 
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
@@ -20,7 +20,7 @@
 		$("input#reset").click(()=>{
 			if(confirm("문의글 작성을 취소하시겠습니까?")) {
 				alert("문의글 작성이 취소되었습니다.");
-				location.href="${pageContext.request.contextPath}/help/faqlist.ice";
+				location.href="${pageContext.request.contextPath}/help/help.ice";
 			}
 		});
 		
