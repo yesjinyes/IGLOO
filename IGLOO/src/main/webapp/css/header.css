@@ -26,7 +26,14 @@ nav {
 
 nav#nav_top.fixed {
 	
-		background-color: #99ebff;
-	
-	
+	background-color: #99ebff;
+}
+
+div#navbarSupportedContent > div.text-end > a{
+	color:black;
+	text-decoration: none;
+}
+
+div#navbarSupportedContent > div.text-end > a > span{
+	font-size: 10pt;
 }

@@ -6,6 +6,11 @@
 
 <jsp:include page="../header.jsp"/>
 
+<%-- DataPicker --%>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/member/register.css" /> 
 
@@ -144,13 +149,13 @@
 		</table>
 		<%-- 성별 --%>
         <div class="card-group my-3 mx-3">
-	  		<div class="card bg-outline-secondary">
+	  		<div id="divmale" class="card bg-outline-secondary">
 	    		<div class="card-body text-center py-1">
 	      			<input type="radio" name="gender" value="1" id="male" style="display: none;"/>
 	      			<label for="male" class="my-auto">남자</label>
 	    		</div>
 	  		</div>
-	  		<div class="card bg-outline-secondary">
+	  		<div id="divfemale" class="card bg-outline-secondary">
 	    		<div class="card-body text-center py-1">
 	      			<input type="radio" name="gender" value="2" id="female" style="display: none;"/>
 	      			<label for="female" class="my-auto">여자</label>

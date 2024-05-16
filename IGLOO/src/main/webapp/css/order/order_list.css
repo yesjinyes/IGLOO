@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-div#orderlistContents{
-	/* border: solid 1px red; */
-	margin-left: 50px;
-}
-
 div#orderlistContents > span#input_searchlist
 ,div#orderlistContents > div > div#setDuration{
 	font-weight: bold;
@@ -34,8 +29,8 @@ div.input_text > label > div.search_icon{
 }
 
 div.input_text img{
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 }
 
 div#orderlistContents > div > div#Periodgroup > div.btn-group{
