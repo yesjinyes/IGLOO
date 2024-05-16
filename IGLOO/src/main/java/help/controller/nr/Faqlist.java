@@ -1,6 +1,11 @@
 package help.controller.nr;
 
+import java.util.List;
+
 import common.controller.AbstractController;
+import help.domain.nr.FaqVO;
+import help.model.nr.HelpDAO;
+import help.model.nr.HelpDAO_imple;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -8,6 +13,12 @@ import member.domain.MemberVO;
 
 public class Faqlist extends AbstractController {
 
+private HelpDAO hdao = null;
+	
+	public Faqlist() {
+		hdao = new HelpDAO_imple();
+	}
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
@@ -17,7 +28,13 @@ public class Faqlist extends AbstractController {
 		if(super.checkLogin(request)) {
 			
 			String userid = loginuser.getUserid();
-			request.setAttribute("userid", userid);
+			
+			List<FaqVO> faqlist = hdao.viewfaq(userid);
+			
+			if(faqlist.size() > 0) {
+				request.setAttribute("faqlist", faqlist);
+			}
+			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/help/faqlist.jsp");
 			
