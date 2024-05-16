@@ -14,7 +14,7 @@
 
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/showReview.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/member/showReview.css" />
 
 <%-- 폰트어썸 --%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -34,7 +34,7 @@
       <div class="review">
         <div class="sumarry">
           <div class="img-container">
-            <img src="<%= ctxPath%>/images/cup_size/pint.png"/>
+            <img src="<%= ctxPath%>/images/img_hj/cup_size/pint.png"/>
           </div>
           <div class="option-container">
             <h3>파인트</h3>
@@ -51,8 +51,8 @@
           <div class="bind">
             <h3>이글루 홍대점</h3>
             <div class="btns">
-              <button>수정</button>
-              <button>삭제</button>
+              <button class="btn btn-outline-dark">수정</button> 
+              <button class="btn btn-outline-dark">삭제</button>
             </div>
           </div>
           <div class="reviewImgs">
@@ -73,7 +73,7 @@
       <div class="review">
         <div class="sumarry">
           <div class="img-container">
-            <img src="<%= ctxPath%>/images/cup_size/halfgallon.png"/>
+            <img src="<%= ctxPath%>/images/img_hj/cup_size/halfgallon.png"/>
           </div>
           <div class="option-container">
             <h3>하프갤런</h3>
@@ -91,9 +91,9 @@
         <div class="content collapse" id="hiddenContent2">
           <div class="bind">
             <h3>이글루 홍대점</h3>
-            <div class="btns">
-              <button>수정</button>
-              <button>삭제</button>
+            <div class="btns"> 
+              <button class="btn btn-outline-dark">수정</button>
+              <button class="btn btn-outline-dark">삭제</button>
             </div>
           </div>
           <div class="reviewImgs">
@@ -108,6 +108,7 @@
         </div>
       </div>
     </div>
+    <a href='#' class='btn btn-sm btn-outline-dark' role='button'>더보기</a>
   </div>
 
 

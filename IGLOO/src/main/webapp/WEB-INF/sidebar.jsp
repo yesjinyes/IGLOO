@@ -32,7 +32,7 @@
 					<br>
 					
 					<div class="mypageTopmanage">게시물 관리</div>
-					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>.ice">
+					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/showReview.ice">
 						내가 쓴 리뷰
 					</a>
 					<a class="mypagelink mb-2" href="<%= ctxPath %>/help/faqlist.ice">
