@@ -112,7 +112,7 @@ $(document).ready(function(){
 <c:if test="${not empty sessionScope.loginuser}">
 	<nav id="nav_top" class="navbar navbar-expand-lg navbar-light fixed-top ">
 		<a class="navbar-brand" href="<%= ctxPath%>/">
-			<i class="fa-solid fa-ice-cream fa-3x"></i>
+			<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:130px;"/>
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
