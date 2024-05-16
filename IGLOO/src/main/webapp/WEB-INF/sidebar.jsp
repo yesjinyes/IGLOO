@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/sidebar.css" />
 
 
+
 <div id="container" class="mx-auto">
 	<div class="row justify-content-center">
 		<div id="sidebardiv" class="col-3 mt-5 w-25">
@@ -41,7 +42,7 @@
 					<br>
 					
 					<div class="mypageTopmanage">정보관리</div>
-					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>.ice">
+					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/memberUpdate.ice">
 						회원정보 변경
 					</a>
 					<a class="mypagelink mb-2" href="<%= ctxPath %>.ice">
