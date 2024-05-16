@@ -16,44 +16,43 @@
 		<h4>주문 메뉴</h4>
 		<br><br>
 		
-		<div class="card-deck mb-5" style="border: solid 1px orange;">
+		<div class="card-deck mb-5">
 		
-		  <a class="card" href="<%= ctxPath%>/" style="text-decoration:none">
+		  <div class="card" id="card_pint">
 		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/pint.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">파인트</h5>
 		      <p class="card-text">3가지 맛 (320g)</p>
 		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">8,000원</p>
 		    </div>
-		  </a>
+		  </div>
 		  
-		  
-		  <a class="card" href="<%= ctxPath%>/" style="text-decoration:none">
+		  <div class="card" id="card_quarter">
 		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/quarter.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">쿼터</h5>
 		      <p class="card-text">4가지 맛 (620g)</p>
 		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">10,000원</p>
 		    </div>
-		  </a>
+		  </div>
 		  
-		  <a class="card" href="<%= ctxPath%>/" style="text-decoration:none">
+		  <div class="card" id="card_family">
 		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/family.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">패밀리</h5>
 		      <p class="card-text">5가지 맛 (960g)</p>
 		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">15,000원</p>
 		    </div>
-		  </a>
+		  </div>
 		  
-		  <a class="card" href="<%= ctxPath%>/" style="text-decoration:none">
+		  <div class="card" id="card_halfgallon">
 		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/halfgallon.png" class="card-img-top" alt="...">
 		    <div class="card-body">
 		      <h5 class="card-title">하프갤런</h5>
 		      <p class="card-text">6가지 맛 (1200g)</p>
 		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">20,000원</p>
 		    </div>
-		  </a>
+		  </div>
 	
 		</div>
 		
