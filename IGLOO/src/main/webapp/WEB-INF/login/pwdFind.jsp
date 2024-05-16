@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-	
     String ctxPath = request.getContextPath();
     //    /IGLOO
 %>
@@ -32,7 +31,6 @@ $(document).ready(function(){
 	// console.log("~~ 확인용 method : " + method);
 	/*
 		~~ 확인용 method : GET
-		
 	*/
 	
 	if(method == "GET"){
@@ -48,7 +46,7 @@ $(document).ready(function(){
 		}
 		
 	}
-	
+	// === 찾기 버튼 클릭 === //
 	$("button.btn-success").click(function(){
 		goFind();
 	})	// end of $("button.btn-success").click(function(){})-------------

@@ -64,3 +64,8 @@ values(seq_historyno.nextval, ?, ?);
 -- === 회원 테이블 확인 === --
 select *
 from tbl_member;
+
+-- === 비밀번호 찾기 === --
+select userid
+from tbl_member
+where status = 1 and userid = 'jjoung';

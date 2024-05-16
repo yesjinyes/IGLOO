@@ -40,12 +40,12 @@ public class GoogleMail {
 	       prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 	       prop.put("mail.smtp.ssl.protocols", "TLSv1.2"); // MAC 에서도 이메일 보내기 가능하도록 한것임. 또한 만약에 SMTP 서버를 google 대신 naver 를 사용하려면 이것을 해주어야 함.
 	         
-	    /*  
-	        혹시나 465 포트에 연결할 수 없다는 에러메시지가 나오면 아래의 3개를 넣어주면 해결된다.
+	      
+	        // 혹시나 465 포트에 연결할 수 없다는 에러메시지가 나오면 아래의 3개를 넣어주면 해결된다.
 	       	prop.put("mail.smtp.starttls.enable", "true");
 	        prop.put("mail.smtp.starttls.required", "true");
 	        prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
-	    */ 
+	    
 	       
 	       Authenticator smtpAuth = new MySMTPAuthenticator();
 	       Session ses = Session.getInstance(prop, smtpAuth);

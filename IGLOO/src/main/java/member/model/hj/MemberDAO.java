@@ -25,4 +25,7 @@ public interface MemberDAO {
 	// === 비밀번호 찾기 (회원 존재유무 확인) === //
 	boolean isUserExist(Map<String, String> paraMap)throws SQLException;
 
+	// === 비밀번호 찾기 경로 비밀번호 변경 === //
+	int pwdUpdate(Map<String, String> paraMap) throws SQLException;
+
 }
