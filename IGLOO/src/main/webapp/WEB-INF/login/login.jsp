@@ -117,7 +117,8 @@ function changePwd() {
 	      
 		        <%-- Modal header --%>
 		        <div class="modal-header">
-		        	<h4 class="modal-title">아이디 찾기</h4>
+		        	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:200px;"/>
+		        	<h4 class="modal-title my-auto">아이디</h4>
 		          	<button type="button" class="close idFindClose" data-dismiss="modal"><%-- X 위치 --%>&times;</button>
 		        </div>
 		        
