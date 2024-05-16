@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+div.container {
+	border: solid 1px gray;
+	width: 80%;
+	height: 765px;
+	margin-left: -0.5%;  
+}
+
+div.form-group {
+	border: solid 0px blue;
+	width: 93%;
+	margin: 0 0 4% 2%;
+}
+
+div.container > h2 {
+	border: solid 0px or ange; 
+	margin-bottom: 3%;
+	font-weight: bold; 
+	width:30%;
+	/* color: rgb(89, 200, 236) */
+}
+
+div.form-group > label {
+	font-weight: bold;
+	font-size: 13pt;
+	margin: 0 0 2% 1%; 
+}
