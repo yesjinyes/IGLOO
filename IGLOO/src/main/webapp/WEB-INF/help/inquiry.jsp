@@ -10,7 +10,7 @@
 <jsp:include page="../sidebar.jsp"/>
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/inquiry.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/help/inquiry.css" />
 
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
