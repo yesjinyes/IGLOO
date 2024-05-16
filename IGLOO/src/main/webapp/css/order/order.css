@@ -9,8 +9,18 @@ div.container {
 	margin: 10% auto;
 }
 
-div.card {
+div.container > a {
+	text-decoration: none !important; 
+}
+
+a.card {
+	border: solid 1px blue;
 	cursor: pointer;
+	width: 15%;
+}
+
+div.card-body {
+	color: black;
 }
 
 img.card-img-top {
