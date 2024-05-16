@@ -35,7 +35,7 @@
 	$(document).ready(function(){
 		
 		$("div#question_mark").click(()=>{
-			location.href="#";
+			location.href="${pageContext.request.contextPath}/help/inquiry.ice";
 		});
 		
 		$("button#storebtn").click(()=>{

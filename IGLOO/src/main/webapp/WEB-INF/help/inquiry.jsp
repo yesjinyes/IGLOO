@@ -20,7 +20,7 @@
 		$("input#reset").click(()=>{
 			if(confirm("문의글 작성을 취소하시겠습니까?")) {
 				alert("문의글 작성이 취소되었습니다.");
-				location.href="${pageContext.request.contextPath}/help/faqlist.ice";
+				location.href="${pageContext.request.contextPath}/help/help.ice";
 			}
 		});
 		

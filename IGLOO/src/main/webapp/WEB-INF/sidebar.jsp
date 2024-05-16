@@ -34,7 +34,7 @@
 					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>.ice">
 						내가 쓴 리뷰
 					</a>
-					<a class="mypagelink mb-2" href="<%= ctxPath %>.ice">
+					<a class="mypagelink mb-2" href="<%= ctxPath %>/help/faqlist.ice">
 						1:1 문의 내역
 					</a>
 					
