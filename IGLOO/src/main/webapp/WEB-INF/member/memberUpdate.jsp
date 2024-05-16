@@ -24,7 +24,7 @@
 	        	<thead>
 	            	<tr>
 	            		<th colspan="2" class="mb-3">
-	            			<a href="<%= ctxPath%>/"><img src="<%= ctxPath%>/images/IGLOO_logo.png" style="width:200px;"/></a>
+	            			<a href="<%= ctxPath%>/"><img src="<%= ctxPath%>/images/igloo_logo.png" style="width:200px;"/></a>
 	                	</th>
 	                </tr>
 	             </thead>
