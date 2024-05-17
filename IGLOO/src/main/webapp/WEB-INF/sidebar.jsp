@@ -37,7 +37,7 @@
 					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/showReview.ice">
 						<i class="fa-solid fa-pencil fa-xl"></i>&nbsp;내가 쓴 리뷰
 					</a>
-					<a class="mypagelink mb-2" href="<%= ctxPath %>/help/faqlist.ice">
+					<a class="mypagelink mb-2" href="<%= ctxPath %>/help/myFaqlist.ice">
 						<i class="fa-solid fa-circle-question fa-xl"></i>&nbsp;1:1 문의 내역
 					</a>
 					
