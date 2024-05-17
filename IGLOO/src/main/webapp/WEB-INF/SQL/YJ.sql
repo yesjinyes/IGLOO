@@ -210,8 +210,5 @@ values(seq_ingredientno.nextval, 27, '상큼한 청사과와 시원한 민트향
 insert into tbl_ingredient(ingredientno, fk_tasteno, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy)
 values(seq_ingredientno.nextval, 28, '그린티와 초콜릿, 초코볼과 쿠키가 만난 아이스크림', '115', '308', '22', '5',	'4', '52', '우유, 대두');
 
-select *
-from tbl_ingredient;
-
 commit;
 

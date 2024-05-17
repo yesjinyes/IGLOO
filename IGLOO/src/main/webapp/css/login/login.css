@@ -55,4 +55,6 @@ table#loginTbl > tbody > tr:last-child > td > button{
 	border: solid 2px #063460;
 }
 
-
+div.modal-dialog > div.modal-content > div.modal-header > h4.modal-title{
+	font-weight: bold;
+}

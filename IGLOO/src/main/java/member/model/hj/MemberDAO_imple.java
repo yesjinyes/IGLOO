@@ -344,4 +344,33 @@ public class MemberDAO_imple implements MemberDAO {
 		
 	}	// end of public boolean isUserExist(Map<String, String> paraMap) throws SQLException------------------
 
+//////////////////////////////////////////////////////////////////////////
+	
+	// === 비밀번호 찾기 경로 비밀번호 변경 === //
+	@Override
+	public int pwdUpdate(Map<String, String> paraMap) throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();	
+			
+			String sql = " update tbl_member set pwd = ?, lastpwdchangedate = sysdate "
+					+ " where userid = ? "; 
+					
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, Sha256.encrypt(paraMap.get("new_pwd")));		// 단방향 암호화
+			pstmt.setString(2, paraMap.get("userid"));
+			
+	        result = pstmt.executeUpdate();		// return 타입은 int
+	        
+		} finally {
+			close();
+		}	// end of try~finally---------------------
+		
+		return result;
+		
+	}	// end of public int pwdUpdate(Map<String, String> paraMap) throws SQLException--------
+
 }
