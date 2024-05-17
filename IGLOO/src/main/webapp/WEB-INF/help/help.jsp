@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <%-- Optional JavaScript --%>
-<script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js" ></script> 
 <script type="text/javascript" src="<%= ctxPath%>/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js" ></script> 
 
 <%-- J Query UI CSS 및 JS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
@@ -41,6 +41,7 @@
 		$("button#storebtn").click(()=>{
 			location.href="${pageContext.request.contextPath}/store/searchList.ice";
 		});
+		
 	});
 </script>
 
@@ -70,20 +71,39 @@
 	</div>
 	
 	<div id="faqtab">
+		<%--
+		<ul class="nav nav-tabs justify-content-center"  style="text-align: center;">
+		  <li class="nav-item" style="width: 10%;">
+		    <a class="nav-link active" data-toggle="tab" href="#">전체</a>
+		  </li>
+		  <li class="nav-item" style="width: 10%;">
+		    <a class="nav-link" data-toggle="tab" href="help.ice?category=제품">제품</a>
+		  </li>
+		  <li class="nav-item" style="width: 10%;">
+		    <a class="nav-link" data-toggle="tab" href="help.ice?category=포인트">포인트</a>
+		  </li>
+		  <li class="nav-item" style="width: 10%;">
+		    <a class="nav-link" data-toggle="tab" href="help.ice?category=회원">회원</a>
+		  </li>
+		  <li class="nav-item" style="width: 10%;">
+		    <a class="nav-link" data-toggle="tab" href="help.ice?category=기타">기타</a>
+		  </li>
+		</ul>
+		 --%>
 		<ul class="nav nav-tabs justify-content-center" style="text-align: center;">
 		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link active" aria-current="page" href="#">전체</a>
+		    <a data-toggle="tab" class="nav-link active" aria-current="page"  href="#">전체</a>
 		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" href="#">제품</a>
+		    <a data-toggle="tab" class="nav-link" href="help.ice?category=제품">제품</a>
 		  </li>
 		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" href="#">포인트</a>
+		    <a data-toggle="tab" class="nav-link" href="help.ice?category=포인트">포인트</a>
 		  </li>
 		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" href="#">회원</a>
+		    <a data-toggle="tab" class="nav-link" href="help.ice?category=회원">회원</a>
 		  </li>
 		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" href="#">기타</a>
+		    <a data-toggle="tab" class="nav-link" href="help.ice?category=기타">기타</a>
 		  </li>
 		</ul>
 	

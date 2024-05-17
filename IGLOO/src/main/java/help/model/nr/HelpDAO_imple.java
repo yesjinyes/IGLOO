@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,6 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import help.domain.nr.FaqVO;
+import help.domain.nr.HelpVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
 
@@ -102,6 +102,51 @@ public class HelpDAO_imple implements HelpDAO {
 		}
 		
 		return faqlist;
+	}
+
+	
+	
+	
+	// 고객센터 - 자주하는 질문 select
+	@Override
+	public List<HelpVO> faqlist(String category) throws SQLException {
+		
+		List<HelpVO> hvolist = new ArrayList<HelpVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select faqno, f_category, f_title, f_content "
+					   + "from tbl_faqlist ";
+			
+			if(category != null) {
+				sql += "where f_category = ? ";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			if(category != null) {
+				pstmt.setString(1, category);
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HelpVO hvo = new HelpVO();
+				hvo.setFaqno(rs.getInt(1));
+				hvo.setF_category(rs.getString(2));
+				hvo.setF_title(rs.getString(3));
+				hvo.setF_content(rs.getString(4));
+				
+				hvolist.add(hvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return hvolist;
 	}
 	
 	
