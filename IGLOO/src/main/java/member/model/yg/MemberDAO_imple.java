@@ -95,4 +95,30 @@ public class MemberDAO_imple implements MemberDAO {
 		return result;
 	}
 
+	// == 헤더에 표시될 이름을 불러와주는 메소드 == //
+	@Override
+	public MemberVO loginnamepull(String userid) throws SQLException {
+		
+		MemberVO mvo = new MemberVO();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select name "
+					   + " from tbl_member "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			
+			mvo.setName(rs.getString(1));
+		}finally {
+			close();
+		}
+		return mvo;
+	}
+
 }
