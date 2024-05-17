@@ -19,7 +19,7 @@
 	
 	<div class="row" id="divRegisterFrm" style="margin: 10% auto 0 auto; width: 40%;">
 	   <div class="mx-auto p-0">
-	      <form name="registerFrm" >
+	      <form name="updateFrm" >
 	      	<table id="tblRegister">
 	        	<thead>
 	            	<tr>
@@ -118,7 +118,7 @@
 			<%-- 회원가입 및 취소 버튼 --%>
 	        <div id="btnRegister" class="text-center justify-content-center mb-5">
 	        	<input type="reset"  class="btn btn-light btn-xs mr-5" value="취소하기" onclick="goReset()" />
-	            <input type="button" class="btn btn-xs " value="수정하기" onclick="goRegister()" />
+	            <input type="button" class="btn btn-xs " value="수정하기" onclick="goUpdate()" />
 	        </div>
 		  </form>
 		</div>
