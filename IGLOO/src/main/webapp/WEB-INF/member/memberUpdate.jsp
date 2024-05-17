@@ -13,7 +13,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
 
 <%-- 직접 만든 JS --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/member/register.js"></script>
+<script type="text/javascript" src="<%= ctxPath%>/js/member/memberUpdate.js"></script>
 
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 	
@@ -118,7 +118,7 @@
 			<%-- 회원가입 및 취소 버튼 --%>
 	        <div id="btnRegister" class="text-center justify-content-center mb-5">
 	        	<input type="reset"  class="btn btn-light btn-xs mr-5" value="취소하기" onclick="goReset()" />
-	            <input type="button" class="btn btn-xs " value="수정하기" onclick="goUpdate()" />
+	            <input type="button" class="btn btn-xs" value="수정하기" onclick="goUpdate()" />
 	        </div>
 		  </form>
 		</div>

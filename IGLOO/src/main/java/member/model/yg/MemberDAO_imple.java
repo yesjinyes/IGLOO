@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
+import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
