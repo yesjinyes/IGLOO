@@ -19,6 +19,7 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/login/login.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
 	//=== 로그인을 하지 않은 상태일 때 
 	//     로컬스토리지(localStorage)에 저장된 key가 'saveid' 인 userid 값을 불러와서 
 	//     input 태그 userid 에 넣어주기 ===
