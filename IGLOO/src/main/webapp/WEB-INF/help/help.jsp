@@ -32,7 +32,11 @@
 
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
+
+$("div#option0").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+
 	$(document).ready(function(){
+		
 		
 		$("div#question_mark").click(()=>{
 			location.href="${pageContext.request.contextPath}/help/inquiry.ice";
@@ -41,6 +45,15 @@
 		$("button#storebtn").click(()=>{
 			location.href="${pageContext.request.contextPath}/store/searchList.ice";
 		});
+		
+		$("div#option1").click(function(){
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
+			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+			location.href="${pageContext.request.contextPath}/help/help.ice?category=제품";
+		});
+		
+		
 		
 	});
 </script>
@@ -71,42 +84,15 @@
 	</div>
 	
 	<div id="faqtab">
-		<%--
-		<ul class="nav nav-tabs justify-content-center"  style="text-align: center;">
-		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link active" data-toggle="tab" href="#">전체</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" data-toggle="tab" href="help.ice?category=제품">제품</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" data-toggle="tab" href="help.ice?category=포인트">포인트</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" data-toggle="tab" href="help.ice?category=회원">회원</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a class="nav-link" data-toggle="tab" href="help.ice?category=기타">기타</a>
-		  </li>
-		</ul>
-		 --%>
-		<ul class="nav nav-tabs justify-content-center" style="text-align: center;">
-		  <li class="nav-item" style="width: 10%;">
-		    <a data-toggle="tab" class="nav-link active" aria-current="page"  href="#">전체</a>
-		  <li class="nav-item" style="width: 10%;">
-		    <a data-toggle="tab" class="nav-link" href="help.ice?category=제품">제품</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a data-toggle="tab" class="nav-link" href="help.ice?category=포인트">포인트</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a data-toggle="tab" class="nav-link" href="help.ice?category=회원">회원</a>
-		  </li>
-		  <li class="nav-item" style="width: 10%;">
-		    <a data-toggle="tab" class="nav-link" href="help.ice?category=기타">기타</a>
-		  </li>
-		</ul>
-	
+		
+		<div class="justify-content-center" id="tab-toggle" style="display: flex;">
+			<div class="options" id="option0">전체</div>
+			<div class="options" id="option1">제품</div>
+			<div class="options" id="option2">포인트</div>
+			<div class="options" id="option3">회원</div>
+			<div class="options" id="option4">기타</div>
+		</div>
+		
 	<br><br>
 	
 	<%-- 아코디언 --%>
