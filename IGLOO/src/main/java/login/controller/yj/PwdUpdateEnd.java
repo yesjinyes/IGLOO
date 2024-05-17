@@ -50,7 +50,7 @@ public class PwdUpdateEnd extends AbstractController {
       request.setAttribute("method", method); 
       
       super.setRedirect(false);
-      super.setViewPage("/WEB-INF/login/pwdUpdate.jsp");
+      super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
       
       
    }// end of public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception

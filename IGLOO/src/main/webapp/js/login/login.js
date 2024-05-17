@@ -3,6 +3,7 @@ $(document).ready(function(){
     // 버튼 클릭과 엔터 클릭 할 시 로그인 시도하는 함수 만들기
     $("button#btnSubmit").click(function(){
         goLogin();      // 로그인 시도
+        location.href="javascript:history.go(-1)";
     })
 
     $("input#loginPwd").bind("keydown",function(e){

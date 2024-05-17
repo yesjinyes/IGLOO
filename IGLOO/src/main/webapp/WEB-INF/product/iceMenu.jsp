@@ -196,19 +196,13 @@
           </c:if>
       
     
-      <%-- 페이지 바 --%>
-      <div aria-label="Page navigation" class="pn">
-	   <div class="pagination" >
-		  <a href="#">&laquo;</a>
-		  <a href="#">1</a>
-		  <a class="active" href="#">2</a>
-		  <a href="#">3</a>
-		  <a href="#">4</a>
-		  <a href="#">5</a>
-		  <a href="#">6</a>
-		  <a href="#">&raquo;</a>
-		</div>
+      <%-- 맨위로가기 버튼 --%>
+      <div style="display: flex;">
+         <div style="margin: 20px 0 20px auto;">
+            <button class="btn btn-info" onclick="goTop()">맨위로가기(scrollTop 1로 설정함)</button>
+         </div>
       </div>
+
       
 </div>
   

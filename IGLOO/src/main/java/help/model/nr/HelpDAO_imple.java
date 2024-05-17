@@ -74,7 +74,7 @@ public class HelpDAO_imple implements HelpDAO {
 			
 			String sql = "select q_no, q_title, fk_categoryno, q_content, to_char(q_writeday, 'yyyy-mm-dd HH24:mi:ss'), "
 					   + "a_content, to_char(a_writeday, 'yyyy-mm-dd HH24:mi:ss') "
-					   + "from tbl_faq_q A join tbl_faq_a B "
+					   + "from tbl_faq_q A left join tbl_faq_a B "
 					   + "on A.q_no = B.fk_q_no "
 					   + "where fk_userid = ? "
 					   + "order by q_writeday desc";

@@ -19,7 +19,7 @@ public class PwdChange extends AbstractController {
 		session.removeAttribute("userid");
 		
 		super.setRedirect(false);	// forward
-		super.setViewPage("/WEB-INF/login/pwdUpdate.jsp");
+		super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
 
 	}
 
