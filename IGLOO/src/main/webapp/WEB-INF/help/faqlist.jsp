@@ -15,19 +15,23 @@
 		$("div#answer").hide();
 		$("div#hidebtn").hide();
 		
-		$("div#togglebtn").click(function(){
-			$("div#answer").show();
-			$("div#question").addClass("toggleq");
-			$("div#togglebtn").hide();
-			$("div#hidebtn").show();
+		$("div#togglebtn").click(function(e){
+			
+			$(e.target).parent().parent().parent().find("#answer").show();
+			$(e.target).parent().parent().addClass("toggleq");
+			$(e.target).hide();
+			$(e.target).parent().find("#hidebtn").show();
 			
 		});
 		
-		$("div#hidebtn").click(function(){
-			$("div#answer").hide();
-			$("div#question").removeClass("toggleq");
-			$("div#togglebtn").show();
-			$("div#hidebtn").hide();
+		$("div#hidebtn").click(function(e){
+			
+			$(e.target).parent().parent().parent().find("#answer").hide();
+			// $("div#answer").hide();
+			// $("div#question").removeClass("toggleq");
+			$(e.target).parent().parent().removeClass("toggleq");
+			$(e.target).parent().find("#togglebtn").show();
+			$(e.target).hide();
 		});
 		
 		$("button#faqbtn").click(function(){

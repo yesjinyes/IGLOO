@@ -145,29 +145,17 @@ $(document).ready(function(){
 						<span class="color-first">고객센터</span>
 					</a>
 		      	</li>
-		      	<c:if test="${not empty sessionScope.login_user and sessionScope.login_user.userid != 'admin'}">
-			      	<li class="nav-item dropdown">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-				        	회원전용
-				        </a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				        	<a class="dropdown-item" href="#">Action</a>
-				          	<a class="dropdown-item" href="#">Another action</a>
-				          	<div class="dropdown-divider"></div>
-				          	<a class="dropdown-item" href="#">Something else here</a>
-				        </div>
-			      	</li>
-		      	</c:if>
-		      	<c:if test="${not empty sessionScope.login_user and sessionScope.login_user.userid == 'admin'}">
+		      	<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid == 'admin'}">
 			      	<li class="nav-item dropdown">
 			        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-			          		관리자전용
+			          		관리
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          		<a class="dropdown-item" href="#">Action</a>
-			          		<a class="dropdown-item" href="#">Another action</a>
+			          		<a class="dropdown-item" href="#">회원 목록</a>
+			          		<a class="dropdown-item" href="#">전체 주문 내역</a>
 			          		<div class="dropdown-divider"></div>
-			          		<a class="dropdown-item" href="#">Something else here</a>
+							<a class="dropdown-item" href="#">제품 등록</a>
+			          		<a class="dropdown-item" href="#">문의 답변 등록</a>
 		        		</div>
 			      	</li>
 		      	</c:if>
@@ -183,7 +171,7 @@ $(document).ready(function(){
 	              	<i class="fa-solid fa-user fa-xl"></i>
 	              	&nbsp;&nbsp;
 	              	<span>
-	              		${sessionScope.loginuser.name}님 로그인중
+	              		${sessionScope.loginuser.name}님 로그인 중
 	              	</span>
               	</a>&nbsp;&nbsp;&nbsp;&nbsp;
               	<a href="<%= ctxPath %>/member/cart.ice">
