@@ -42,13 +42,16 @@ $(document).ready(function(){
 		
 		// === 올바르게 입력하여, 인증코드 보낼 시 찾기 버튼 숨기기 === //
 		if(${requestScope.isUserExist && requestScope.sendMailSuccess}){
-			$("button.btn-success").hide();
+			$("button.btnpwdfind").hide();
 		}
 		
 	}
+	
+	$("div#spin").hide();
+	
 	// === 찾기 버튼 클릭 === //
-	$("button.btn-success").click(function(){
-		goFind();
+	$("button.btnpwdfind").click(function(){
+		goFind();		
 	})	// end of $("button.btn-success").click(function(){})-------------
 	
 	$("input:text[name='email']").bind("keyup", function(e){
@@ -100,6 +103,9 @@ function goFind(){
 		return;
     }
     
+    $("button.btnpwdfind").hide();
+    $("div#spin").show();
+    
     const frm = document.pwdFindFrm;
     frm.action = "<%= ctxPath%>/login/pwdFind.ice";
     frm.method = "post";
@@ -109,38 +115,45 @@ function goFind(){
 
 </script>
 
+<%-- 직접 만든 CSS --%>
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/pwdFind.css" />
+
 <form name="pwdFindFrm">
 	<ul style="list-style-type: none;">
       <li style="margin: 25px 0">
-          <label style="display: inline-block; width: 90px;">아이디</label>
+          <label>아이디</label>
           <input type="text" name="userid" size="25" autocomplete="off" /> 
       </li>
       <li style="margin: 25px 0">
-          <label style="display: inline-block; width: 90px;">이메일</label>
+          <label>이메일</label>
           <input type="text" name="email" size="25" autocomplete="off" /> 
       </li>
    </ul> 
 
    <div class="my-3 text-center">
-      <button type="button" class="btn btn-success">찾기</button>
+   		<button type="button" class="btn btnpwdfind">찾기</button>
+      	<div id="spin" class="spinner-border text-info" role="status">
+  			<span class="visually-hidden"></span>
+		</div>
    </div>
 </form>
 <%-- 결과창 띄우기 --%>
 <div class="my-3 text-center" id="div_findResult">
 	
 	<c:if test="${requestScope.isUserExist == false}">
-   		<span style="color: red;">사용자 정보가 없습니다</span>
+   		<span style="color: red;">해당 정보의 사용자가 존재하지 않습니다.</span>
    	</c:if>
    
    	<c:if test="${requestScope.isUserExist == true && requestScope.sendMailSuccess == true}">
-   		<span style="font-size: 10pt;">
-           	인증코드가 <span style="color: blue;">${requestScope.email}</span>로 발송되었습니다.<br>
+   		<span>
+   			인증코드가
+   			<span style="color: blue;">${requestScope.email}</span>로 발송되었습니다.
+   			<br>
            	인증코드를 입력해주세요
        	</span>
-       	<br>
-       	<input type="text" name="input_confirmCode" />
-       	<br><br> 
-       	<button type="button" class="btn btn-info">인증하기</button>
+       	<br><br>
+       	<input type="text" name="input_confirmCode"/>
+       	<button type="button" class="btn btn-sm btn-info mb-1">인증하기</button>
     </c:if> 
     
     <c:if test="${requestScope.isUserExist == true && requestScope.sendMailSuccess == false}">
