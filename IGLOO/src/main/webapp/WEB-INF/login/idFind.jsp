@@ -42,7 +42,7 @@ $(document).ready(function(){
 		$("input:text[name='email']").val("${requestScope.email}");
 	}
 	
-	$("button.btn-success").click(function(){
+	$("button.btnidfind").click(function(){
 		goFind();
 	})	// end of $("button.btn-success").click(function(){})-------------
 	
@@ -89,25 +89,28 @@ function func_form_reset_empty() {
 
 </script>
 
+<%-- 직접 만든 CSS --%>
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/idfind.css" />
+
 <form name="idFindFrm">
 
    <ul style="list-style-type: none;">
       <li style="margin: 25px 0">
-          <label style="display: inline-block; width: 90px;">성명</label>
+          <label>성명</label>
           <input type="text" name="name" size="25" autocomplete="off" /> 
       </li>
       <li style="margin: 25px 0">
-          <label style="display: inline-block; width: 90px;">이메일</label>
+          <label>이메일</label>
           <input type="text" name="email" size="25" autocomplete="off" /> 
       </li>
    </ul> 
 
    <div class="my-3 text-center">
-      <button type="button" class="btn btn-success">찾기</button>
+      <button type="button" class="btn btnidfind">찾기</button>
    </div>
    
 </form>
 <%-- 결과창 띄우기 --%>
 <div class="my-3 text-center" id="div_findResult">
-   ID : <span style="color: red; font-size: 16pt; font-weight: bold;">${requestScope.userid}</span>
+	${requestScope.userid}
 </div>
