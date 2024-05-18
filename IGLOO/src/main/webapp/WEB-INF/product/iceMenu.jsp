@@ -14,7 +14,7 @@
 
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/iceMenu.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/iceMenu.css" />
 
 
 
@@ -41,7 +41,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
 	           </a>
 	        </div>
@@ -51,7 +51,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/3 블루베리 잼.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/3 블루베리 잼.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
 	           </a>
 	        </div>
@@ -61,7 +61,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/19 바람과 함께 날아가다.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/19 바람과 함께 날아가다.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
 	           </a>
 	        </div>
@@ -71,7 +71,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/26 아몬드 뿜뿜.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/26 아몬드 뿜뿜.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
 	           </a>
 	        </div>
@@ -85,7 +85,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -95,7 +95,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -105,7 +105,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -115,7 +115,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -129,7 +129,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -139,7 +139,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -149,7 +149,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
@@ -159,7 +159,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
 	           </a>
 	        </div>
