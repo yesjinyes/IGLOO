@@ -46,6 +46,13 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 			location.href="${pageContext.request.contextPath}/store/searchList.ice";
 		});
 		
+		$("div#option0").click(function(){
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
+			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+			location.href="${pageContext.request.contextPath}/help/help.ice";
+		});
+		
 		$("div#option1").click(function(){
 			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
 			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
@@ -53,7 +60,33 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 			location.href="${pageContext.request.contextPath}/help/help.ice?category=제품";
 		});
 		
+		$("div#option2").click(function(){
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
+			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+			location.href="${pageContext.request.contextPath}/help/help.ice?category=포인트";
+		});
 		
+		$("div#option3").click(function(){
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
+			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+			location.href="${pageContext.request.contextPath}/help/help.ice?category=회원";
+		});
+		
+		$("div#option4").click(function(){
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
+			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+			location.href="${pageContext.request.contextPath}/help/help.ice?category=기타";
+		});
+		
+		$("button#searchBtn").click(function(){
+			
+		const frm = document.searchFrm;
+		frm.submit();
+			
+		});
 		
 	});
 </script>
@@ -76,9 +109,9 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 				<h6 style="font-weight: bold; color: rgb(89, 200, 236)">자주하는 질문</h6>
 				<span style="font-size: 9pt; color: grey;">제품과 포인트, 회원 혜택 등 제품과 사이트에 대해<br>궁금한 점이 있다면 FAQ를 확인하세요!</span>
 			</div>
-			<form style="border: solid 0px red; margin: auto 0 auto 45%;">
+			<form id="searchFrm" style="border: solid 0px red; margin: auto 0 auto 45%;">
 				<input name="faqsearch" type="text" size="20" maxlength="50"/>
-				<button type="button" style="width: 25px; height: 25px; padding: 0; border: none;"><img src="<%= ctxPath%>/images/img_narae/다운로드.png" style="width: 25px;"/></button>
+				<button id="searchBtn" type="button" style="width: 25px; height: 25px; padding: 0; border: none;"><img src="<%= ctxPath%>/images/img_narae/다운로드.png" style="width: 25px;"/></button>
 			</form>
 		</div>
 	</div>
@@ -98,104 +131,34 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 	<%-- 아코디언 --%>
 	
 		<div class="accordion" id="accordionExample">
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingOne">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-		        가격 인상 후 모바일 교환권 사용 시 해피포인트는 어떻게 적립되나요?
+		<c:forEach var="hvo" items="${requestScope.hvoList}" varStatus="status">
+		
+		<div class="accordion-item">
+		    <h2 class="accordion-header" id="heading${status.index}">
+		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="false" aria-controls="collapse${status.index}">
+				${hvo.f_title }
 		      </button>
 		    </h2>
-		    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+		    <div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
+		      <div class="accordion-body" style="text-align: left; background-color: #e7edf3;">
+		        ${hvo.f_content }
 		      </div>
 		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingTwo">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-		        가격 인상 후 단종된 제품의 모바일 교환권은 어떻게 사용하나요?
-		      </button>
-		    </h2>
-		    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingThree">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-		        모든 제품의 가격이 인상되었나요?
-		      </button>
-		    </h2>
-		    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingFour">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-		        와플콘 전용매장은 무엇인가요?
-		      </button>
-		    </h2>
-		    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingFive">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-		        벨지안 와플콘이 무엇인가요?
-		      </button>
-		    </h2>
-		    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingSix">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-		        맛보기 서비스
-		      </button>
-		    </h2>
-		    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
+	    </div>
+		
+		</c:forEach>
+
 		</div>
 
 	<br><br>
 	<%-- 페이지네이션 --%>
 
-		<nav aria-label="Page navigation example">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-   		    <li class="page-item"><a class="page-link" href="#">4</a></li>
-   		    <li class="page-item"><a class="page-link" href="#">5</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
-	</div>
-	
+    <div id="pageBar" style="padding-left: 30%;"> 
+	    <nav>
+	    	<ul class="pagination">${requestScope.pageBar}</ul>
+	    </nav>
+    </div>
+
 	<br><br>
 	
 	<div id="channel">
