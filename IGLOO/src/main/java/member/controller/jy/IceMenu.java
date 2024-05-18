@@ -9,7 +9,7 @@ public class IceMenu extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		setViewPage("/WEB-INF/product/iceMenu.jsp");
+		setViewPage("/WEB-INF/product/iceMenu.jsp"); 
 
 	}
 
