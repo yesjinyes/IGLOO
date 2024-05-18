@@ -69,3 +69,7 @@ from tbl_member;
 select userid
 from tbl_member
 where status = 1 and userid = 'jjoung';
+
+-- === 주문상세 테이블 === --
+select *
+from TBL_ORDERDETAIL;
