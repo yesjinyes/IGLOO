@@ -13,7 +13,7 @@
 
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/iceSearch.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/iceSearch.css" />
 
 <%-- 직접 만든 JS --%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -39,7 +39,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/10 엄마는 초코볼.png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -48,7 +48,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/10 엄마는 초코볼.png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
