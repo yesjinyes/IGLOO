@@ -22,7 +22,7 @@
 
 
 
-    <div class="container mx-auto my-5 pt-5" >
+    <div class="container pt-5" >
       <h2 class="page-header__title">Search</h2>
       <h2 id="search_result" > <%-- ${requestScope.검색어}  --%> "__"검색결과 총 <%-- ${requestScope.검색결과개수} --%> __건</h2>
       
