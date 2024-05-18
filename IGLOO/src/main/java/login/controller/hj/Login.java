@@ -85,9 +85,14 @@ public class Login extends AbstractController {
 		            
 		            return; // 메소드 종료
 				}
-				// === 3개월이 지나지 않은 경우 === //
+				// ★★★★★★★ === 3개월이 지나지 않은 경우 === ★★★★★★★ //
+				////////////////////////////////////////////////
+				// === 수업해주신데욤 === //
 				super.setRedirect(true);
 				super.setViewPage(request.getContextPath() + "/index.ice");
+			
+				
+				////////////////////////////////////////////////
 			}
 			else {
 				// System.out.println("확인용 => 로그인 실패ㅠㅠ");
