@@ -171,56 +171,76 @@ where fk_userid = 'jjoung';
 
 ------------------------------------------------------------------------
 -- === 장바구니 테이블 연결 === --
-SELECT O.FK_USERID, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG, COUNT
+SELECT cartno, O.fk_userid, productname, tastename, price, productimg, COUNT
 FROM
 (
-    SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG
+    SELECT fk_userid, selectno, productname, tastename, price, productimg
     FROM
     (
-        SELECT tasteselectno, fk_selectno, TASTENAME
+        SELECT tasteselectno, fk_selectno, tastename
         FROM
         (
-            select tasteselectno, fk_selectno, fk_tasteno
-            from tbl_tasteselect
+            SELECT tasteselectno, fk_selectno, fk_tasteno
+            FROM tbl_tasteselect
         )
         JOIN
         (
-            SELECT TASTENO, TASTENAME
-            FROM TBL_TASTE
+            SELECT tasteno, tastename
+            FROM tbl_taste
         )
-        ON FK_TASTENO = TASTENO
+        ON fk_tasteno = tasteno
     ) T
     JOIN
     (
-        select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
-        from
+        SELECT selectno, fk_productcodeno, productname, price, fk_userid, productimg
+        FROM
         (
-            SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+            SELECT selectno, fk_productcodeno, productname, price, fk_userid, productimg
             FROM
             (
-                SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG
-                from tbl_product
+                SELECT productcodeno, productname, price, productimg
+                FROM tbl_product
             )
             JOIN
             (
-                select selectno, fk_productcodeno, FK_USERID
-                from tbl_selectlist
+                SELECT selectno, fk_productcodeno, fk_userid
+                FROM tbl_selectlist
             )
-            ON PRODUCTCODENO = FK_PRODUCTCODENO
+            ON productcodeno = fk_productcodeno
         )
         JOIN
         (
-            select userid
-            from TBL_MEMBER
+            SELECT userid
+            FROM tbl_member
         )
-        ON FK_USERID = USERID
+        ON fk_userid = userid
     )
     ON fk_selectno = selectno
 ) O
     JOIN
 (
-    SELECT FK_USERID, CARTNO, COUNT, FK_SELECTNO
-    FROM TBL_CART
+    SELECT fk_userid, cartno, COUNT, fk_selectno
+    FROM tbl_cart
 )
-on FK_SELECTNO = SELECTNO
-where O.fk_userid = 'jjoung';
+ON fk_selectno = selectno
+WHERE O.fk_userid = 'jjoung';
+
+-- === 장바구니 insert === --
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno)
+values(1,'jjoung', 1, 1);
+
+commit;
+
+----------------------------------------------
+-- === 테스트 투!! === --
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(2, 'P', 'jjoung');
+
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(4, 2, 5);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(5, 2, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(6, 2, 13);
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(2,'jjoung', 1, 2);
+
+commit;
+
+----------------------------------------------------------------------------------------------
