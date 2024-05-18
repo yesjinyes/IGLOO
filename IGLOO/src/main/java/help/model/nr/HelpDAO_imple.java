@@ -1,6 +1,7 @@
 package help.model.nr;
 
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import help.domain.nr.FaqVO;
+import help.domain.nr.HelpVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
 
@@ -103,6 +105,206 @@ public class HelpDAO_imple implements HelpDAO {
 		
 		return faqlist;
 	}
+
+	
+	
+	
+	// 페이징 처리 안 함
+	@Override
+	public List<HelpVO> faqlist(String category) throws SQLException {
+
+		List<HelpVO> hvoList = new ArrayList<HelpVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select faqno, f_category, f_title, f_content "
+					   + "from tbl_faqlist ";
+			
+			if(category != null) {
+				sql += "where f_category = ?";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			if(category != null) {
+				pstmt.setString(1, category);
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HelpVO hvo = new HelpVO();
+				hvo.setFaqno(rs.getInt(1));
+				hvo.setF_category(rs.getString(2));
+				hvo.setF_title(rs.getString(3));
+				hvo.setF_content(rs.getString(4));
+				hvoList.add(hvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return hvoList;
+	}
+
+	
+	
+	
+	// 고객센터 - 자주하는 질문 총 페이지 수
+	@Override
+	public int getTotalPage(Map<String, String> paramap) throws SQLException {
+		
+		int totalPage = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select ceil(count(*)/?) "
+						+ " from tbl_faqlist ";
+			
+			if(paramap.get("category") != null) {
+				sql += "where f_category = ? ";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(paramap.get("sizePerPage")));
+			
+			if(paramap.get("category") != null) {
+				pstmt.setString(2, paramap.get("category"));
+			}
+						
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalPage = rs.getInt(1);
+			
+		} finally {
+			close();
+		}
+		
+		return totalPage;		
+		
+	}
+
+	
+	
+	
+	
+	
+	// 고객센터 - 자주하는 질문 페이징처리
+	@Override
+	public List<HelpVO> faqlist_paging(Map<String, String> paramap) throws SQLException {
+
+		List<HelpVO> hvolist = new ArrayList<HelpVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select rno, faqno, f_category, f_title, f_content "
+					   + "from "
+					   + "( "
+					   + "select rownum rno, faqno, f_category, f_title, f_content "
+					   + "from tbl_faqlist ";
+			
+			String category = paramap.get("category");
+			
+			if(category != null) {
+				sql += "where f_category = ? ";
+			}
+			
+			sql += ") where rno between ? and ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int currentShowPageNo = Integer.parseInt( paramap.get("currentShowPageNo") ); 
+			int sizePerPage = Integer.parseInt( paramap.get("sizePerPage") );
+			
+			if(category != null) {
+				pstmt.setString(1, category);
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage));
+			}
+			
+			else {
+				pstmt.setInt(1, (currentShowPageNo * sizePerPage) - (sizePerPage - 1) );
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) );
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				HelpVO hvo = new HelpVO();
+				hvo.setFaqno(rs.getInt(2));
+				hvo.setF_category(rs.getString(3));
+				hvo.setF_title(rs.getString(4));
+				hvo.setF_content(rs.getString(5));
+				
+				hvolist.add(hvo);
+			}
+		
+		} finally {
+			close();
+		}
+		
+		return hvolist;
+	}
+
+	
+	
+	
+	
+	// 고객센터 - 자주하는 질문 총 개수
+	@Override
+	public int getTotalFaqCount(Map<String, String> paramap) throws SQLException {
+		
+		int totalFaqCount = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select count(*) "
+						+ " from tbl_faqlist ";
+			
+			String category = paramap.get("category");
+						
+			if(category != null) {
+			   sql += "where f_category = ? ";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			if(category != null) {
+				pstmt.setString(1, category);
+			}
+						
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalFaqCount = rs.getInt(1);
+			
+		} finally {
+			close();
+		}
+		
+		return totalFaqCount;
+	}
+
+	
+	
+	
+
+	
+	
+	
+
 	
 	
 	

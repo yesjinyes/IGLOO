@@ -1,6 +1,8 @@
 package member.domain;
 
 public class MemberVO {
+	
+	// === Field === //
 	private String userid;             // 회원아이디
 	private String pwd;                // 비밀번호 (SHA-256 암호화 대상) => 복호화 불가(단방향)
 	private String name;               // 회원명
@@ -12,27 +14,22 @@ public class MemberVO {
 	private String extraaddress;       // 참고항목
 	private String gender;             // 성별   남자:1  / 여자:2
 	private String birthday;           // 생년월일
-	private int coin;                  // 코인액
-    private int point;                 // 포인트 
     private String registerday;        // 가입일자 
     private String lastpwdchangedate;  // 마지막으로 암호를 변경한 날짜  
     private int status;                // 회원탈퇴유무   1: 사용가능(가입중) / 0:사용불능(탈퇴) 
     private int idle;                  // 휴면유무      0 : 활동중  /  1 : 휴면중
    									   // 마지막으로 로그인 한 날짜시간이 현재시각으로 부터 1년이 지났으면 휴면으로 지정
     
-    
-    
-    /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+    // === Select 용 === //
     private boolean requirePwdChange = false;
     // 마지막으로 암호를 변경한 날짜가 현재 시각으로부터 3개월이 지났으면 true
     // 마지막으로 암호를 변경한 날짜가 현재 시각으로부터 3개월이 지나지 않았으면 false
 	
+/////////////////////////////////////////////////////////////////////////
 	
-	
-	
-	
-	
-	
+    // === Getter, Setter === //
 	public String getUserid() {
 		return userid;
 	}
@@ -98,18 +95,6 @@ public class MemberVO {
 	}
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
-	}
-	public int getCoin() {
-		return coin;
-	}
-	public void setCoin(int coin) {
-		this.coin = coin;
-	}
-	public int getPoint() {
-		return point;
-	}
-	public void setPoint(int point) {
-		this.point = point;
 	}
 	public String getRegisterday() {
 		return registerday;

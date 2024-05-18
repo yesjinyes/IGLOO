@@ -22,7 +22,7 @@
 
 
 
-    <div class="container mx-auto my-5 pt-5" >
+    <div class="container pt-5" >
       <h2 class="page-header__title">Search</h2>
       <h2 id="search_result" > <%-- ${requestScope.검색어}  --%> "__"검색결과 총 <%-- ${requestScope.검색결과개수} --%> __건</h2>
       
@@ -39,7 +39,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/10 엄마는 초코볼.png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -48,7 +48,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/10 엄마는 초코볼.png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -57,7 +57,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -66,7 +66,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -78,7 +78,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -87,7 +87,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -96,7 +96,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>
@@ -105,7 +105,7 @@
         <div class="col-md-3">
         	<div class="ice">
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/icecream image/15 슈팅톡톡 .png" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           </a>
             </div>
             <div class="text-center pt-2">슈팅톡톡</div>

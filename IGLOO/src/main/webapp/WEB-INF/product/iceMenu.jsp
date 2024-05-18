@@ -51,7 +51,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/3 블루베리 잼.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/14 체리뿌셔죽일래.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
 	           </a>
 	        </div>
@@ -61,7 +61,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/19 바람과 함께 날아가다.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/12 서울 치즈 케이크.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
 	           </a>
 	        </div>
@@ -71,7 +71,7 @@
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/26 아몬드 뿜뿜.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
+	             <img src="<%= ctxPath %>/images/img_jy/icecream image/25 자메이카 아몬드 훠지.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
 	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
 	           </a>
 	        </div>
@@ -86,40 +86,40 @@
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-3">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-2">블루베리 잼</div>
         </div>
         
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-2">바람과 함께 날아가다</div>
         </div>
         
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-2">아몬드 뿜뿜</div>
         </div>
       </div>
       
@@ -130,40 +130,40 @@
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-3">슈팅톡톡</div>
         </div>
         
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-2">블루베리 잼</div>
         </div>
         
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-2">바람과 함께 날아가다</div>
         </div>
         
         <div class="col-md-3">
 	        <div class="hoverBorder" >
 	           <a href="#">
 	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" style="color:#cdb4db">#이달의맛 #이상한 나라의 슈팅스타</span>
+	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
 	           </a>
 	        </div>
-        	<div class="text-center pt-2">슈팅톡톡</div>
+        	<div class="text-center pt-2">아몬드 뿜뿜</div>
         </div>
       </div>
      

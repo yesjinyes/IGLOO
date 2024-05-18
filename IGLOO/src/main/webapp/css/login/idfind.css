@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+ul > li > label{
+	display: inline-block;
+	width: 90px;
+	font-weight: bold;
+	text-align: center;
+}
+
+form[name='idFindFrm'] > div > button{
+	background-color: #99ccff !important;
+	font-weight: bold;
+	border: solid 1px #063460;
+}

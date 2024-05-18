@@ -121,7 +121,7 @@ $(document).ready(function(){
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto"> <!-- .mr-auto 는 css 의  margin-right: auto; 임. 즉, 가로축 미사용 공간 너비의 일부를 바깥 여백에 할당한다는 의미임. -->
 		    	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
+		        	<a class="nav-link" href="<%= ctxPath%>/member/iceMenu.ice">
 		        		<span class="color-first">메뉴</span>
 		        	</a>
 		      	</li>

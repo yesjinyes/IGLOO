@@ -118,22 +118,22 @@ function changePwd() {
 	      
 		        <%-- Modal header --%>
 		        <div class="modal-header">
-		        	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:200px;"/>
-		        	<h4 class="modal-title my-auto">아이디</h4>
+		        	<h4 class="modal-title my-auto">아이디 찾기</h4>
+		        	<img src="<%= ctxPath%>/images/img_hj/icecreamcon.png" style="width:50px;"/>
 		          	<button type="button" class="close idFindClose" data-dismiss="modal"><%-- X 위치 --%>&times;</button>
 		        </div>
 		        
 		        <%-- Modal body --%>
 		        <div class="modal-body">
 		          	<div id="idFind">
-		             	<iframe id="iframe_idFind" style="border: none; width: 100%; height: 350px;" src="<%= ctxPath%>/login/idFind.ice">
+		             	<iframe id="iframe_idFind" style="border: none; width: 100%; height: 250px;" src="<%= ctxPath%>/login/idFind.ice">
 		             	</iframe>
 		          	</div>
 		        </div>
 		        
 		        <%-- Modal footer --%>
 		        <div class="modal-footer">
-		          	<button type="button" class="btn btn-danger idFindClose" data-dismiss="modal">Close</button>
+		          	<button type="button" class="btn btn-danger idFindClose" data-dismiss="modal">닫기</button>
 		        </div>
 	    	</div>
 	  	</div>
@@ -151,21 +151,22 @@ function changePwd() {
       
 		        <%-- Modal header --%>
 		        <div class="modal-header">
-		          <h4 class="modal-title">비밀번호 찾기</h4>
-		          <button type="button" class="close passwdFindClose" data-dismiss="modal">&times;</button>
+		        	<h4 class="modal-title my-auto">비밀번호 찾기</h4>
+		        	<img src="<%= ctxPath%>/images/img_hj/icecreamcon.png" style="width:50px;"/>
+		          	<button type="button" class="close passwdFindClose" data-dismiss="modal">&times;</button>
 		        </div>
 		        
 		        <%-- Modal body --%>
 		        <div class="modal-body">
-		        	<div id="pwFind">
-		             	<iframe id="iframe_pwdFind" style="border: none; width: 100%; height: 350px;" src="<%= ctxPath%>/login/pwdFind.ice">  
+		        	<div id="pwdFind">
+		             	<iframe id="iframe_pwdFind" style="border: none; width: 100%; height: 300px;" src="<%= ctxPath%>/login/pwdFind.ice">  
 		             	</iframe>
 		          	</div>
 		        </div>
 		        
 		        <%-- Modal footer --%>
 		        <div class="modal-footer">
-		        	<button type="button" class="btn btn-danger passwdFindClose" data-dismiss="modal">Close</button>
+		        	<button type="button" class="btn btn-danger passwdFindClose" data-dismiss="modal">닫기</button>
 		        </div>
       		</div>
     	</div>
