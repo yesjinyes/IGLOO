@@ -27,7 +27,7 @@
 					<br>
 					
 					<div class="mypageTopmanage">주문관리</div>
-					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>.ice">
+					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/mypage.ice">
 						<i class="fa-regular fa-window-restore fa-xl"></i>&nbsp;주문조회
 					</a>
 					
@@ -35,7 +35,7 @@
 					
 					<div class="mypageTopmanage">게시물 관리</div>
 					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/showReview.ice">
-						<i class="fa-solid fa-pencil fa-xl"></i>&nbsp;내가 쓴 리뷰
+						<i class="fa-solid fa-pencil fa-xl"></i>&nbsp;마이 리뷰
 					</a>
 					<a class="mypagelink mb-2" href="<%= ctxPath %>/help/myFaqlist.ice">
 						<i class="fa-solid fa-circle-question fa-xl"></i>&nbsp;1:1 문의 내역

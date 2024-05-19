@@ -17,7 +17,7 @@
 
 	<div id="imgdiv" class="row">
 		<div id="item_img" class="col-xl-5 col-lg-5">
-			<img class="img-fluid" id="cupsize" src="<%= ctxPath%>/images/images_younggwan/copsize.png" alt="Responsive image"/>
+			<img class="img-fluid" id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" alt="Responsive image"/>
 		</div>
 		<div id="item_detail">
 			<div class="p-0  my-auto">
