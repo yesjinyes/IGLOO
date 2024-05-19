@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -13,6 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import product.domain.ProductVO;
+import product.domain.TasteVO;
 
 public class ProductDAO_imple implements ProductDAO {
 
@@ -47,13 +49,13 @@ public class ProductDAO_imple implements ProductDAO {
 	///////////////////////////////////////////////////////////////////////////////////
 
 	// == 컵 사이즈, 상세정보, 가격 알아오는 메소드 ==
-	
 	@Override
-	public ProductVO getproduct(Map<String, String> paraMap) throws SQLException {
+	public ProductVO getproduct() throws SQLException {
 		
-		ProductVO product = null;
+		ProductVO pvo = new ProductVO();
 		
 		try {
+			
 			conn = ds.getConnection();
 			
 			String sql =  " select productname, productdetail, price "
@@ -61,16 +63,14 @@ public class ProductDAO_imple implements ProductDAO {
 						+ " where productcodeno = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, paraMap.get("productcodeno"));
+			pstmt.setString(1, pvo.getProductcodeno());
 			
 			rs  = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				product = new ProductVO();
-				
-				product.setProductname(rs.getString("productname"));
-				product.setProductdetail(rs.getString("productdetail"));
-				product.setPrice(rs.getInt("price"));
+				pvo.setProductname(rs.getString("productname"));
+				pvo.setProductdetail(rs.getString("productdetail"));
+				pvo.setPrice(rs.getInt("price"));
 			}
 			
 		} catch (SQLException e) {
@@ -80,9 +80,43 @@ public class ProductDAO_imple implements ProductDAO {
 			close();
 		}
 		
-		return product;
+		return pvo;
 		
 	}// end of public String getproduct(Map<String, String> paraMap) throws SQLException ---------------------
+
+	///////////////////////////////////////////////////////////////
+	
+	// == 맛 목록 조회해오기 == //
+	@Override
+	public List<TasteVO> selectTasteList() throws SQLException {
+
+		  List<TasteVO> tasteList = new ArrayList<>();
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select tasteno, tastename "
+		         		+ " from tbl_taste "
+		         		+ " order by tasteno ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 TasteVO tvo = new TasteVO();
+	             tvo.setTasteno(rs.getInt(1));
+	             tvo.setTastename(rs.getString(2));
+	             tasteList.add(tvo);
+	         }// end of while-----------------
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return tasteList;
+		
+	}// end of public List<TasteVO> selectTasteList() throws SQLException
 
 	
 	
