@@ -32,10 +32,15 @@
 	</div>   
 
 	<hr style="border: solid 2px #6190BC">
-<c:if test="${requestScope.have == 'none'}">
-현재 장바구니 존재하지 않음(뷰단 짜야함)
+<c:if test="${requestScope.havecart == 'none'}">
+	<div class="mx-auto text-center">
+		<h3 class="mt-5 font-weight-bolder">장바구니에 담긴 상품이 없습니다.</h3>
+		<p>원하는 상품을 장바구니에 담아보세요.</p>
+		<button type="button" class="btn btndefault" onclick="javascript:continueShopping('<%= ctxPath%>')">쇼핑 계속하기</button>
+		<div class="h-50 p-5 m-3"></div>
+	</div>
 </c:if>
-<c:if test="${requestScope.have != 'none'}">
+<c:if test="${requestScope.havecart != 'none'}">
 	<div class="totalSelect custom-control form-check mb-5">
 		<input class="form-check-input" type="checkbox" value="" id="Allchecked">
 	  	<label class="form-check-label ml-5" for="Allchecked">
@@ -45,15 +50,16 @@
 	
 	<div id="cartview" class="col">
 		<div id="choiceTotalMenu" class="custom-control custom-checkbox">
+			<c:forEach var="cartList" items="${requestScope.cartList}" varStatus="status">
 			<%-- 하나의 선택 메뉴 --%>
 			<div>
 				<%-- 하나의 선택 버튼 --%>
 				<input name="choicemenu" class="custom-control-input" type="checkbox" value="">
 				<div class="choiceOneMenu row custom-control-label">
-					
+
 					<%-- 선택한 메뉴 이미지 --%>
 					<div class="menuclick col-xl-2 col-lg-2 col-md-2">
-						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/pint.png" alt="Responsive image">
+						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/${cartList.product.productimg}" alt="Responsive image">
 					</div>
 	
 					<%-- 선택한 제품과 맛 --%>
@@ -65,7 +71,7 @@
 							</div>
 						</div>
 						<%-- 선택한 제품 품목 --%>
-						<label class="text-center mx-auto mt-3">파인트</label>
+						<label class="text-center mx-auto mt-3">${cartList.product.productname}</label>
 						<div class="card p-0 mb-3">
 		         			<div class="card-body p-1">
 		           			선택한 맛 전부 나열
@@ -110,7 +116,7 @@
 			</div>
 			<%-- 구분선 --%>
 			<hr style="border: solid 1px black">
-			
+			</c:forEach>
 			<%-- 하나의 선택 메뉴 --%>
 			<div>
 				<%-- 하나의 선택 버튼 --%>
@@ -197,7 +203,7 @@
 	</div>
 	
 	<%-- 하단 바 고정 --%>
-	<nav class="row justify-content-end navbar navbar-expand-sm bg-dark text-white navbar-dark fixed-bottom mx-3">
+	<nav class="footbar row justify-content-end navbar navbar-expand-sm bg-dark text-white navbar-dark fixed-bottom mx-3">
 	  	<p class="my-auto col-md-2">
 	  		총&nbsp;
 	  		<span style="font-weight: bold;" class="choiceCnt">0</span>

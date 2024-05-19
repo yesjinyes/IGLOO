@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+button.btndefault{
+	background-color: #81BEF7;
+	border: solid 2px #063460;
+}
+
 div#cartContainer{
 	width: 80%;
 	/* border:solid 1px red; */
@@ -70,11 +75,11 @@ div#cartContainer > div#orderPrice > div > button{
 	font-size: 15pt;
 }
 
-nav{
+nav.footbar{
 	font-size: 15pt;
 }
 
-nav > p:nth-child(2){
+nav.footbar > p:nth-child(2){
 	font-size: 20pt;
 	font-weight: bold;
 }

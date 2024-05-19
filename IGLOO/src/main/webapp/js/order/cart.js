@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     // === 전체선택/ 해제 버튼 클릭 === //
     $("div.totalSelect > input#Allchecked").change(function(){
 
@@ -71,5 +71,10 @@ $(document).ready(function() {
 
 ///////////////////////////////////////////////////////////////////////
 
+// === 장바구니가 없는경우 주문하기 버튼 클릭시 주문하기 창으로 이동 === //
+function continueShopping(ctxPath){
 
+    location.href = `${ctxPath}/order/order.ice`;
+
+}   // end of function continueShopping(ctxPath){----------
 

@@ -39,16 +39,16 @@ public class Cart extends AbstractController {
 				
 				request.setAttribute("cartList", cartList);
 				
-				String have = "none";
+				String havecart = "none";
 				try {
 					int check = cartList.size();
 					if(check > 0) {
-						have = "have";
+						havecart = "havecart";
 					}
 				}catch(Exception e) {
 					
 				}
-				request.setAttribute("have", have);
+				request.setAttribute("havecart", havecart);
 				
 				/* 확인용
 				System.out.println(cartList.size());
