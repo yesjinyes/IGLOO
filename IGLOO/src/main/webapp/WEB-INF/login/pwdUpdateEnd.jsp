@@ -78,10 +78,8 @@ $(document).ready(function(){
 
 
 
-
-
 <%-- get 방식일 때의 form 태그 --%>
-<c:if test="${requestScope.method == 'GET'}"> 
+<c:if test="${requestScope.method == 'GET'}">
   <form name="pwdUpdateEndFrm">
   
   	<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 10%; padding: 0 5% 5% 0;"/>
@@ -113,7 +111,7 @@ $(document).ready(function(){
 
 
 <%-- post 방식일 때의 form 태그 --%>
-<c:if test="${requestScope.method == 'POST'}"> 
+<c:if test="${requestScope.method == 'POST'}">
    <div style="text-align: center; font-size: 14pt; color: navy;">
       <c:if test="${requestScope.n == 1}">
          사용자 ID ${requestScope.userid}님의 비밀번호가 새로이 변경되었습니다.
