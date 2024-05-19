@@ -55,7 +55,7 @@ $(document).ready(function(){
             else {
                // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
                const frm = document.pwdUpdateEndFrm;
-               frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.up";
+               frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.ice";
                frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
                frm.submit();
                
