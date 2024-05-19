@@ -1,8 +1,5 @@
 package order.controller.yj;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,22 +19,23 @@ public class Order extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		ProductVO pvo = new ProductVO();
+		String method = request.getMethod();
 		
-		Map<String, String> paraMap = new HashMap<>();
-		paraMap.put("productname", pvo.getProductname());
-		paraMap.put("productdetail", pvo.getProductdetail());
-		paraMap.put("price",pvo.getPrice()+"");
-		paraMap.put("productcodeno", pvo.getProductcodeno());
+		if(!"POST".equalsIgnoreCase(method)) {
+			ProductVO product = pdao.getproduct();
+			request.setAttribute("product", product);
+			
+			System.out.println("확인용 product => "+ product ); // product.domain.ProductVO@13c9675b 이런식으로 나옴......
+			
+			super.setRedirect(false);
+			super.setViewPage("/WEB-INF/order/order.jsp");
+		}
 		
-		ProductVO product = pdao.getproduct(paraMap);
+		else {
+			
+		}
 		
-		request.setAttribute("product", product);
 		
-		System.out.println("확인용 product => "+ product ); // null 이 나옴......
-		
-		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/order/order.jsp");
 	}
 
 }
