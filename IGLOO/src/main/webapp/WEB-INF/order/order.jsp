@@ -24,6 +24,7 @@
 		      <h5 class="card-title">파인트</h5>
 		      <p class="card-text">3가지 맛 (320g)</p>
 		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">8,000원</p>
+		      <a href="<%= ctxPath%>/order/order_detail.ice" class="btn btn-info stretched-link">주문하기</a>
 		    </div>
 		  </div>
 		  
