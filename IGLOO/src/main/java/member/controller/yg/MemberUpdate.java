@@ -21,17 +21,37 @@ public class MemberUpdate extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String method = request.getMethod(); 
+		String method = request.getMethod();
+		
+		HttpSession session = request.getSession();
+		MemberVO loginuser = null; 
 		
 		if("GET".equalsIgnoreCase(method)) {
-			
-			super.setRedirect(false);
-			super.setViewPage("/WEB-INF/member/memberUpdate.jsp");
+			loginuser = (MemberVO) session.getAttribute("loginuser");
+				
+			if(loginuser != null) {
+				
+				request.setAttribute("loginuser", loginuser);
+				
+				super.setRedirect(false);
+				super.setViewPage("/WEB-INF/member/memberUpdate.jsp");
+			}
+			else {
+				String message = "로그인이 필요합니다.";
+		        String loc = request.getContextPath() + "/login/login.ice";
+		        // 테이블 적용 후 이동 이전페이지(get 타입 변경)할 지 메인페이지 갈지 선정해야할 것
+		         
+		        request.setAttribute("message", message);
+		        request.setAttribute("loc", loc);
+		        
+				super.setRedirect(false);
+		        super.setViewPage("/WEB-INF/msg.jsp");
+			}
 		}
 		else {
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			
-			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
+			loginuser = (MemberVO)session.getAttribute("loginuser");
 			
 			String name = request.getParameter("name");
 			String userid = loginuser.getUserid();
