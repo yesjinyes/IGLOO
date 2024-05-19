@@ -213,11 +213,21 @@ public class HelpDAO_imple implements HelpDAO {
 					   + "from tbl_faqlist ";
 			
 			String category = paramap.get("category");
+			String searchWord = paramap.get("searchWord");
 			
-			if(category != null) {
+			if(category != null && searchWord == null) {
 				sql += "where f_category = ? ";
 			}
 			
+			else if(category == null && searchWord != null) {
+				sql += "where f_title like '%'|| ? ||'%' ";
+			}
+			
+			else if(category != null && searchWord != null) {
+				sql += "where f_category = ? and f_title like '%'|| ? ||'%' ";
+			}
+			
+						
 			sql += ") where rno between ? and ? ";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -225,10 +235,24 @@ public class HelpDAO_imple implements HelpDAO {
 			int currentShowPageNo = Integer.parseInt( paramap.get("currentShowPageNo") ); 
 			int sizePerPage = Integer.parseInt( paramap.get("sizePerPage") );
 			
-			if(category != null) {
+			if(category != null && searchWord == null) {
 				pstmt.setString(1, category);
 				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
 				pstmt.setInt(3, (currentShowPageNo * sizePerPage));
+			}
+			
+			else if(category == null && searchWord != null) {
+				pstmt.setString(1, searchWord);
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage));
+			}
+			
+			else if(category != null && searchWord != null) {
+				pstmt.setString(1, category);
+				pstmt.setString(2, searchWord);
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(4, (currentShowPageNo * sizePerPage));
+				
 			}
 			
 			else {

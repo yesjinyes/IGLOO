@@ -42,13 +42,7 @@ div#tab-toggle div {
 	border-top-right-radius: 10px;
 	cursor: pointer;
 }
-/*
-div#option0 {
-	background-color: #99ebff !important;
-	font-weight:bold;
-	color:white !important;
-}
-*/
+
 div#faq {
 	height: 100px;
 }
@@ -66,4 +60,9 @@ div#question_mark {
 	left: 85%;
 	bottom: 100px;
 	cursor: pointer;
+}
+
+button#searchBtn {
+	border: none;
+	background-color: transparent;
 }
