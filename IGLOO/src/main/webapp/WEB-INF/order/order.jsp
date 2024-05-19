@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%
-	String ctxPath = request.getContextPath();
-		// IGLOO	
-%>
+<% String ctxPath = request.getContextPath(); %>
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order.css" />
@@ -23,9 +20,9 @@
 		<div class="card" id="card_pint">
 	      <img src="<%= ctxPath%>/images/img_yejin/cup_size/pint.png" class="card-img-top" style="height: 50%;" alt="...">
 	      <div class="card-body">
-	        <h5 class="card-title">파인트</h5>
-	        <p class="card-text">3가지 맛 (320g)</p>
-	        <p class="card-text" style="font-weight: bold; font-size: 15pt;">8,000원</p>
+	        <h5 class="card-title">${requestScope.productname}</h5>
+	        <p class="card-text">${requestScope.productname}</p>
+	        <p class="card-text" style="font-weight: bold; font-size: 15pt;">${requestScope.price}</p>
 	      	<input type="submit" value="주문하기" style="float: right"/>
 	      </div>
 		</div>

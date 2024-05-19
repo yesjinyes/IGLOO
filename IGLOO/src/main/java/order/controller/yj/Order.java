@@ -27,8 +27,14 @@ public class Order extends AbstractController {
 		Map<String, String> paraMap = new HashMap<>();
 		paraMap.put("productname", pvo.getProductname());
 		paraMap.put("productdetail", pvo.getProductdetail());
-		paraMap.put("price", Integer.valueOf(pvo.getPrice()));
+		paraMap.put("price",pvo.getPrice()+"");
+		paraMap.put("productcodeno", pvo.getProductcodeno());
 		
+		ProductVO product = pdao.getproduct(paraMap);
+		
+		request.setAttribute("product", product);
+		
+		System.out.println("확인용 product => "+ product ); // null 이 나옴......
 		
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/order/order.jsp");
