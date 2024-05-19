@@ -24,6 +24,7 @@ public class Help extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String category = request.getParameter("category");
+		String searchWord = request.getParameter("faqsearch");
 		String sizePerPage = "10";
 		String currentShowPageNo = request.getParameter("currentShowPageNo");
 		
@@ -40,6 +41,7 @@ public class Help extends AbstractController {
 		paramap.put("category", category);
 		paramap.put("sizePerPage", sizePerPage);
 		paramap.put("currentShowPageNo", currentShowPageNo);
+		paramap.put("searchWord", searchWord);
 		
 		int totalPage = hdao.getTotalPage(paramap);
 		
@@ -61,6 +63,9 @@ public class Help extends AbstractController {
 		int loop = 1;
 		
 		int pageNo = ( (Integer.parseInt(currentShowPageNo) - 1)/blockSize ) * blockSize + 1;
+		
+		
+		// 카테고리가 없는 경우 ===================================================================
 		
 		if(category == null) {
 			pageBar += "<li class='page-item'><a class='page-link' href='help.ice?&sizePerPage="+sizePerPage+"&currentShowPageNo=1'>[처음으로]</a></li>";
@@ -94,6 +99,9 @@ public class Help extends AbstractController {
 			pageBar += "<li class='page-item'><a class='page-link' href='help.ice?&sizePerPage="+sizePerPage+"&currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
 		}
 		
+		
+		// 카테고리가 있는 경우 ===========================================================
+		
 		else {
 			pageBar += "<li class='page-item'><a class='page-link' href='help.ice?category="+category+"&sizePerPage="+sizePerPage+"&currentShowPageNo=1'>[처음으로]</a></li>";
 			if(pageNo != 1) {
@@ -125,6 +133,7 @@ public class Help extends AbstractController {
 			}
 			pageBar += "<li class='page-item'><a class='page-link' href='help.ice?category="+category+"&sizePerPage="+sizePerPage+"&currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
 		}
+		
 		String currentURL = MyUtil.getCurrentURL(request);
 		
 		List<HelpVO> hvoList = hdao.faqlist_paging(paramap);

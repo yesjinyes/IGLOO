@@ -7,8 +7,8 @@ import java.util.Map;
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import member.model.hj.MemberDAO;
-import member.model.hj.MemberDAO_imple;
+import member.model.yj.MemberDAO;
+import member.model.yj.MemberDAO_imple;
 
 public class PwdUpdateEnd extends AbstractController {
 
@@ -37,7 +37,7 @@ public class PwdUpdateEnd extends AbstractController {
          int n = 0;
          try {
          
-            n = mdao.pwdUpdate(paraMap);
+            n = mdao.pwdUpdateEnd(paraMap);
          } catch(SQLException e) {
             e.printStackTrace();
          }
@@ -50,7 +50,7 @@ public class PwdUpdateEnd extends AbstractController {
       request.setAttribute("method", method); 
       
       super.setRedirect(false);
-      super.setViewPage("/WEB-INF/login/pwdUpdate.jsp");
+      super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
       
       
    }// end of public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception
