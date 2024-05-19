@@ -6,6 +6,8 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
+    
+    
 %>
 
 <%-- 직접 만든 CSS --%>

@@ -1,8 +1,11 @@
 @charset "UTF-8";
 
 div.container > h4 {
-	border: solid 1px red;
-	width: 10%;
+	border: solid 0px red;
+	width: 20%;
+	font-weight: bold;
+	font-size: 23pt;
+	color: rgb(89, 200, 236);
 }
 
 div.container {
@@ -10,7 +13,8 @@ div.container {
 }
 
 div.card {
-	cursor: pointer;
+	/* cursor: pointer; */
+	width: 20%;
 }
 
 img.card-img-top {
@@ -20,7 +24,7 @@ img.card-img-top {
 }
 
 
-.card:hover {
+/* .card:hover {
   transform: scale(1.2);
   -webkit-transform: scale(1.2); 
-}
+} */
