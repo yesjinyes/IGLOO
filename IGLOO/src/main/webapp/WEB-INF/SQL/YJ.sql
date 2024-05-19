@@ -212,3 +212,8 @@ values(seq_ingredientno.nextval, 28, '그린티와 초콜릿, 초코볼과 쿠�
 
 commit;
 
+
+
+select productname, productdetail, price
+from tbl_product;
+
