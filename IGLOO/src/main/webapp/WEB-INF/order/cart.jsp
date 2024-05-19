@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
@@ -10,20 +12,14 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/cart.css" />
+<%-- 직접 만든 JS --%>
+<script type="text/javascript" src="<%= ctxPath%>/js/order/cart.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    $(".choiceOneMenu").on("click", function() {
-        var checkbox = $(this).prev("input[type='checkbox']");
-        checkbox.prop("checked", !checkbox.prop("checked"));
-    });
-});
-</script>
 <%-- ======================================================================================= --%>
 <%-- 컴퓨터 화면 --%>
 <div id="cartContainer">
 	<%-- 진행 현황 --%>
-	<div id="orderProcedure" class="row justify-content-end">
+	<div id="orderProcedure" class="row justify-content-end mt-5">
 		<div class="col-md-2 p-0">
 			장바구니
 		</div>
@@ -36,10 +32,13 @@ $(document).ready(function() {
 	</div>   
 
 	<hr style="border: solid 2px #6190BC">
-
+<c:if test="${requestScope.have == 'none'}">
+현재 장바구니 존재하지 않음(뷰단 짜야함)
+</c:if>
+<c:if test="${requestScope.have != 'none'}">
 	<div class="totalSelect custom-control form-check mb-5">
-		<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-	  	<label class="form-check-label ml-5" for="flexCheckChecked">
+		<input class="form-check-input" type="checkbox" value="" id="Allchecked">
+	  	<label class="form-check-label ml-5" for="Allchecked">
 	    	전체 선택
 	  	</label>
 	</div>
@@ -49,16 +48,16 @@ $(document).ready(function() {
 			<%-- 하나의 선택 메뉴 --%>
 			<div>
 				<%-- 하나의 선택 버튼 --%>
-				<input class="custom-control-input" type="checkbox" value="" id="checkboxMenu1" checked>
+				<input name="choicemenu" class="custom-control-input" type="checkbox" value="">
 				<div class="choiceOneMenu row custom-control-label">
 					
 					<%-- 선택한 메뉴 이미지 --%>
-					<div class="col-xl-2 col-lg-2 col-md-2">
+					<div class="menuclick col-xl-2 col-lg-2 col-md-2">
 						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/pint.png" alt="Responsive image">
 					</div>
 	
 					<%-- 선택한 제품과 맛 --%>
-					<div class="SelectTotalMenu col-xl-3 col-lg-3 col-md-3 ">
+					<div class="menuclick SelectTotalMenu col-xl-3 col-lg-3 col-md-3 ">
 						<%-- 선택한 제품 삭제 --%>
 						<div class="row justify-content-end">
 							<div class="col-2 mt-2">
@@ -91,11 +90,11 @@ $(document).ready(function() {
 						<div class="d-inline-block"></div>
 						<div class="mb-5">
 							<div>수량</div>
-							<button type="button" class="btn">
+							<button type="button" class="btn btnminus">
 								<i class="fa-solid fa-minus"></i>
 							</button>
-							<span>1</span>
-							<button type="button" class="btn">
+							<span class="productCnt">1</span>
+							<button type="button" class="btn btnplus">
 								<i class="fa-solid fa-plus"></i>
 							</button>
 						</div>
@@ -115,7 +114,7 @@ $(document).ready(function() {
 			<%-- 하나의 선택 메뉴 --%>
 			<div>
 				<%-- 하나의 선택 버튼 --%>
-				<input type="checkbox" id="checkboxMenu2" class="custom-control-input" checked>
+				<input type="checkbox" name="choicemenu" class="custom-control-input">
 				<div class="choiceOneMenu row custom-control-label">
 					
 					<%-- 선택한 메뉴 이미지 --%>
@@ -190,7 +189,9 @@ $(document).ready(function() {
 			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
 			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">28300원</div>
 			<div class="mb-5"></div>
-			<button type="button" class="btn btn-sm col-5 col-sm-4">2건 주문하기</button>
+			<button type="button" class="btn btn-sm col-5 col-sm-4">
+			<span class="choiceCnt">0</span>
+			건 주문하기</button>
 			<div class="col-1"></div>
 		</div>
 	</div>
@@ -199,13 +200,15 @@ $(document).ready(function() {
 	<nav class="row justify-content-end navbar navbar-expand-sm bg-dark text-white navbar-dark fixed-bottom mx-3">
 	  	<p class="my-auto col-md-2">
 	  		총&nbsp;
-	  		<span style="font-weight: bold;">2건</span>
+	  		<span style="font-weight: bold;" class="choiceCnt">0</span>
+	  		<span>건</span>
 	  		&nbsp;주문금액
 	  	</p>
 	  	&nbsp;&nbsp;
 	    <p class="my-auto p-0 col-md-3">28300원</p>
 		<button type="button" style="font-weight: bold; font-size:15pt;" class="btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
 	</nav>
+</c:if>
 </div>
 <%-- ======================================================================================= --%>
 
