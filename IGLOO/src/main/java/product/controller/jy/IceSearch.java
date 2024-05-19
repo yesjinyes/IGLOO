@@ -1,0 +1,16 @@
+package product.controller.jy;
+
+import common.controller.AbstractController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class IceSearch extends AbstractController {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		setViewPage("/WEB-INF/product/iceSearch.jsp");
+
+	}
+
+}
