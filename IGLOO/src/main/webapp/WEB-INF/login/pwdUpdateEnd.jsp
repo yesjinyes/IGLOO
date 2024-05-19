@@ -22,11 +22,58 @@
 
 <jsp:include page="../header.jsp"/>
 
+<jsp:include page="../sidebar.jsp"/>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $("button.btn-success").click(function(){
+       
+       const pwd = $("input:password[name='pwd']").val();
+       const pwd2 = $("input:password[id='pwd2']").val();
+       
+       if(pwd != pwd2) {
+          alert("암호가 일치하지 않습니다.");
+          $("input:password[name='pwd']").val("");
+          $("input:password[id='pwd2']").val("");
+          return;
+       }
+       
+       else {
+          const regExp_pwd = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g); 
+              // 숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규표현식 객체 생성 
+              
+            const bool = regExp_pwd.test(pwd);   
+             
+            if(!bool) {
+                // 암호가 정규표현식에 위배된 경우
+                alert("암호는 8글자 이상 15글자 이하에 영문자,숫자,특수기호가 혼합되어야만 합니다.");
+                $("input:password[name='pwd']").val("");
+                $("input:password[id='pwd2']").val("");
+                return; // 종료
+            }
+            else {
+               // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
+               const frm = document.pwdUpdateEndFrm;
+               frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.up";
+               frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
+               frm.submit();
+               
+            }
+       }
+    });// end of $("button.btn-success").click(function(){})
+    
+    
+ }); // end of $(document).ready(function(){})
+
+
+</script>
+
+
 
 
 <div>
 비밀번호 변경 화면이 나와야 할 자리... 인데 밑에 c:if 가 안먹는건지, ${requestScope.method == 'GET'} 이 안먹는건지.. 화면이 안뜬다
-
 </div>
 
 
@@ -78,5 +125,12 @@
    </div>
 </c:if>
 
+
+
+<%-- 사이드바 닫기 --%>
+		</div>
+	</div>
+</div>
+<%-- 사이드바 끝 --%>
 
 <jsp:include page="../footer.jsp"></jsp:include>
