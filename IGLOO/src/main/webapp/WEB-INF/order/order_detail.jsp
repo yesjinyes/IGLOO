@@ -33,21 +33,21 @@
 		    </div>
   
   			<select name="taste1" class="infoData">
-              <option value="">::: 맛을 선택하세요 :::</option>
+              <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 
             </select>
   
 			<select name="taste2" class="infoData">
-              <option value="">::: 맛을 선택하세요 :::</option>
+              <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 
             </select>
             
 			<select name="taste3" class="infoData">
-              <option value="">::: 맛을 선택하세요 :::</option>
+              <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 

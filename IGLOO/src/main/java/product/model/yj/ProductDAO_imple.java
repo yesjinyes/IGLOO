@@ -50,12 +50,11 @@ public class ProductDAO_imple implements ProductDAO {
 
 	// == 컵 사이즈, 상세정보, 가격 알아오는 메소드 ==
 	@Override
-	public ProductVO getproduct() throws SQLException {
-		
+	public ProductVO getproduct(String productcodeno) throws SQLException {
+
 		ProductVO pvo = new ProductVO();
 		
 		try {
-			
 			conn = ds.getConnection();
 			
 			String sql =  " select productname, productdetail, price "
@@ -63,7 +62,7 @@ public class ProductDAO_imple implements ProductDAO {
 						+ " where productcodeno = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, pvo.getProductcodeno());
+			pstmt.setString(1, productcodeno);
 			
 			rs  = pstmt.executeQuery();
 			
@@ -81,6 +80,7 @@ public class ProductDAO_imple implements ProductDAO {
 		}
 		
 		return pvo;
+		
 		
 	}// end of public String getproduct(Map<String, String> paraMap) throws SQLException ---------------------
 

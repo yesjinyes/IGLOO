@@ -1,5 +1,8 @@
 package order.controller.yj;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +15,7 @@ public class Order extends AbstractController {
 
 	private ProductDAO pdao = null;
 	   
-	public Order() {
+	public Order() { 
 		pdao = new ProductDAO_imple();
 	}
 		
@@ -22,10 +25,14 @@ public class Order extends AbstractController {
 		String method = request.getMethod();
 		
 		if(!"POST".equalsIgnoreCase(method)) {
-			ProductVO product = pdao.getproduct();
-			request.setAttribute("product", product);
 			
-			System.out.println("확인용 product => "+ product ); // product.domain.ProductVO@13c9675b 이런식으로 나옴......
+			ProductVO pvo = new ProductVO();
+			
+			String productcodeno = pvo.getProductcodeno();
+
+			//ProductVO product = pdao.getproduct(productcodeno);
+			//request.setAttribute("product", product);
+			 
 			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order.jsp");
