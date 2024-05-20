@@ -28,7 +28,7 @@ public class CartDAO_imple implements CartDAO {
 	private CartVO cdto;
 	private ProductVO pdto;
 	private TasteVO tdto;
-	private List<TasteVO> talstenamelist;
+	private List<TasteVO> tastenamelist;
 	
 	// 생성자
 	public CartDAO_imple() {
@@ -155,8 +155,8 @@ public class CartDAO_imple implements CartDAO {
 						tdto = new TasteVO();
 						tdto.setTastename(rs.getString("tastename"));
 						
-						talstenamelist = new ArrayList<>();
-						talstenamelist.add(tdto);
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
 						
 						cnt--;
 					}
@@ -164,16 +164,16 @@ public class CartDAO_imple implements CartDAO {
 						if(cnt > 1) {
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							cnt--;
 						}
 						else {	// cnt = 1 (마지막)
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							
 							cdto.setProduct(pdto);
-							cdto.setTalstenamelist(talstenamelist);
+							cdto.setTastenamelist(tastenamelist);
 							
 							cartList.add(cdto);
 							
@@ -206,8 +206,8 @@ public class CartDAO_imple implements CartDAO {
 						tdto = new TasteVO();
 						tdto.setTastename(rs.getString("tastename"));
 						
-						talstenamelist = new ArrayList<>();
-						talstenamelist.add(tdto);
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
 						
 						cnt--;
 					}
@@ -215,16 +215,16 @@ public class CartDAO_imple implements CartDAO {
 						if(cnt > 1) {
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							cnt--;
 						}
 						else {	// cnt = 1 (마지막)
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							
 							cdto.setProduct(pdto);
-							cdto.setTalstenamelist(talstenamelist);
+							cdto.setTastenamelist(tastenamelist);
 							
 							cartList.add(cdto);
 							
@@ -257,8 +257,8 @@ public class CartDAO_imple implements CartDAO {
 						tdto = new TasteVO();
 						tdto.setTastename(rs.getString("tastename"));
 						
-						talstenamelist = new ArrayList<>();
-						talstenamelist.add(tdto);
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
 						
 						cnt--;
 					}
@@ -266,16 +266,16 @@ public class CartDAO_imple implements CartDAO {
 						if(cnt > 1) {
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							cnt--;
 						}
 						else {	// cnt = 1 (마지막)
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							
 							cdto.setProduct(pdto);
-							cdto.setTalstenamelist(talstenamelist);
+							cdto.setTastenamelist(tastenamelist);
 							
 							cartList.add(cdto);
 							
@@ -308,8 +308,8 @@ public class CartDAO_imple implements CartDAO {
 						tdto = new TasteVO();
 						tdto.setTastename(rs.getString("tastename"));
 						
-						talstenamelist = new ArrayList<>();
-						talstenamelist.add(tdto);
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
 						
 						cnt--;
 					}
@@ -317,16 +317,16 @@ public class CartDAO_imple implements CartDAO {
 						if(cnt > 1) {
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							cnt--;
 						}
 						else {	// cnt = 1 (마지막)
 							tdto = new TasteVO();
 							tdto.setTastename(rs.getString("tastename"));
-							talstenamelist.add(tdto);
+							tastenamelist.add(tdto);
 							
 							cdto.setProduct(pdto);
-							cdto.setTalstenamelist(talstenamelist);
+							cdto.setTastenamelist(tastenamelist);
 							
 							cartList.add(cdto);
 							

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <%
     String ctxPath = request.getContextPath();
@@ -42,7 +43,7 @@
 </c:if>
 <c:if test="${requestScope.havecart != 'none'}">
 	<div class="totalSelect custom-control form-check mb-5">
-		<input class="form-check-input" type="checkbox" value="" id="Allchecked">
+		<input class="form-check-input" type="checkbox" value="" id="Allchecked" checked>
 	  	<label class="form-check-label ml-5" for="Allchecked">
 	    	전체 선택
 	  	</label>
@@ -50,141 +51,79 @@
 	
 	<div id="cartview" class="col">
 		<div id="choiceTotalMenu" class="custom-control custom-checkbox">
-			<c:forEach var="cartList" items="${requestScope.cartList}" varStatus="status">
-			<%-- 하나의 선택 메뉴 --%>
-			<div>
-				<%-- 하나의 선택 버튼 --%>
-				<input name="choicemenu" class="custom-control-input" type="checkbox" value="">
-				<div class="choiceOneMenu row custom-control-label">
-
-					<%-- 선택한 메뉴 이미지 --%>
-					<div class="menuclick col-xl-2 col-lg-2 col-md-2">
-						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/${cartList.product.productimg}" alt="Responsive image">
-					</div>
+			<c:forEach var="cartList" items="${requestScope.cartList}" varStatus="cartStatus">
+				<%-- 하나의 선택 메뉴 --%>
+				<div>
+					<%-- 하나의 선택 버튼 --%>
+					<input name="choicemenu" class="custom-control-input" type="checkbox" value="" checked>
+					<div class="choiceOneMenu row custom-control-label">
 	
-					<%-- 선택한 제품과 맛 --%>
-					<div class="menuclick SelectTotalMenu col-xl-3 col-lg-3 col-md-3 ">
-						<%-- 선택한 제품 삭제 --%>
-						<div class="row justify-content-end">
-							<div class="col-2 mt-2">
-								<i class="fa-solid fa-xmark"></i>
+						<%-- 선택한 메뉴 이미지 --%>
+						<div class="menuclick col-xl-2 col-lg-2 col-md-2">
+							<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/${cartList.product.productimg}" alt="Responsive image">
+						</div>
+		
+						<%-- 선택한 제품과 맛 --%>
+						<div class="menuclick SelectTotalMenu col-xl-3 col-lg-3 col-md-3 ">
+							<%-- 선택한 제품 삭제 --%>
+							<div class="row justify-content-end">
+								<div class="col-2 mt-2">
+									<i class="fa-solid fa-xmark"></i>
+								</div>
+							</div>
+							<%-- 선택한 제품 품목 --%>
+							<label class="text-center mx-auto mt-3">${cartList.product.productname}</label>
+							<div class="card p-0 mb-3">
+			         			<div class="card-body p-1">
+			         			<c:forEach var="totaltastelist" items="${requestScope.totaltastelist}" varStatus="tasteStatus">
+			         				<c:if test="${cartStatus.index == tasteStatus.index}">
+										${totaltastelist}
+									</c:if>
+			           			</c:forEach>
+			         			</div>
+			       			</div>
+		       			</div>
+		       			
+		       			<%-- 제품 선택한 맛 나열 --%>
+		       			<div class="choiceAlltaste my-auto col-xl-3 col-lg-3 col-md-3 ">
+		       				<ul class="list-group list-group-flush">
+		       					<c:forEach var="tastenamelist" items="${cartList.tastenamelist}" varStatus="status">
+			           				<li class="list-group-item">${tastenamelist.tastename}</li>
+			           			</c:forEach>
+							</ul>
+							<div class="row justify-content-center">
+								<button type="button" class="btn btn-sm btn-outline-info col-10">수정</button>
 							</div>
 						</div>
-						<%-- 선택한 제품 품목 --%>
-						<label class="text-center mx-auto mt-3">${cartList.product.productname}</label>
-						<div class="card p-0 mb-3">
-		         			<div class="card-body p-1">
-		           			선택한 맛 전부 나열
-		         			</div>
-		       			</div>
-	       			</div>
-	       			
-	       			<%-- 제품 선택한 맛 나열 --%>
-	       			<div class="choiceAlltaste my-auto col-xl-3 col-lg-3 col-md-3 ">
-	       				<ul class="list-group list-group-flush">
-			  				<li class="list-group-item">첫번째 선택 맛</li>
-			  				<li class="list-group-item">두번째 선택 맛</li>
-			  				<li class="list-group-item">세번째 선택 맛</li>
-						</ul>
-						<div class="row justify-content-center">
-							<button type="button" class="btn btn-sm btn-outline-info col-10">수정</button>
+						
+						<%-- 수량 --%>
+						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
+							<div class="d-inline-block"></div>
+							<div class="mb-5">
+								<div>수량</div>
+								<button type="button" class="btn btnminus">
+									<i class="fa-solid fa-minus"></i>
+								</button>
+								<span class="productCnt">${cartList.count}</span>
+								<button type="button" class="btn btnplus">
+									<i class="fa-solid fa-plus"></i>
+								</button>
+							</div>
 						</div>
-					</div>
-					
-					<%-- 수량 --%>
-					<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
-						<div class="d-inline-block"></div>
-						<div class="mb-5">
-							<div>수량</div>
-							<button type="button" class="btn btnminus">
-								<i class="fa-solid fa-minus"></i>
-							</button>
-							<span class="productCnt">1</span>
-							<button type="button" class="btn btnplus">
-								<i class="fa-solid fa-plus"></i>
-							</button>
-						</div>
-					</div>
-					
-					<%-- 금액 --%>
-					<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
-						<div>
-							<span>9800원</span>
+						
+						<%-- 금액 --%>
+						<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
+							<div>
+								<span>
+									<fmt:formatNumber value="${cartList.product.price}" pattern="###,###" />
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<%-- 구분선 --%>
-			<hr style="border: solid 1px black">
+				<%-- 구분선 --%>
+				<hr style="border: solid 1px black">
 			</c:forEach>
-			<%-- 하나의 선택 메뉴 --%>
-			<div>
-				<%-- 하나의 선택 버튼 --%>
-				<input type="checkbox" name="choicemenu" class="custom-control-input">
-				<div class="choiceOneMenu row custom-control-label">
-					
-					<%-- 선택한 메뉴 이미지 --%>
-					<div class="col-xl-2 col-lg-2 col-md-2">
-						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/quart.png" alt="Responsive image">
-					</div>
-	
-					<%-- 선택한 제품과 맛 --%>
-					<div class="SelectTotalMenu col-xl-3 col-lg-3 col-md-3 ">
-						<%-- 선택한 제품 삭제 --%>
-						<div class="row justify-content-end">
-							<div class="col-2 mt-2">
-								<i class="fa-solid fa-xmark"></i>
-							</div>
-						</div>
-						<%-- 선택한 제품 품목 --%>
-						<label class="text-center mx-auto mt-3">쿼터</label>
-						<div class="card p-0 mb-3">
-		         			<div class="card-body p-1">
-		           			선택한 맛 전부 나열
-		         			</div>
-		       			</div>
-	       			</div>
-	       			
-	       			<%-- 제품 선택한 맛 나열 --%>
-	       			<div class="choiceAlltaste my-auto col-xl-3 col-lg-3 col-md-3 ">
-	       				<ul class="list-group list-group-flush">
-			  				<li class="list-group-item">첫번째 선택 맛</li>
-			  				<li class="list-group-item">두번째 선택 맛</li>
-			  				<li class="list-group-item">세번째 선택 맛</li>
-			  				<li class="list-group-item">네번째 선택 맛</li>
-						</ul>
-						<div class="row justify-content-center">
-							<button type="button" class="btn btn-sm btn-outline-info col-10">수정</button>
-						</div>
-					</div>
-					
-					<%-- 수량 --%>
-					<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
-						<div class="d-inline-block"></div>
-						<div class="mb-5">
-							<div>수량</div>
-							<button type="button" class="btn">
-								<i class="fa-solid fa-minus"></i>
-							</button>
-							<span>1</span>
-							<button type="button" class="btn">
-								<i class="fa-solid fa-plus"></i>
-							</button>
-						</div>
-					</div>
-					
-					<%-- 금액 --%>
-					<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
-						<div>
-							<span>18500원</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<%-- 구분선 --%>
-			<hr style="border: solid 1px black">
-			
 			<%-- 선택메뉴 끝 --%>
 		</div>
 	</div>	<%-- 장바구니 내부 종료 --%>
@@ -193,7 +132,10 @@
 	<div id="orderPrice" class="mt-5 mb-5">
 		<div class="row justify-content-end">
 			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
-			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">28300원</div>
+			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">
+				<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+				원
+			</div>
 			<div class="mb-5"></div>
 			<button type="button" class="btn btn-sm col-5 col-sm-4">
 			<span class="choiceCnt">0</span>
@@ -211,7 +153,10 @@
 	  		&nbsp;주문금액
 	  	</p>
 	  	&nbsp;&nbsp;
-	    <p class="my-auto p-0 col-md-3">28300원</p>
+	    <p class="my-auto p-0 col-md-3">
+	    	<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+	    	원
+	    </p>
 		<button type="button" style="font-weight: bold; font-size:15pt;" class="btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
 	</nav>
 </c:if>
