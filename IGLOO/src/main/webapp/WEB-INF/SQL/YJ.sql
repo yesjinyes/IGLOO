@@ -2,6 +2,7 @@ show user;
 
 select * from tab;
 
+
 select * from user_sequences;
 
 -- ▶ tbl_taste ◀
@@ -86,19 +87,20 @@ commit;
 
 -- ▶ tbl_product ◀
 -- tbl_product 테이블 insert
-insert into tbl_product(productcodeno, productname, productimg, price, productdetail)
-values('P', '파인트', 'pint.png', 8000, '3가지 맛 선택');
+insert into tbl_product(productcodeno, productname, productimgTop, productimgBelow, price, productdetail)
+values('P', '파인트', 'pint.png', 'pint_detail.png', 8000, '3가지 맛 선택');
 
-insert into tbl_product(productcodeno, productname, productimg, price, productdetail)
-values('Q', '쿼터', 'quarter.png', 10000, '4가지 맛 선택');
+insert into tbl_product(productcodeno, productname, productimgTop, productimgBelow, price, productdetail)
+values('Q', '쿼터', 'quarter.png', 'quarter_detail.png', 10000, '4가지 맛 선택');
 
-insert into tbl_product(productcodeno, productname, productimg, price, productdetail)
-values('F', '패밀리', 'family.png', 15000, '5가지 맛 선택');
+insert into tbl_product(productcodeno, productname, productimgTop, productimgBelow, price, productdetail)
+values('F', '패밀리', 'family.png', 'family_detail.png', 15000, '5가지 맛 선택');
 
-insert into tbl_product(productcodeno, productname, productimg, price, productdetail)
-values('H', '하프갤런', 'halfgallon.png', 20000, '6가지 맛 선택');
+insert into tbl_product(productcodeno, productname, productimgTop, productimgBelow, price, productdetail)
+values('H', '하프갤런', 'halfgallon.png', 'halfgallon_detail.png', 20000, '6가지 맛 선택');
 
 commit;
+
 
 
 -- ▶ tbl_ingredient ◀ 
@@ -215,7 +217,7 @@ commit;
 
 
 
-select productname, productdetail, price
+select productcodeno, productname, productdetail, price
 from tbl_product;
 
 select tasteno, tastename
@@ -223,4 +225,14 @@ from tbl_taste
 order by tasteno;
 
 
+select *
+from tbl_product;
 
+alter table tbl_product
+rename column productimg to productimgTop;
+
+alter table tbl_product
+add productimgBelow varchar2(100);
+
+insert into tbl_product(productimgBelow)
+values('pint_detail.png');
