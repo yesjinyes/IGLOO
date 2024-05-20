@@ -9,6 +9,7 @@
     String productimg = request.getParameter("productimg");
     String productname = request.getParameter("productname");
     String productprice = request.getParameter("productprice");
+    
 %>
 
 <jsp:include page="../header.jsp" />
@@ -20,13 +21,12 @@
 	$(document).ready(function() {
 		
 		$("select[name='taste']").change(function(){
-			console.log("value 확인 => ",$(this).val()); //value값 가져오기
-			console.log("선택된 select 태그 확인 => ", $("select[name='taste'] option:selected").text()); //text값 가져오기
+			//console.log("value 확인 => ",$(this).val()); //value값 가져오기
+			//console.log("선택된 select 태그 확인 => ", $("select[name='taste'] option:selected").text()); //text값 가져오기
 		
 			const selecttaste = $("select[name='taste'] option:selected").text();
 			console.log("selecttaste", selecttaste);
 		});
-		
 		
 		
 	});// end of $(document).ready(function() {})
