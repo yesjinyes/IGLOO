@@ -102,6 +102,50 @@ public class StoreDAO_imple implements StoreDAO {
 
 		return storeList;
 	}
+
+	@Override
+	public List<Map<String, String>> getSearchStore(String searchInput) throws SQLException {
+
+		List<Map<String, String>> storeList = new ArrayList<Map<String,String>>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select storeno, storename, storepage, storeimg, storeaddress, storetel, latitude, longitude "
+					   + "from tbl_store "
+					   + "where storename like '%'|| ? ||'%' or storeaddress like '%'|| ? ||'%' ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchInput);
+			pstmt.setString(2, searchInput);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Map<String, String> storemap = new HashMap<String, String>();
+				
+				storemap.put("storeno", rs.getString(1));
+				storemap.put("storename", rs.getString(2));
+				storemap.put("storepage", rs.getString(3));
+				storemap.put("storeimg", rs.getString(4));
+				storemap.put("storeaddress", rs.getString(5));
+				storemap.put("storetel", rs.getString(6));
+				storemap.put("latitude", rs.getString(7));
+				storemap.put("longitude", rs.getString(8));
+				
+				storeList.add(storemap);
+				
+			}
+			
+			
+		}finally {
+			close();
+		}
+		
+		return storeList;
+	}
 	
 	
 	
