@@ -15,48 +15,10 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/iceMenu.css" />
+<script type="text/javascript" src="<%= ctxPath%>/js/myshop/mallHomeMore.js"></script>   
 
 
 
-<script type="text/javascript">
-
-	$(document).ready(function(){
-		
-		if( "${requestScope.menuAlign}" != "" ) {
-			$("select[name='menuAlign']").val("${requestScope.menuAlign}");
-		}
-		
-		
-		
-		
-		$("select[name='menuAlign']").bind("change", function(){
-			const frm = document.align_frm;
-		//	frm.action = "memberList.up";  // form 태그에 action 이 명기되지 않았으면 현재보이는 URL 경로로 submit 되어진다. 
-		//	frm.method = "get";  // form 태그에 method 를 명기하지 않으면 "get" 방식이다. 
-			frm.submit();
-		});
-		
-		
-		
-		// **** 특정 아이스크림을 클릭하면 그것의 상세정보를 보여주도록 한다. **** //
-		$("div.iceTbl div.hoverBorder").click( e => {
-				alert($(e.target).html());
-		 //	const userid = $(e.target).parent().find(".userid").text(); 
-		 // 또는
-		    const iceName = $(e.target).parent().find(".iceName").text();	
-		 		alert(iceName);
-		 
-		    const frm = document.align_frm;
-		    frm.iceName.value = iceName;
-		    
-	  		frm.action = "<%= ctxPath%>/product/menuDetail.ice";
-		    frm.method = "get";
-		    frm.submit();
-		});
-		
-	});// end of $(document).ready(function(){})------------------
-
-</script>
 
 
 
@@ -75,147 +37,18 @@
 	      <span style="font-size: 12pt; font-weight: bold;">메뉴 정렬&nbsp;-&nbsp;</span>
 	      <select name="menuAlign">
 	         <option value="name">가나다순</option>
-	         <option value="name">주문많은수</option>
-	         <option value="name">리뷰수</option>      
+	         <option value="order">주문많은수</option>
+	         <option value="review">리뷰수</option>      
 	      </select>
 	    </form>
   	</div>
   	
-     <%-- 반복시작 --%>
-     <c:if test="${not empty requestScope.memberList}">
-		 <c:forEach var="membervo" items="${requestScope.memberList}" varStatus="status">
-		      <div class="iceTbl row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. --%>
-		        <div class="col-md-3">
-			        <div class="hoverBorder" >
-			           <a href="#">
-			             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-			           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
-			           </a>
-			        </div>
-		        	<div class="iceName text-center pt-3">슈팅톡톡</div>
-		        </div>
-		        
-		        <div class="col-md-3">
-			        <div class="hoverBorder" >
-			           <a href="#">
-			             <img src="<%= ctxPath %>/images/img_jy/icecream image/14 체리뿌셔죽일래.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-			           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
-			           </a>
-			        </div>
-		        	<div class="iceName text-center pt-3">블루베리 잼</div>
-		        </div>
-		        
-		        <div class="col-md-3">
-			        <div class="hoverBorder" >
-			           <a href="#">
-			             <img src="<%= ctxPath %>/images/img_jy/icecream image/12 서울 치즈 케이크.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-			           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
-			           </a>
-			        </div>
-		        	<div class="iceName text-center pt-3">바람과 함께 날아가다</div>
-		        </div>
-		        
-		        <div class="col-md-3">
-			        <div class="hoverBorder" >
-			           <a href="#">
-			             <img src="<%= ctxPath %>/images/img_jy/icecream image/25 자메이카 아몬드 훠지.png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-			           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
-			           </a>
-			        </div>
-		        	<div class="iceName text-center pt-3">아몬드 뿜뿜</div>
-		        </div>
-		      </div>
-	      </c:forEach>
-	  </c:if>
+ 		 
+    <div class="iceTbl row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. --%>
       
-      
-      
-      <div class="iceTbl row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. c:foreach --%>
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-3">슈팅톡톡</div>
-        </div>
-        
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-2">블루베리 잼</div>
-        </div>
-        
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-2">바람과 함께 날아가다</div>
-        </div>
-        
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-2">아몬드 뿜뿜</div>
-        </div>
-      </div>
-      
-      
-      
-      <div class="row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. c:foreach --%>
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#이달의맛 #이상한 나라의 슈팅톡톡</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-3">슈팅톡톡</div>
-        </div>
-        
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#블루베리 #잼잼</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-2">블루베리 잼</div>
-        </div>
-        
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#치즈케이크 #스트로베리</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-2">바람과 함께 날아가다</div>
-        </div>
-        
-        <div class="col-md-3">
-	        <div class="hoverBorder" >
-	           <a href="#">
-	             <img src="<%= ctxPath %>/images/img_jy/icecream image/15 슈팅톡톡 .png" class="menu-list__image" class="img-fluid mx-auto d-block" alt="슈팅톡톡">
-	           	 <span class="menu-list__hash" >#아몬드 #초콜릿</span>
-	           </a>
-	        </div>
-        	<div class="text-center pt-2">아몬드 뿜뿜</div>
-        </div>
-      </div>
-     
+    </div>
+	      
+
       
       <%-- 페이징처리
       
@@ -245,13 +78,23 @@
           </c:if>
       
     
-      <%-- 맨위로가기 버튼 --%>
+      <%-- 더보기 버튼 --%>
+      <div>
+         <p class="text-center">
+              <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
+			  <button type="button" class="btn btn-secondary btn-lg" id="btnMore" value="">더보기...</button>
+			  <span id="totalCount">${requestScope.totalCount}</span>	
+			  <span id="count">0</span>
+         </p>
+      </div>
+      
+       <%-- 맨위로가기 
       <div style="display: flex;">
          <div style="margin: 20px 0 20px auto;">
             <button class="btn btn-info" onclick="goTop()">맨위로가기(scrollTop 1로 설정함)</button>
          </div>
       </div>
-
+	--%>
       
 </div>
   
