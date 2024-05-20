@@ -1,5 +1,6 @@
 package member.controller.hj;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cart.model.hj.CartDAO;
@@ -50,13 +51,35 @@ public class Cart extends AbstractController {
 				}
 				request.setAttribute("havecart", havecart);
 				
+				int totalprice = 0;
+				List <String> totaltastelist = new ArrayList<>(); 
+				
+				for(int i =0; i<cartList.size(); i++) {
+					String tasteResult = "";
+					int price = cartList.get(i).getProduct().getPrice();
+					
+					for(int j=0; j<cartList.get(i).getTastenamelist().size(); j++) {
+						
+						String taste = cartList.get(i).getTastenamelist().get(j).getTastename();
+						String totaltaste = (j < cartList.get(i).getTastenamelist().size()-1)?taste + ", ":taste;
+						tasteResult += totaltaste;
+					}
+					// System.out.println("확인용 => " + tasteResult);
+					totalprice += price;
+					totaltastelist.add(tasteResult);
+				}	// end of for--------------
+				
+				request.setAttribute("totalprice", totalprice);
+				request.setAttribute("totaltastelist", totaltastelist);
+					
+				
 				/* 확인용
 				System.out.println(cartList.size());
 
 				for(int i =0; i<cartList.size(); i++) {
 					System.out.println(cartList.get(i).getProduct().getProductname());
-					for(int j=0; j<cartList.get(i).getTalstenamelist().size(); j++) {
-						System.out.println(cartList.get(i).getTalstenamelist().get(j).getTastename());	
+					for(int j=0; j<cartList.get(i).getTastenamelist().size(); j++) {
+						System.out.println(cartList.get(i).getTastenamelist().get(j).getTastename());	
 					}
 				}
 				*/

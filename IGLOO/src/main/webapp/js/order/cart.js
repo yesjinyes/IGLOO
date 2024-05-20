@@ -45,28 +45,7 @@ $(document).ready(function() {
         $("span.choiceCnt").html(checkboxcnt);
 
     })  // end of $("div.choiceOneMenu").click(function() {-------------
-/*    
-    // === 수량 === //
-    let cnt = Number($("span.productCnt").text());
 
-    $("button.btnminus").click(function(){
-
-        if(cnt > 1){
-            cnt--;
-            $("span.productCnt").text(cnt);    
-        }
-        $("input[type='checkbox']").prop("checked",true);
-
-    })  // end of $("button.btnminus").click(function(){})-------------
-
-    $("button.btnplus").click(function(){
-
-        cnt++;
-        $("span.productCnt").text(cnt);
-        $("input[type='checkbox']").prop("checked",true);
-
-    })  // end of $("button.btnplus").click(function(){})-------------
-*/  
 })  // end of $(document).ready(function() {--------------
 
 ///////////////////////////////////////////////////////////////////////
