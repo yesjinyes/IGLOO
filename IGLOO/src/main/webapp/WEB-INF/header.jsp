@@ -126,7 +126,7 @@ $(document).ready(function(){
 		        	</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link text-info" href="#">
+		        	<a class="nav-link text-info" href="<%= ctxPath%>/order/order.ice">
 						<span class="color-first">주문하기</span>
 					</a>
 		      	</li>
