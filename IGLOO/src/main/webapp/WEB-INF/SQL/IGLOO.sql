@@ -167,4 +167,3 @@ longitude nvarchar2(100),
 constraint PK_tbl_store_storeno primary key(storeno));
 
 
-select * from tab;
