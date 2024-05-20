@@ -12,6 +12,74 @@
 
 <jsp:include page="../header.jsp" />
 
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+	}); // document.ready
+	
+	function goSearch(){
+		
+		const searchInput = $("input[name='store_search']").val();
+
+		if(searchInput == ""){
+			alert("검색어를 입력하세요.");
+			return;
+		}
+		
+		$.ajax({
+			url: "searchListJSON.ice",
+	        type: "get",
+	        data: {"searchInput": searchInput},   //  8    8     8     8     8
+	        dataType: "json",
+	        success: function(json){
+	        
+	        	if(json.length == 0){
+	        		alert("검색 결과가 없습니다.");
+	        		return false;
+	        	}
+	        	
+	        	else{ // 검색 결과가 있을 경우
+	        		
+	        		$("div#accordion_container").hide();
+	        		let html = ``;
+	        		
+	        		$.each(json, function(index, item){
+	        			
+	        			alert(item.storename);
+	        			
+	        			html += `<div>
+	        						<div style="display: flex;">
+	        							<div id="imgdiv"><img style="width: 20%;" src="<%= ctxPath%>/images/img_narae/2022_135415.jpg"/></div>
+										<div id="detaildiv">
+										
+											<div>${item.storename}</div>
+											<div>${item.storeaddress}</div>
+											<div>홈페이지: ${item.storepage}</div>
+											<div>전화번호: ${item.storetel}</div>
+										
+										</div>	        						
+	        						</div>
+	        					</div>`;
+	        			
+	        		});
+	        		
+	        		$("div#searchDIV").html(html);
+	        		
+	        	}
+
+	        },
+	        error: function(request, status, error){
+	            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	        }
+	    });
+		
+	}
+
+</script>
+
+
+
 <div id="storeSearch">
 	<nav id="searchList" class="navbar navbar-expand-sm justify-content-center">
 		<ul class="navbar-nav">
@@ -31,7 +99,7 @@
 	<label class="my-auto">
 		<input class="my-sm-0" type="text" name="store_search" id="store_search" size="50" placeholder='지점명 또는 주소를 입력하세요' required="required">
 	</label>
-	<button id="btnSearch" class="btn my-sm-0" type="submit">
+	<button id="btnSearch" class="btn my-sm-0" type="button" onclick="goSearch()">
 		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
 	</button>
 </div>
@@ -40,6 +108,9 @@
 <br><br>
 <hr>
 <br>
+
+<%-- 검색 결과 있을 시 보이는 화면 --%>
+<div id="searchDIV"></div>
 
 <%-- 아코디언 --%>
 <div id="accordion_container">

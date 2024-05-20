@@ -96,9 +96,9 @@ $(document).ready(function(){
 		      	</li>
 		    </ul>
 		    
-			<form style="margin-right:8.1%;" name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+			<form style="margin-right:8.1%;" name="searchFrm" action="#" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
 		    </form>
 		    
         	<div class="text-end">
@@ -161,9 +161,9 @@ $(document).ready(function(){
 		      	</c:if>
 		    </ul>
 		    
-			<form name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+			<form name="searchFrm" action="#" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
 		    </form>
 		   
 	       <div class="text-end" style="margin-left: 2%;">
