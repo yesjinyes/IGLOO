@@ -100,7 +100,7 @@ public class Login extends AbstractController {
 					}
 					
 					else {
-					super.setViewPage(request.getContextPath()+"/index.up");
+					super.setViewPage(request.getContextPath()+"/index.ice");
 					}
 					
 				}
