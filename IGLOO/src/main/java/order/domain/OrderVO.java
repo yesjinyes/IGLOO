@@ -1,18 +1,22 @@
 package order.domain;
 
+import myshop.domain.CartVO;
+
 public class OrderVO {
 
 	// === field === //
 	private String ordercode;
 	private String fk_userid;
 	private int totalprice;
+	private String orderdate;
 	//////////////////////////////////////////////////////////////
 	
 	// === select 용 === //
-	
+	private CartVO cart = new CartVO();
 	
 	//////////////////////////////////////////////////////////////
 	
+	// === Getter,Setter === //
 	public String getOrdercode() {
 		return ordercode;
 	}
@@ -37,8 +41,15 @@ public class OrderVO {
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
 	}
-	private String orderdate;
 	
+///////////////////////////////////////
+	
+	public CartVO getCart() {
+		return cart;
+	}
+	public void setCart(CartVO cart) {
+		this.cart = cart;
+	}
 	
 	
 	

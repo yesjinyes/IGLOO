@@ -1,19 +1,22 @@
 package member.controller.hj;
 
+import java.util.List;
+
+import cart.model.hj.CartDAO;
+import cart.model.hj.CartDAO_imple;
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
-import member.model.hj.MemberDAO;
-import member.model.hj.MemberDAO_imple;
+import order.domain.OrderdetailVO;
 
 public class Order_list extends AbstractController {
 
-	private MemberDAO mdao = null;
+	private CartDAO cdao = null;
 	
 	public Order_list() {
-		mdao = new MemberDAO_imple();
+		cdao = new CartDAO_imple();
 	}
 	
 	@Override
@@ -29,6 +32,14 @@ public class Order_list extends AbstractController {
 			
 			if(loginuser != null) {
 				
+				String userid = loginuser.getUserid();
+				
+				// === 해당 사용자의 주문내역 리스트 읽기 === //
+				List <OrderdetailVO> orderdetailList = cdao.getOrderdetailList(userid);
+				
+				request.setAttribute("orderdetailList", orderdetailList);
+				
+				////////////////////////////////////////////////
 				super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/order/order_list.jsp");
 			

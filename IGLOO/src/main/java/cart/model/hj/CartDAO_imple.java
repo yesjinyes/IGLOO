@@ -1,7 +1,5 @@
 package cart.model.hj;
 
-import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import myshop.domain.CartVO;
+import order.domain.OrderdetailVO;
 import product.domain.ProductVO;
 import product.domain.TasteVO;
 
@@ -348,5 +347,101 @@ public class CartDAO_imple implements CartDAO {
 		return cartList;
 		
 	}	// end of public List<CartVO> getCartlist(MemberVO loginuser) throws SQLException------
+
+////////////////////////////////////////////////////////////////////////////////////////
+	
+	// === 해당 사용자의 주문내역 리스트 읽기 === //
+	@Override
+	public List<OrderdetailVO> getOrderdetailList(String userid) throws SQLException {
+		
+		List<OrderdetailVO> orderdetailList = new ArrayList<>();
+		
+		try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " SELECT fk_userid, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
+	         		+ "     , ORDERDETAILNO, ORDERCOUNT, PICKUPSTATUS "
+	         		+ " FROM "
+	         		+ " ( "
+	         		+ "    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
+	         		+ "    FROM "
+	         		+ "    ( "
+	         		+ "        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
+	         		+ "        FROM "
+	         		+ "        ( "
+	         		+ "            SELECT tasteselectno, fk_selectno, TASTENAME "
+	         		+ "            FROM  "
+	         		+ "            ( "
+	         		+ "                select tasteselectno, fk_selectno, fk_tasteno "
+	         		+ "                from tbl_tasteselect "
+	         		+ "            ) "
+	         		+ "            JOIN "
+	         		+ "            ( "
+	         		+ "                SELECT TASTENO, TASTENAME "
+	         		+ "                FROM TBL_TASTE "
+	         		+ "            ) "
+	         		+ "            ON FK_TASTENO = TASTENO "
+	         		+ "        ) T "
+	         		+ "        JOIN "
+	         		+ "        ( "
+	         		+ "            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG "
+	         		+ "            from "
+	         		+ "            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG "
+	         		+ "                FROM "
+	         		+ "                ( "
+	         		+ "                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG "
+	         		+ "                    from tbl_product "
+	         		+ "                ) "
+	         		+ "                JOIN "
+	         		+ "                ( "
+	         		+ "                    select selectno, fk_productcodeno, FK_USERID "
+	         		+ "                    from tbl_selectlist "
+	         		+ "                ) "
+	         		+ "                ON PRODUCTCODENO = FK_PRODUCTCODENO "
+	         		+ "            ) "
+	         		+ "            JOIN "
+	         		+ "            ( "
+	         		+ "                select userid "
+	         		+ "                from TBL_MEMBER "
+	         		+ "            ) "
+	         		+ "            ON FK_USERID = USERID "
+	         		+ "        ) O "
+	         		+ "        ON fk_selectno = selectno "
+	         		+ "    ) A "
+	         		+ "    JOIN "
+	         		+ "    ( "
+	         		+ "        SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE "
+	         		+ "        FROM TBL_ORDER "
+	         		+ "    ) B "
+	         		+ "    ON A.FK_USERID = B.FK_USERID "
+	         		+ " ) "
+	         		+ " JOIN "
+	         		+ " ( "
+	         		+ "    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS "
+	         		+ "    FROM TBL_ORDERDETAIL "
+	         		+ " ) "
+	         		+ " ON ORDERCODE = FK_ORDERCODE "
+	         		+ " where fk_userid = ? ";
+		
+		// fk_userid, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
+ 		// + "     , ORDERDETAILNO, ORDERCOUNT, PICKUPSTATUS
+		
+	         pstmt = conn.prepareStatement(sql); 
+	         
+	         pstmt.setString(1, userid);
+	         
+	         rs = pstmt.executeQuery();
+	         /////////////////////////////////////////////////////////////
+	         // === 진행중 === //
+	         while(rs.next()) {
+	        	 
+	         }	// end of while-----------------
+	         
+		}finally {
+	    	  close();
+	    }
+		return orderdetailList;
+		
+	}	// end of public List<OrderdetailVO> getOrderdetailList(String userid)-----
 
 }
