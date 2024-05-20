@@ -181,7 +181,7 @@ $(document).ready(function(){
               			장바구니
               		</span>
               	</a>&nbsp;&nbsp;&nbsp;&nbsp;
-              	<a href="<%= ctxPath %>/member/logout.ice">
+              	<a href="<%= ctxPath %>/login/logout.ice">
               		<i class="fa-solid fa-right-from-bracket fa-xl"></i>
               		&nbsp;&nbsp;
               		<span>
