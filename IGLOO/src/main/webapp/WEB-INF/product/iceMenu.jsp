@@ -15,7 +15,7 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/iceMenu.css" />
-<script type="text/javascript" src="<%= ctxPath%>/js/myshop/mallHomeMore.js"></script>   
+<script type="text/javascript" src="<%= ctxPath%>/js/menu/iceMenuMore.js"></script>   
 
 
 
@@ -44,9 +44,9 @@
   	</div>
   	
  		 
-    <div class="iceTbl row pt-5"> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. --%>
+     <div class="row" id="displayAlign" style="text-align: left;"></div> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. --%>
       
-    </div>
+    
 	      
 
       

@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 
 import product.domain.TasteVO;
 
@@ -97,7 +97,7 @@ public class MenuDAO_imple implements MenuDAO {
 		try {
 			 conn = ds.getConnection();
 			 
-			 String sql = " select cnum, code, cname "  
+			 String sql = " select tasteno, tastename, tasteimg "  
 			 		    + " from tbl_taste "
 			 		   ;
 			 		    
@@ -105,20 +105,72 @@ public class MenuDAO_imple implements MenuDAO {
 					
 			rs = pstmt.executeQuery();
 						
-//			while(rs.next()) {
-//				TasteVO tvo = new TasteVO();
-//				tvo.setCnum(rs.getString(1));
-//				tvo.setCode(rs.getString(2));
-//				tvo.setCname(rs.getString(3));
-//				
-//				categoryList.add(cvo);
-//			}// end of while(rs.next())----------------------------------
-//			
+			while(rs.next()) {
+				TasteVO tvo = new TasteVO();
+				tvo.setTasteno(rs.getInt(1));
+				tvo.setTastename(rs.getString(2));
+				tvo.setTasteimg(rs.getString(3));
+				
+				menuList.add(tvo);
+			}// end of while(rs.next())----------------------------------
+			
 		} finally {
 			close();
 		}	
 		
 		return menuList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
+	@Override
+	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
+		
+		List<TasteVO> productList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " SELECT tasteno, tastename, tasteimg " 
+						+ " FROM "
+						+ " ( "
+						+ "   select row_number() over(order by tasteno desc) AS RNO "
+						+ " 		, tasteno ,tastename, tasteimg "
+						+ "    from tbl_taste "
+						+ " ) V "
+						+ " WHERE RNO between ? and ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("start"));
+			pstmt.setString(2, paraMap.get("end"));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				TasteVO tvo = new TasteVO();
+				
+				tvo.setTasteno(rs.getInt(1));     // 제품번호
+				tvo.setTastename(rs.getString(2)); // 제품명
+				tvo.setTasteimg(rs.getString(3)); // 제품명
+				
+								
+				productList.add(tvo);
+				
+			}// end of while(rs.next())-------------------------
+			
+			
+		} finally {
+			close();
+		}
+		
+		return productList;		
+
 	}
 
 	
