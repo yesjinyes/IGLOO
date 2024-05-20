@@ -23,6 +23,9 @@ public class Help extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		super.goBackURL(request);
+		
+		
 		String category = request.getParameter("category");
 		String searchWord = request.getParameter("faqsearch");
 		String sizePerPage = "10";

@@ -85,12 +85,25 @@ public class Login extends AbstractController {
 		            
 		            return; // 메소드 종료
 				}
-				// ★★★★★★★ === 3개월이 지나지 않은 경우 === ★★★★★★★ //
-				////////////////////////////////////////////////
-				// === 수업해주신데욤 === //
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath() + "/index.ice");
-			
+				
+				
+				else {
+					
+					// 로그인을 하면 시작페이지(index.up)로 가는 것이 아니라 로그인을 시도하려고 머물렀던 그 페이지로 가기 위한 것이다.					
+					super.setRedirect(true);
+					
+					String goBackURL = (String)session.getAttribute("goBackURL");
+					
+					if(goBackURL != null) {
+						session.removeAttribute("goBackURL");
+						super.setViewPage(request.getContextPath()+goBackURL);
+					}
+					
+					else {
+					super.setViewPage(request.getContextPath()+"/index.up");
+					}
+					
+				}
 				
 				////////////////////////////////////////////////
 			}
