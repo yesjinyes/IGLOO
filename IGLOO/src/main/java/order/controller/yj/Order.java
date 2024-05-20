@@ -1,7 +1,6 @@
 package order.controller.yj;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,13 +25,8 @@ public class Order extends AbstractController {
 		
 		if(!"POST".equalsIgnoreCase(method)) {
 			
-			ProductVO pvo = new ProductVO();
-			
-			String productcodeno = pvo.getProductcodeno();
-
-			//ProductVO product = pdao.getproduct(productcodeno);
-			//request.setAttribute("product", product);
-			 
+			List<ProductVO> productList = pdao.getproductList();
+			request.setAttribute("productList", productList);
 			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order.jsp");
