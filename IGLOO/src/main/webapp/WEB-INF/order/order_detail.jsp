@@ -18,9 +18,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		const value = $('select.select-box').val();
 		
-		console.log("value 확인 => ", value);
+		$("select[name='taste']").change(function(){
+			console.log("value 확인 => ",$(this).val()); //value값 가져오기
+			console.log("선택된 select 태그 확인 => ", $("select[name='taste'] option:selected").text()); //text값 가져오기
+		
+			const selecttaste = $("select[name='taste'] option:selected").text();
+			console.log("selecttaste", selecttaste);
+		});
 		
 		
 		
@@ -50,21 +55,21 @@
 			    이글루 할래용
 		    </div>
       
-  			<select name="taste1" class="infoData select-box">
+  			<select name="taste" class="infoData">
               <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 
             </select>
   
-			<select name="taste2" class="infoData select-box">
+			<select name="taste" class="infoData">
               <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 
             </select>
             
-			<select name="taste3" class="infoData select-box">
+			<select name="taste" class="infoData">
               <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
