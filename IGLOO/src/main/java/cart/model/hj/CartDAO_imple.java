@@ -143,7 +143,7 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 3;
 					
 						cdto = new CartVO();
-						cdto.setCartno(rs.getString("cartno"));
+						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
 						
@@ -194,7 +194,7 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 4;
 					
 						cdto = new CartVO();
-						cdto.setCartno(rs.getString("cartno"));
+						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
 						
@@ -245,7 +245,7 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 5;
 					
 						cdto = new CartVO();
-						cdto.setCartno(rs.getString("cartno"));
+						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
 						
@@ -296,7 +296,7 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 6;
 					
 						cdto = new CartVO();
-						cdto.setCartno(rs.getString("cartno"));
+						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
 						

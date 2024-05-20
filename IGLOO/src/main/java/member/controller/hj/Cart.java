@@ -57,7 +57,7 @@ public class Cart extends AbstractController {
 				for(int i =0; i<cartList.size(); i++) {
 					String tasteResult = "";
 					int price = cartList.get(i).getProduct().getPrice();
-					cartList.get(i).getCartno().length();
+					
 					for(int j=0; j<cartList.get(i).getTastenamelist().size(); j++) {
 						
 						String taste = cartList.get(i).getTastenamelist().get(j).getTastename();
