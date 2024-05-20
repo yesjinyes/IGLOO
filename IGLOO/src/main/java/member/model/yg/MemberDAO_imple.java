@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import help.domain.nr.HelpVO;
 import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
@@ -94,6 +96,34 @@ public class MemberDAO_imple implements MemberDAO {
 		
 		return result;
 	}
+	
+	// == 회원정보수정하기를 눌렀을 때 비밀번호를 확인하는 메소드 == //
+	@Override
+	public String updatePswCheck(Map<String, String> paraMap) throws SQLException {
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " select userid, pwd "
+					   + " from tbl_member "
+					   + " where userid = ?, pwd = ? ";
+			
+			pstmt.setString(1, paraMap.get("userid"));
+			pstmt.setString(2, Sha256.encrypt(paraMap.get("pwd")));
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.getString(2);
+			
+		} finally {
+			close();
+		}
+		
+		return rs.getString(2).toString();
+	} //  end of public String updatePswCheck(Map<String, String> paraMap) throws SQLException {} --------------------------
 
 
 }
