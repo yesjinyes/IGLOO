@@ -70,7 +70,7 @@ $(document).ready(function(){
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto"> <!-- .mr-auto 는 css 의  margin-right: auto; 임. 즉, 가로축 미사용 공간 너비의 일부를 바깥 여백에 할당한다는 의미임. -->
 		    	<li class="nav-item active">
-		        	<a class="nav-link" href="<%= ctxPath%>/member/iceMenu.ice">
+		        	<a class="nav-link" href="<%= ctxPath%>/product/iceMenu.ice">
 		        		<span class="color-first">메뉴</span>
 		        	</a>
 		      	</li>
@@ -96,7 +96,7 @@ $(document).ready(function(){
 		      	</li>
 		    </ul>
 		    
-			<form style="margin-right:8.1%;" name="searchFrm" action="<%= ctxPath%>/member/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+			<form style="margin-right:8.1%;" name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		    </form>
@@ -121,7 +121,7 @@ $(document).ready(function(){
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto"> <!-- .mr-auto 는 css 의  margin-right: auto; 임. 즉, 가로축 미사용 공간 너비의 일부를 바깥 여백에 할당한다는 의미임. -->
 		    	<li class="nav-item active">
-		        	<a class="nav-link" href="<%= ctxPath%>/member/iceMenu.ice">
+		        	<a class="nav-link" href="<%= ctxPath%>/product/iceMenu.ice">
 		        		<span class="color-first">메뉴</span>
 		        	</a>
 		      	</li>
@@ -161,7 +161,7 @@ $(document).ready(function(){
 		      	</c:if>
 		    </ul>
 		    
-			<form name="searchFrm" action="<%= ctxPath%>/member/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+			<form name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		    </form>

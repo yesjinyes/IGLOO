@@ -37,6 +37,37 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 
 	$(document).ready(function(){
 		
+		// alert(window.location.href);
+		
+		let url = window.location.href;
+		
+		if(url.includes('http://localhost:9090/IGLOO/help/help.ice')){
+			$("div#option0").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+			$("div#option1").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option2").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option3").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option4").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+		}
+		
+		if(url.includes('%EC%A0%9C%ED%92%88')){ // 제품 탭 클릭 시 css
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option1").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+		}
+		
+		if(url.includes('%ED%8F%AC%EC%9D%B8%ED%8A%B8')){ // 포인트 탭 클릭 시 css
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option2").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+		}
+		
+		if(url.includes('%ED%9A%8C%EC%9B%90')){ // 회원 탭 클릭 시 css
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option3").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+		}
+		
+		if(url.includes('%EA%B8%B0%ED%83%80')){ // 기타 탭 클릭 시 css
+			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
+			$("div#option4").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
+		}
 		
 		$("div#question_mark").click(()=>{
 			location.href="${pageContext.request.contextPath}/help/inquiry.ice";
@@ -47,45 +78,23 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 		});
 		
 		$("div#option0").click(function(){
-			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
-			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
-			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
 			location.href="${pageContext.request.contextPath}/help/help.ice";
 		});
 		
 		$("div#option1").click(function(){
-			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
-			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
-			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
 			location.href="${pageContext.request.contextPath}/help/help.ice?category=제품";
 		});
 		
 		$("div#option2").click(function(){
-			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
-			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
-			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
 			location.href="${pageContext.request.contextPath}/help/help.ice?category=포인트";
 		});
 		
 		$("div#option3").click(function(){
-			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
-			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
-			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
 			location.href="${pageContext.request.contextPath}/help/help.ice?category=회원";
 		});
 		
 		$("div#option4").click(function(){
-			$("div#option0").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
-			$("div#tab-toggle").children().css({"background-color":"", "font-weight":"", "color":""});
-			$(this).css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
 			location.href="${pageContext.request.contextPath}/help/help.ice?category=기타";
-		});
-		
-		$("button#searchBtn").click(function(){
-			
-		const frm = document.searchFrm;
-		frm.submit();
-			
 		});
 		
 	});
@@ -109,10 +118,6 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 				<h6 style="font-weight: bold; color: rgb(89, 200, 236)">자주하는 질문</h6>
 				<span style="font-size: 9pt; color: grey;">제품과 포인트, 회원 혜택 등 제품과 사이트에 대해<br>궁금한 점이 있다면 FAQ를 확인하세요!</span>
 			</div>
-			<form id="searchFrm" style="border: solid 0px red; margin: auto 0 auto 45%;">
-				<input name="faqsearch" type="text" size="20" maxlength="50"/>
-				<button id="searchBtn" type="button" style="width: 25px; height: 25px; padding: 0; border: none;"><img src="<%= ctxPath%>/images/img_narae/다운로드.png" style="width: 25px;"/></button>
-			</form>
 		</div>
 	</div>
 	
@@ -153,8 +158,8 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 	<br><br>
 	<%-- 페이지네이션 --%>
 
-    <div id="pageBar" style="padding-left: 30%;"> 
-	    <nav>
+    <div id="pageBar" style="display: flex;"> 
+	    <nav style="margin: auto;">
 	    	<ul class="pagination">${requestScope.pageBar}</ul>
 	    </nav>
     </div>
@@ -198,4 +203,5 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 
 <div id="question_mark"><img style="width: 50%;" src="<%= ctxPath%>/images/img_narae/question_mark.png" /></div>
 
+</div>
 <jsp:include page="../footer.jsp" />

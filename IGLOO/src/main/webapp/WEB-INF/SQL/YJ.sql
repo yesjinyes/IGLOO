@@ -51,7 +51,7 @@ insert into tbl_taste(tasteno, tastename, tasteimg) values(seq_tasteno.nextval, 
 commit;
 
 
--- ▶ tbl_taste ◀
+-- ▶ tbl_store ◀
 -- storeno 시퀀스 생성
 create sequence seq_storeno
 start with 1
@@ -81,6 +81,7 @@ insert into tbl_store(storeno, storename, storepage, storeimg, storeaddress, sto
 values(seq_storeno.nextval, '이글루 군포영학점', 'www.igloo.gunpoyh.com', 'igloo_gunpo', '경기 안양시 동안구 귀인로190번길 152 1층', '031-555-5555', '37.38410', '126.9612');
 
 commit;
+
 
 
 -- ▶ tbl_product ◀
@@ -211,4 +212,15 @@ insert into tbl_ingredient(ingredientno, fk_tasteno, tasteexplain, oncesupply, c
 values(seq_ingredientno.nextval, 28, '그린티와 초콜릿, 초코볼과 쿠키가 만난 아이스크림', '115', '308', '22', '5',	'4', '52', '우유, 대두');
 
 commit;
+
+
+
+select productname, productdetail, price
+from tbl_product;
+
+select tasteno, tastename
+from tbl_taste
+order by tasteno;
+
+
 

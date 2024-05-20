@@ -38,7 +38,7 @@
 	                    	<i class="fa-solid fa-user"></i>
 	                    </td>
 	                    <td>
-	                       	<input type="text" name="name" id="name" maxlength="30" class="requiredInfo" placeholder="성명"/>
+	                       	<input type="text" name="name" id="name" maxlength="30" class="requiredInfo" placeholder="성명" value="${requestScope.loginuser.name}"/>
 	                       	<div>
 	                       		<span class="error"> - 성명은 필수입력 사항입니다.</span> 
 	                    	</div>
@@ -50,7 +50,7 @@
 	                    	<i class="fa-solid fa-envelope"></i>
 	                    </td>
 	                    <td>
-	                       <input type="text" name="email" id="email" maxlength="60" class="requiredInfo" placeholder="이메일 주소[본인확인용]"/>
+	                       <input type="text" name="email" id="email" maxlength="60" class="requiredInfo" placeholder="이메일 주소[본인확인용]" value="${requestScope.loginuser.email}"/>
 	                       <%-- 이메일중복체크 --%>
 	                       <span id="emailcheck">이메일중복확인</span>
 	                       <div>
@@ -65,7 +65,7 @@
 	                    	<i class="fa-solid fa-calendar-days"></i>
 	                    </td>
 	                    <td>
-	                       	<input type="text" name="birthday" id="datepicker" class="datepicker" maxlength="10" placeholder="생년월일"/>
+	                       	<input type="text" name="birthday" id="datepicker" class="datepicker" maxlength="10" placeholder="생년월일" value="${requestScope.loginuser.birthday}"/>
 	                       	<div>
 	                       		<span class="error"> - 생년월일은 마우스로만 클릭하세요.</span>
 	                    	</div>
@@ -91,7 +91,7 @@
 							<i class="fa-solid fa-location-dot"></i>
 						</td>
 	                    <td>
-	                       	<input type="text" name="postcode" id="postcode" maxlength="5" placeholder="우편번호"/>&nbsp;&nbsp;
+	                       	<input type="text" name="postcode" id="postcode" maxlength="5" placeholder="우편번호" value="${requestScope.loginuser.postcode}"/>&nbsp;&nbsp;
 	                       	<%-- 우편번호 찾기 --%>
 	                       	<span id="zipcodeSearch">우편번호찾기</span>
 	                       	<div>
@@ -105,9 +105,9 @@
 	                    	<i class="fa-solid fa-map-location-dot"></i>
 	                    </td>
 	                    <td>
-	                       	<input type="text" name="address" id="address" maxlength="200" placeholder="주소" /><br>
-	                       	<input type="text" name="detailaddress" id="detailAddress" maxlength="200" placeholder="상세주소" />&nbsp;
-	                       	<input type="text" name="extraaddress" id="extraAddress" maxlength="200" placeholder="참고항목" />            
+	                       	<input type="text" name="address" id="address" maxlength="200" placeholder="주소" value="${requestScope.loginuser.address}"/><br>
+	                       	<input type="text" name="detailaddress" id="detailAddress" maxlength="200" placeholder="상세주소" value="${requestScope.loginuser.detailaddress}"/>&nbsp;
+	                       	<input type="text" name="extraaddress" id="extraAddress" maxlength="200" placeholder="참고항목" value="${requestScope.loginuser.extraaddress}"/>            
 	                       	<div>
 	                       		<span class="error">주소를 입력하세요.</span>
 	                    	</div>

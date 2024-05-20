@@ -6,6 +6,8 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
+    
+    
 %>
 
 <%-- 직접 만든 CSS --%>
@@ -17,7 +19,7 @@
 
 	<div id="imgdiv" class="row">
 		<div id="item_img" class="col-xl-5 col-lg-5">
-			<img class="img-fluid" id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" alt="Responsive image"/>
+			<img id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" style="width: 300px; height: 350px; border: solid 1px red;" alt="Responsive image"/>
 		</div>
 		<div id="item_detail">
 			<div class="p-0  my-auto">
@@ -30,24 +32,26 @@
 			    이글루 할래용
 		    </div>
   
-		    <select> <!-- 설렉트는 한개만 선택가능 -->
-				<option selected>맛을 선택하세요</option>
-				<option>바람과 할께 날아가다</option>
-				<option>1조 짱</option> <!-- selected 지정하면 디폴트값으로 선택됨 -->
-				<option>이지윤 지각쟁이</option>
-			</select>
-			<select> <!-- 설렉트는 한개만 선택가능 -->
-				<option selected>맛을 선택하세요</option>
-				<option>초대졸</option>
-				<option>대졸</option> <!-- selected 지정하면 디폴트값으로 선택됨 -->
-				<option>대학원졸</option>
-			</select>
-			<select> <!-- 설렉트는 한개만 선택가능 -->
-				<option selected>맛을 선택하세요</option>
-				<option>초대졸</option>
-				<option>대졸</option> <!-- selected 지정하면 디폴트값으로 선택됨 -->
-				<option>대학원졸</option>
-			</select>
+  			<select name="taste1" class="infoData">
+              <option value="">::: 맛을 선택하세요 :::</option>
+              <c:forEach var="tvo" items="${requestScope.tasteList}">
+                <option value="${tvo.tasteno}">${tvo.tastename}</option>
+              </c:forEach> 
+            </select>
+  
+			<select name="taste2" class="infoData">
+              <option value="">::: 맛을 선택하세요 :::</option>
+              <c:forEach var="tvo" items="${requestScope.tasteList}">
+                <option value="${tvo.tasteno}">${tvo.tastename}</option>
+              </c:forEach> 
+            </select>
+            
+			<select name="taste3" class="infoData">
+              <option value="">::: 맛을 선택하세요 :::</option>
+              <c:forEach var="tvo" items="${requestScope.tasteList}">
+                <option value="${tvo.tasteno}">${tvo.tastename}</option>
+              </c:forEach> 
+            </select>
 	  
 	  		<hr style="border: solid 1px #81BEF7;">
   
