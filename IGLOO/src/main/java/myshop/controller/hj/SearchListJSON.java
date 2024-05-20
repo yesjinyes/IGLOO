@@ -48,8 +48,6 @@ public class SearchListJSON extends AbstractController {
 		
 		String json = jsonArr.toString();
 		
-		System.out.println(json);
-		
 		request.setAttribute("json", json);
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/jsonview.jsp");

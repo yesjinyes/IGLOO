@@ -14,67 +14,77 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function(){
+function goSearch(){
 		
-	}); // document.ready
-	
-	function goSearch(){
-		
-		const searchInput = $("input[name='store_search']").val();
+	const searchInput = $("input[name='store_search']").val();
 
-		if(searchInput == ""){
-			alert("검색어를 입력하세요.");
-			return;
-		}
-		
-		$.ajax({
-			url: "searchListJSON.ice",
-	        type: "get",
-	        data: {"searchInput": searchInput},   //  8    8     8     8     8
-	        dataType: "json",
-	        success: function(json){
-	        
-	        	if(json.length == 0){
-	        		alert("검색 결과가 없습니다.");
-	        		return false;
-	        	}
-	        	
-	        	else{ // 검색 결과가 있을 경우
-	        		
-	        		$("div#accordion_container").hide();
-	        		let html = ``;
-	        		
-	        		$.each(json, function(index, item){
-	        			
-	        			alert(item.storename);
-	        			
-	        			html += `<div>
-	        						<div style="display: flex;">
-	        							<div id="imgdiv"><img style="width: 20%;" src="<%= ctxPath%>/images/img_narae/2022_135415.jpg"/></div>
-										<div id="detaildiv">
-										
-											<div>${item.storename}</div>
-											<div>${item.storeaddress}</div>
-											<div>홈페이지: ${item.storepage}</div>
-											<div>전화번호: ${item.storetel}</div>
-										
-										</div>	        						
-	        						</div>
-	        					</div>`;
-	        			
-	        		});
-	        		
-	        		$("div#searchDIV").html(html);
-	        		
-	        	}
-
-	        },
-	        error: function(request, status, error){
-	            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-	        }
-	    });
-		
+	if(searchInput == ""){
+		alert("검색어를 입력하세요.");
+		return;
 	}
+	
+	$.ajax({
+		url: "searchListJSON.ice",
+        type: "post",
+        data: {"searchInput": searchInput},
+        dataType: "json",
+        success: function(json){
+        
+        	if(json.length == 0){
+        		alert("검색 결과가 없습니다.");
+        	}
+        	
+        	else{ // 검색 결과가 있을 경우
+        		
+        		$("div#accordion_container").hide();
+        		let html = `<div id="accordion_container" style="padding-left: 9%;"><div class="accordion" id="accordionExample" style="width: 90%;">`;
+        		
+        		$.each(json, function(index, item){
+        			
+        			html += `<div class="card">
+        		   		<div class="card-header" id="heading\${index}">
+    	     			<h2 class="mb-0">
+    	       			<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse\${index}" aria-expanded="false" aria-controls="collapse\${index}">
+    	         				<h3>\${item.storename}</h3>
+    	         				<p>\${item.storeaddress}</p>
+    	       			</button>
+    	     			</h2>
+    	   		</div>
+    			<%-- 아코디언 내부 --%>
+    	   		<div id="collapse\${index}" class="collapse" aria-labelledby="heading\${index}" data-parent="#accordionExample">
+    	     			<div class="card-body">
+    	       			<div class="card-columns m-5 row">
+    	       			<div class="card text-white col-lg-3 p-0">
+    						    <div class="card-body text-center">
+    						      	<img src="<%= ctxPath%>/images/img_narae/2022_135415.jpg" class="img-fluid" alt="Responsive image" >
+    						    </div>
+    						</div>
+    						<div class="ml-5 pt-5 col-lg-5 col-md-4">
+    						    <h1 class="card-text">\${item.storename}</h1>
+    						    <p class="card-text storeinfoDetails">\${item.storeaddress}</p>
+    						    <p class="card-text storeinfoDetails">홈페이지: \${item.storepage}</p>
+    						    <p class="card-text storeinfoDetails">전화번호: \${item.storetel}</p>
+    						</div>
+    	       			</div>
+    	     			</div>
+    	   		</div>
+    	  	</div>`;
+        			
+        		});
+        		
+        		html += `</div></div>`;
+        		
+        		$("div#searchDIV").html(html);
+        		
+        	}
+
+        },
+        error: function(request, status, error){
+            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+        }
+    });
+	
+}
 
 </script>
 
@@ -99,9 +109,9 @@
 	<label class="my-auto">
 		<input class="my-sm-0" type="text" name="store_search" id="store_search" size="50" placeholder='지점명 또는 주소를 입력하세요' required="required">
 	</label>
-	<button id="btnSearch" class="btn my-sm-0" type="button" onclick="goSearch()">
-		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
-	</button>
+	<%-- <button id="btnSearch" class="btn my-sm-0" type="button" onclick="goSearch()"> --%>
+		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image" onclick="goSearch()">
+	<%-- </button> --%>
 </div>
 
 <%-- 구분선 --%>
@@ -113,8 +123,8 @@
 <div id="searchDIV"></div>
 
 <%-- 아코디언 --%>
-<div id="accordion_container">
-	<div class="accordion" id="accordionExample">
+<div id="accordion_container" style="padding-left: 9%;">
+	<div class="accordion" id="accordionExample" style="width: 90%;">
   	
   	<c:forEach var="store" items="${requestScope.storeList }" varStatus="status">
 
@@ -131,12 +141,12 @@
 	   		<div id="collapse${status.index }" class="collapse" aria-labelledby="heading${status.index }" data-parent="#accordionExample">
 	     			<div class="card-body">
 	       			<div class="card-columns m-5 row">
-						<div class="card bg-primary text-white col-lg-5 p-0">
+						<div class="card text-white col-lg-3 p-0">
 						    <div class="card-body text-center ">
 						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 						    </div>
 						</div>
-						<div class="ml-5 pt-5 col-lg-3 col-md-4">
+						<div class="ml-5 pt-5 col-lg-5 col-md-4">
 						    <h1 class="card-text">${store.storename }</h1>
 						    <p class="card-text storeinfoDetails">${store.storeaddress }</p>
 						    <p class="card-text storeinfoDetails">홈페이지: ${store.storepage }</p>
