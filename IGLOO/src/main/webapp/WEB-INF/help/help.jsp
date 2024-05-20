@@ -41,7 +41,7 @@ $("div#option0").css({"background-color": "#99ebff", "color": "white", "font-wei
 		
 		let url = window.location.href;
 		
-		if(url == 'http://localhost:9090/IGLOO/help/help.ice'){
+		if(url.includes('http://localhost:9090/IGLOO/help/help.ice')){
 			$("div#option0").css({"background-color": "#99ebff", "color": "white", "font-weight":"bold"});
 			$("div#option1").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});
 			$("div#option2").css({"background-color": "rgb(235, 241, 243)", "color": "rgb(28, 57, 81)", "font-weight":"normal"});

@@ -1,62 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
-<%
-	String ctxPath = request.getContextPath();
-%>
+<% String ctxPath = request.getContextPath(); %>
+
+<jsp:include page="../header.jsp"/>
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order.css" />
 
-<jsp:include page="../header.jsp"/>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$("button#btnOrder").click(function(e) {
+			
+			// const productimg = $("img.card-img-top").text();
+			// const productname = $("input#productinput").val();
+			// const productprice = $("p.productprice").text();
+			
+			const productimg = $(e.target).parent().parent().find(".productimg").text();
+			const productname = $(e.target).parent().find(".productname").text();
+			const productprice = $(e.target).parent().find(".productprice").text();
+			
+			$("input[name='productimg']").val(productimg);
+			$("input[name='productname']").val(productname);
+			$("input[name='productprice']").val(productprice);
+			
+			const frm = document.orderFrm;
+			frm.action = "order_detail.ice";
+			frm.submit();
+			
+			console.log("확인용 productimg => " , productimg); 
+			console.log("확인용 productname => " , productname); 
+			console.log("확인용 productprice => " , productprice);
+			
+			
+		});// end of $("button").click(function() {})-----------
+		
+	});// end of $(document).ready(function() {})-----------------------------
+</script>
 
-
-	<div class="container">
-		
-		<h4>주문 메뉴</h4>
-		<br><br>
-		
-		<div class="card-deck mb-5">
-		
-		  <div class="card" id="card_pint">
-		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/pint.png" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">파인트</h5>
-		      <p class="card-text">3가지 맛 (320g)</p>
-		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">8,000원</p>
-		      <a href="<%= ctxPath%>/order/order_detail.ice" class="btn btn-info stretched-link">주문하기</a>
-		    </div>
-		  </div>
-		  
-		  <div class="card" id="card_quarter">
-		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/quarter.png" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">쿼터</h5>
-		      <p class="card-text">4가지 맛 (620g)</p>
-		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">10,000원</p>
-		    </div>
-		  </div>
-		  
-		  <div class="card" id="card_family">
-		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/family.png" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">패밀리</h5>
-		      <p class="card-text">5가지 맛 (960g)</p>
-		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">15,000원</p>
-		    </div>
-		  </div>
-		  
-		  <div class="card" id="card_halfgallon">
-		    <img src="<%= ctxPath%>/images/img_yejin/cup_size/halfgallon.png" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">하프갤런</h5>
-		      <p class="card-text">6가지 맛 (1200g)</p>
-		      <p class="card-text" style="font-weight: bold; font-size: 15pt;">20,000원</p>
-		    </div>
-		  </div>
+ 
+<div class="container">
 	
-		</div>
+	<h4>주문 메뉴</h4>
+	<br><br>
+	
+	<form name="orderFrm">
+	
+	  <div class="card-deck mb-5">
+	    <c:forEach var="productList" items="${requestScope.productList}">
+			<div class="card">
+		      <img src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top productimg" style="height: 50%;" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title productname">${productList.productname}</h5>
+		        <p class="card-text productdetail">${productList.productdetail}</p>
+		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;">${productList.price}</p>
+		        <input type="hidden" name="productimg"/>
+		        <input type="hidden" name="productname"/>
+		        <input type="hidden" name="productprice"/>
+		      	<button type="button" id="btnOrder" style="float: right">주문하기</button>
+		      </div>
+			</div>
+	    </c:forEach>
+	  </div>
+	  
+	</form>
+	
+</div>	
 		
-	</div>
-
 <jsp:include page="../footer.jsp"></jsp:include>

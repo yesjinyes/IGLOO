@@ -3,7 +3,7 @@ package product.domain;
 public class SelectlistVO {
 
 	// === Field === //
-	private String selectno;				// 선택일련번호
+	private int selectno;				// 선택일련번호
 	private String fk_userid;				// 회원아이디
 	private String fk_productcodeno;		// 제품코드
 		
@@ -16,10 +16,10 @@ public class SelectlistVO {
 /////////////////////////////////////////////////////////////////////////
 		
 	// === Getter, Setter === //
-	public String getSelectno() {
+	public int getSelectno() {
 		return selectno;
 	}
-	public void setSelectno(String selectno) {
+	public void setSelectno(int selectno) {
 		this.selectno = selectno;
 	}
 	public String getFk_userid() {

@@ -8,11 +8,11 @@ import product.domain.TasteVO;
 public class CartVO {
 
 	// === Field === //
-	private String cartno;			// 장바구니번호
+	private int cartno;			// 장바구니번호
 	private String fk_userid;		// 회원아이디
 	private int count;				// 수량
 	private int fk_selectno;		// 선택일련번호
-	private List<TasteVO> talstenamelist;	// 맛선택 나열
+	private List<TasteVO> tastenamelist;	// 맛선택 나열
 	
 /////////////////////////////////////////////////////////////////////////
 	
@@ -22,10 +22,10 @@ public class CartVO {
 /////////////////////////////////////////////////////////////////////////
 	
 	// === Getter, Setter === //
-	public String getCartno() {
+	public int getCartno() {
 		return cartno;
 	}
-	public void setCartno(String cartno) {
+	public void setCartno(int cartno) {
 		this.cartno = cartno;
 	}
 	public String getFk_userid() {
@@ -52,10 +52,10 @@ public class CartVO {
 	public void setProduct(ProductVO product) {
 		this.product = product;
 	}
-	public List<TasteVO> getTalstenamelist() {
-		return talstenamelist;
+	public List<TasteVO> getTastenamelist() {
+		return tastenamelist;
 	}
-	public void setTalstenamelist(List<TasteVO> talstenamelist) {
-		this.talstenamelist = talstenamelist;
+	public void setTastenamelist(List<TasteVO> tastenamelist) {
+		this.tastenamelist = tastenamelist;
 	}
 }

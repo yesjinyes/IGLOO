@@ -3,7 +3,7 @@ package product.domain;
 public class TasteVO {
 
 	// === Field === //
-	private String tasteno;				// 맛종류번호
+	private int tasteno;				// 맛종류번호
 	private String tastename;			// 맛이름
 	private String tasteimg;			// 이미지명
 	
@@ -15,10 +15,11 @@ public class TasteVO {
 /////////////////////////////////////////////////////////////////////////
 	
 	// === Getter, Setter === //
-	public String getTasteno() {
+	
+	public int getTasteno() {
 		return tasteno;
 	}
-	public void setTasteno(String tasteno) {
+	public void setTasteno(int tasteno) {
 		this.tasteno = tasteno;
 	}
 	public String getTastename() {

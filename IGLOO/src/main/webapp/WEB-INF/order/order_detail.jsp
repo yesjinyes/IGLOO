@@ -6,55 +6,77 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
+    String productimg = request.getParameter("productimg");
+    String productname = request.getParameter("productname");
+    String productprice = request.getParameter("productprice");
 %>
+
+<jsp:include page="../header.jsp" />
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order_detail.css" />
 
-<jsp:include page="../header.jsp" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		const value = $('select.select-box').val();
+		
+		console.log("value 확인 => ", value);
+		
+		
+		
+	});// end of $(document).ready(function() {})
+</script>
+
+
 
 <div class="container contents">
 
+  <form name="orderDetailFrm">
+
 	<div id="imgdiv" class="row">
+	  
 		<div id="item_img" class="col-xl-5 col-lg-5">
-			<img class="img-fluid" id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" alt="Responsive image"/>
+			<img id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" style="width: 300px; height: 350px; border: solid 1px red;" alt="Responsive image"/>
 		</div>
+		
 		<div id="item_detail">
 			<div class="p-0  my-auto">
-				<div>파인트</div>
-				<h6 style="font-weight: bold; font-size: 30pt; text-align: right;">8,000원</h6>
+				<div style="font-size: 30pt;"><%= productname%></div>
+				<h6 style="font-size: 27pt; text-align: right;"><%= productprice%>원</h6>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
-			
+	  
 			<div class="dropdown-label" style="font-weight: bold; font-size: 15pt;">
 			    이글루 할래용
 		    </div>
+      
+  			<select name="taste1" class="infoData select-box">
+              <option value="">맛을 선택하세요</option>
+              <c:forEach var="tvo" items="${requestScope.tasteList}">
+                <option value="${tvo.tasteno}">${tvo.tastename}</option>
+              </c:forEach> 
+            </select>
   
-		    <select> <!-- 설렉트는 한개만 선택가능 -->
-				<option selected>맛을 선택하세요</option>
-				<option>바람과 할께 날아가다</option>
-				<option>1조 짱</option> <!-- selected 지정하면 디폴트값으로 선택됨 -->
-				<option>이지윤 지각쟁이</option>
-			</select>
-			<select> <!-- 설렉트는 한개만 선택가능 -->
-				<option selected>맛을 선택하세요</option>
-				<option>초대졸</option>
-				<option>대졸</option> <!-- selected 지정하면 디폴트값으로 선택됨 -->
-				<option>대학원졸</option>
-			</select>
-			<select> <!-- 설렉트는 한개만 선택가능 -->
-				<option selected>맛을 선택하세요</option>
-				<option>초대졸</option>
-				<option>대졸</option> <!-- selected 지정하면 디폴트값으로 선택됨 -->
-				<option>대학원졸</option>
-			</select>
+			<select name="taste2" class="infoData select-box">
+              <option value="">맛을 선택하세요</option>
+              <c:forEach var="tvo" items="${requestScope.tasteList}">
+                <option value="${tvo.tasteno}">${tvo.tastename}</option>
+              </c:forEach> 
+            </select>
+            
+			<select name="taste3" class="infoData select-box">
+              <option value="">맛을 선택하세요</option>
+              <c:forEach var="tvo" items="${requestScope.tasteList}">
+                <option value="${tvo.tasteno}">${tvo.tastename}</option>
+              </c:forEach> 
+            </select>
 	  
 	  		<hr style="border: solid 1px #81BEF7;">
   
   			<div class="row justify-content-around">
 				 <div class="p-0 my-auto justify-content-center">
-		 			 <h3 style="font-weight: bold;">파인트</h3>
-				     <span>맛 이름: 이나래, 양혜정, 박예진, 이지윤, 손영관</span> <%-- ■■■■■ 길어지면 위치 바뀜 ■■■■■--%>
+		 			 <h4 style="font-weight: bold;" ><%= productname%></h4>
+				     <span>=== 선택한 맛이 나오는 자리 ===</span> <%-- ■■■■■ 길어지면 위치 바뀜 ■■■■■--%>
 				 </div>
 				
 				<div class="selectMenucnt justify-content-end col-xl-4 col-lg-4 col-md-2 p-0 my-auto">
@@ -78,7 +100,7 @@
 			<div class="row justify-content-between mb-3">
 				<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
 				<div class="col-4"></div>
-				<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;">8,000원</div>
+				<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;"><%= productprice%>원</div>
 				<br>
 			</div>
 			
@@ -87,14 +109,19 @@
 	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="go...()" />
 			</div>
 		</div>
+	 
 	</div>
+	
+	<%----------------------------------------------------------------------%>
 	
 	<hr style="border: solid 2px #4198e8;">
 
 	<div id="image">
+	  <c:forEach var="imgDetailList" items="${requestScope.imgDetailList}">
 		<div class="row justify-content-center">
-			<div class="col-md-7" style="font-weight: bold;"> <img class="img-fluid" alt="..." src="<%= ctxPath%>/images/images_younggwan/cupsize_detai_pint.png"> </div>
+			<div class="col-md-7" style="font-weight: bold;"> <img class="img-fluid" alt="..." src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgDetailList.productimgBelow}"> </div>
 		</div>
+	  </c:forEach>
 	</div>
 	<hr style="border: solid 2px #4198e8;">
 	<div id="image">
@@ -103,6 +130,7 @@
 		</div>
 	</div>
 	
+  </form>
 </div>
 
 <jsp:include page="../footer.jsp" />

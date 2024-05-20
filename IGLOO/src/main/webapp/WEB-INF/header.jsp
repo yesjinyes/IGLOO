@@ -96,9 +96,9 @@ $(document).ready(function(){
 		      	</li>
 		    </ul>
 		    
-			<form style="margin-right:8.1%;" name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+			<form style="margin-right:8.1%;" name="searchFrm" action="#" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
 		    </form>
 		    
         	<div class="text-end">
@@ -126,7 +126,7 @@ $(document).ready(function(){
 		        	</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link text-info" href="#">
+		        	<a class="nav-link text-info" href="<%= ctxPath%>/order/order.ice">
 						<span class="color-first">주문하기</span>
 					</a>
 		      	</li>
@@ -151,7 +151,7 @@ $(document).ready(function(){
 			          		관리
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          		<a class="dropdown-item" href="#">회원 목록</a>
+			          		<a class="dropdown-item" href="<%= ctxPath%>/member/memberList.ice">회원 목록</a>
 			          		<a class="dropdown-item" href="#">전체 주문 내역</a>
 			          		<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">제품 등록</a>
@@ -161,9 +161,9 @@ $(document).ready(function(){
 		      	</c:if>
 		    </ul>
 		    
-			<form name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
+			<form name="searchFrm" action="#" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
 		    </form>
 		   
 	       <div class="text-end" style="margin-left: 2%;">
@@ -181,7 +181,7 @@ $(document).ready(function(){
               			장바구니
               		</span>
               	</a>&nbsp;&nbsp;&nbsp;&nbsp;
-              	<a href="<%= ctxPath %>/member/logout.ice">
+              	<a href="<%= ctxPath %>/login/logout.ice">
               		<i class="fa-solid fa-right-from-bracket fa-xl"></i>
               		&nbsp;&nbsp;
               		<span>
