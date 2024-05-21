@@ -75,7 +75,7 @@
 			
 			const frm = document.memberOneDetail_frm;
 			frm.userid.value = userid;
-			frm.action = "${pageContext.request.contextPath}/member/memberOneDetail.ice";
+			frm.action = "${pageContext.request.contextPath}/admin/memberOneDetail.ice";
 			// 만약 상단에서 .getContextPath를 하지 않았다면 따로 쓸 필요 없이 위와 같이 해주어도 동일하다.
 			frm.method = "post";
 			frm.submit();
