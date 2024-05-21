@@ -55,7 +55,7 @@
 		 
 		 
 		 $.ajax({
-	           url:"${pageContext.request.contextPath}/member/smsSend.ice",
+	           url:"${pageContext.request.contextPath}/admin/smsSend.ice",
 	           type:"get",
 	           data:dataObj,
 	           dataType:"json",
