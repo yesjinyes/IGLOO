@@ -31,6 +31,18 @@ $("button.idFindClose").click(function(){
 })// end of $("button.idFindClose").click(function(){})------------
 
 
+//전체 모달 닫기(전역함수인듯)
+window.closeModal = function(){
+    $('.modal').modal('hide');
+    javascript:history.go(0);
+};
+
+function goMemberUpdate() {
+   closeModal();
+   location.href="<%= ctxPath%>/member/memberUpdate.ice";
+}
+
+
 </script>
 
 

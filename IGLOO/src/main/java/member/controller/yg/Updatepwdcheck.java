@@ -41,14 +41,18 @@ public class Updatepwdcheck extends AbstractController {
 				paraMap.put("pwd", pwd);
 				
 				boolean pwdcheck = mdao.updatePswCheck(paraMap); // 메소드를 만들어야한다.
+				boolean check = true;
 				
+				request.setAttribute("check", check);
+				request.setAttribute("pwdcheck", pwdcheck);
+				/*
 				if(pwdcheck) {
 					request.setAttribute("message", "비밀번호가 확인되었습니다. 수정하기를 원하시면 아래 버튼을 클릭해주세요.");
 				}
 				else {
 					request.setAttribute("message", "비밀번호가 일치하지 않습니다.");
 				}
-				
+				*/
 			}// end of if("POST".equalsIgnoreCase(method)){}-------------------------------------------------
 			
 			request.setAttribute("method", method);

@@ -98,30 +98,34 @@ public class MemberDAO_imple implements MemberDAO {
 	@Override
 	public boolean updatePswCheck(Map<String, String> paraMap) throws SQLException {
 		
+		boolean result = false;
+		
 		try {
 			
 			conn = ds.getConnection();
 			
-			System.out.println(Sha256.encrypt(paraMap.get("pwd")) + paraMap.get("userid"));
+//			System.out.println(Sha256.encrypt(paraMap.get("pwd")) + "    " +paraMap.get("userid"));
 			
 			String sql = " select userid, pwd "
 					   + " from tbl_member "
 					   + " where userid = ? and pwd = ? ";
 			
+			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, paraMap.get("userid"));
 			pstmt.setString(2, Sha256.encrypt(paraMap.get("pwd")));
 			
-			pstmt = conn.prepareStatement(sql);
-			
 			rs = pstmt.executeQuery();
 			
-			rs.next();
+			if(rs.next()) {
+				result = true;
+			}
 			
 		} finally {
 			close();
 		}
 		
-		return rs.next();
+		return result;
 	} //  end of public String updatePswCheck(Map<String, String> paraMap) throws SQLException {} --------------------------
 
 
