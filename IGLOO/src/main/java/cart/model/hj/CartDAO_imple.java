@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -425,19 +426,6 @@ public class CartDAO_imple implements CartDAO {
 	         		+ " ) "
 	         		+ " ON ORDERCODE = FK_ORDERCODE "
 	         		+ " where fk_userid = ? ";
-		
-	         /*
-	         	주문 - 주문일자	TBL_ORDER
-	         	맛선택 - tbl_tasteselect
-	         	선택내역 - tbl_selectlist
-				제품 - 제품이미지, 제품명	tbl_product
-				맛 - 맛이름	 - TBL_TASTE
-				주문상세 - 주문코드, 주문가격, 픽업상태, 픽업완료시간,주문량	TBL_ORDERDETAIL
-				ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME "
-	         		+ " , ORDERDETAILNO, ORDERCODE, TOTALPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME "
-	         */
-		
-	         // 제품명을 먼저 받고 switch 해서 나머지를 다 받아
 	         
 	         pstmt = conn.prepareStatement(sql); 
 	         
@@ -688,5 +676,36 @@ public class CartDAO_imple implements CartDAO {
 		return orderdetailList;
 		
 	}	// end of public List<OrderdetailVO> getOrderdetailList(String userid)-----
+
+///////////////////////////////////////////////////////////////////////
+	
+	// === 주문조회 검색창에 검색(제품) === //
+	@Override
+	public List<OrderdetailVO> productsearch(Map<String, String> paraMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}	// end of public List<OrderdetailVO> productsearch(Map<String, String> paraMap)------
+	
+////////////////////////////////////////////////////////////////////////
+	
+	// === 주문조회 검색창에 검색(맛) === //
+	@Override
+	public List<OrderdetailVO> tastesearch(Map<String, String> paraMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}	// end of public List<OrderdetailVO> tastesearch(Map<String, String> paraMap)---------
+
+///////////////////////////////////////////////////////////////////////////
+	
+	// === 주문조회 기간 설정 검색 === //
+	@Override
+	public List<OrderdetailVO> searchorderListPeriod(Map<String, String> paraMap) throws SQLException {
+		
+		List<OrderdetailVO> searchorderListPeriod = new ArrayList<>();
+		
+		return searchorderListPeriod;
+		
+	}	// end of public List<OrderdetailVO> searchorderListPeriod(Map<String, String> paraMap) throws SQLException-------
+
 
 }

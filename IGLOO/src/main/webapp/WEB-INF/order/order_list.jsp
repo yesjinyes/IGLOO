@@ -27,7 +27,7 @@
 		<label class="my-auto col-6 p-0">
 			<input class="my-sm-0" type="text" name="orderlist_search" id="orderlist_search" required="required">
 		</label>
-		<button id="btnSearch" class="btn my-sm-0 px-0 pt-0 col-1" type="submit">
+		<button id="btnorderlistSearch" class="btn my-sm-0 px-0 pt-0 col-1" type="button">
 			<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
 		</button>
 	</div>	
@@ -50,7 +50,9 @@
 		
 	<%-- 기간 표시 --%>
 	<div class="ml-4 my-3">
-		기간 : 2024.01.01 ~ 2024.05.13
+		기간 : 
+		<span id="selectdate"></span> ~ 
+		<span id="nowdate">2024.05.13</span>
 	</div>
 	
 	<hr style="border: solid 2px #6190BC">
@@ -163,5 +165,14 @@
 		</div>
 	</div>
 </div>
+
+<%-- 넘겨줄 정보 --%>
+<form name="sendinfo" style="display:none;">
+	<input type="text" name="searchorderList" value=""/>
+	<input type="text" name="orderListPeriod" value=""/>
+	<input type="text" name="selectPeriodindex" value="0"/>
+</form>
+
+<div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 
 <jsp:include page="../footer.jsp" />

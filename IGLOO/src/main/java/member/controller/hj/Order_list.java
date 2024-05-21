@@ -1,7 +1,9 @@
 package member.controller.hj;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cart.model.hj.CartDAO;
 import cart.model.hj.CartDAO_imple;
@@ -63,7 +65,7 @@ public class Order_list extends AbstractController {
 				
 				request.setAttribute("totaltastelist", totaltastelist);
 				
-				super.setRedirect(false);
+				// super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/order/order_list.jsp");
 			
 			}
@@ -82,6 +84,87 @@ public class Order_list extends AbstractController {
 		        super.setViewPage("/WEB-INF/msg.jsp");
 			}
 		}
+		else {	// "POST" 일때
+			
+			if(loginuser != null) {
+							
+				String userid = loginuser.getUserid();
+				
+				String searchorderList = request.getParameter("searchorderList");
+				String orderListPeriod = request.getParameter("orderListPeriod");
+				String selectPeriodindex = request.getParameter("selectPeriodindex");
+				/*
+				System.out.println("확인용 => " + searchorderList);
+				System.out.println("확인용 => " + orderListPeriod);
+				System.out.println("확인용 => " + selectPeriodindex);
+				*/
+				
+				if(searchorderList.isBlank()) {
+					searchorderList = null;
+				}
+				
+				List<OrderdetailVO> orderdetailList = null;
+				String haveorderlist = "none";
+				try {
+					
+					if(searchorderList != null) {
+						// === 주문조회 검색창에 검색 === //
+						Map<String,String> paraMap = new HashMap<>();
+						
+						paraMap.put("userid", userid);
+						paraMap.put("searchorderList", searchorderList);						
+						
+						switch (searchorderList) {
+							case "파인트":
+							case "쿼터":
+							case "패밀리":
+							case "하프갤런":
+								orderdetailList = cdao.productsearch(paraMap);
+								break;
+							default:	// 맛
+								orderdetailList = cdao.tastesearch(paraMap);
+								break;
+						}	// end of switch--------------
+					}
+				}catch(NullPointerException e) {
+					// === 주문조회 기간 설정 검색 === //
+					Map<String,String> paraMap = new HashMap<>();
+					
+					paraMap.put("userid", userid);
+					paraMap.put("orderListPeriod", orderListPeriod);
+					
+					orderdetailList = cdao.searchorderListPeriod(paraMap);
+					// [기억] String 타입으로 받았으니 to_date() 사용하여 잘 연결하기
+					
+				}finally {	
+					if(orderdetailList.size() > 0) {
+						haveorderlist = "haveorderlist";
+						
+						List <String> totaltastelist = new ArrayList<>();
+						
+						for(int i=0; i<orderdetailList.size(); i++) {
+							for(int j=0; j<orderdetailList.get(i).getTastenamelist().size(); j++) {
+								totaltastelist.add(orderdetailList.get(i).getTastenamelist().get(j).getTastename());
+							}
+						}	// end of for----------
+						// === 화면 띄워주기 위한 용도 === //
+						request.setAttribute("totaltastelist", totaltastelist);
+					}
+					// === 화면 띄워주기 위한 용도 === //
+					request.setAttribute("haveorderlist", haveorderlist);
+					request.setAttribute("orderdetailList", orderdetailList);
+					
+					// === 검색 후 화면 유지해주기 위한 용도 === //
+					request.setAttribute("searchorderList", searchorderList);
+					request.setAttribute("selectPeriodindex", selectPeriodindex);
+				}	// end of try~catch~finally-----------
+				
+				// super.setRedirect(false);	// forward
+		        super.setViewPage("/WEB-INF/order/order_list.jsp");
+		        
+			}	// end of if(loginuser != null)------------
+			
+		}	// end of if~else------------
 
 	}
 
