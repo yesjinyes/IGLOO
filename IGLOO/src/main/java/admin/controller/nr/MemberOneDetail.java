@@ -1,4 +1,4 @@
-package member.controller.nr;
+package admin.controller.nr;
 
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;

@@ -75,7 +75,7 @@
 			
 			const frm = document.memberOneDetail_frm;
 			frm.userid.value = userid;
-			frm.action = "${pageContext.request.contextPath}/member/memberOneDetail.ice";
+			frm.action = "${pageContext.request.contextPath}/admin/memberOneDetail.ice";
 			// 만약 상단에서 .getContextPath를 하지 않았다면 따로 쓸 필요 없이 위와 같이 해주어도 동일하다.
 			frm.method = "post";
 			frm.submit();
@@ -114,7 +114,7 @@
 </script>
 
 <div class="container" style="padding: 3% 0;">
-   <h2 class="text-center mb-5">::: 회원전체 목록 :::</h2>
+   <h2 class="text-center mb-5"><img style="width: 30%;" src="${pageContext.request.contextPath}/images/img_narae/회원정보목록.png"/></h2>
    
    <form name="member_search_frm">
       <select name="searchType">
@@ -137,9 +137,9 @@
         --%>
       <input type="text" style="display: none;" /> <%-- 조심할 것은 type="hidden" 이 아니다. --%> 
       
-      <button type="button" class="btn btn-secondary" onclick="goSearch()">검색</button>
+      <span onclick="goSearch()"><img style="width: 27px; cursor:pointer;" src="${pageContext.request.contextPath}/images/img_hj/search.png"/></span>
       
-      <span style="font-size: 12pt; font-weight: bold;">페이지당 회원명수&nbsp;-&nbsp;</span>
+      <span style="font-size: 12pt; font-weight: bold; margin-left: 40%;">페이지당 회원명수&nbsp;-&nbsp;</span>
       <select name="sizePerPage">
          <option value="10">10명</option>
          <option value="5">5명</option>
@@ -149,7 +149,7 @@
    
    <table class="table table-bordered" id="memberTbl">
       <thead>
-          <tr>
+          <tr style="background-color: #ccf3ff; ">
              <th>번호</th>
              <th>아이디</th>
              <th>회원명</th>

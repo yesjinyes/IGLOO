@@ -1,4 +1,4 @@
-package member.controller.nr;
+package admin.controller.nr;
 
 import java.util.HashMap;
 import java.util.List;
