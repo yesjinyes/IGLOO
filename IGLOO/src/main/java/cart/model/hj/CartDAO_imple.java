@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import myshop.domain.CartVO;
+import order.domain.OrderVO;
 import order.domain.OrderdetailVO;
 import product.domain.ProductVO;
 import product.domain.TasteVO;
@@ -29,6 +30,8 @@ public class CartDAO_imple implements CartDAO {
 	private TasteVO tdto;
 	private List<TasteVO> tastenamelist;
 	
+	private OrderVO odto;
+	private OrderdetailVO oddto;
 	// 생성자
 	public CartDAO_imple() {
 		try {
@@ -359,8 +362,8 @@ public class CartDAO_imple implements CartDAO {
 		try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " SELECT fk_userid, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
-	         		+ "     , ORDERDETAILNO, ORDERCOUNT, PICKUPSTATUS "
+	         String sql = " SELECT ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME "
+	         		+ " , ORDERDETAILNO, ORDERCODE, ORDERPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME "
 	         		+ " FROM "
 	         		+ " ( "
 	         		+ "    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
@@ -417,25 +420,267 @@ public class CartDAO_imple implements CartDAO {
 	         		+ " ) "
 	         		+ " JOIN "
 	         		+ " ( "
-	         		+ "    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS "
+	         		+ "    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME "
 	         		+ "    FROM TBL_ORDERDETAIL "
 	         		+ " ) "
 	         		+ " ON ORDERCODE = FK_ORDERCODE "
 	         		+ " where fk_userid = ? ";
 		
-		// fk_userid, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
- 		// + "     , ORDERDETAILNO, ORDERCOUNT, PICKUPSTATUS
+	         /*
+	         	주문 - 주문일자	TBL_ORDER
+	         	맛선택 - tbl_tasteselect
+	         	선택내역 - tbl_selectlist
+				제품 - 제품이미지, 제품명	tbl_product
+				맛 - 맛이름	 - TBL_TASTE
+				주문상세 - 주문코드, 주문가격, 픽업상태, 픽업완료시간,주문량	TBL_ORDERDETAIL
+				ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME "
+	         		+ " , ORDERDETAILNO, ORDERCODE, TOTALPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME "
+	         */
 		
+	         // 제품명을 먼저 받고 switch 해서 나머지를 다 받아
+	         
 	         pstmt = conn.prepareStatement(sql); 
 	         
 	         pstmt.setString(1, userid);
 	         
 	         rs = pstmt.executeQuery();
-	         /////////////////////////////////////////////////////////////
-	         // === 진행중 === //
+	         
+	         boolean start_flag = true;
+	         int cnt = 0;
+	         
 	         while(rs.next()) {
 	        	 
-	         }	// end of while-----------------
+	        	 String productname = rs.getString("productname");
+	        	 
+	        	 switch (productname) {
+	        	 case "파인트":
+					
+	        		tdto = null;
+	        		 
+					if(start_flag) {
+						start_flag = false;
+						cnt = 3;
+					
+						oddto = new OrderdetailVO();
+						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
+						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
+						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
+						oddto.setPickuptime(rs.getString("PICKUPTIME"));
+						oddto.setOrdercount(rs.getInt("ORDERCOUNT"));
+						
+						odto = new OrderVO();
+						odto.setOrderdate(rs.getString("ORDERDATE"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							oddto.setOrder(odto);
+							oddto.setProduct(pdto);
+							oddto.setTastenamelist(tastenamelist);
+							
+							orderdetailList.add(oddto);
+							
+							cnt = 0;
+							start_flag = true;
+							tdto = null;
+							pdto = null;
+							odto = null;
+							oddto = null;
+							
+						}
+					}
+					break;
+				case "쿼터":
+					tdto = null;
+					
+					if(start_flag) {
+						start_flag = false;
+						cnt = 4;
+					
+						oddto = new OrderdetailVO();
+						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
+						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
+						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
+						oddto.setPickuptime(rs.getString("PICKUPTIME"));
+						oddto.setOrdercount(rs.getInt("ORDERCOUNT"));
+						
+						odto = new OrderVO();
+						odto.setOrderdate(rs.getString("ORDERDATE"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							oddto.setOrder(odto);
+							oddto.setProduct(pdto);
+							oddto.setTastenamelist(tastenamelist);
+							
+							orderdetailList.add(oddto);
+							
+							cnt = 0;
+							start_flag = true;
+							tdto = null;
+							pdto = null;
+							odto = null;
+							oddto = null;
+						}
+					}
+					break;
+				case "패밀리":
+					tdto = null;
+					
+					if(start_flag) {
+						start_flag = false;
+						cnt = 5;
+					
+						oddto = new OrderdetailVO();
+						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
+						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
+						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
+						oddto.setPickuptime(rs.getString("PICKUPTIME"));
+						oddto.setOrdercount(rs.getInt("ORDERCOUNT"));
+						
+						odto = new OrderVO();
+						odto.setOrderdate(rs.getString("ORDERDATE"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							oddto.setOrder(odto);
+							oddto.setProduct(pdto);
+							oddto.setTastenamelist(tastenamelist);
+							
+							orderdetailList.add(oddto);
+							
+							cnt = 0;
+							start_flag = true;
+							tdto = null;
+							pdto = null;
+							odto = null;
+							oddto = null;
+						}
+					}				
+					break;
+				case "하프갤런":
+					tdto = null;
+					
+					if(start_flag) {
+						start_flag = false;
+						cnt = 6;
+					
+						oddto = new OrderdetailVO();
+						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
+						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
+						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
+						oddto.setPickuptime(rs.getString("PICKUPTIME"));
+						oddto.setOrdercount(rs.getInt("ORDERCOUNT"));
+						
+						odto = new OrderVO();
+						odto.setOrderdate(rs.getString("ORDERDATE"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							oddto.setOrder(odto);
+							oddto.setProduct(pdto);
+							oddto.setTastenamelist(tastenamelist);
+							
+							orderdetailList.add(oddto);
+							
+							cnt = 0;
+							start_flag = true;
+							tdto = null;
+							pdto = null;
+							odto = null;
+							oddto = null;
+						}
+					}
+					break;
+	        	 }
+	         }
 	         
 		}finally {
 	    	  close();

@@ -1,14 +1,20 @@
 package order.domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import myshop.domain.CartVO;
 
 public class OrderVO {
 
+	Date now = new Date();
+	SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd");
+	
 	// === field === //
-	private String ordercode;
-	private String fk_userid;
-	private int totalprice;
-	private String orderdate;
+	private String ordercode;						// 주문코드
+	private String fk_userid;						// 회원아이디
+	private int totalprice;							// 주문총액
+	private String orderdate = sdft.format(now);	// 주문일자
 	//////////////////////////////////////////////////////////////
 	
 	// === select 용 === //

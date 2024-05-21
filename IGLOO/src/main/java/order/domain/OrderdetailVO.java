@@ -1,5 +1,10 @@
 package order.domain;
 
+import java.util.List;
+
+import product.domain.ProductVO;
+import product.domain.TasteVO;
+
 public class OrderdetailVO {
 
 	// === field === //
@@ -10,12 +15,16 @@ public class OrderdetailVO {
 	private int orderprice;			// 주문가격
 	private int pickupstatus;		// 픽업상태
 	private String pickuptime;		// 픽업완료시간
+	
+	private List<TasteVO> tastenamelist;	// 맛선택 나열
 	//////////////////////////////////////////////////////////////
 	
 	// === select 용 === //
 	private OrderVO order = new OrderVO();
+	private	ProductVO product = new ProductVO();
 	
 	//////////////////////////////////////////////////////////////
+	
 	
 	// === Getter, Setter === //
 	public int getOrderdetailno() {
@@ -81,5 +90,20 @@ public class OrderdetailVO {
 	public void setOrder(OrderVO order) {
 		this.order = order;
 	}
-	
+	public List<TasteVO> getTastenamelist() {
+		return tastenamelist;
+	}
+
+	public void setTastenamelist(List<TasteVO> tastenamelist) {
+		this.tastenamelist = tastenamelist;
+	}
+
+	public ProductVO getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductVO product) {
+		this.product = product;
+	}
+
 }
