@@ -113,7 +113,7 @@ UPDATE tbl_taste
 SET ingredients = '#치즈 #우유'
 WHERE tasteno = 12;
 ----
-
+commit;
 
 
 
