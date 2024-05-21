@@ -46,8 +46,6 @@ public class Updatepwdcheck extends AbstractController {
 					request.setAttribute("pwdcheck", "비밀번호가 일치하지 않습니다.");
 				}
 				
-				request.setAttribute("pwdcheck", pwdcheck);
-				
 			}// end of if("POST".equalsIgnoreCase(method)){}-------------------------------------------------
 			
 			request.setAttribute("method", method);
