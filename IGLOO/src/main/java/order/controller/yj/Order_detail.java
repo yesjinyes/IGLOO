@@ -32,6 +32,9 @@ public class Order_detail extends AbstractController {
 			List<ProductVO> imgDetailList = pdao.selectImageDetail();
 			request.setAttribute("imgDetailList", imgDetailList);
 			
+			List<ProductVO> imgList = pdao.getimgList();
+			request.setAttribute("imgList", imgList);
+			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order_detail.jsp");
 		}

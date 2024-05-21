@@ -20,33 +20,45 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-	/* 	$("select[id='taste']").change(function(){
+	 	$("select[id='taste']").change(function(){
 			//console.log("value 확인 => ",$(this).val()); //value값 가져오기
 			//console.log("선택된 select 태그 확인 => ", $("select[name='taste'] option:selected").text()); //text값 가져오기
 			
 			const selecttaste = $("select[id='taste'] option:selected").text();
-			console.log("selecttaste 선택한 맛 => ", selecttaste);
+			console.log("selecttaste 선택한 맛 => ", selecttaste); // 떴음
+						
+			$("span#selecttaste").text(selecttaste);
 			
+			
+			const status = $(e.target).parent().parent().find("#status").text();
+			console.log("확인용 status : ", status);
+			
+			//const status = $("input[name='status']").text();
+			//console.log("확인용 status : ", status)
+			
+			//$("input[name='status']").val(status);
 			
 			// 선택된 값의 index를 불러오기
-			var index = $("#taste option").index($("taste option:selected"));
-			console.log("선택된 index => ", index);
+			//var index = $("#taste option").index($("taste option:selected"));
+			//console.log("선택된 index => ", index);
 			
-		});  */
-		
-		$("#taste").change(function(){
+			
+			
+		});  
+	 	
+		/* $("#taste").change(function(){
 		    // Value값 가져오기
 		    var val = $("#taste :selected").val();
 		    // Text값 가져오기
 		    var text = $("#taste :selected").text();
-		    // Index가져오기
+		    $("span#selecttaste").text(text);
 		    var index = $("#taste :selected").index();
 		    
 		    console.log("@@확인용 val => ", val);
 		    console.log("@@확인용 text => ",text);
 		    console.log("@@확인용 index => ",index);
 		   
-		}); 
+		});  */
 			
 		
 	});// end of $(document).ready(function() {})
@@ -77,9 +89,11 @@
 
 	<div id="imgdiv" class="row">
 	  
-		<div id="item_img" class="col-xl-5 col-lg-5">
+		<%-- <div id="item_img" class="col-xl-5 col-lg-5">
 			<img id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" style="width: 300px; height: 350px; border: solid 1px red;" alt="Responsive image"/>
-		</div>
+		</div> --%>
+		
+		<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.imgList}" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨">
 		
 		<div id="item_detail">
 			<div class="p-0  my-auto">
@@ -91,13 +105,16 @@
 			<div class="dropdown-label" style="font-weight: bold; font-size: 15pt;">
 			    이글루 할래용
 		    </div>
+		    <hr style="border: solid 1px #81BEF7;">
 		    
-		    
-		<c:forEach var="tvo" items="${requestScope.tasteList}" begin="0" end="2">
+		<c:forEach var="tvo" items="${requestScope.tasteList}" begin="0" end="2" varStatus="status">
+  			<%-- <p> id="status">${status.index}</p> --%>
+  			<input type="text" name="status" ${status.index}/>
   			<select id="taste" name="selectbox" class="infoData">
 			<option value="">맛을 선택하세요</option>
       			<c:forEach var="tvo" items="${requestScope.tasteList}">	
 	              <option value="${tvo.tasteno}">${tvo.tastename}</option>
+	              
  		        </c:forEach> 
             </select>
         </c:forEach>
@@ -128,7 +145,7 @@
   			<div class="row justify-content-around">
 				 <div class="p-0 my-auto justify-content-center">
 		 			 <h4 style="font-weight: bold;" ><%= productname%></h4>
-				     <span>=== 선택한 맛이 나오는 자리 ===</span> <%-- ■■■■■ 길어지면 위치 바뀜 ■■■■■--%>
+				     <span id="selecttaste">=== 선택한 맛이 나오는 자리 ===</span> <%-- ■■■■■ 길어지면 위치 바뀜 ■■■■■--%>
 				 </div>
 				
 				<div class="selectMenucnt justify-content-end col-xl-4 col-lg-4 col-md-2 p-0 my-auto">
