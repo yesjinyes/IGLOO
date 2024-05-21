@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -48,7 +47,7 @@ public class ProductDAO_imple implements ProductDAO {
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 	
-	// == 컵 사이즈, 상세정보, 가격 알아오는 메소드 == //
+	// == 상품사진, 상품명(파인트, 쿼터...), 상세정보, 가격 알아오는 메소드 == //
 	@Override
 	public List<ProductVO> getproductList() throws SQLException {
 		
@@ -73,6 +72,7 @@ public class ProductDAO_imple implements ProductDAO {
 	        	 pvo.setPrice(rs.getInt(5));
 	        	 
 	        	 productList.add(pvo);
+	        	 
 	         }// end of while-----------------
 	         
 	      } finally {
@@ -81,6 +81,7 @@ public class ProductDAO_imple implements ProductDAO {
 	      
 	      return productList;
 		
+	      
 	}// end of public List<ProductVO> getproductList() throws SQLException
 
 	///////////////////////////////////////////////////////////////
@@ -148,6 +149,42 @@ public class ProductDAO_imple implements ProductDAO {
 	      return imgDetailList;
 		
 	}// end of public List<Map<String, String>> selectImageDetail() throws SQLException
+ 
+	///////////////////////////////////////////////////////////////
+	
+	// 주문상세에서 상단 이미지 띄우기
+	@Override
+	public List<ProductVO> getimgList() throws SQLException {
+		
+		List<ProductVO> imgList = new ArrayList<>(); 
+	      
+	    try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select productimg "
+		         		+ " from tbl_product ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 ProductVO pvo = new ProductVO();
+	        	 pvo.setProductimg(rs.getString(1));
+	        	 
+	        	 imgList.add(pvo);
+	        	 
+	         }// end of while-----------------
+	         
+	         System.out.println("이미지확인" + imgList);
+	         
+	    } finally {
+	         close();
+	    }
+	      
+	    return imgList;
+		
+	}// end of public List<ProductVO> getimgList() throws SQLException
 
 	
 

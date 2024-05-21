@@ -20,7 +20,7 @@ public class Order extends AbstractController {
 		
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+ 
 		String method = request.getMethod();
 		
 		if(!"POST".equalsIgnoreCase(method)) {
@@ -30,6 +30,8 @@ public class Order extends AbstractController {
 			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order.jsp");
+			
+			
 		}
 		
 		else {
