@@ -87,6 +87,5 @@ function func_form_reset_empty() {
 	
 <%-- 결과창 띄우기 --%>
 <div class="my-3 text-center" id="div_findResult">
-	<c:if test="${not empty requestScope.pwdcheck}" />
-	
+	${requestScope.message}
 </div>

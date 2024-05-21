@@ -30,7 +30,7 @@ public class Updatepwdcheck extends AbstractController {
 				HttpSession session = request.getSession();
 				MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 				
-				System.out.println(loginuser.getUserid());
+//				System.out.println(loginuser.getUserid());
 				
 				String userid = loginuser.getUserid();
 //				System.out.println(userid);
@@ -40,13 +40,13 @@ public class Updatepwdcheck extends AbstractController {
 				paraMap.put("userid", userid);
 				paraMap.put("pwd", pwd);
 				
-				String pwdcheck = mdao.updatePswCheck(paraMap); // 메소드를 만들어야한다.
+				boolean pwdcheck = mdao.updatePswCheck(paraMap); // 메소드를 만들어야한다.
 				
-				if(pwdcheck != null) {
-					request.setAttribute("pwdcheck", pwdcheck);
+				if(pwdcheck) {
+					request.setAttribute("message", "비밀번호가 확인되었습니다. 수정하기를 원하시면 아래 버튼을 클릭해주세요.");
 				}
 				else {
-					request.setAttribute("pwdcheck", "비밀번호가 일치하지 않습니다.");
+					request.setAttribute("message", "비밀번호가 일치하지 않습니다.");
 				}
 				
 			}// end of if("POST".equalsIgnoreCase(method)){}-------------------------------------------------

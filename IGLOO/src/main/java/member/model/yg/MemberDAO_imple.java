@@ -96,15 +96,17 @@ public class MemberDAO_imple implements MemberDAO {
 	
 	// == 회원정보수정하기를 눌렀을 때 비밀번호를 확인하는 메소드 == //
 	@Override
-	public String updatePswCheck(Map<String, String> paraMap) throws SQLException {
+	public boolean updatePswCheck(Map<String, String> paraMap) throws SQLException {
 		
 		try {
 			
 			conn = ds.getConnection();
 			
+			System.out.println(Sha256.encrypt(paraMap.get("pwd")) + paraMap.get("userid"));
+			
 			String sql = " select userid, pwd "
 					   + " from tbl_member "
-					   + " where userid = ?, pwd = ? ";
+					   + " where userid = ? and pwd = ? ";
 			
 			pstmt.setString(1, paraMap.get("userid"));
 			pstmt.setString(2, Sha256.encrypt(paraMap.get("pwd")));
@@ -113,13 +115,13 @@ public class MemberDAO_imple implements MemberDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			rs.getString(2);
+			rs.next();
 			
 		} finally {
 			close();
 		}
 		
-		return rs.getString(2).toString();
+		return rs.next();
 	} //  end of public String updatePswCheck(Map<String, String> paraMap) throws SQLException {} --------------------------
 
 
