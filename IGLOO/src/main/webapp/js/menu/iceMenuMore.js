@@ -156,7 +156,7 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
                                     <div class='hoverBorder' >
                                         <a href='/IGLOO/product/menuDetail.ice?tasteno=${item.tnum}'>
                                             <img src='/IGLOO/images/img_taste/${item.timg}' class='menu-list__image' class='img-fluid mx-auto d-block' alt='슈팅톡톡' />    
-                                            <span class='menu-list__hash' >#이달의맛 #이상한 나라의 슈팅톡톡</span>
+                                            <span class='menu-list__hash' >${item.tgredi}</span>
                                         </a>
                                     </div>
                                     <div class='iceName text-center pt-3'>${item.tname}</div>

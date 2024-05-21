@@ -19,11 +19,11 @@
 			// const productname = $("input#productinput").val();
 			// const productprice = $("p.productprice").text();
 			
-			const productimg = $(e.target).parent().parent().find(".productimg").text();
+			//const productimg = $(e.target).parent().parent().find("#productimg").text();
 			const productname = $(e.target).parent().find(".productname").text();
 			const productprice = $(e.target).parent().find(".productprice").text();
 			
-			$("input[name='productimg']").val(productimg);
+			//$("img[id='productimg']").val(productimg);
 			$("input[name='productname']").val(productname);
 			$("input[name='productprice']").val(productprice);
 			
@@ -31,9 +31,9 @@
 			frm.action = "order_detail.ice";
 			frm.submit();
 			
-			console.log("확인용 productimg => " , productimg); 
+		 /* console.log("확인용 productimg => " , productimg); 
 			console.log("확인용 productname => " , productname); 
-			console.log("확인용 productprice => " , productprice);
+			console.log("확인용 productprice => " , productprice); */
 			
 			
 		});// end of $("button").click(function() {})-----------
@@ -47,12 +47,14 @@
 	<h4>주문 메뉴</h4>
 	<br><br>
 	
-	<form name="orderFrm">
+	<form name="orderFrm"> 
 	
 	  <div class="card-deck mb-5">
 	    <c:forEach var="productList" items="${requestScope.productList}">
 			<div class="card">
-		      <img src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top productimg" style="height: 50%;" alt="...">
+			  
+		      <img src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top" style="height: 50%;" alt="...">
+		     
 		      <div class="card-body">
 		        <h5 class="card-title productname">${productList.productname}</h5>
 		        <p class="card-text productdetail">${productList.productdetail}</p>

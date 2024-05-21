@@ -55,14 +55,65 @@ WHERE RNO between 1 and 8 ;
 
  
 alter table tbl_taste
-add ingredients varchar2(13) not null;
+add ingredients varchar2(40); 
+-- 맛테이블에 재료 컬럼 추가
+
+alter table tbl_taste drop column ingredients;
+
+-----------------
+DESCRIBE tbl_taste;
+-----------------
 
 
+UPDATE tbl_taste
+SET ingredients = '#딸기 #블루베리'
+WHERE tasteno = 1;
 
+UPDATE tbl_taste
+SET ingredients = '#바닐라 #커피'
+WHERE tasteno = 2;
 
+UPDATE tbl_taste
+SET ingredients = '#블루베리'
+WHERE tasteno = 3;
 
+UPDATE tbl_taste
+SET ingredients = '#파인애플 #사과'
+WHERE tasteno = 4;
 
+UPDATE tbl_taste
+SET ingredients = '#우유 #소금'
+WHERE tasteno = 5;
 
+UPDATE tbl_taste
+SET ingredients = '#마카롱 #초콜릿'
+WHERE tasteno = 6;
+
+UPDATE tbl_taste
+SET ingredients = '#망고'
+WHERE tasteno = 7;
+
+UPDATE tbl_taste
+SET ingredients = '#스트로베리 #블루베리'
+WHERE tasteno = 8;
+
+UPDATE tbl_taste
+SET ingredients = '#딸기 #프레첼'
+WHERE tasteno = 9;
+
+UPDATE tbl_taste
+SET ingredients = '#초콜릿 #초코볼'
+WHERE tasteno = 10;
+
+UPDATE tbl_taste
+SET ingredients = '#민트 #초콜릿'
+WHERE tasteno = 11;
+
+UPDATE tbl_taste
+SET ingredients = '#치즈 #우유'
+WHERE tasteno = 12;
+----
+commit;
 
 
 
