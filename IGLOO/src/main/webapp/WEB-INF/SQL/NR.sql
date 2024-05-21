@@ -182,3 +182,13 @@ where faqno between 41 and 43;
 
 commit;
 rollback;
+
+select storeno, storename, storepage, storeimg, storeaddress, storetel, latitude, longitude
+from tbl_store
+where storename like '%부평%' or storeaddress like '%부평%';
+
+
+select *
+from tab;
+
+desc TBL_INGREDIENT;
