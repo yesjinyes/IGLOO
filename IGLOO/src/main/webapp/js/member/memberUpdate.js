@@ -309,7 +309,7 @@ $(document).ready(function(){
     $("span#emailcheck").click(function(){
 
         if($("input#email").val() == "" || $("input#email").val() == null){
-            $("span#emailcheck").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
+            $("span#emailCheckResult").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
             return;
         }
 
