@@ -107,7 +107,10 @@
 	
 	<c:if test="${empty requestScope.faqlist}">
 	
-	1:1 문의내역이 존재하지 않습니다.
+	<div style="text-align: center;" class="mt-5">
+		<img style="width: 30%;" src="<%=ctxPath%>/images/img_narae/텅.png"/>
+		<div id="nofaq">문의 내역이 존재하지 않습니다.</div>
+	</div>
 	
 	</c:if>
 	

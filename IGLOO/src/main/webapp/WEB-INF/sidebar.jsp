@@ -31,6 +31,18 @@ $("button.idFindClose").click(function(){
 })// end of $("button.idFindClose").click(function(){})------------
 
 
+//전체 모달 닫기(전역함수인듯)
+window.closeModal = function(){
+    $('.modal').modal('hide');
+    javascript:history.go(0);
+};
+
+function goMemberUpdate() {
+   closeModal();
+   location.href="<%= ctxPath%>/member/memberUpdate.ice";
+}
+
+
 </script>
 
 
@@ -64,7 +76,7 @@ $("button.idFindClose").click(function(){
 					
 					<div class="mypageTopmanage">정보관리</div>
 					<%--<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/updatepwdcheck.ice"> --%>
-					<a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal" data-backdrop="static">
+					<a class="mypagelink mb-2 mt-2" style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal" data-backdrop="static">
 						<i class="fa-solid fa-person fa-xl"></i>&nbsp;회원정보 변경
 					</a>
 					

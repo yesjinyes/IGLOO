@@ -31,11 +31,20 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
 
+
+
 $(document).ready(function(){
 	
-	$("button.btnidfind").click(function(){
-		goFind();
-	})	// end of $("button.btn-success").click(function(){})-------------
+	 $(document).on("keydown", function(e) {
+	        if (e.keyCode == 13) {
+	            goFind();
+	        }
+	    });
+
+	    // 확인 버튼 클릭시 goFind 함수 실행
+	    $("button#check").click(function(){
+	        goFind();
+	    });
 	
 })	// end of $(document).ready(function(){})----------------
 
@@ -58,7 +67,7 @@ function goFind(){
 // === 아이디 찾기 모달창에 입력한 input 태그 value 값 초기화 === //
 // => login.js 에서 실행
 function func_form_reset_empty() {
-   document.querySelector("form[name='idFindFrm']").reset();	// jQuery 로 작성해도 된다.
+   document.querySelector("form[name='idFindFrm']").reset(); // jQuery 로 작성해도 된다.
    $("div#div_findResult").empty();
 }// end of function func_form_reset_empty()----------
 
@@ -81,12 +90,25 @@ function func_form_reset_empty() {
 	   </ul> 
 	
 	   <div class="my-3 text-center">
-	      <button type="button" class="btn btnidfind">찾기</button>
+	      <button id="check" type="button" class="btn btnidfind">확인</button>
 	   </div>
 	</form>
 	
 <%-- 결과창 띄우기 --%>
 <div class="my-3 text-center" id="div_findResult">
-	<c:if test="${not empty requestScope.pwdcheck}" />
+<c:if test="${requestScope.check}">
+	<c:choose>
+    	<c:when test="${requestScope.pwdcheck}">
+    	<script>document.getElementById("check").style.display = "none";</script>
+			비밀번호가 확인되었습니다.<br>
+			수정하기를 원하시면 아래 버튼을 클릭해주세요.
+			<br>
+			<button type="button" style="cursor: pointer;" onclick="window.parent.goMemberUpdate()">회원정보수정</button>
+    	</c:when>
+    	<c:otherwise>
+    		비밀번호가 일치하지 않습니다
+    	</c:otherwise>
+    </c:choose>
+    </c:if>
 	
 </div>
