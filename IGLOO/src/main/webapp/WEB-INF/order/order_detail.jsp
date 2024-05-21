@@ -9,6 +9,7 @@
     String productimg = request.getParameter("productimg");
     String productname = request.getParameter("productname");
     String productprice = request.getParameter("productprice");
+    
 %>
 
 <jsp:include page="../header.jsp" />
@@ -18,13 +19,54 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		const value = $('select.select-box').val();
 		
-		console.log("value 확인 => ", value);
+	/* 	$("select[id='taste']").change(function(){
+			//console.log("value 확인 => ",$(this).val()); //value값 가져오기
+			//console.log("선택된 select 태그 확인 => ", $("select[name='taste'] option:selected").text()); //text값 가져오기
+			
+			const selecttaste = $("select[id='taste'] option:selected").text();
+			console.log("selecttaste 선택한 맛 => ", selecttaste);
+			
+			
+			// 선택된 값의 index를 불러오기
+			var index = $("#taste option").index($("taste option:selected"));
+			console.log("선택된 index => ", index);
+			
+		});  */
 		
-		
+		$("#taste").change(function(){
+		    // Value값 가져오기
+		    var val = $("#taste :selected").val();
+		    // Text값 가져오기
+		    var text = $("#taste :selected").text();
+		    // Index가져오기
+		    var index = $("#taste :selected").index();
+		    
+		    console.log("@@확인용 val => ", val);
+		    console.log("@@확인용 text => ",text);
+		    console.log("@@확인용 index => ",index);
+		   
+		}); 
+			
 		
 	});// end of $(document).ready(function() {})
+	
+	/* 
+	function changeSelect(){
+	    var langSelect = document.getElementById("selectbox");
+	     
+	    // select element에서 선택된 option의 value가 저장된다.
+	    var selectValue = langSelect.options[langSelect.selectedIndex].val;
+	 
+	    // select element에서 선택된 option의 text가 저장된다.
+	    var selectText = langSelect.options[langSelect.selectedIndex].text;
+	    
+	    console.log("확인용 langSelect : ",langSelect);
+	    console.log("확인용 selectValue : ",selectValue);
+	    console.log("확인용 selectText : ",selectText);
+	}
+	 */
+	
 </script>
 
 
@@ -49,27 +91,37 @@
 			<div class="dropdown-label" style="font-weight: bold; font-size: 15pt;">
 			    이글루 할래용
 		    </div>
-      
-  			<select name="taste1" class="infoData select-box">
-              <option value="">맛을 선택하세요</option>
-              <c:forEach var="tvo" items="${requestScope.tasteList}">
-                <option value="${tvo.tasteno}">${tvo.tastename}</option>
-              </c:forEach> 
+		    
+		    
+		<c:forEach var="tvo" items="${requestScope.tasteList}" begin="0" end="2">
+  			<select id="taste" name="selectbox" class="infoData">
+			<option value="">맛을 선택하세요</option>
+      			<c:forEach var="tvo" items="${requestScope.tasteList}">	
+	              <option value="${tvo.tasteno}">${tvo.tastename}</option>
+ 		        </c:forEach> 
             </select>
-  
-			<select name="taste2" class="infoData select-box">
+        </c:forEach>
+      
+<%-- 		<select>
+			   <option value="">선택해주세요.</option>
+			   <c:forEach var="list" items="${result}">
+			 	  <option value="${list.beverage}" <c:if test ="${user.selectedBeberage eq list.beverage}">selected="selected"</c:if>>${list.beverage}</option>
+			   </c:forEach>
+			 </select>
+			  --%>
+			<%-- <select id="selectbox" name="selectbox" onchange="changeSelect()" class="infoData">
               <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 
             </select>
             
-			<select name="taste3" class="infoData select-box">
+			<select id="selectbox" name="selectbox" onchange="changeSelect()" class="infoData">
               <option value="">맛을 선택하세요</option>
               <c:forEach var="tvo" items="${requestScope.tasteList}">
                 <option value="${tvo.tasteno}">${tvo.tastename}</option>
               </c:forEach> 
-            </select>
+            </select> --%>
 	  
 	  		<hr style="border: solid 1px #81BEF7;">
   
