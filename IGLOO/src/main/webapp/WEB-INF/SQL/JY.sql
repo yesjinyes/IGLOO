@@ -37,9 +37,10 @@ select * from TBL_PRODUCT;
 
 
 select *
-from tbl_taste;
+from tbl_product;
 
-select count(*)
+
+select *
 from tbl_taste;
 
 
@@ -51,4 +52,17 @@ select row_number() over(order by tasteno desc) AS RNO
 from tbl_taste 
 ) V
 WHERE RNO between 1 and 8 ;
+
+ 
+alter table tbl_taste
+add ingredients varchar2(13) not null;
+
+
+
+
+
+
+
+
+
 

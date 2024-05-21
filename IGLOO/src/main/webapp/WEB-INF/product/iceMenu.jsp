@@ -37,8 +37,7 @@
 	      <span style="font-size: 12pt; font-weight: bold;">메뉴 정렬&nbsp;-&nbsp;</span>
 	      <select name="menuAlign">
 	         <option value="name">가나다순</option>
-	         <option value="order">주문많은수</option>
-	         <option value="review">리뷰수</option>      
+	         <option value="review">리뷰많은순</option>      
 	      </select>
 	    </form>
   	</div>
@@ -82,7 +81,7 @@
       <div>
          <p class="text-center">
               <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
-			  <button type="button" class="btn btn-secondary btn-lg" id="btnMore" value="">더보기...</button>
+			  <button type="button"  class="btn btn-outline-info btn-lg" id="btnMore" value="">더보기...</button>
 			  <span id="totalCount">${requestScope.totalCount}</span>	
 			  <span id="count">0</span>
          </p>

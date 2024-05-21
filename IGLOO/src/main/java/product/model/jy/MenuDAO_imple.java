@@ -65,8 +65,7 @@ public class MenuDAO_imple implements MenuDAO {
 			conn = ds.getConnection();
 			
 			String sql = " select count(*) "
-					   + " from tbl_taste "
-					    ;
+					   + " from tbl_taste " ;
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -98,8 +97,7 @@ public class MenuDAO_imple implements MenuDAO {
 			 conn = ds.getConnection();
 			 
 			 String sql = " select tasteno, tastename, tasteimg "  
-			 		    + " from tbl_taste "
-			 		   ;
+			 		    + " from tbl_taste ";
 			 		    
 			pstmt = conn.prepareStatement(sql);
 					
