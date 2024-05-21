@@ -62,3 +62,14 @@ div#a_content {
 	background-color: rgb(228, 228, 228);
 	padding: 2%;
 }
+
+div#nofaq {
+	font-size: 17pt;
+	font-weight: bolder;
+	height: 80px;
+	width: 50%;
+	line-height: 350%;
+	margin-left: 25%;
+	border-radius: 30px;
+	background-image: linear-gradient(to bottom, #e6f9ff, #a3e8ff);
+}
