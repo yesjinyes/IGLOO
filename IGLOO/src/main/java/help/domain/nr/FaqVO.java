@@ -1,8 +1,11 @@
 package help.domain.nr;
 
+import member.domain.MemberVO;
+
 public class FaqVO {
 	
 	private int q_no;
+	private String fk_userid;
 	private String q_title;
 	private int fk_categoryno;
 	private String q_content;
@@ -11,9 +14,28 @@ public class FaqVO {
 	private int fk_q_no;
 	private String a_content;
 	private String a_writeday;
+	private int answerstatus;
 	
+	public MemberVO getMvo() {
+		return mvo;
+	}
+	public void setMvo(MemberVO mvo) {
+		this.mvo = mvo;
+	}
+	private MemberVO mvo;
 	
-	
+	public String getFk_userid() {
+		return fk_userid;
+	}
+	public void setFk_userid(String fk_userid) {
+		this.fk_userid = fk_userid;
+	}
+	public int getAnswerstatus() {
+		return answerstatus;
+	}
+	public void setAnswerstatus(int answerstatus) {
+		this.answerstatus = answerstatus;
+	}
 	public int getQ_no() {
 		return q_no;
 	}
