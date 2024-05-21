@@ -92,7 +92,7 @@
 		<%-- <div id="item_img" class="col-xl-5 col-lg-5">
 			<img id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" style="width: 300px; height: 350px; border: solid 1px red;" alt="Responsive image"/>
 		</div> --%>
-		
+		 
 		<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.imgList}" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨">
 		
 		<div id="item_detail">

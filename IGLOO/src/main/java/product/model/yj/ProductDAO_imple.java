@@ -149,14 +149,14 @@ public class ProductDAO_imple implements ProductDAO {
 	      return imgDetailList;
 		
 	}// end of public List<Map<String, String>> selectImageDetail() throws SQLException
-
+ 
 	///////////////////////////////////////////////////////////////
 	
 	// 주문상세에서 상단 이미지 띄우기
 	@Override
 	public List<ProductVO> getimgList() throws SQLException {
 		
-		List<ProductVO> imgList = new ArrayList<>();
+		List<ProductVO> imgList = new ArrayList<>(); 
 	      
 	    try {
 	         conn = ds.getConnection();

@@ -13,7 +13,7 @@ public interface ProductDAO {
 	
 	// == 맛 목록을 조회해오기 == //
 	List<TasteVO> selectTasteList() throws SQLException;
-
+ 
 	// == 주문상세 하단 이미지 띄우기 == //
 	List<ProductVO> selectImageDetail() throws SQLException;
 

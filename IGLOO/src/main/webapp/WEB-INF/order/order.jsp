@@ -47,7 +47,7 @@
 	<h4>주문 메뉴</h4>
 	<br><br>
 	
-	<form name="orderFrm">
+	<form name="orderFrm"> 
 	
 	  <div class="card-deck mb-5">
 	    <c:forEach var="productList" items="${requestScope.productList}">
