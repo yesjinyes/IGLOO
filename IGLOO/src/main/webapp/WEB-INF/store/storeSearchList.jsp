@@ -35,7 +35,7 @@ function goSearch(){
 	
 	$.ajax({
 		url: "searchListJSON.ice",
-        type: "post",
+        type: "get",
         data: {"searchInput": searchInput},
         dataType: "json",
         success: function(json){
@@ -119,9 +119,9 @@ function goSearch(){
 	<label class="my-auto">
 		<input class="my-sm-0" type="text" name="store_search" id="store_search" size="50" placeholder='지점명 또는 주소를 입력하세요' required="required">
 	</label>
-	<%-- <button id="btnSearch" class="btn my-sm-0" type="button" onclick="goSearch()"> --%>
-		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image" onclick="goSearch()">
-	<%-- </button> --%>
+	 <span id="btnSearch" onclick="goSearch()" style="cursor: pointer;">
+		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
+	 </span>
 </div>
 
 <%-- 구분선 --%>
