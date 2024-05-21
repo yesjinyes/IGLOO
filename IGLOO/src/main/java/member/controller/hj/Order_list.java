@@ -1,5 +1,6 @@
 package member.controller.hj;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cart.model.hj.CartDAO;
@@ -39,12 +40,36 @@ public class Order_list extends AbstractController {
 				
 				request.setAttribute("orderdetailList", orderdetailList);
 				
-				////////////////////////////////////////////////
+				String haveorderlist = "none";
+				
+				try {
+					int check = orderdetailList.size();
+					if(check > 0) {
+						haveorderlist = "haveorderlist";
+					}
+				}catch(Exception e) {
+					
+				}	// end of try~catch---------
+				
+				request.setAttribute("haveorderlist", haveorderlist);
+				
+				List <String> totaltastelist = new ArrayList<>();
+				
+				for(int i=0; i<orderdetailList.size(); i++) {
+					for(int j=0; j<orderdetailList.get(i).getTastenamelist().size(); j++) {
+						totaltastelist.add(orderdetailList.get(i).getTastenamelist().get(j).getTastename());
+					}
+				}	// end of for----------
+				
+				request.setAttribute("totaltastelist", totaltastelist);
+				
 				super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/order/order_list.jsp");
 			
 			}
 			else {
+				
+				super.goBackURL(request);
 				
 				String message = "로그인이 필요합니다.";
 		        String loc = request.getContextPath() + "/login/login.ice";

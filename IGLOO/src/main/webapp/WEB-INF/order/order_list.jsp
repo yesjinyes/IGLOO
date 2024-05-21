@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
@@ -14,6 +17,7 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_list.js"></script>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/Moreorder_list.js"></script>
+
 <%-- 주문내역 --%>
 <div id="orderlistContents" class="mt-5">
 	<span id="input_searchlist">주문내역 검색</span>
@@ -50,103 +54,44 @@
 	</div>
 	
 	<hr style="border: solid 2px #6190BC">
-	
+	<c:if test="${requestScope.haveorderlist == 'none'}">
+		<div class="mx-auto text-center">
+			<h3 class="mt-5 font-weight-bolder">주문내역에 담긴 상품이 없습니다.</h3>
+			<div class="h-50 p-5 m-3"></div>
+		</div>
+	</c:if>
+	<c:if test="${requestScope.haveorderlist != 'none'}">
 	<%-- 주문내역 결과창 --%>
 	<div id="SearchorderlistContents">
-		<div class="orderdate ml-4">2024.05.13</div>
+		<div class="orderdate ml-4"></div>
 		
 		<div class="Oneorderdate">
-			<%-- 해당 날짜 주문시간과 주문코드 --%>
-			<div class="dateorderlist my-3 ml-4">
-				<div>2024.05.13 23:33:35</div>
-				<div>주문코드 : P-000001</div>
-			</div>
-				
-			<%-- 해당 날짜 주문내역 --%>
-			<div id="orderlist" class="row justify-content-center mb-3">
-				<%-- 선택한 메뉴 이미지 --%>
-				<div class="col-xl-2 col-lg-2 ">
-					<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/pint.png" alt="Responsive image">
-				</div>
-			
-				<%-- 선택한 제품과 맛 --%>
-				<div class="orderMenu col-xl-3 col-lg-3 ">
-						
-					<%-- 선택한 제품 품목 --%>
-					<label class="text-center mx-auto mt-3">파인트</label>
-						
-	       			<%-- 제품 선택한 맛 나열 --%>
-	       			<div class="choiceAlltaste my-auto">
-	       				<ul class="list-group list-group-flush">
-			  				<li class="list-group-item">첫번째 선택 맛</li>
-			  				<li class="list-group-item">두번째 선택 맛</li>
-			  				<li class="list-group-item">세번째 선택 맛</li>
-						</ul>
-					</div>
-				</div>
-				
-				<%-- 수량 --%>
-				<div class="selectMenucnt justify-content-center text-center col-xl-2 col-lg-2 p-0">
-					<div class="mt-5">
-						<div class="d-inline-block"></div>
-						<div>수량</div>
-						<button type="button" class="btn">
-							<i class="fa-solid fa-minus"></i>
-						</button>
-						<span>1</span>
-						<button type="button" class="btn">
-							<i class="fa-solid fa-plus"></i>
-						</button>
-					</div>
-				</div>
-				
-				<%-- 금액 --%>
-				<div class="selectOrderprice justify-content-center text-center col-xl-2 col-lg-2 p-0">
-					<div class="mt-5 mb-5">
-						<div class="d-inline-block"></div>
-						<div>9800원</div>
-					</div>
+			<c:forEach var="orderdetailList" items="${requestScope.orderdetailList}" varStatus="Status">
+				<%-- 해당 날짜 주문시간과 주문코드 --%>
+				<div class="dateorderlist my-3 ml-4">
+					<div>${orderdetailList.order.orderdate}</div>
+					<div>주문코드 : ${orderdetailList.fk_ordercode}</div>
 				</div>
 					
-				<%-- 주문상태 --%>
-				<div class="Ordersituation justify-content-center text-center col-xl-2 col-lg-2 p-0">
-					<div class="mt-5 mb-5">
-						<div class="d-inline-block"></div>
-						<div>주문완료</div>
-					</div>
-				</div>
-			</div>
-			<%-- 주문목록 하나 완료 --%>
-			
-			<hr>
-			
-			<div class="Oneorderdate">
-				<%-- 해당 날짜 주문시간과 주문코드 --%>
-				<div class="dateorderlist my-3 ml-5">
-					<div>2024.05.13 23:43:35</div>
-					<div>주문코드 : Q-000002</div>
-				</div>
-			
 				<%-- 해당 날짜 주문내역 --%>
 				<div id="orderlist" class="row justify-content-center mb-3">
 					<%-- 선택한 메뉴 이미지 --%>
 					<div class="col-xl-2 col-lg-2 ">
-						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/quart.png" alt="Responsive image">
+						<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/${orderdetailList.product.productimg}" alt="Responsive image">
 					</div>
 				
 					<%-- 선택한 제품과 맛 --%>
 					<div class="orderMenu col-xl-3 col-lg-3 ">
 							
 						<%-- 선택한 제품 품목 --%>
-						<label class="text-center mx-auto mt-3">쿼터</label>
+						<label class="text-center mx-auto mt-3">${orderdetailList.product.productname}</label>
 							
 		       			<%-- 제품 선택한 맛 나열 --%>
 		       			<div class="choiceAlltaste my-auto">
 		       				<ul class="list-group list-group-flush">
-				  				<li class="list-group-item">첫번째 선택 맛</li>
-				  				<li class="list-group-item">두번째 선택 맛</li>
-				  				<li class="list-group-item">세번째 선택 맛</li>
-				  				<li class="list-group-item">네번째 선택 맛</li>
+		       					<c:forEach var="totaltastelist" items="${requestScope.totaltastelist}" varStatus="Status">
+				  					<li class="list-group-item">${totaltastelist}</li>
+				  				</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -156,39 +101,51 @@
 						<div class="mt-5">
 							<div class="d-inline-block"></div>
 							<div>수량</div>
-							<button type="button" class="btn">
-								<i class="fa-solid fa-minus"></i>
-							</button>
-							<span>1</span>
-							<button type="button" class="btn">
-								<i class="fa-solid fa-plus"></i>
-							</button>
+							<span>${orderdetailList.ordercount}</span>
 						</div>
 					</div>
-						
+					
 					<%-- 금액 --%>
 					<div class="selectOrderprice justify-content-center text-center col-xl-2 col-lg-2 p-0">
 						<div class="mt-5 mb-5">
 							<div class="d-inline-block"></div>
-							<div>18500원</div>
+							<div>
+								<fmt:formatNumber value="${orderdetailList.orderprice}" pattern="###,###" />
+								원
+							</div>
 						</div>
 					</div>
-					
+						
 					<%-- 주문상태 --%>
 					<div class="Ordersituation justify-content-center text-center col-xl-2 col-lg-2 p-0">
 						<div class="mt-5 mb-5">
 							<div class="d-inline-block"></div>
-							<div>주문완료</div>
+							<div>
+								<c:if test="${orderdetailList.pickupstatus == 1}">
+									주문완료
+								</c:if>
+								<c:if test="${orderdetailList.pickupstatus == 2}">
+									준비중
+								</c:if>
+								<c:if test="${orderdetailList.pickupstatus == 3}">
+									픽업대기
+								</c:if>
+								<c:if test="${orderdetailList.pickupstatus == 4}">
+									픽업완료
+								</c:if>
+							</div>
 						</div>
 					</div>
 				</div>
-				<%-- 주문목록 하나 완료 --%>
-			
-				<hr style="border: solid 2px #6190BC">
-			</div>	
+				
+				<%-- 다른 주문목록 구분선 --%>
+				<hr>
+			</c:forEach>	
+		<%-- 마무리 구분선 --%>
+		<hr style="border: solid 2px #6190BC">
 		</div>	
 	</div>
-	
+	</c:if>
 	<%-- 더보기 방식으로 페이징 처리 --%>
 	<%--
 	<div>
