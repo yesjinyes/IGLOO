@@ -80,14 +80,16 @@ sugar varchar2(10),
 protein varchar2(10), 
 fat varchar2(10), 
 natrium varchar2(10), 
-allergy  varchar2(20),
+allergy  varchar2(40),
 constraint PK_tbl_taste_tasteno primary key(tasteno));
 
 
+commit;
 -- tbl_taste 테이블 insert
 select *
 from tbl_taste
 order by tasteno asc;
+
 
 delete from tbl_taste where tasteno = '30';
 
@@ -96,13 +98,17 @@ drop sequence seq_tasteno;
 
 rollback;
 
+select *
+from tbl_taste;
+where tastename = '마스카포네 마카롱';
+
 -----------------------------------------------------------------------------------------------------
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'행복한 나라의 슈팅스타','행복한 나라의 슈팅스타.png', '딸기와 블루베리가 들어간 솜사탕 아이스크림에 톡톡 튀는 팝핑캔디로 입안 가득 즐거운 맛', '115','276','32','4','9','78','우유, 대두');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'에스프레소 위드 크림','에스프레소 위드 크림.png', '바닐라 아이스크림과 함께 즐기는 부드러운 에스프레소 한 잔', '115','205','24','5','7','73','우유, 대두');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'블루베리 잼','블루베리 잼.png', '이탈리안 디저트 파나코타와 상큼한 블루베리의 부드러운 만남', '115','226','24','4','6','65','우유');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'디노 사우루스 젤리','디노 사우루스 젤리.png', '파인애플과 그린 애플 아이스크림에 알록달록 공룡젤리가 콩콩!', '115','162','29','3','1','18','우유');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'단짠우유','단짠우유.png', '부드러운 우유 맛 아이스크림 속에 깊은 단 맛을 끌어내는 소금 아이스크림', '115','227','18','4','7','307','우유,대두');
-insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'마스카포네 마카롱','마스카포네 마카롱.png', '부드러운 마스카포네 아이스크림과 마카롱, 초콜릿의 달콤한 만남!', '115','266','23','6','8','86','우유,대두,계란,땅콩');
+insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(6,'마스카포네 마카롱','마스카포네 마카롱.png', '부드러운 마스카포네 아이스크림과 마카롱, 초콜릿의 달콤한 만남!', '115','266','23','6','8','86','우유,대두,계란,땅콩');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'망고 탱탱고','망고 탱탱고.png', '부드럽고 상큼한 열대과일, 입 안 가득 진한 망고 향이 가득!', '115','238','27','3','6','37','우유');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'롤리롤리롤리팝','롤리롤리롤리팝.png', '바닐라향, 스트로베리, 블루베리 아이스크림에 색색의 롤리팝 캔디까지!', '115','249','23','4','8','68','우유,대두');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'딸바보 아빠','딸바보 아빠.png', '두가지 딸기 아이스크림과 바닐라향 아이스크림에 봉봉 프레첼이 쏘옥~!', '115','308','26','4','14','84','우유,대두,밀');
@@ -115,7 +121,7 @@ insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, ca
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'오레오레오','오레오레오.png', '부드러운 바닐라향 아이스크림에, 달콤하고 진한 오레오 쿠키가 듬뿍!', '115','228','18','5','8','127','우유,대두,밀');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'스트로베리','스트로베리.png', '새콤상큼 딸기 과육이 듬뿍!', '115','228','24','3','7','69','우유');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'이글루요거트','이글루요거트.png', '유산균이 살아 있는 오리지널 요거트 아이스크림', '115','198','26','5','4','67','우유,대두');
-insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'바람과 함께 날아가다','바람과 함께 날아가다.png', '블루베리와 딸기로 상큼함을 더한 치즈케이크 한 조각', '115','269','25','4','8','95','우유,대두,밀,계란');
+insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(19,'바람과 함께 날아가다','바람과 함께 날아가다.png', '블루베리와 딸기로 상큼함을 더한 치즈케이크 한 조각', '115','269','25','4','8','95','우유,대두,밀,계란');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'바달라','바달라.png', '부드럽고 깔끔한 바닐라 아이스크림', '115','246','21','4','8','74','우유');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'초코칩 초콜릿','초코칩 초콜릿.png', '초콜릿 칩이 들어있는 진한 초콜릿 아이스크림', '115','318','27','5','12','96','우유,대두');
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'에코티','에코티.png', '엄선된 녹차를 사용한 싱그러운 그린티 아이스크림', '115','245','20','5','8','73','우유');
@@ -129,11 +135,7 @@ insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, ca
 select *
 from tbl_taste;
 
-rollback;
-
 commit;
-
-
 
 
 ---------------------------------------------------------------------------------------------------- 
