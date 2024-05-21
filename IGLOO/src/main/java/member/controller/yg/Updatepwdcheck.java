@@ -30,7 +30,7 @@ public class Updatepwdcheck extends AbstractController {
 				HttpSession session = request.getSession();
 				MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 				
-				System.out.println(loginuser.getUserid());
+//				System.out.println(loginuser.getUserid());
 				
 				String userid = loginuser.getUserid();
 //				System.out.println(userid);
