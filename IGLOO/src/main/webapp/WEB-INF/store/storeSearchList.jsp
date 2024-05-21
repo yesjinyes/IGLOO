@@ -14,6 +14,16 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+	
+	$("input[name='store_search']").keyup(function(e){
+		if(e.keyCode == 13){
+			goSearch();
+		}
+	});
+	
+});
+
 function goSearch(){
 		
 	const searchInput = $("input[name='store_search']").val();
