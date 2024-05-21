@@ -24,26 +24,27 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/idfind.css" />
 
+
+
+
+
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	
-	const method = "${requestScope.method}";
-	
-	if(method == "POST"){
-		$("input:text[name='pwd']").val("${requestScope.pwd}");
-	}
 	$("button.btnidfind").click(function(){
 		goFind();
 	})	// end of $("button.btn-success").click(function(){})-------------
+	
 })	// end of $(document).ready(function(){})----------------
 
 // === Function Declaration === //
 function goFind(){
 	
-	const name = $("input:text[name='pwd']").val().trim();
+	const name = $("input:password[name='pwd']").val().trim();
 	if(name == ""){
-		alert("성명을 입력하세요!!");
+		alert("비밀번호를 입력하세요!!");
 		return;
 	}
 	
@@ -63,13 +64,19 @@ function func_form_reset_empty() {
 
 </script>
 
+
+
+
+
+
+
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 	
 	<form name="idFindFrm">
 	   <ul style="list-style-type: none;">
 	      <li style="margin: 25px 0">
-	          <label>성명</label>
-	          <input type="text" name="pwd" size="25" autocomplete="off" /> 
+	          <label>비밀번호</label>
+	          <input type="password" name="pwd" size="25" autocomplete="off" /> 
 	      </li>
 	   </ul> 
 	
@@ -77,6 +84,7 @@ function func_form_reset_empty() {
 	      <button type="button" class="btn btnidfind">찾기</button>
 	   </div>
 	</form>
+	
 <%-- 결과창 띄우기 --%>
 <div class="my-3 text-center" id="div_findResult">
 	<c:if test="${not empty requestScope.pwdcheck}" />
