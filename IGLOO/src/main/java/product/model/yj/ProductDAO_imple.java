@@ -47,42 +47,41 @@ public class ProductDAO_imple implements ProductDAO {
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////
-
-	// == 컵 사이즈, 상세정보, 가격 알아오는 메소드 ==
+	
+	// == 컵 사이즈, 상세정보, 가격 알아오는 메소드 == //
 	@Override
-	public ProductVO getproduct(String productcodeno) throws SQLException {
-
-		ProductVO pvo = new ProductVO();
+	public List<ProductVO> getproductList() throws SQLException {
 		
-		try {
-			conn = ds.getConnection();
-			
-			String sql =  " select productname, productdetail, price "
-						+ " from tbl_product "
-						+ " where productcodeno = ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, productcodeno);
-			
-			rs  = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				pvo.setProductname(rs.getString("productname"));
-				pvo.setProductdetail(rs.getString("productdetail"));
-				pvo.setPrice(rs.getInt("price"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();	
-		} 
-		finally {
-			close();
-		}
+		  List<ProductVO> productList = new ArrayList<>();
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select productcodeno, productimg, productname, productdetail, price "
+		         		+ " from tbl_product ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 ProductVO pvo = new ProductVO();
+	        	 pvo.setProductcodeno(rs.getString(1));
+	        	 pvo.setProductimg(rs.getString(2));
+	        	 pvo.setProductname(rs.getString(3));
+	        	 pvo.setProductdetail(rs.getString(4));
+	        	 pvo.setPrice(rs.getInt(5));
+	        	 
+	        	 productList.add(pvo);
+	         }// end of while-----------------
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return productList;
 		
-		return pvo;
-		
-		
-	}// end of public String getproduct(Map<String, String> paraMap) throws SQLException ---------------------
+	}// end of public List<ProductVO> getproductList() throws SQLException
 
 	///////////////////////////////////////////////////////////////
 	
@@ -117,6 +116,40 @@ public class ProductDAO_imple implements ProductDAO {
 	      return tasteList;
 		
 	}// end of public List<TasteVO> selectTasteList() throws SQLException
+
+	///////////////////////////////////////////////////////////////
+	
+	// == 주문상세 하단 이미지 띄우기 == //
+	@Override
+	public List<ProductVO> selectImageDetail() throws SQLException {
+		
+		  List<ProductVO> imgDetailList = new ArrayList<>();
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select productimgBelow "
+	         			+ " from tbl_product ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 ProductVO pvo = new ProductVO();
+	        	 pvo.setProductimgBelow(rs.getString("productimgBelow"));
+	             imgDetailList.add(pvo);
+	         }// end of while -----------------
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return imgDetailList;
+		
+	}// end of public List<Map<String, String>> selectImageDetail() throws SQLException
+
+	
 
 	
 	

@@ -18,7 +18,7 @@ public class MenuDetail extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		
-		
+		//저장소에 맛이름, 맛설명 넣기
 		
 		
 		
