@@ -63,7 +63,7 @@
 
 <div class="container mt-5 pt-5" style="border: solid 1px red;">
 
-	<div style="text-align: center; font-weight: bold;">1:1 문의 내역</div>
+	<div style="text-align: center; font-weight: bold;"><img style="width: 25%;" src="<%=ctxPath %>/images/img_narae/1대1문의목록.png"/></div>
 	<form name="member_search_frm">
 		<span style="font-size: 12pt; font-weight: bold; margin-left: 80%;">페이지당 게시글수&nbsp;</span>
 		<select name="sizePerPage">
@@ -77,12 +77,13 @@
 	
 		<thead>
 			<tr style="background-color: #ccf3ff; text-align: center;">
-				<th style="width: 5%;">번호</th>
+				<th style="width: 7%;">번호</th>
 				<th style="display: none;">문의테이블 번호</th>
 				<th style="width: 10%;">아이디</th>
-				<th style="width: 10%;">회원명</th>
-				<th style="width: 50%;">제목</th>
-				<th style="width: 15%;">답변여부</th>
+				<th style="width: 8%;">회원명</th>
+				<th style="width: 40%;">제목</th>
+				<th style="width: 25%;">작성일자</th>
+				<th style="width: 10%;">답변여부</th>
 			</tr>
 		</thead>
 		
@@ -97,6 +98,7 @@
 					<td style="text-align: center;">${faq.fk_userid}</td>
 					<td style="text-align: center;">${faq.mvo.name}</td>
 					<td>${faq.q_title}</td>
+					<td style="text-align: center;">${faq.q_writeday }</td>
 					<td style="text-align: center;">
 						<c:if test="${faq.answerstatus == 0}"><span style="color: red; font-weight: bold;">미답변</span></c:if>
 						<c:if test="${faq.answerstatus == 1}"><span style="color: blue;">답변완료</span></c:if>
