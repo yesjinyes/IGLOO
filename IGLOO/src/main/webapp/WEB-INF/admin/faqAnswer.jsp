@@ -78,7 +78,7 @@
 		<thead>
 			<tr style="background-color: #ccf3ff; text-align: center;">
 				<th style="width: 5%;">번호</th>
-				<th >문의테이블 번호</th>
+				<th style="display: none;">문의테이블 번호</th>
 				<th style="width: 10%;">아이디</th>
 				<th style="width: 10%;">회원명</th>
 				<th style="width: 50%;">제목</th>
@@ -93,7 +93,7 @@
 					<fmt:parseNumber var="currentShowPageNo" value="${requestScope.currentShowPageNo}" />
           			<fmt:parseNumber var="sizePerPage" value="${requestScope.sizePerPage}" />
 					<td style="text-align: center;">${requestScope.totalFaqCount - (currentShowPageNo-1)*sizePerPage - status.index}</td>
-					<td id="q_no" style="text-align: center;">${faq.q_no }</td>
+					<td id="q_no" style="text-align: center; display: none;">${faq.q_no }</td>
 					<td style="text-align: center;">${faq.fk_userid}</td>
 					<td style="text-align: center;">${faq.mvo.name}</td>
 					<td>${faq.q_title}</td>

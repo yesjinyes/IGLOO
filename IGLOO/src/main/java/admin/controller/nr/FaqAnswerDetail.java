@@ -37,12 +37,11 @@ public class FaqAnswerDetail extends AbstractController {
 				// System.out.println(fk_q_no);
 				// System.out.println(goBackURL);
 				
-				FaqVO fav = adao.getFaq(fk_q_no);
-				System.out.println(fav);
+				FaqVO fvo = adao.getFaq(fk_q_no);
+				// System.out.println(fvo);
 				
-				
-				
-				
+				request.setAttribute("fvo", fvo);
+				request.setAttribute("goBackURL", goBackURL);
 				
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/admin/faqAnswerDetail.jsp");

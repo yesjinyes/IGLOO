@@ -20,4 +20,7 @@ public interface AdminDAO {
 	// 관리자 - 1:1 질문 상세보기
 	FaqVO getFaq(String fk_q_no) throws SQLException;
 
+	// 관리자 - 1:1 답변 등록
+	int insertAnswer(Map<String, String> paramap) throws SQLException;
+
 }
