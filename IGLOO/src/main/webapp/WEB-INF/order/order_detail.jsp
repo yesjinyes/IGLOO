@@ -44,22 +44,21 @@
 			//var index = $("#taste option").index($("taste option:selected"));
 			//console.log("선택된 index => ", index);
 			
-		});  
+			
+			
+		});// end of $("select[id='taste']").change(function()----------------------
+		   // select 에서 선택한 맛 밑에 한번에 뜨도록
 	 	
 		
-	});// end of $(document).ready(function() {})
+		let plus = document.querySelector
+		   
+		   
+		   
+		   
+		   
+		   
+	});// end of $(document).ready(function() {})-------------------------------
 	 
-	/* function selectTaste(e) {
-					
-		// 선택된 데이터 가져오기
-		const value = e.value;
-		const index = e.index;
-		
-		// 데이터 출력
-		document.getElementById('result').innerText = value;
-		
-		console.log("확인용 value : ",value);
-	} */
 	
 	
 	/* 
@@ -97,7 +96,7 @@
 		<div id="item_detail">
 			<div class="p-0  my-auto">
 				<div style="font-size: 30pt;"><%= productname%></div>
-				<h6 style="font-size: 27pt; text-align: right;"><%= productprice%>원</h6>
+				<h6 style="font-size: 27pt; text-align: right;"><%= productprice%></h6>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
 	  
@@ -126,6 +125,22 @@
 				     <div id="result">=== 선택한 맛이 나오는 자리 ===</div>
 				 </div>
 				
+				 <%-- 수량 +, - --%>
+				 <div class="num">
+				 	<span>수량</span><br>
+				 	<span class="count">
+				 		<a href="#" class="minus" style="font-size: 30pt; margin-right: 10pt;">-</a>
+				 		<span id="result" style="font-size: 20pt;">1</span>
+				 		<a href="#" class="plus" style="font-size: 20pt; margin-left: 10pt;">+</a>
+				 	</span>
+				 </div>
+				 
+				 
+				
+				
+				
+				
+				<%-- 수량 버튼
 				<div class="selectMenucnt justify-content-end col-xl-4 col-lg-4 col-md-2 p-0 my-auto">
 	                  <div class="d-inline-block"></div>
 	                  <div class="mb-5">
@@ -133,12 +148,12 @@
 	                     <button type="button" class="btn ml-5">
 	                        <i class="fa-solid fa-minus"></i>
 	                     </button>
-	                     <span>1</span>
+	                     	<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
 	                     <button type="button" class="btn">
 	                        <i class="fa-solid fa-plus"></i>
 	                     </button>
 	                  </div>
-	             </div>
+	             </div> --%>
 				 
             </div>
              
@@ -147,13 +162,13 @@
 			<div class="row justify-content-between mb-3">
 				<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
 				<div class="col-4"></div>
-				<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;"><%= productprice%>원</div>
+				<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;"><%= productprice%></div>
 				<br>
 			</div>
 			
 			<div id="button" class="mx-auto">
-				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="go...()" />
-	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="go...()" />
+				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart()" />
+	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="goOrder()" />
 			</div>
 		</div>
 	 

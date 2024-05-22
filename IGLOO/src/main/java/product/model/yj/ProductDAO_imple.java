@@ -156,7 +156,7 @@ public class ProductDAO_imple implements ProductDAO {
  
 	///////////////////////////////////////////////////////////////
 	
-	// 주문상세에서 상단 이미지 띄우기
+	// == 주문상세에서 상단 이미지 띄우기 == //
 	@Override
 	public List<ProductVO> getimgList() throws SQLException {
 		
