@@ -108,6 +108,7 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTasteno(rs.getInt(1));
 				tvo.setTastename(rs.getString(2));
 				tvo.setTasteimg(rs.getString(3));
+				tvo.setIngredients(rs.getString(4));	
 				
 				menuList.add(tvo);
 			}// end of while(rs.next())----------------------------------
@@ -138,7 +139,7 @@ public class MenuDAO_imple implements MenuDAO {
 						+ " FROM "
 						+ " ( "
 						+ "   select row_number() over(order by tasteno desc) AS RNO "
-						+ " 		, tasteno ,tastename, tasteimg "
+						+ " 		, tasteno ,tastename, tasteimg , ingredients "
 						+ "    from tbl_taste "
 						+ " ) V "
 						+ " WHERE RNO between ? and ? ";
@@ -156,6 +157,7 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTasteno(rs.getInt(1));     // 제품번호
 				tvo.setTastename(rs.getString(2)); // 제품명
 				tvo.setTasteimg(rs.getString(3)); // 제품명
+				tvo.setIngredients(rs.getString(4)); // 제품명
 				
 								
 				productList.add(tvo);

@@ -44,11 +44,11 @@ select *
 from tbl_taste;
 
 
-SELECT tasteno, tastename, tasteimg  
+SELECT RNO, tastename, tasteimg, ingredients 
 FROM
 ( 
 select row_number() over(order by tasteno desc) AS RNO 
-		,tastename, tasteimg 
+		,tastename, tasteimg ,ingredients
 from tbl_taste 
 ) V
 WHERE RNO between 1 and 8 ;
@@ -116,4 +116,12 @@ WHERE tasteno = 12;
 commit;
 
 
+SELECT tasteno, tastename, tasteimg , ingredients " 
+						+ " FROM "
+						+ " ( "
+						+ "   select row_number() over(order by tasteno desc) AS RNO "
+						+ " 		, tasteno ,tastename, tasteimg , ingredients "
+						+ "    from tbl_taste "
+						+ " ) V "
+						+ " WHERE RNO between ? and ?
 
