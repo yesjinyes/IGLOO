@@ -51,6 +51,7 @@
 	                    </td>
 	                    <td>
 	                       <input type="text" name="email" id="email" maxlength="60" class="requiredInfo" placeholder="이메일 주소[본인확인용]" value="${requestScope.loginuser.email}"/>
+	       				 <input type="hidden" name="userid" value="${requestScope.loginuser.userid}"/>
 	                       <%-- 이메일중복체크 --%>
 	                       <span id="emailcheck">이메일중복확인</span>
 	                       <div>

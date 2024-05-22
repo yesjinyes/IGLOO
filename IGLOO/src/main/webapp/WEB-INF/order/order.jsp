@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
     
 <% String ctxPath = request.getContextPath(); %>
 
@@ -58,7 +59,7 @@
 		      <div class="card-body">
 		        <h5 class="card-title productname">${productList.productname}</h5>
 		        <p class="card-text productdetail">${productList.productdetail}</p>
-		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;">${productList.price}</p>
+		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
 		        <input type="hidden" name="productimg"/>
 		        <input type="text" name="productname"/>
 		        <input type="text" name="productprice"/>

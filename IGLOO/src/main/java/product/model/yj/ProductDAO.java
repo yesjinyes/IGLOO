@@ -17,10 +17,8 @@ public interface ProductDAO {
 	// == 주문상세 하단 이미지 띄우기 == //
 	List<ProductVO> selectImageDetail() throws SQLException;
 
-	// 주문상세에서 상단 이미지 띄우기 == //
+	// == 주문상세에서 상단 이미지 띄우기 == //
 	List<ProductVO> getimgList() throws SQLException;
-
-	
 
 	
 	
