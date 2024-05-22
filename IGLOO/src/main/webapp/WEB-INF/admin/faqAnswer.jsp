@@ -33,14 +33,12 @@
 		});
 		
 		$("tbody > tr.faqInfo").click(function(e){ // 선택자는 tr이지만 클릭한 것은 td이다. 그러므로 e.target은 td태그를 가리킨다.
-			// alert($(e.target).parent().text()," 클릭");
-			const userid = $(e.target).parent().find(".userid").text();
-			// 또는 const userid = $(e.target).parent().children(".userid").text();
 			
-			const frm = document.memberOneDetail_frm;
-			frm.userid.value = userid;
-			frm.action = "${pageContext.request.contextPath}/admin/memberOneDetail.ice";
-			// 만약 상단에서 .getContextPath를 하지 않았다면 따로 쓸 필요 없이 위와 같이 해주어도 동일하다.
+			const q_no = $(this).children("#q_no").text();
+			
+			const frm = document.faqOneDetail_frm;
+			frm.fk_q_no.value = q_no;
+			frm.action = "${pageContext.request.contextPath}/admin/faqAnswerDetail.ice";
 			frm.method = "post";
 			frm.submit();
 		});		
@@ -50,12 +48,6 @@
 		
 	});
 	
-	function goSearch() {
-		
-		const frm = document.member_search_frm;
-		frm.submit();
-		
-	}
 </script>
 
 <jsp:include page="../header.jsp" />
@@ -86,6 +78,7 @@
 		<thead>
 			<tr style="background-color: #ccf3ff; text-align: center;">
 				<th style="width: 5%;">번호</th>
+				<th >문의테이블 번호</th>
 				<th style="width: 10%;">아이디</th>
 				<th style="width: 10%;">회원명</th>
 				<th style="width: 50%;">제목</th>
@@ -100,6 +93,7 @@
 					<fmt:parseNumber var="currentShowPageNo" value="${requestScope.currentShowPageNo}" />
           			<fmt:parseNumber var="sizePerPage" value="${requestScope.sizePerPage}" />
 					<td style="text-align: center;">${requestScope.totalFaqCount - (currentShowPageNo-1)*sizePerPage - status.index}</td>
+					<td id="q_no" style="text-align: center;">${faq.q_no }</td>
 					<td style="text-align: center;">${faq.fk_userid}</td>
 					<td style="text-align: center;">${faq.mvo.name}</td>
 					<td>${faq.q_title}</td>
@@ -124,6 +118,7 @@
 </div>
 
 <form name="faqOneDetail_frm">
+	<input type="hidden" name="fk_q_no" />
 	<input type="hidden" name="goBackURL" value="${requestScope.currentURL}"/>
 </form>
 

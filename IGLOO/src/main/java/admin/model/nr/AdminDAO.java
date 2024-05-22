@@ -17,4 +17,7 @@ public interface AdminDAO {
 	// 관리자 - 1:1 질문 총 개수 알아오기
 	int getTotalFaqCount(Map<String, String> paramap) throws SQLException;
 
+	// 관리자 - 1:1 질문 상세보기
+	FaqVO getFaq(String fk_q_no) throws SQLException;
+
 }

@@ -183,4 +183,46 @@ public class AdminDAO_imple implements AdminDAO {
 	}
 
 	
+	
+	
+	
+	// 관리자 - 1:1 질문 상세보기
+	@Override
+	public FaqVO getFaq(String fk_q_no) throws SQLException {
+		
+		FaqVO fvo = new FaqVO();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select q_no, fk_userid, fk_categoryno, q_title, q_content, to_char(q_writeday, 'yyyy-mm-dd hh24:mi:ss'), name "
+					   + "from tbl_faq_q A join tbl_member B "
+					   + "on A.fk_userid = B.userid "
+					   + "where q_no = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fk_q_no);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			fvo.setQ_no(rs.getInt(1));
+			fvo.setFk_userid(rs.getString(2));
+			fvo.setFk_categoryno(rs.getInt(3));
+			fvo.setQ_title(rs.getString(4));
+			fvo.setQ_content(rs.getString(5));
+			fvo.set
+			
+			
+		} finally {
+			close();
+		}
+		
+		
+		return fvo;
+		
+	}
+
+	
 }
