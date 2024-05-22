@@ -180,3 +180,11 @@ ALTER TABLE TBL_TASTE DROP CONSTRAINT PK_TBL_TASTE_TASTENO;
 
 select *
 from tbl_taste;
+
+
+select productimg
+from tbl_product;
+
+select *
+from tbl_product;
+
