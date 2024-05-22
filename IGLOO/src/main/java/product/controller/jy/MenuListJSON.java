@@ -39,6 +39,7 @@ public class MenuListJSON extends AbstractController {
 				jsonObj.put("timg", tvo.getTasteimg());   // {"cnum":1}
 				jsonObj.put("tname", tvo.getTastename());   // {"cnum":1, "code":"100000"} 
 				jsonObj.put("tno", tvo.getTasteno()); // {"cnum":1, "code":"100000", "cname":"전자제품"}  
+				jsonObj.put("tgredi", tvo.getIngredients()); // {"cnum":1, "code":"100000", "cname":"전자제품"}  
 				
 				jsonArr.put(jsonObj);  // [{"cnum":1, "code":"100000", "cname":"전자제품"},
 				                       //  {"cnum":2, "code":"200000", "cname":"의류"},
