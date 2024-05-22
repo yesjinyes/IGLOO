@@ -1,5 +1,6 @@
 package order.controller.yj;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +20,7 @@ public class Order_detail extends AbstractController {
 		pdao = new ProductDAO_imple();
 	}   
 	
-	private void redirect(HttpServletRequest request) { // 중복되는 내용이 있어서 밖에 함수 만들어서 빼준것임
-		super.setRedirect(true);
-        super.setViewPage(request.getContextPath() + "/myshop/mallHomeMore.up");
-	}
+	
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -34,8 +32,12 @@ public class Order_detail extends AbstractController {
 		request.setAttribute("tasteList", tasteList);
 		
 		// == 주문상세 상단 이미지 띄우기 == //
-		// String productimg = pdao.getproductimg();
-		//request.setAttribute("productimg", productimg);
+		String productimg = request.getParameter("productimg");
+		
+		productimg = pdao.getproductimg(productimg);
+		request.setAttribute("productimg", productimg);
+		
+		System.out.println("확인용 이미지 : " + productimg);
 		
 		// == 주문상세 하단 이미지 띄우기 == //
 		List<ProductVO> imgDetailList = pdao.selectImageDetail();
