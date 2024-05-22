@@ -54,7 +54,7 @@
 	    <c:forEach var="productList" items="${requestScope.productList}">
 			<div class="card">
 			  
-		      <img src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top" style="height: 50%;" alt="...">
+		      <img name="testproductimg" src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top" style="height: 50%;" alt="...">
 		     
 		      <div class="card-body">
 		        <h5 class="card-title productname">${productList.productname}</h5>

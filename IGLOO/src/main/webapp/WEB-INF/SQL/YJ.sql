@@ -159,6 +159,7 @@ drop table 테이블명;
 select *
 from tbl_product;
 
+select * from user_sequences;
 
 select productimgbelow
 from tbl_product
@@ -182,9 +183,11 @@ select *
 from tbl_taste;
 
 
-select productimg
+select productimgBelow
 from tbl_product;
 
 select *
 from tbl_product;
+
+
 

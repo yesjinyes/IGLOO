@@ -6,79 +6,17 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
-    String productimg = request.getParameter("productimg");
+   // String productimg = request.getParameter("productimg");
     String productname = request.getParameter("productname");
     String productprice = request.getParameter("productprice");
-    
 %>
 
 <jsp:include page="../header.jsp" />
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order_detail.css" />
-
-<script type="text/javascript">
-	
-
-	 $(document).ready(function() {
-		
-	 	$("select[id='taste']").change(function(){
-			//console.log("value 확인 => ",$(this).val()); //value값 가져오기
-			//console.log("선택된 select 태그 확인 => ", $("select[name='taste'] option:selected").text()); //text값 가져오기
-			
-			const selecttaste = $("select[id='taste'] option:selected").text();
-			console.log("selecttaste 선택한 맛 => ", selecttaste); // 떴음
-						
-			$("div#result").text(selecttaste);
-			
-			
-			//const status = $(e.target).parent().parent().find("#status").text();
-			//console.log("확인용 status : ", status);
-			
-			//const status = $("input[name='status']").text();
-			//console.log("확인용 status : ", status)
-			
-			//$("input[name='status']").val(status);
-			
-			// 선택된 값의 index를 불러오기
-			//var index = $("#taste option").index($("taste option:selected"));
-			//console.log("선택된 index => ", index);
-			
-			
-			
-		});// end of $("select[id='taste']").change(function()----------------------
-		   // select 에서 선택한 맛 밑에 한번에 뜨도록
-	 	
-		
-		let plus = document.querySelector
-		   
-		   
-		   
-		   
-		   
-		   
-	});// end of $(document).ready(function() {})-------------------------------
-	 
-	
-	
-	/* 
-	function changeSelect(){
-	    var langSelect = document.getElementById("selectbox");
-	     
-	    // select element에서 선택된 option의 value가 저장된다.
-	    var selectValue = langSelect.options[langSelect.selectedIndex].val;
-	 
-	    // select element에서 선택된 option의 text가 저장된다.
-	    var selectText = langSelect.options[langSelect.selectedIndex].text;
-	    
-	    console.log("확인용 langSelect : ",langSelect);
-	    console.log("확인용 selectValue : ",selectValue);
-	    console.log("확인용 selectText : ",selectText);
-	}
-	 */
-	
-</script>
-
+<%-- 직접 만든 JS --%>
+<script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail.js"></script>
 
 
 <div class="container contents">
@@ -87,9 +25,11 @@
 
 	<div id="imgdiv" class="row">
 	  
-		<%-- <div id="item_img" class="col-xl-5 col-lg-5">
-			<img id="cupsize" src="<%= ctxPath%>/images/images_younggwan/cupsize.png" style="width: 300px; height: 350px; border: solid 1px red;" alt="Responsive image"/>
-		</div> --%>
+	  <c:forEach var="imgList" items="${requestScope.imgList}">
+		<div>
+			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg.productname}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
+		</div>
+	  </c:forEach>
 		<<%-- c:forEach var="imgList" items="${requestScope.imgList}">
 			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨">
 		</c:forEach> --%>
@@ -122,7 +62,7 @@
   			<div class="row justify-content-around">
 				 <div class="p-0 my-auto justify-content-center">
 		 			 <h4 style="font-weight: bold;" ><%= productname%></h4>
-				     <div id="result">=== 선택한 맛이 나오는 자리 ===</div>
+				     <div id="selecttaste"></div>
 				 </div>
 				
 				 <%-- 수량 +, - --%>
@@ -162,7 +102,7 @@
 			<div class="row justify-content-between mb-3">
 				<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
 				<div class="col-4"></div>
-				<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;"><%= productprice%></div>
+				<div class="col-4 text-right productprice" style="font-weight: bold; font-size: 20pt;"><%= productprice%></div>
 				<br>
 			</div>
 			
@@ -182,7 +122,7 @@
 	  <c:forEach var="imgDetailList" items="${requestScope.imgDetailList}">
 		<div class="row justify-content-center">
 			<div class="col-md-7" style="font-weight: bold;"> 
-				<img class="img-fluid" alt="..." src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgDetailList.productimgBelow}">
+				<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgDetailList.productimgBelow}">
 			</div>
 		</div>
 	  </c:forEach>
