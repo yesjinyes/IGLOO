@@ -40,59 +40,145 @@ $(document).ready(function(){
 		
 });
 
+function goBack(url) {
+	url = '<%=ctxPath%>'+url;
+	location.href = url;
+}
+
 </script>
+
+<head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
 
 <jsp:include page="../header.jsp" />
 
 <style type="text/css">
-span.button {
-display: inline-block;
-width: 10%;
-text-align: center;
-border: solid 1px green;
-cursor: pointer;
 
+div#customerDetail {
+background-color: #e6f3ff;
+border-radius: 20px;
+padding: 3%;
+}
+
+span.span {
+display: inline-block;
+background-color: white;
+border-radius: 10px;
+width: 10%;
+font-weight: bold;
+height: 30px;
+text-align: center;
+line-height: 200%;
+margin-right: 1%;
+}
+
+div#customerDetail > div {
+margin-bottom: 1%;
+}
+
+span#q_title {
+display: inline-block;
+background-color: white;
+width: 85%;
+height: 30px;
+border-radius: 10px;
+position: relative;
+top: -2px;
+padding-left: 1%;
+line-height: 180%;
+}
+
+span#q_content {
+display: inline-block;
+background-color: white;
+width: 85%;
+height: 100px;
+border-radius: 10px;
+padding: 1%;
+overflow: auto;
+}
+
+span#q_content_title {
+position: relative;
+top: -77px;
+}
+
+div#customerDetail > div > span:nth-child(2) {
+padding-left: 1%;
+}
+
+div#AnswerWrap {
+background-color: #e9edf1;
+border-radius: 20px;
+padding: 3%;
+}
+
+span#a_content {
+display: inline-block;
+background-color: white;
+width: 85%;
+height: 150px;
+border-radius: 10px;
+padding: 1%;
+overflow: auto;
+position: relative;
+top: 15px;
+}
+
+span#a_content_title {
+position: relative;
+top: -113px;
 }
 </style>
 
-<div class="container" style="border: solid 1px red; margin-top: 5%;">
+<div class="container" style="margin-top: 5%;">
 
-	<div class="my-5 p-5" id="customerQ" style="border: solid 1px green;">
-		<h2>1:1 문의 답변</h2>
+	<div class="mt-5 p-5" id="customerQ">
+		<div style="text-align: center;"><img style="width: 30%;" src="<%= ctxPath%>/images/img_narae/1대1문의내용.png"/></div>
 		<div id="customerDetail">
 			
-			<div><span>고객 ID</span><span id="userid">${requestScope.fvo.fk_userid }</span></div>
-			<div><span>고객명</span><span id="name">${requestScope.fvo.mvo.name }</span></div>
-			<div><span>등록날짜</span><span id="q_writeday">${requestScope.fvo.q_writeday }</span></div>
-			<div><span>카테고리</span><span id="category"><c:choose><c:when test="${requestScope.fvo.fk_categoryno == 1}">제품문의</c:when>
+			<div><span class="span">고객 ID</span><span id="userid">${requestScope.fvo.fk_userid }</span></div>
+			<div><span class="span">고객명</span><span id="name">${requestScope.fvo.mvo.name }</span></div>
+			<div><span class="span">등록날짜</span><span id="q_writeday">${requestScope.fvo.q_writeday }</span></div>
+			<div><span class="span">카테고리</span><span id="category"><c:choose><c:when test="${requestScope.fvo.fk_categoryno == 1}">제품문의</c:when>
 																 <c:when test="${requestScope.fvo.fk_categoryno == 2}">픽업문의</c:when>
 																 <c:when test="${requestScope.fvo.fk_categoryno == 1}">지점문의</c:when>
 																 <c:when test="${requestScope.fvo.fk_categoryno == 1}">결제문의</c:when>
 																 <c:otherwise>기타문의</c:otherwise></c:choose></span></div>
-			<div><span>제목</span><span id="q_title">${requestScope.fvo.q_title }</span></div>
-			<div><span>내용</span><span id="q_content">${requestScope.fvo.q_content }</span></div>
+			<div><span class="span">제목</span><span id="q_title">${requestScope.fvo.q_title }</span></div>
+			<div><span class="span" id="q_content_title">내용</span><span id="q_content">${requestScope.fvo.q_content }</span></div>
 		</div>
 	
 	</div>
-	
 	<c:if test="${requestScope.fvo.answerstatus == 0}">
-		<div class="mb-5 p-5" id="adminA" style="border: solid 1px blue;">
-			<div class="mb-3" style="border: solid 1px red;">작성자: 관리자(admin)</div>
+	<div style="color: #99ceff; font-size: 10pt; font-weight: bold; text-align: center;">============================== 답변 작성 ==============================</div>
+		<div class="mb-5 p-5" id="adminA">
+		<div id="AnswerWrap">
+			<div class="mb-3" style="width: 93%; margin-left: 3%; font-size: 10pt; font-weight: bold;">작성자: 관리자(admin)</div>
 			<div class="mb-3" id="answerInput" style="text-align: center;">
 				<form name="answer"><textarea name="answerText" rows="10" cols="120"></textarea><input type="hidden" name="q_no" value="${requestScope.fvo.q_no }" /></form>
 			</div>
-			<div id="buttons" style="text-align: right;"><span class="button mr-3" id="submit">등록</span><span class="button mr-5" id="reset">취소</span></div>
+			<div id="buttons" style="text-align: right;"><span class="btn btn-primary mr-3" id="submit">등록</span><span class="btn btn-light mr-5" id="reset">취소</span></div>
+		</div>
 		</div>
 	</c:if>
 
 	<c:if test="${requestScope.fvo.answerstatus == 1}">
-		<div class="mb-5 p-5" id="adminA_already" style="border: solid 1px blue;">
-		<div class="mb-3" style="border: solid 1px red;">작성자: 관리자(admin)</div>
-		<div><span>등록날짜</span><span id="writeday">${requestScope.fvo.a_writeday }</span></div>
-		<div><span>내용</span><span id="a_content">${requestScope.fvo.a_content }</span></div>
+		<div style="color: #99ceff; font-size: 10pt; font-weight: bold; text-align: center;">============================== 답변 내용 ==============================</div>
+		<div class="p-5" id="adminA_already">
+		<div id="AnswerWrap">
+		<div class="mb-3" style="width: 93%; margin-left: 3%; font-size: 10pt; font-weight: bold;">작성자: 관리자(admin)</div>
+		<div><span class="span">등록날짜</span><span id="writeday">${requestScope.fvo.a_writeday }</span></div>
+		<div><span class="span" id="a_content_title">내용</span><span id="a_content">${requestScope.fvo.a_content }</span></div>
+		</div>
 		</div>
 	</c:if>
 
+<div style="text-align: center;"><span class="btn btn-info mb-5" onclick="goBack('${requestScope.goBackURL}')">목록 보기</span></div>
 
 </div>
 

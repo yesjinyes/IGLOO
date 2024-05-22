@@ -21,6 +21,7 @@ public class FaqAnswerRegister extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String input = request.getParameter("answerText");
+		input = input.replaceAll("\r\n", "<br>");		
 		String q_no = request.getParameter("q_no");
 		// System.out.println(input);
 		// System.out.println(q_no);
