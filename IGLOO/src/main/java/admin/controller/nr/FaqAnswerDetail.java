@@ -38,7 +38,7 @@ public class FaqAnswerDetail extends AbstractController {
 				// System.out.println(goBackURL);
 				
 				FaqVO fav = adao.getFaq(fk_q_no);
-				
+				System.out.println(fav);
 				
 				
 				

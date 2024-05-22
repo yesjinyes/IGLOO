@@ -212,8 +212,11 @@ public class AdminDAO_imple implements AdminDAO {
 			fvo.setFk_categoryno(rs.getInt(3));
 			fvo.setQ_title(rs.getString(4));
 			fvo.setQ_content(rs.getString(5));
-			fvo.set
+			fvo.setQ_writeday(rs.getString(6));
 			
+			MemberVO mvo = new MemberVO();
+			mvo.setName(rs.getString(7));
+			fvo.setMvo(mvo);
 			
 		} finally {
 			close();
