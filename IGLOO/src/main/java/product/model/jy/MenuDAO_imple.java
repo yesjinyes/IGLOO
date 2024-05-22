@@ -108,7 +108,6 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTasteno(rs.getInt(1));
 				tvo.setTastename(rs.getString(2));
 				tvo.setTasteimg(rs.getString(3));
-				tvo.setIngredients(rs.getString(4));	
 				
 				menuList.add(tvo);
 			}// end of while(rs.next())----------------------------------
@@ -126,7 +125,7 @@ public class MenuDAO_imple implements MenuDAO {
 	
 	
 	
-	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
+	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오면서 인기순, 가나다라순 정렬하기
 	@Override
 	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
 		
@@ -135,14 +134,44 @@ public class MenuDAO_imple implements MenuDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
-						+ " FROM "
-						+ " ( "
-						+ "   select row_number() over(order by tasteno desc) AS RNO "
-						+ " 		, tasteno ,tastename, tasteimg , ingredients "
-						+ "    from tbl_taste "
-						+ " ) V "
-						+ " WHERE RNO between ? and ? ";
+			String sql =  " SELECT  tasteno, tastename, tasteimg , ingredients , count(*)\r\n"
+					+ "FROM\r\n"
+					+ "(\r\n"
+					+ "    select tasteno, tastename, tasteimg , ingredients, tasteselectno, fk_selectno\r\n"
+					+ "    from\r\n"
+					+ "    (\r\n"
+					+ "        select tasteselectno, fk_selectno, fk_tasteno\r\n"
+					+ "        from tbl_tasteselect\r\n"
+					+ "    )\r\n"
+					+ "    join\r\n"
+					+ "    (\r\n"
+					+ "        select row_number() over(order by tasteno desc) AS RNO \r\n"
+					+ "                , tasteno ,tastename, tasteimg, ingredients\r\n"
+					+ "        from tbl_taste\r\n"
+					+ "    )\r\n"
+					+ "    ON fk_tasteno = tasteno\r\n"
+					+ "    \r\n"
+					+ ") T \r\n"
+					+ "JOIN\r\n"
+					+ "(\r\n"
+					+ "    select selectno, FK_USERID\r\n"
+					+ "    from\r\n"
+					+ "    (\r\n"
+					+ "        select selectno, FK_USERID\r\n"
+					+ "        from tbl_selectlist\r\n"
+					+ "    )\r\n"
+					+ "    JOIN\r\n"
+					+ "    (\r\n"
+					+ "        select fk_selectno, fk_ordercode, orderdetailno\r\n"
+					+ "        from tbl_orderdetail\r\n"
+					+ "    )\r\n"
+					+ "    ON fk_selectno = selectno\r\n"
+					+ ") O\r\n"
+					+ "\r\n"
+					+ "ON fk_selectno = selectno\r\n"
+					+ "group by tasteno, tastename, tasteimg , ingredients\r\n"
+					+ "order by tastename;\r\n"
+					+ "--order by count(*) asc;";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, paraMap.get("start"));
@@ -157,7 +186,6 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTasteno(rs.getInt(1));     // 제품번호
 				tvo.setTastename(rs.getString(2)); // 제품명
 				tvo.setTasteimg(rs.getString(3)); // 제품명
-				tvo.setIngredients(rs.getString(4)); // 제품명
 				
 								
 				productList.add(tvo);
