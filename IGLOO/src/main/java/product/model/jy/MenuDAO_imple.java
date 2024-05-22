@@ -96,7 +96,7 @@ public class MenuDAO_imple implements MenuDAO {
 		try {
 			 conn = ds.getConnection();
 			 
-			 String sql = " select tasteno, tastename, tasteimg "  
+			 String sql = " select tasteno, tastename, tasteimg, ingredients "  
 			 		    + " from tbl_taste ";
 			 		    
 			pstmt = conn.prepareStatement(sql);
@@ -134,7 +134,7 @@ public class MenuDAO_imple implements MenuDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql =  " SELECT tasteno, tastename, tasteimg " 
+			String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
 						+ " FROM "
 						+ " ( "
 						+ "   select row_number() over(order by tasteno desc) AS RNO "
