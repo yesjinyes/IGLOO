@@ -6,7 +6,7 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
-    String productimg = request.getParameter("productimg");
+   // String productimg = request.getParameter("productimg");
     String productname = request.getParameter("productname");
     String productprice = request.getParameter("productprice");
 %>
@@ -27,7 +27,7 @@
 	  
 	  <c:forEach var="imgList" items="${requestScope.imgList}">
 		<div>
-			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
+			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg.productname}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
 		</div>
 	  </c:forEach>
 		<<%-- c:forEach var="imgList" items="${requestScope.imgList}">

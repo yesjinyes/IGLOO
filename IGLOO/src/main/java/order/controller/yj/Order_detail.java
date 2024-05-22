@@ -32,10 +32,10 @@ public class Order_detail extends AbstractController {
 		// == 맛 목록을 조회해오기 == //
 		List<TasteVO> tasteList = pdao.selectTasteList();
 		request.setAttribute("tasteList", tasteList);
-
+		
 		// == 주문상세 상단 이미지 띄우기 == //
-		List<ProductVO> imgList = pdao.getimgList();
-		request.setAttribute("imgList", imgList);
+		// String productimg = pdao.getproductimg();
+		//request.setAttribute("productimg", productimg);
 		
 		// == 주문상세 하단 이미지 띄우기 == //
 		List<ProductVO> imgDetailList = pdao.selectImageDetail();
