@@ -6,7 +6,7 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
-   // String productimg = request.getParameter("productimg");
+    String productimg = request.getParameter("productimg");
     String productname = request.getParameter("productname");
     String productprice = request.getParameter("productprice");
 %>
@@ -26,13 +26,17 @@
 	<div id="imgdiv" class="row">
 	  
 	 
-		<div>
-			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
-		</div>
+		<%-- <div>
+			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/<%= productimg%>" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
+		</div> --%>
 	 
-		<%-- c:forEach var="imgList" items="${requestScope.imgList}">
-			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨">
-		</c:forEach> --%>
+	
+		<%-- <img src="<%= ctxPath%>/images/img_yejin/cup_size/<%= productimg%>" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨"> --%>
+		<c:forEach var="imgList" items="${requestScope.imgList}">
+			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" class="card-img-top" style="width: 300px; height: 350px;" alt="사진경로잘못됨">
+		</c:forEach>
+
+
 		<div id="item_detail">
 			<div class="p-0  my-auto">
 				<div style="font-size: 30pt;"><%= productname%></div>
@@ -45,9 +49,10 @@
 		    </div>
 		    <hr style="border: solid 1px #81BEF7;">
 		    
-		<c:forEach var="tvo" items="${requestScope.tasteList}" begin="0" end="2" varStatus="status">
-  			<%-- <p> id="status">${status.index}</p> --%>
-  			<p id="status">index값${status.index}</p>
+		    
+		    
+		<c:forEach var="tasteList" items="${requestScope.tasteList}" begin="0" end="2" varStatus="status">
+  			<p class="status">index값${status.index}</p>
   			<select id="taste" name="selectbox" class="infoData" > <!-- onchange="selectTaste(this)" -->
 			<option value="">맛을 선택하세요</option>
       			<c:forEach var="tvo" items="${requestScope.tasteList}">	
@@ -55,17 +60,23 @@
  		        </c:forEach> 
             </select>
         </c:forEach>
-      
 
 	  		<hr style="border: solid 1px #81BEF7;">
   
   			<div class="row justify-content-around">
-				 <div class="p-0 my-auto justify-content-center">
+				 <%-- <div class="p-0 my-auto justify-content-center">
 		 			 <h4 style="font-weight: bold;" ><%= productname%></h4>
-				     <div id="selecttaste"></div>
+				     <div id="selecttaste">선택한 맛 들어가는 자리</div>
+				     <!-- <input type="text" name="selecttaste" value=""/> -->
+				 </div> --%>
+				 
+				 <div class="p-0 my-auto justify-content-center">
+				    <h4 style="font-weight: bold;" ><%= productname%></h4>
+				    <!-- <div id="selecttaste">선택한 맛 들어가는 자리</div> -->
+				    <input type="text" name="selecttaste" value=""/>
 				 </div>
 				
-				 <%-- 수량 +, - --%>
+				 <%-- 수량 +, - 버튼 --%>
 				 <div class="num">
 				 	<span>수량</span><br>
 				 	<span class="count">
@@ -75,28 +86,8 @@
 				 	</span>
 				 </div>
 				 
-				 
-				
-				
-				
-				
-				<%-- 수량 버튼
-				<div class="selectMenucnt justify-content-end col-xl-4 col-lg-4 col-md-2 p-0 my-auto">
-	                  <div class="d-inline-block"></div>
-	                  <div class="mb-5">
-	                     <div>수량</div>
-	                     <button type="button" class="btn ml-5">
-	                        <i class="fa-solid fa-minus"></i>
-	                     </button>
-	                     	<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
-	                     <button type="button" class="btn">
-	                        <i class="fa-solid fa-plus"></i>
-	                     </button>
-	                  </div>
-	             </div> --%>
-				 
             </div>
-             
+                          
 			<hr style="border: solid 1px #81BEF7;">
 			
 			<div class="row justify-content-between mb-3">

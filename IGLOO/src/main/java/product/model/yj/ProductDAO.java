@@ -15,8 +15,8 @@ public interface ProductDAO {
 	List<TasteVO> selectTasteList() throws SQLException;
 	
 	// == 주문상세 상단 이미지 띄우기 == //
-	/* List<ProductVO> getimgList() throws SQLException; */
-	String getproductimg(String productimg) throws SQLException;
+	List<ProductVO> getimgList() throws SQLException; 
+	//String getproductimg(String productimg) throws SQLException;
  
 	// == 주문상세 하단 이미지 띄우기 == //
 	List<ProductVO> selectImageDetail() throws SQLException;

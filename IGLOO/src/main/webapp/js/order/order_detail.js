@@ -7,6 +7,10 @@ $(document).ready(function() {
 		console.log("selecttaste 선택한 맛 => ", selecttaste); 
 					
 		// option 값 다 선택되면 선택옵션 한줄로 출력
+		// $("input[name='selecttaste']").val("확인용");
+		// $("div#test > input[name='selectPeriodindex']").val(selecttaste);
+		
+
 
 	});// end of $("select[id='taste']").change(function()----------------------
 		// select 에서 선택한 맛 밑에 한번에 출력

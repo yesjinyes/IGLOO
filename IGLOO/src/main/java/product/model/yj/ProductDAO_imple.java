@@ -79,6 +79,8 @@ public class ProductDAO_imple implements ProductDAO {
 	         close();
 	      }
 	      
+	      //System.out.println("확인용 이미지 : "+ productList);
+	      
 	      return productList;
 		
 	      
@@ -121,65 +123,73 @@ public class ProductDAO_imple implements ProductDAO {
 	///////////////////////////////////////////////////////////////
 		
 	// == 주문상세 상단 이미지 띄우기 == //
-	/*
-	 * @Override public List<ProductVO> getimgList() throws SQLException {
-	 * 
-	 * List<ProductVO> img = new ArrayList<>();
-	 * 
-	 * try { conn = ds.getConnection();
-	 * 
-	 * String sql = " select productimg " + " from tbl_product " +
-	 * " where productname = ? ";
-	 * 
-	 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, );
-	 * 
-	 * rs = pstmt.executeQuery();
-	 * 
-	 * while(rs.next()) { ProductVO pvo = new ProductVO();
-	 * pvo.setProductimg(rs.getString(1));
-	 * 
-	 * imgList.add(pvo);
-	 * 
-	 * }// end of while-----------------
-	 * 
-	 * } finally { close(); }
-	 * 
-	 * return imgList;
-	 * 
-	 * }// end of public List<ProductVO> getimgList() throws SQLException
-	 */	
 	
-	// == 주문상세 상단 이미지 띄우기 == //
-		@Override
-	public String getproductimg(String productimg) throws SQLException {
-		
-		try {
+	@Override 
+	public List<ProductVO> getimgList() throws SQLException {
+	  
+		List<ProductVO> imgList = new ArrayList<>();
+	      
+	    try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " select productimg "
-	         			+ " from tbl_product "
-	         			+ " where productname = ? ";
+	         String sql = " select productimg, productimgBelow "
+		         		+ " from tbl_product ";
 	         
 	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, productimg);
 	         
 	         rs = pstmt.executeQuery();
 	         
 	         while(rs.next()) {
-	        	 productimg = rs.getString(1);
-	         }// end of while -----------------
+	        	 ProductVO pvo = new ProductVO();
+	        	 pvo.setProductimg(rs.getString(1));
+	        	 pvo.setProductimgBelow(rs.getString(2));
+	        	 
+	        	 imgList.add(pvo);
+	        	 
+	         }// end of while-----------------
 	         
 	      } finally {
 	         close();
 	      }
 	      
-		// System.out.println("확인용 이미지 : " + productimg);
-		
-	      return productimg;
-		
+	      //System.out.println("확인용 이미지 : "+ productList);
 	      
-	      
-	}// end of public String getproductimg() throws SQLException--------------
+	      return imgList;
+	  
+	}// end of public List<ProductVO> getimgList() throws SQLException
+	 	
+	
+	// == 주문상세 상단 이미지 띄우기 == //
+//		@Override
+//	public String getproductimg(String productimg) throws SQLException {
+//		
+//		try {
+//	         conn = ds.getConnection();
+//	         
+//	         String sql = " select productimg "
+//	         			+ " from tbl_product "
+//	         			+ " where productname = ? ";
+//	         
+//	         pstmt = conn.prepareStatement(sql);
+//	         pstmt.setString(1, productimg);
+//	         
+//	         rs = pstmt.executeQuery();
+//	         
+//	         while(rs.next()) {
+//	        	 productimg = rs.getString(1);
+//	         }// end of while -----------------
+//	         
+//	      } finally {
+//	         close();
+//	      }
+//	      
+//		// System.out.println("확인용 이미지 : " + productimg);
+//		
+//	      return productimg;
+//		
+//	      
+//	      
+//	}// end of public String getproductimg() throws SQLException--------------
 
 	
 	///////////////////////////////////////////////////////////////
