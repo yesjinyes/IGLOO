@@ -99,6 +99,10 @@ $(document).ready(function(){
     // === 주문내역 검색 시 input 태그에 담아주기(2) === //
     $("button#btnorderlistSearch").click(function(){
 
+        if($("input#orderlist_search").text() == ""){
+            alert("검색내용을 입력해주세요.");
+            return;
+        }
         $("form[name='sendinfo'] > input[name='searchorderList']").val($("input#orderlist_search").val());
         submitfrm();
     })  // end of $("button#btnorderlistSearch").click(function{--------------
@@ -210,12 +214,85 @@ function func_lastmonthDate(choice){
 ///////////////////////////////////////////////////////////
 
 function submitfrm(){
-
+/*
     const ctxPath = $("div#ctxPath").text();
 
     const frm = document.sendinfo;
     frm.method = "post";
     frm.action = `${ctxPath}/member/mypage.ice`;
     frm.submit();
+*/
+    
+    const searchorderList = $("form[name='sendinfo'] > input[name='searchorderList']").val();
+    const orderListPeriod = $("form[name='sendinfo'] > input[name='orderListPeriod']").val();
+    const selectPeriodindex = $("form[name='sendinfo'] > input[name='selectPeriodindex']").val();
+    
+        $.ajax({
+            url:"orderlistJSON.ice"
+            , data:{"searchorderList":searchorderList
+                , "orderListPeriod":orderListPeriod
+                , "selectPeriodindex":selectPeriodindex
+            }
+            // , async : true  // 돌아가는동안 화면정지
+            , dataType:"json"
+            , success:function(json){
+                const str_json = JSON.stringify(json);  // json 객체를 string 타입으로 변경
+                let v_html = ``;
+                alert("jsonCheck");
+/*
+                $.each(json, function(index, item){
+                        
+                    let searchinput = json[index].searchorderList;
 
+                    if(searchinput == ""){  // 기간 설정한 경우
+                        $("input#orderlist_search").html(searchinput);
+                        v_html = `<div class="mx-auto text-center">
+                                    <h3 class="mt-5 font-weight-bolder">해당하는 상품이 없습니다.</h3>
+                                    <div class="h-50 p-5 m-3"></div>
+                                </div>`;
+                    }
+                    $("input#orderlist_search").html(v_html);
+
+                    console.log(index);
+
+                })
+                /*
+                if(json[0].haveorderlist == "none" && json[0].searchorderList == ""){
+                    alert("주문내역 없음");
+                    
+                    $("div#SearchorderlistContents").hide();
+                    $("div#noorderlist").hide();
+                    v_html = `<div class="mx-auto text-center">
+                                <h3 class="mt-5 font-weight-bolder">주문내역에 담긴 상품이 없습니다.</h3>
+                                <div class="h-50 p-5 m-3"></div>
+                            </div>`; 
+                    $("div#orderlist").html(v_html);
+                    
+                }
+                
+                else if(json[0].haveorderlist == "haveorderlist" && json[0].searchorderList != ""){
+                    alert("검색내용 있음");
+
+                    if(json[0].orderdetailList.size() < 1){
+                        $("input#orderlist_search").html(searchinput);
+                            v_html = `<div class="mx-auto text-center">
+                                        <h3 class="mt-5 font-weight-bolder">해당하는 상품이 없습니다.</h3>
+                                        <div class="h-50 p-5 m-3"></div>
+                                    </div>`;
+                        $("input#orderlist_search").html(v_html);
+                    }
+                    
+                }
+                */
+                
+                // div 안에 꽂아주기
+            }
+            /*
+            , error: function(request, status, error){
+                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            }
+            */
+
+        })  // end of $.ajax-------------
+    
 }   // end of function submitfrm(){-----------
