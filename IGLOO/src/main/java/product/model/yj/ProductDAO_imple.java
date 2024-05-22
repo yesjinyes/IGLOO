@@ -148,6 +148,40 @@ public class ProductDAO_imple implements ProductDAO {
 	 * 
 	 * }// end of public List<ProductVO> getimgList() throws SQLException
 	 */	
+	
+	// == 주문상세 상단 이미지 띄우기 == //
+		@Override
+	public String getproductimg(String productimg) throws SQLException {
+		
+		try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select productimg "
+	         			+ " from tbl_product "
+	         			+ " where productname = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, productimg);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 productimg = rs.getString(1);
+	         }// end of while -----------------
+	         
+	      } finally {
+	         close();
+	      }
+	      
+		// System.out.println("확인용 이미지 : " + productimg);
+		
+	      return productimg;
+		
+	      
+	      
+	}// end of public String getproductimg() throws SQLException--------------
+
+	
 	///////////////////////////////////////////////////////////////
 
 	// == 주문상세 하단 이미지 띄우기 == //
@@ -183,7 +217,9 @@ public class ProductDAO_imple implements ProductDAO {
 	      return imgDetailList;
 		
 	}// end of public List<Map<String, String>> selectImageDetail() throws SQLException
- 
+
+	
+	
 	///////////////////////////////////////////////////////////////
 
 

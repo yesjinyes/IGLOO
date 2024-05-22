@@ -60,7 +60,7 @@
 		        <h5 class="card-title productname">${productList.productname}</h5>
 		        <p class="card-text productdetail">${productList.productdetail}</p>
 		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
-		        <input type="hidden" name="productimg"/>
+		        <input type="hidden" name="productimg" value="${productList.productimg}"/>
 		        <input type="text" name="productname"/>
 		        <input type="text" name="productprice"/>
 		      	<button type="text" id="btnOrder" style="float: right">주문하기</button>

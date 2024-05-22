@@ -25,12 +25,12 @@
 
 	<div id="imgdiv" class="row">
 	  
-	  <c:forEach var="imgList" items="${requestScope.imgList}">
+	 
 		<div>
-			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg.productname}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
+			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
 		</div>
-	  </c:forEach>
-		<<%-- c:forEach var="imgList" items="${requestScope.imgList}">
+	 
+		<%-- c:forEach var="imgList" items="${requestScope.imgList}">
 			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨">
 		</c:forEach> --%>
 		<div id="item_detail">
