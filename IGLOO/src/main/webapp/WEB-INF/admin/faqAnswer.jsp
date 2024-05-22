@@ -50,6 +50,13 @@
 	
 </script>
 
+<head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
+
 <jsp:include page="../header.jsp" />
 
 <style type="text/css">
@@ -58,13 +65,48 @@
       background-color: #e6ffe6;
       cursor: pointer;
    }
+   
+   div#tableDiv {
+   	  border: solid 1px #cce6ff;
+   	  border-radius: 12px;
+      overflow: hidden;
+   	  
+   }
+   
+   table#faqQ {
+   margin: 0%;
+   border-style: hidden;
+   }
+
+	.page-link {
+	  color: #000; 
+	  background-color: #fff;
+	  border: 1px solid #cce6ff; 
+	  font-weight: normal;
+	}
+	
+	.page-item.active .page-link {
+	 z-index: 1;
+	 color: #555;
+	 font-weight:bold;
+	 background-color: #cce6ff;
+	 border-color: #cce6ff;
+	 	  font-weight: normal;
+	}
+	
+	.page-link:focus, .page-link:hover {
+	  color: #000;
+	  background-color: #fafafa; 
+	  border-color: #cce6ff;
+		  font-weight: normal;
+	}
 
 </style>
 
-<div class="container mt-5 pt-5" style="border: solid 1px red;">
+<div class="container mt-5 pt-5">
 
 	<div style="text-align: center; font-weight: bold;"><img style="width: 25%;" src="<%=ctxPath %>/images/img_narae/1대1문의목록.png"/></div>
-	<form name="member_search_frm">
+	<form name="member_search_frm" class="mt-5">
 		<span style="font-size: 12pt; font-weight: bold; margin-left: 80%;">페이지당 게시글수&nbsp;</span>
 		<select name="sizePerPage">
 			<option value="10">10개</option>
@@ -73,6 +115,8 @@
 		</select>
 	</form>
 
+
+	<div class="mb-5" id="tableDiv">
 	<table class="table table-bordered" id="faqQ">
 	
 		<thead>
@@ -111,8 +155,9 @@
 			</c:if>
 		</tbody>
 	</table>
+	</div>
 
-	<div id="pageBar" style="margin-left: 40%;">
+	<div id="pageBar" style="margin-left: 42%;">
        <nav>
           <ul class="pagination">${requestScope.pageBar}</ul>
        </nav>
