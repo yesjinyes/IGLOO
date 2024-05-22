@@ -5,7 +5,7 @@
     
 <% String ctxPath = request.getContextPath(); %>
 
-<jsp:include page="../header.jsp"/>
+<jsp:include page="../header.jsp"/> 
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order.css" />
@@ -27,8 +27,8 @@
 			$("input[name='productname']").val(productname);
 			$("input[name='productprice']").val(productprice);
 			
-			const frm = document.orderFrm;
-			frm.action = "order_detail.ice";
+			const frm = document.orderFrm; 
+			frm.action = "order_detail.ice"; 
 			frm.submit();
 			
 		 /* console.log("확인용 productimg => " , productimg); 
@@ -60,9 +60,9 @@
 		        <p class="card-text productdetail">${productList.productdetail}</p>
 		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;">${productList.price}</p>
 		        <input type="hidden" name="productimg"/>
-		        <input type="hidden" name="productname"/>
-		        <input type="hidden" name="productprice"/>
-		      	<button type="button" id="btnOrder" style="float: right">주문하기</button>
+		        <input type="text" name="productname"/>
+		        <input type="text" name="productprice"/>
+		      	<button type="text" id="btnOrder" style="float: right">주문하기</button>
 		      </div>
 			</div>
 	    </c:forEach>

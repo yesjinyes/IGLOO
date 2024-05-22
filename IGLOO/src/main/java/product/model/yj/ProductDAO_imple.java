@@ -138,9 +138,13 @@ public class ProductDAO_imple implements ProductDAO {
 	         
 	         while(rs.next()) {
 	        	 ProductVO pvo = new ProductVO();
-	        	 pvo.setProductimgBelow(rs.getString("productimgBelow"));
+	        	 pvo.setProductimgBelow(rs.getString(1));
 	             imgDetailList.add(pvo);
 	         }// end of while -----------------
+	         
+	         //System.out.println("이미지확인 detail : " + imgDetailList);
+	         //이미지확인 detail : [product.domain.ProductVO@3a4c2f84, product.domain.ProductVO@8ee7528, product.domain.ProductVO@7f62cfa8, product.domain.ProductVO@4de1a8df]
+
 	         
 	      } finally {
 	         close();
@@ -175,9 +179,7 @@ public class ProductDAO_imple implements ProductDAO {
 	        	 imgList.add(pvo);
 	        	 
 	         }// end of while-----------------
-	         
-	         System.out.println("이미지확인" + imgList);
-	         
+	        
 	    } finally {
 	         close();
 	    }
