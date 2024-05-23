@@ -48,8 +48,8 @@ $(document).ready(function(){
 
 
 
-    $("span#totalCount").hide();
-    $("span#count").hide();
+    //$("span#totalCount").hide();
+    //$("span#count").hide();
    
     // HIT상품 게시물을 더보기 위하여 "더보기..." 버튼 클릭액션에 대한 초기값 호출하기 
     // 즉, 맨처음에는 "더보기..." 버튼을 클릭하지 않더라도 클릭한 것 처럼 8개의 HIT상품을 게시해주어야 한다는 말이다.

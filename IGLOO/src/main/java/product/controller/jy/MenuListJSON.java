@@ -1,7 +1,9 @@
 //
 //package product.controller.jy;
 //
+//import java.util.HashMap;
 //import java.util.List;
+//import java.util.Map;
 //
 //import org.json.JSONArray;
 //import org.json.JSONObject;
@@ -22,16 +24,27 @@
 //	}
 //
 //	
-//	
+//
 //	@Override
 //	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		
+//		String start = request.getParameter("start");
+//		String len = request.getParameter("len");
+//		
+//		
+//		Map<String, String> paraMap = new HashMap<>();
+//		paraMap.put("start", start);  // start  "1"  "9"  "17"  "25"  "33"
+//		
+//		String end = String.valueOf(Integer.parseInt(start) + Integer.parseInt(len) - 1); 
+//		paraMap.put("end", end);      // end => start + len - 1; 
 //
-//		List<TasteVO> menuList = mdao.getMenuList();
+//		
+//		List<TasteVO> menuList = mdao.getMenuList(paraMap);
 //		
 //		JSONArray jsonArr = new JSONArray(); // []
 //		
 //		if(menuList.size() > 0) {
-//			// DB에서 조회해온 결과물이 있을 경우
+//			//DB에 데이터가 있을 경우 더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
 //			
 //			for(TasteVO tvo : menuList) {
 //				

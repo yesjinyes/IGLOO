@@ -13,10 +13,12 @@ public interface MenuDAO {
 	int totalCount() throws Exception;
 
 	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
-	List<TasteVO> getMenuList(Map<String, String> paraMap)  throws Exception;
+	List<TasteVO> getMenuList() throws Exception;
 
 	//이름순, 인기순 정렬      
 	List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception;
+
+	
 
 
 

@@ -79,39 +79,28 @@ public class MenuDAO_imple implements MenuDAO {
 	
 	
 	
-	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
+	//아이스크림 정보 조회
 	@Override
-	public List<TasteVO> getMenuList(Map<String, String> paraMap) throws Exception {
+	public List<TasteVO> getMenuList() throws Exception {
 		
 		List<TasteVO> menuList = new ArrayList<>(); 
 		
 		try {
 			 conn = ds.getConnection();
 			 
-			 String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
-						+ " FROM "
-						+ " ( "
-						+ "   select row_number() over(order by tasteno desc) AS RNO "
-						+ " 		, tasteno ,tastename, tasteimg , ingredients "
-						+ "    from tbl_taste "
-						+ " ) V "
-						+ " WHERE RNO between ? and ? ";
+			 String sql = " select tasteno, tastename, tasteimg, ingredients "  
+			 		    + " from tbl_taste ";
 			 		    
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, paraMap.get("start"));
-			pstmt.setString(2, paraMap.get("end"));
 					
 			rs = pstmt.executeQuery();
 						
 			while(rs.next()) {
-				
 				TasteVO tvo = new TasteVO();
-				
 				tvo.setTasteno(rs.getInt(1));
 				tvo.setTastename(rs.getString(2));
 				tvo.setTasteimg(rs.getString(3));
-				tvo.setIngredients(rs.getString(4)); // 재료
-
+				tvo.setIngredients(rs.getString(4));	
 
 				menuList.add(tvo);
 			}// end of while(rs.next())----------------------------------
@@ -129,7 +118,7 @@ public class MenuDAO_imple implements MenuDAO {
 	
 	
 	
-	//이름순, 인기순 정렬   
+	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
 	@Override
 	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
 		
@@ -137,37 +126,19 @@ public class MenuDAO_imple implements MenuDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql =  " SELECT TASTENAME, CNT AS ORDER_CNT "
-					+ " FROM  "
-					+ " ( "
-					+ "     SELECT V.TASTENAME, COUNT(*) AS CNT "
-					+ "     FROM  "
-					+ "     ( "
-					+ "         SELECT A.ORDERDETAILNO, D.TASTENAME "
-					+ "         FROM TBL_ORDERDETAIL A "
-					+ "         JOIN TBL_SELECTLIST B "
-					+ "         ON A.FK_SELECTNO = B.SELECTNO "
-					+ "         JOIN TBL_TASTESELECT C "
-					+ "         ON B.SELECTNO = C.FK_SELECTNO "
-					+ "         JOIN TBL_TASTE D "
-					+ "         ON C.FK_TASTENO = D.TASTENO "
-					+ "     ) V  "
-					+ "     GROUP BY V.TASTENAME "
-					+ " ) T ";
-
 			
-			String menuAlign = paraMap.get("menuAlign");
-			
-			if("name".equals(menuAlign) ) { //메뉴정렬이 가나다순 인 경우 
-				sql += " order by T.TASTENAME asc";
-			}
-			
-			if("order".equals(menuAlign) ) { //메뉴정렬이 인기순 인 경우 
-				sql += " order by ORDER_CNT desc";
-			}
+			String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
+						+ " FROM "
+						+ " ( "
+						+ "   select row_number() over(order by tasteno desc) AS RNO "
+						+ " 		, tasteno ,tastename, tasteimg , ingredients "
+						+ "    from tbl_taste "
+						+ " ) V "
+						+ " WHERE RNO between ? and ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-	
+			pstmt.setString(1, paraMap.get("start"));
+			pstmt.setString(2, paraMap.get("end"));
 			
 			rs = pstmt.executeQuery();
 			
@@ -175,8 +146,11 @@ public class MenuDAO_imple implements MenuDAO {
 				
 				TasteVO tvo = new TasteVO();
 				
-				tvo.setTastename(rs.getString(1)); // 맛이름
-				tvo.setCnt(rs.getInt(2)); 		   // 맛 별 주문 수
+				tvo.setTasteno(rs.getInt(1));     // 제품번호
+				tvo.setTastename(rs.getString(2)); // 제품명
+				tvo.setTasteimg(rs.getString(3)); // 제품명
+				tvo.setIngredients(rs.getString(4)); // 제품명
+
 
 				productList.add(tvo);
 				
@@ -190,7 +164,6 @@ public class MenuDAO_imple implements MenuDAO {
 		return productList;		
 	}
 	
-	//더보기 방식으로 상품정보 8개씩 잘라서 조회  
 	
 	
 	
