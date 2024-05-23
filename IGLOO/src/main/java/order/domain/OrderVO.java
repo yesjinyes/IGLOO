@@ -3,6 +3,7 @@ package order.domain;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import member.domain.MemberVO;
 import myshop.domain.CartVO;
 
 public class OrderVO {
@@ -19,9 +20,16 @@ public class OrderVO {
 	
 	// === select 용 === //
 	private CartVO cart = new CartVO();
+	private MemberVO member = new MemberVO();
 	
 	//////////////////////////////////////////////////////////////
 	
+	public MemberVO getMember() {
+		return member;
+	}
+	public void setMember(MemberVO member) {
+		this.member = member;
+	}
 	// === Getter,Setter === //
 	public String getOrdercode() {
 		return ordercode;

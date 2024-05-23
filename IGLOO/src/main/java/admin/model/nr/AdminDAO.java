@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import help.domain.nr.FaqVO;
+import order.domain.OrderdetailVO;
 
 public interface AdminDAO {
 
@@ -22,5 +23,10 @@ public interface AdminDAO {
 
 	// 관리자 - 1:1 답변 등록
 	int insertAnswer(Map<String, String> paramap) throws SQLException;
+
+	// 전체주문내역 불러오기(선택 맛 제외)
+	List<OrderdetailVO> selectOrderListAll() throws SQLException;
+
+
 
 }
