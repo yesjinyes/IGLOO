@@ -16,12 +16,12 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import help.domain.nr.FaqVO;
-import help.domain.nr.HelpVO;
 import member.domain.MemberVO;
 import order.domain.OrderVO;
 import order.domain.OrderdetailVO;
 import product.domain.ProductVO;
 import product.domain.SelectlistVO;
+import product.domain.TasteVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
 
@@ -31,6 +31,7 @@ public class AdminDAO_imple implements AdminDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	private ResultSet rs2;
 	
 	private AES256 aes;
 	
@@ -280,6 +281,8 @@ public class AdminDAO_imple implements AdminDAO {
 	
 	
 	
+	
+	
 	// 전체 주문내역 불러오기(선택 맛 제외)
 	@Override
 	public List<OrderdetailVO> selectOrderListAll() throws SQLException {
@@ -305,11 +308,14 @@ public class AdminDAO_imple implements AdminDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+
 			
 			while(rs.next()) {
-				
+
 				OrderdetailVO odvo = new OrderdetailVO();
-				odvo.setOrderdetailno(rs.getInt(1));
+				
+				int orderdetailno = rs.getInt(1);
+				odvo.setOrderdetailno(orderdetailno);
 				
 				OrderVO ovo = new OrderVO();
 				ovo.setOrdercode(rs.getString(2));
@@ -349,11 +355,40 @@ public class AdminDAO_imple implements AdminDAO {
 				odvo.setSelectlist(slvo);
 				odvo.setProduct(pvo);
 				
-				odvoList.add(odvo);
+					
+				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename "
+					+ "from tbl_orderdetail A join tbl_order B "
+					+ "on A.fk_ordercode = B.ordercode "
+					+ "join tbl_selectlist C "
+					+ "on A.fk_selectno = C.selectno "
+					+ "join tbl_product D "
+					+ "on C.fk_productcodeno = D.productcodeno "
+					+ "join tbl_tasteselect E "
+					+ "on E.fk_selectno = C.selectno "
+					+ "join tbl_taste F "
+					+ "on E.fk_tasteno = F.tasteno "
+					+ "where orderdetailno = ?";
 				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, orderdetailno);
+				
+				rs2 = pstmt.executeQuery();
+				
+				List<TasteVO> tasteList = new ArrayList<TasteVO>();
+				
+				while(rs2.next()) {
+					TasteVO tvo = new TasteVO();
+					tvo.setTastename(rs2.getString(4));
+					tasteList.add(tvo);
+				}
+				
+				odvo.setTastenamelist(tasteList);
+				
+				odvoList.add(odvo);
+
 			}
 			
-		} catch (UnsupportedEncodingException | GeneralSecurityException | SQLException e) {
+		} catch (GeneralSecurityException | UnsupportedEncodingException e ) {
 			e.printStackTrace();
 		} finally {
 			close();
@@ -361,6 +396,7 @@ public class AdminDAO_imple implements AdminDAO {
 		
 		return odvoList;
 	}
+
 
 
 

@@ -26,7 +26,7 @@
 			</thead>
 		
 			<tbody>
-				<c:forEach items="">
+				<c:forEach var="odvo" items="${requestScope.odvoList}">
 				
 				
 				</c:forEach>
