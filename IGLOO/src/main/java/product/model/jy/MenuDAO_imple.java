@@ -1,5 +1,4 @@
 package product.model.jy;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,16 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import product.domain.TasteVO;
-
-
-
 public class MenuDAO_imple implements MenuDAO {
 	
 	private DataSource ds;  // DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection Pool)이다. 
@@ -50,7 +44,6 @@ public class MenuDAO_imple implements MenuDAO {
 			e.printStackTrace();
 		}
 	}
-
 	
 	
 	
@@ -83,7 +76,6 @@ public class MenuDAO_imple implements MenuDAO {
 		return totalCount;
 		
 	}// end of public int totalPspecCount(String string) throws SQLException------
-
 	
 	
 	
@@ -110,7 +102,7 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTasteimg(rs.getString(3));
 				tvo.setIngredients(rs.getString(4)); // 제품명
 
-				
+
 				menuList.add(tvo);
 			}// end of while(rs.next())----------------------------------
 			
@@ -135,15 +127,15 @@ public class MenuDAO_imple implements MenuDAO {
 		
 		try {
 			conn = ds.getConnection();
-			
-			String sql =  " SELECT  tasteno, tastename, tasteimg , ingredients "
+			String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
 					+ " FROM "
 					+ " ( "
-					+ "    select row_number() over(order by tasteno desc) AS RNO  "
-					+ "                    , tasteno ,tastename, tasteimg, ingredients "
+					+ "   select row_number() over(order by tasteno desc) AS RNO "
+					+ " 		, tasteno ,tastename, tasteimg , ingredients "
 					+ "    from tbl_taste "
-					+ " ) ";
-			
+					+ " ) V "
+					+ " WHERE RNO between ? and ? ";
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, paraMap.get("start"));
 			pstmt.setString(2, paraMap.get("end"));
@@ -158,8 +150,8 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTastename(rs.getString(2)); // 제품명
 				tvo.setTasteimg(rs.getString(3)); // 제품명
 				tvo.setIngredients(rs.getString(4)); // 제품명
-				
-								
+
+
 				productList.add(tvo);
 				
 			}// end of while(rs.next())-------------------------
@@ -170,14 +162,10 @@ public class MenuDAO_imple implements MenuDAO {
 		}
 		
 		return productList;		
-
 	}
-
 	
 	
 	
 	
 	
-
-
 }

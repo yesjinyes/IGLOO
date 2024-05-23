@@ -29,11 +29,19 @@ public class DisplayIceJSON extends AbstractController {
 
 		String start = request.getParameter("start");
 		String len = request.getParameter("len");
+		String menuAlign = request.getParameter("menuAlign");
 	/*
 	    맨 처음에는 sname("HIT")상품을  start("1") 부터 len("8")개를 보여준다.
 	    더보기... 버튼을 클릭하면  sname("HIT")상품을  start("9") 부터 len("8")개를 보여준다.
 	    또  더보기... 버튼을 클릭하면 sname("HIT")상품을  start("17") 부터 len("8")개를 보여준다.      
     */	
+		
+		if( menuAlign == null || 
+		  (!"name".equals(menuAlign) &&
+		   !"order".equals(menuAlign)) )  {
+				menuAlign = "name";
+		}
+		
 		
 		Map<String, String> paraMap = new HashMap<>();
 		paraMap.put("start", start);  // start  "1"  "9"  "17"  "25"  "33"
@@ -41,6 +49,11 @@ public class DisplayIceJSON extends AbstractController {
 		String end = String.valueOf(Integer.parseInt(start) + Integer.parseInt(len) - 1); 
 		paraMap.put("end", end);      // end => start + len - 1; 
                                       // end    "8"   "16"  "24"  "32"  "40"
+		paraMap.put("menuAlign", menuAlign);
+		
+		
+		int totalCount = mdao.totalCount();
+		
 		
 		List<TasteVO> productList = mdao.selectIceAll(paraMap); 
 		

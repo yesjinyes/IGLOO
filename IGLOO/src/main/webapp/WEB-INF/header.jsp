@@ -152,7 +152,7 @@ $(document).ready(function(){
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			          		<a class="dropdown-item" href="<%= ctxPath%>/admin/memberList.ice">회원 목록</a>
-			          		<a class="dropdown-item" href="#">전체 주문 내역</a>
+			          		<a class="dropdown-item" href="<%= ctxPath%>/admin/orderListAll.ice">전체 주문 내역</a>
 			          		<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">제품 등록</a>
 			          		<a class="dropdown-item" href="<%= ctxPath%>/admin/faqAnswer.ice">문의 답변 등록</a>
