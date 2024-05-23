@@ -16,7 +16,8 @@ $(document).ready(function() {
 	   // $("div[id='selecttasteList']").val(selecttaste);
 	   $("div#selecttasteList > p#tasteresult").text(selecttaste);
 
-
+		// 확인용 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		
    });// end of $("select[id='taste']").change(function()----------------------
 	   // select 에서 선택한 맛 밑에 한번에 출력
 	   // select 에서 선택한 맛 밑에 한번에 출력---------------------------------
@@ -67,7 +68,13 @@ function goCart(ctxPath) {
    // frm.action = "/member/cart.ice";
    // frm.submit();
 
-}// end of 주문상세 > 장바구니 연결------------------------
+}// end of == 장바구니 연결하는 함수 ==------------------------
+
+// // == 주문하기 연결하는 함수 == //
+// function goOrder(ctxPath) {
+
+// 	location.href = "payment.ice";
 
 
+// }// end of == 주문하기 연결하는 함수 ==------------------------
 

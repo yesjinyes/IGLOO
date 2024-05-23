@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -51,7 +53,7 @@ public class ProductDAO_imple implements ProductDAO {
 	      try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " select productcodeno, productimg, productname, productdetail, price "
+	         String sql = " select productcodeno, productimg, productimgBelow, productname, productdetail, price "
 		         		+ " from tbl_product ";
 	         
 	         pstmt = conn.prepareStatement(sql);
@@ -62,9 +64,10 @@ public class ProductDAO_imple implements ProductDAO {
 	        	 ProductVO pvo = new ProductVO();
 	        	 pvo.setProductcodeno(rs.getString(1));
 	        	 pvo.setProductimg(rs.getString(2));
-	        	 pvo.setProductname(rs.getString(3));
-	        	 pvo.setProductdetail(rs.getString(4));
-	        	 pvo.setPrice(rs.getInt(5));
+	        	 pvo.setProductimgBelow(rs.getString(3));
+	        	 pvo.setProductname(rs.getString(4));
+	        	 pvo.setProductdetail(rs.getString(5));
+	        	 pvo.setPrice(rs.getInt(6));
 	        	 
 	        	 productList.add(pvo);
 	        	 
@@ -114,39 +117,44 @@ public class ProductDAO_imple implements ProductDAO {
 	}// end of public List<TasteVO> selectTasteList() throws SQLException
 	///////////////////////////////////////////////////////////////
 		
-	// == 주문상세 상단 이미지 띄우기 == //
-
+	// == 주문상세 정보 띄우기 == //
 	@Override 
-	public List<ProductVO> getimgList() throws SQLException {
+	public List<ProductVO> getimgList(String productList) throws SQLException {
 
-		List<ProductVO> imgList = new ArrayList<>();
+		ProductVO pvo = new ProductVO();
 		
-	    try {
+		List<ProductVO> detailList = new ArrayList<>();
+		
+		 try {
 	         conn = ds.getConnection();
-
-	         String sql = " select productimg, productimgBelow "
-		         		+ " from tbl_product ";
-
+	         
+	         String sql = " select productcodeno, productimg, productimgBelow, productname, productdetail, price "
+		         		+ " from tbl_product "
+		         		+ " where productcodeno = ? ";
+	         
 	         pstmt = conn.prepareStatement(sql);
-
+	         pstmt.setString(1, pvo.getProductcodeno());
+	         
 	         rs = pstmt.executeQuery();
-
+	         
 	         while(rs.next()) {
-	        	 ProductVO pvo = new ProductVO();
-	        	 pvo.setProductimg(rs.getString(1));
-	        	 pvo.setProductimgBelow(rs.getString(2));
-
-	        	 imgList.add(pvo);
+	        	 pvo = new ProductVO();
+	        	 pvo.setProductcodeno(rs.getString(1));
+	        	 pvo.setProductimg(rs.getString(2));
+	        	 pvo.setProductimgBelow(rs.getString(3));
+	        	 pvo.setProductname(rs.getString(4));
+	        	 pvo.setProductdetail(rs.getString(5));
+	        	 pvo.setPrice(rs.getInt(6));
+	        	 
+	        	 detailList.add(pvo);
 	        	 
 	         }// end of while-----------------
 	         
 	      } finally {
 	         close();
 	      }
-	      
-	      //System.out.println("확인용 이미지 : "+ productList);
-	      
-	      return imgList;
+		 
+	      return detailList;
 	  
 	}// end of public List<ProductVO> getimgList() throws SQLException
 	 	
