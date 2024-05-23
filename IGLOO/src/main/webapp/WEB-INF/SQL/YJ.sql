@@ -98,9 +98,6 @@ drop sequence seq_tasteno;
 
 rollback;
 
-select *
-from tbl_taste;
-where tastename = '마스카포네 마카롱';
 
 -----------------------------------------------------------------------------------------------------
 insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy) values(seq_tasteno.nextval,'행복한 나라의 슈팅스타','행복한 나라의 슈팅스타.png', '딸기와 블루베리가 들어간 솜사탕 아이스크림에 톡톡 튀는 팝핑캔디로 입안 가득 즐거운 맛', '115','276','32','4','9','78','우유, 대두');
