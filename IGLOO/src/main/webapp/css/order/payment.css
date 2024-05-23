@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+div.container.contents {
+	border: solid 0px red;
+	height: 1500px;
+	margin-top: 10%;
+}
+
+div#item_detail { /* 상단 오른쪽 */
+	border: solid 0px grey;
+	width: 49%;
+	margin: 2% auto;
+}
+
+div#imgdiv {
+	border: solid 0px grey;
+	display: flex;
+}
+
+#button{ /* 구매하기, 장바구니 버튼 */
+	text-align: center;
+	border: solid 0px black;
+}
+
+#button > input.btn.btn-lg.mr-5, #button > input:nth-child(2){ 
+	background-color: #81BEF7;
+	border: solid 2px #063460;
+}
+

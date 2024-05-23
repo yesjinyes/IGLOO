@@ -31,7 +31,6 @@ public class Order extends AbstractController {
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order.jsp");
 			
-			
 		}
 		
 		else {
