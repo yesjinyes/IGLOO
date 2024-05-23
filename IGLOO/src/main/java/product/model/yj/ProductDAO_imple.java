@@ -126,21 +126,25 @@ public class ProductDAO_imple implements ProductDAO {
 	
 	@Override 
 	public List<ProductVO> getimgList() throws SQLException {
-	  
+
+		ProductVO pvo = new ProductVO();
+		
 		List<ProductVO> imgList = new ArrayList<>();
-	      
+		
 	    try {
 	         conn = ds.getConnection();
 	         
 	         String sql = " select productimg, productimgBelow "
-		         		+ " from tbl_product ";
+		         		+ " from tbl_product "
+		         		+ " where productcodeno = ? ";
 	         
 	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, pvo.getProductcodeno());
 	         
 	         rs = pstmt.executeQuery();
 	         
 	         while(rs.next()) {
-	        	 ProductVO pvo = new ProductVO();
+	        	 pvo = new ProductVO();
 	        	 pvo.setProductimg(rs.getString(1));
 	        	 pvo.setProductimgBelow(rs.getString(2));
 	        	 

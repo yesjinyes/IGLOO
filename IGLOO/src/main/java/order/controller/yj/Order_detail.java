@@ -31,22 +31,14 @@ public class Order_detail extends AbstractController {
 		List<TasteVO> tasteList = pdao.selectTasteList();
 		request.setAttribute("tasteList", tasteList);
 		
-//		// == 주문상세 상단 이미지 띄우기 == //
+//		// == 주문상세 상단, 하단 이미지 띄우기 == //
 		List<ProductVO> imgList = pdao.getimgList();
 		request.setAttribute("imgList", imgList);
-		
-		
-//		String productimg = request.getParameter("productimg");
-//		
-//		productimg = pdao.getproductimg(productimg);
-//		request.setAttribute("productimg", productimg);
-//		
-//		System.out.println("확인용 이미지 : " + productimg);
-//		
+
 		// == 주문상세 하단 이미지 띄우기 == //
-		List<ProductVO> imgDetailList = pdao.selectImageDetail();
-		request.setAttribute("imgDetailList", imgDetailList);
-		
+//		List<ProductVO> imgDetailList = pdao.selectImageDetail();
+//		request.setAttribute("imgDetailList", imgDetailList);
+	
 		
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/order/order_detail.jsp");

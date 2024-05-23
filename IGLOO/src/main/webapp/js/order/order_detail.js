@@ -10,10 +10,15 @@ $(document).ready(function() {
 		// $("input[name='selecttaste']").val("확인용");
 		// $("div#test > input[name='selectPeriodindex']").val(selecttaste);
 		
-
+		$("div#selecttaste").text();
+		$("div#selecttaste").val();
+		$("div#selecttasteList > input[name='selecttasteList']").val(selecttaste);
+		// $("div[id='selecttasteList']").val(selecttaste);
+		$("div#selecttasteList > p#tasteresult").val(selecttaste);
+		
 
 	});// end of $("select[id='taste']").change(function()----------------------
-		// select 에서 선택한 맛 밑에 한번에 출력
+		// select 에서 선택한 맛 밑에 한번에 출력---------------------------------
 	
 
 
@@ -54,21 +59,31 @@ $(document).ready(function() {
 		
 		
 });// end of $(document).ready(function() {})-------------------------------
-	 
+
+// == 장바구니 연결하는 함수 == //
+function goCart(ctxPath) {
+
+	location.href = `${ctxPath}/member/cart.ice`;
+
+	// const frm = document.orderDetailFrm;
+	// frm.method = "POST"; 
+	// frm.action = "/member/cart.ice";
+	// frm.submit();
+
+}// end of 주문상세 > 장바구니 연결------------------------
 	
+/* 
+function changeSelect(){
+	var langSelect = document.getElementById("selectbox");
+		
+	// select element에서 선택된 option의 value가 저장된다.
+	var selectValue = langSelect.options[langSelect.selectedIndex].val;
 	
-	/* 
-	function changeSelect(){
-	    var langSelect = document.getElementById("selectbox");
-	     
-	    // select element에서 선택된 option의 value가 저장된다.
-	    var selectValue = langSelect.options[langSelect.selectedIndex].val;
-	 
-	    // select element에서 선택된 option의 text가 저장된다.
-	    var selectText = langSelect.options[langSelect.selectedIndex].text;
-	    
-	    console.log("확인용 langSelect : ",langSelect);
-	    console.log("확인용 selectValue : ",selectValue);
-	    console.log("확인용 selectText : ",selectText);
-	}
-	*/
+	// select element에서 선택된 option의 text가 저장된다.
+	var selectText = langSelect.options[langSelect.selectedIndex].text;
+	
+	console.log("확인용 langSelect : ",langSelect);
+	console.log("확인용 selectValue : ",selectValue);
+	console.log("확인용 selectText : ",selectText);
+}
+*/

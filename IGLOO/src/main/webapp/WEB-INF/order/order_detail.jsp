@@ -64,17 +64,13 @@
 	  		<hr style="border: solid 1px #81BEF7;">
   
   			<div class="row justify-content-around">
-				 <%-- <div class="p-0 my-auto justify-content-center">
-		 			 <h4 style="font-weight: bold;" ><%= productname%></h4>
-				     <div id="selecttaste">선택한 맛 들어가는 자리</div>
-				     <!-- <input type="text" name="selecttaste" value=""/> -->
-				 </div> --%>
-				 
-				 <div class="p-0 my-auto justify-content-center">
+				<div class="p-0 my-auto justify-content-center">
 				    <h4 style="font-weight: bold;" ><%= productname%></h4>
-				    <!-- <div id="selecttaste">선택한 맛 들어가는 자리</div> -->
-				    <input type="text" name="selecttaste" value=""/>
-				 </div>
+				    <div id="selecttasteList">
+				    	<p id="tasteresult"></p>
+				        <input type="text" name="selecttasteList"/>
+				    </div>
+				</div>
 				
 				 <%-- 수량 +, - 버튼 --%>
 				 <div class="num">
@@ -98,7 +94,7 @@
 			</div>
 			
 			<div id="button" class="mx-auto">
-				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart()" />
+				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
 	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="goOrder()" />
 			</div>
 		</div>
@@ -110,10 +106,10 @@
 	<hr style="border: solid 2px #4198e8;">
 
 	<div id="image">
-	  <c:forEach var="imgDetailList" items="${requestScope.imgDetailList}">
+	  <c:forEach var="imgList" items="${requestScope.imgList}">
 		<div class="row justify-content-center">
 			<div class="col-md-7" style="font-weight: bold;"> 
-				<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgDetailList.productimgBelow}">
+				<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgList.productimgBelow}">
 			</div>
 		</div>
 	  </c:forEach>
