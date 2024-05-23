@@ -133,7 +133,7 @@ FROM
         from tbl_taste
     )
     ON fk_tasteno = tasteno
-    
+    WHERE RNO between 1 and 8
 ) T 
 JOIN
 (
@@ -152,8 +152,8 @@ JOIN
 ) O
 
 ON fk_selectno = selectno
-group by tasteno, tastename, tasteimg , ingredients
-order by tastename;
+group by tasteno, tastename, tasteimg , ingredients;
+--order by tastename;
 --order by count(*) asc;
 
 
@@ -173,5 +173,9 @@ FROM
 
    select *
    from tbl_orderdetail;
-
+   
+ select column_name, comments
+ from user_col_comments
+ where table_name = 'tbl_orderdetail';
+ 
 
