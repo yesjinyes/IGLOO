@@ -184,7 +184,6 @@
 <form name="sendinfo">
 	<input type="text" name="searchorderList" value=""/>
 	<input type="text" name="orderListPeriod" value=""/>
-	<input type="text" name="selectPeriodindex" value="0"/>
 </form>
 
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>

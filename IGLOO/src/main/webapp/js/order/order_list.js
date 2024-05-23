@@ -15,9 +15,12 @@ $(document).ready(function(){
     $("div#Periodgroup > div > button:first-child").click(function(){
         $("div#Periodgroup > div > button").not(this).css("background-color", "");
         $(this).css("background-color", "#FD8A69");
-        
+
+        $("input#orderlist_search").val("");
         $("span#selectdate").text("");
-        $("form[name='sendinfo'] > input[name='orderListPeriod']").val("");
+        
+        $("form[name='sendinfo'] > input[name='searchorderList']").val("");
+        $("form[name='sendinfo'] > input[name='orderListPeriod']").val('2000/01/01');
         $("form[name='sendinfo'] > input[name='selectPeriodindex']").val("0");
         
         submitfrm();
@@ -35,7 +38,8 @@ $(document).ready(function(){
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
-        $("form[name='sendinfo'] > input[name='selectPeriodindex']").val("1");
+        $("input#orderlist_search").val("");
+        $("form[name='sendinfo'] > input[name='searchorderList']").val("");
         submitfrm();
 
     })  // end of $("div#Periodgroup > div > button:nth-child(2)").click(function(){----
@@ -51,7 +55,8 @@ $(document).ready(function(){
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
-        $("form[name='sendinfo'] > input[name='selectPeriodindex']").val("2");
+        $("input#orderlist_search").val("");
+        $("form[name='sendinfo'] > input[name='searchorderList']").val("");
         submitfrm();
 
     })  // end of $("div#Periodgroup > div > button:nth-child(3)").click(function(){----
@@ -67,7 +72,8 @@ $(document).ready(function(){
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
-        $("form[name='sendinfo'] > input[name='selectPeriodindex']").val("3");
+        $("input#orderlist_search").val("");
+        $("form[name='sendinfo'] > input[name='searchorderList']").val("");
         submitfrm();
 
     })  // end of $("div#Periodgroup > div > button:nth-child(4)").click(function(){----
@@ -83,7 +89,8 @@ $(document).ready(function(){
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
-        $("form[name='sendinfo'] > input[name='selectPeriodindex']").val("4");
+        $("input#orderlist_search").val("");
+        $("form[name='sendinfo'] > input[name='searchorderList']").val("");
         submitfrm();
 
     })  // end of $("div#Periodgroup > div > button:last-child").click(function(){----
@@ -92,6 +99,7 @@ $(document).ready(function(){
     $("input#orderlist_search").bind("keydown",function(e){
         if(e.keyCode == 13){
             $("form[name='sendinfo'] > input[name='searchorderList']").val($("input#orderlist_search").val());
+            $("form[name='sendinfo'] > input[name='orderListPeriod']").val("none");
             submitfrm();
         }
     })  // end of $("input#orderlist_search").bind("keydown",function(e){-------
@@ -104,6 +112,7 @@ $(document).ready(function(){
             return;
         }
         $("form[name='sendinfo'] > input[name='searchorderList']").val($("input#orderlist_search").val());
+        $("form[name='sendinfo'] > input[name='orderListPeriod']").val("none");
         submitfrm();
     })  // end of $("button#btnorderlistSearch").click(function{--------------
 
@@ -117,45 +126,45 @@ $(document).ready(function(){
 
 // === 현재 날짜 찾는 함수 === //
 function func_currentDate(){
-	const now = new Date();
-  	
-  	const year = now.getFullYear();
-  	let month = now.getMonth() + 1;
-  	let date = now.getDate();
+   const now = new Date();
+     
+     const year = now.getFullYear();
+     let month = now.getMonth() + 1;
+     let date = now.getDate();
   
-  	if(month < 10){		// 10 이하인 경우
-    	month = "0" + month;
+     if(month < 10){      // 10 이하인 경우
+       month = "0" + month;
     }
-  	if(date < 10){		// 10 이하인 경우
-    	date = "0" + date;
+     if(date < 10){      // 10 이하인 경우
+       date = "0" + date;
     }
   
-  	const day = now.getDay();	// 현재요일명(0~6) ( 일 ~ 토 )
+     const day = now.getDay();   // 현재요일명(0~6) ( 일 ~ 토 )
   
-  	let dayName;
-  	switch(day){
-    	case 0:	// "0" 이 아닌 0 이다. 주의!
-        	dayName = "일"
-        	break;
-        case 1:	
-        	dayName = "월"
-        	break;
-        case 2:	
-        	dayName = "화"
-        	break;
-        case 3:	
-        	dayName = "수"
-        	break;
-        case 4:	
-        	dayName = "목"
-        	break;
-        case 5:	
-        	dayName = "금"
-        	break;
-        case 6:	
-        	dayName = "토"
-        	break;
-    }	// end of switch(day)-------------
+     let dayName;
+     switch(day){
+       case 0:   // "0" 이 아닌 0 이다. 주의!
+           dayName = "일"
+           break;
+        case 1:   
+           dayName = "월"
+           break;
+        case 2:   
+           dayName = "화"
+           break;
+        case 3:   
+           dayName = "수"
+           break;
+        case 4:   
+           dayName = "목"
+           break;
+        case 5:   
+           dayName = "금"
+           break;
+        case 6:   
+           dayName = "토"
+           break;
+    }   // end of switch(day)-------------
   return `${year}.${month}.${date} (${dayName})`;
 }   // end of function func_currentDate(){--------
 
@@ -163,136 +172,156 @@ function func_currentDate(){
 
 // === 날짜 찾는 함수 === //
 function func_lastmonthDate(choice){
-	const now = new Date();
-  	
-  	let year = now.getFullYear();
-  	let month = now.getMonth() + 1 - choice;
-  	let date = now.getDate();
+   const now = new Date();
+     
+     let year = now.getFullYear();
+     let month = now.getMonth() + 1 - choice;
+     let date = now.getDate();
   
     if(month < 0){
         year -= 1;
         month += 12;
     }
-  	if(month < 10){		// 10 이하인 경우
-    	month = "0" + month;
+     if(month < 10){      // 10 이하인 경우
+       month = "0" + month;
     }
-  	if(date < 10){		// 10 이하인 경우
-    	date = "0" + date;
+     if(date < 10){      // 10 이하인 경우
+       date = "0" + date;
     }
   
     const newDate = new Date(year, month - 1, date);
 
-  	const day = newDate.getDay();	// 현재요일명(0~6) ( 일 ~ 토 )
+     const day = newDate.getDay();   // 현재요일명(0~6) ( 일 ~ 토 )
   
-  	let dayName;
-  	switch(day){
-    	case 0:
-        	dayName = "일"
-        	break;
-        case 1:	
-        	dayName = "월"
-        	break;
-        case 2:	
-        	dayName = "화"
-        	break;
-        case 3:	
-        	dayName = "수"
-        	break;
-        case 4:	
-        	dayName = "목"
-        	break;
-        case 5:	
-        	dayName = "금"
-        	break;
-        case 6:	
-        	dayName = "토"
-        	break;
-    }	// end of switch(day)-------------
+     let dayName;
+     switch(day){
+       case 0:
+           dayName = "일"
+           break;
+        case 1:   
+           dayName = "월"
+           break;
+        case 2:   
+           dayName = "화"
+           break;
+        case 3:   
+           dayName = "수"
+           break;
+        case 4:   
+           dayName = "목"
+           break;
+        case 5:   
+           dayName = "금"
+           break;
+        case 6:   
+           dayName = "토"
+           break;
+    }   // end of switch(day)-------------
   return `${year}.${month}.${date} (${dayName})`;
 }   // end of func_lastmonthDate(choice){--------
 
 ///////////////////////////////////////////////////////////
-
+// === 화면전환 === //
 function submitfrm(){
-/*
-    const ctxPath = $("div#ctxPath").text();
-
-    const frm = document.sendinfo;
-    frm.method = "post";
-    frm.action = `${ctxPath}/member/mypage.ice`;
-    frm.submit();
-*/
-    
+        
     const searchorderList = $("form[name='sendinfo'] > input[name='searchorderList']").val();
     const orderListPeriod = $("form[name='sendinfo'] > input[name='orderListPeriod']").val();
-    const selectPeriodindex = $("form[name='sendinfo'] > input[name='selectPeriodindex']").val();
     
-        $.ajax({
-            url:"orderlistJSON.ice"
-            , data:{"searchorderList":searchorderList
-                , "orderListPeriod":orderListPeriod
-                , "selectPeriodindex":selectPeriodindex
-            }
-            // , async : true  // 돌아가는동안 화면정지
-            , dataType:"json"
-            , success:function(json){
-                const str_json = JSON.stringify(json);  // json 객체를 string 타입으로 변경
-                let v_html = ``;
-                alert("jsonCheck");
+    $.ajax({
+        url:"orderlistJSON.ice"
+        , data:{"searchorderList":searchorderList
+            , "orderListPeriod":orderListPeriod
+        }
+        // , async : true  // 돌아가는동안 화면정지
+        , dataType:"json"    // 이전 설정
+        // , dataType:"value"   // default 값
+        , success:function(json){
+            const str_json = JSON.stringify(json);  // json 객체를 string 타입으로 변경
+            // console.log("확인용 str_json : " + str_json);
+            let v_html = ``;
+            // alert("jsonCheck");
 
-                $.each(json, function(index, item){
-                        
-                    let searchinput = json[index].searchorderList;
-
-                    if(json[index].noresult == "결과값없음"){
-                        alert("결과값없음");
-                        $("input#orderlist_search").html(searchinput);
-                        v_html = `<div class="mx-auto text-center">
+            if(str_json == "[]"){
+                // alert("결과값없음");
+                v_html = `<div class="mx-auto text-center">
                                     <h3 class="mt-5 font-weight-bolder">해당하는 상품이 없습니다.</h3>
                                     <div class="h-50 p-5 m-3"></div>
-                                </div>`
-                        $("div#SearchorderlistContents").html(v_html);
-                    }
-
-                    console.log(index);
-
-                })
-                /*
-                if(json[0].haveorderlist == "none" && json[0].searchorderList == ""){
-                    alert("주문내역 없음");
-                    
-                    $("div#SearchorderlistContents").hide();
-                    $("div#noorderlist").hide();
-                    v_html = `<div class="mx-auto text-center">
-                                <h3 class="mt-5 font-weight-bolder">주문내역에 담긴 상품이 없습니다.</h3>
-                                <div class="h-50 p-5 m-3"></div>
-                            </div>`; 
-                    $("div#orderlist").html(v_html);
-                    
-                }
-                
-                else if(json[0].haveorderlist == "haveorderlist" && json[0].searchorderList != ""){
-                    alert("검색내용 있음");
-
-                    if(json[0].orderdetailList.size() < 1){
-                        $("input#orderlist_search").html(searchinput);
-                            v_html = `<div class="mx-auto text-center">
-                                        <h3 class="mt-5 font-weight-bolder">해당하는 상품이 없습니다.</h3>
-                                        <div class="h-50 p-5 m-3"></div>
-                                    </div>`;
-                        $("input#orderlist_search").html(v_html);
-                    }
-                    
-                }
-                */
-                
-                // div 안에 꽂아주기
+                                </div>`;
+                $("div#SearchorderlistContents").html(v_html);
             }
-            , error: function(request, status, error){
-                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-            }
-            
-
-        })  // end of $.ajax-------------
-    
+            else{
+                $.each(json, function(index, item){
+                        
+                    v_html += `<div class="orderdate ml-4"></div>
+                            <div class="Oneorderdate">
+                            
+                                    <div class="dateorderlist my-3 ml-4">
+                                        <div>${item.orderdate}</div>
+                                        <div>주문코드 : ${item.ordercode}</div>
+                                    </div>
+                                    <div id="orderlist" class="row justify-content-center mb-3">
+                                        <div class="col-xl-2 col-lg-2 ">
+                                            <img class="img-fluid mt-5" src="/IGLOO/images/img_hj/cup_size/${item.productimg}" alt="Responsive image">
+                                        </div>
+                                        <div class="orderMenu col-xl-3 col-lg-3 ">
+                                            <label class="text-center mx-auto mt-3">${item.productname}</label>
+                                            <div class="choiceAlltaste my-auto">
+                                                <ul class="list-group list-group-flush">
+                                                `;
+                                                    item.tastenamelist.forEach(elmt => {
+                                                    
+                                                        v_html += `<li class="list-group-item">${elmt}</li>`
+                                                    })
+                                    v_html += `</ul>
+                                            </div>
+                                        </div>
+                                        <div class="selectMenucnt justify-content-center text-center col-xl-2 col-lg-2 p-0">
+                                            <div class="mt-5">
+                                                <div class="d-inline-block"></div>
+                                                <div>수량</div>
+                                                <span>${item.ordercount}</span>
+                                            </div>
+                                        </div>
+                                        <div class="selectOrderprice justify-content-center text-center col-xl-2 col-lg-2 p-0">
+                                            <div class="mt-5 mb-5">
+                                                <div class="d-inline-block"></div>
+                                                <div>
+                                                    ${Number(item.orderprice).toLocaleString()}     <!-- #,###-->
+                                                    원
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="Ordersituation justify-content-center text-center col-xl-2 col-lg-2 p-0">
+                                            <div class="mt-5 mb-5">
+                                                <div class="d-inline-block"></div>
+                                                <div>`;
+                                                if(item.pickupstatus == "1"){
+                                                    v_html += `주문완료`;
+                                                }
+                                                else if(item.pickupstatus == "2"){
+                                                    v_html += `준비중`;
+                                                }
+                                                else if(item.pickupstatus == "3"){
+                                                    v_html += `픽업대기`;
+                                                }
+                                                else if(item.pickupstatus == "4"){
+                                                    v_html += `픽업완료`;
+                                                }
+                                                v_html +=  `
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                `;
+                })  // end of $.each(json, function(index, item){
+            $("div#SearchorderlistContents").html(v_html);
+            }   // end of if~else---------------
+        }   // end of success-------------------
+        , error: function(request, status, error){
+            // alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            alert("code: " + request.status);
+        }
+    })  // end of $.ajax-------------
+        
 }   // end of function submitfrm(){-----------

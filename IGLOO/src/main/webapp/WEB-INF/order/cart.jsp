@@ -43,7 +43,7 @@
 </c:if>
 <c:if test="${requestScope.havecart != 'none'}">
 	<div class="totalSelect custom-control form-check mb-5">
-		<input class="form-check-input" type="checkbox" value="" id="Allchecked" checked>
+		<input class="form-check-input" type="checkbox" value="" id="Allchecked">
 	  	<label class="form-check-label ml-5" for="Allchecked">
 	    	전체 선택
 	  	</label>
@@ -55,7 +55,7 @@
 				<%-- 하나의 선택 메뉴 --%>
 				<div>
 					<%-- 하나의 선택 버튼 --%>
-					<input name="choicemenu" class="custom-control-input" type="checkbox" value="" checked>
+					<input name="choicemenu" class="custom-control-input" type="checkbox" value="">
 					<div class="choiceOneMenu row custom-control-label">
 	
 						<%-- 선택한 메뉴 이미지 --%>
