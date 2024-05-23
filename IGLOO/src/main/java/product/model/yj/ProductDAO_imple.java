@@ -1,22 +1,17 @@
 package product.model.yj;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import product.domain.ProductVO;
 import product.domain.TasteVO;
-
 public class ProductDAO_imple implements ProductDAO {
-
 	private DataSource ds;	// DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection Pool)이다.
 	private Connection conn;
 	private PreparedStatement pstmt;
@@ -85,13 +80,11 @@ public class ProductDAO_imple implements ProductDAO {
 		
 	      
 	}// end of public List<ProductVO> getproductList() throws SQLException
-
 	///////////////////////////////////////////////////////////////
 	
 	// == 맛 목록 조회해오기 == //
 	@Override
 	public List<TasteVO> selectTasteList() throws SQLException {
-
 		  List<TasteVO> tasteList = new ArrayList<>();
 	      
 	      try {
@@ -119,35 +112,30 @@ public class ProductDAO_imple implements ProductDAO {
 	      return tasteList;
 		
 	}// end of public List<TasteVO> selectTasteList() throws SQLException
-
 	///////////////////////////////////////////////////////////////
 		
 	// == 주문상세 상단 이미지 띄우기 == //
-	
+
 	@Override 
 	public List<ProductVO> getimgList() throws SQLException {
 
-		ProductVO pvo = new ProductVO();
-		
 		List<ProductVO> imgList = new ArrayList<>();
 		
 	    try {
 	         conn = ds.getConnection();
-	         
+
 	         String sql = " select productimg, productimgBelow "
-		         		+ " from tbl_product "
-		         		+ " where productcodeno = ? ";
-	         
+		         		+ " from tbl_product ";
+
 	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, pvo.getProductcodeno());
-	         
+
 	         rs = pstmt.executeQuery();
-	         
+
 	         while(rs.next()) {
-	        	 pvo = new ProductVO();
+	        	 ProductVO pvo = new ProductVO();
 	        	 pvo.setProductimg(rs.getString(1));
 	        	 pvo.setProductimgBelow(rs.getString(2));
-	        	 
+
 	        	 imgList.add(pvo);
 	        	 
 	         }// end of while-----------------
@@ -194,10 +182,8 @@ public class ProductDAO_imple implements ProductDAO {
 //	      
 //	      
 //	}// end of public String getproductimg() throws SQLException--------------
-
 	
 	///////////////////////////////////////////////////////////////
-
 	// == 주문상세 하단 이미지 띄우기 == //
 	@Override
 	public List<ProductVO> selectImageDetail() throws SQLException {
@@ -222,7 +208,6 @@ public class ProductDAO_imple implements ProductDAO {
 	         
 	         //System.out.println("이미지확인 detail : " + imgDetailList);
 	         //이미지확인 detail : [product.domain.ProductVO@3a4c2f84, product.domain.ProductVO@8ee7528, product.domain.ProductVO@7f62cfa8, product.domain.ProductVO@4de1a8df]
-
 	         
 	      } finally {
 	         close();
@@ -231,14 +216,10 @@ public class ProductDAO_imple implements ProductDAO {
 	      return imgDetailList;
 		
 	}// end of public List<Map<String, String>> selectImageDetail() throws SQLException
-
 	
 	
 	///////////////////////////////////////////////////////////////
-
-
 	
-
 	
 	
 }
