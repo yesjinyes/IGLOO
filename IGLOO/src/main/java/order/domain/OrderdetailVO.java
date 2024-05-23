@@ -3,6 +3,8 @@ package order.domain;
 import java.util.List;
 
 import product.domain.ProductVO;
+import product.domain.SelectlistVO;
+import product.domain.TasteSelectVO;
 import product.domain.TasteVO;
 
 public class OrderdetailVO {
@@ -18,15 +20,44 @@ public class OrderdetailVO {
 	
 	private List<TasteVO> tastenamelist;	// 맛선택 나열
 	//////////////////////////////////////////////////////////////
-	
+
+
 	// === select 용 === //
 	private OrderVO order = new OrderVO();
 	private	ProductVO product = new ProductVO();
+	private TasteVO taste = new TasteVO();
+	private SelectlistVO selectlist = new SelectlistVO();
+	private TasteSelectVO tasteselect = new TasteSelectVO();
 	
 	//////////////////////////////////////////////////////////////
 	
 	
 	// === Getter, Setter === //
+	
+	public TasteVO getTaste() {
+		return taste;
+	}
+
+	public void setTaste(TasteVO taste) {
+		this.taste = taste;
+	}
+
+	public SelectlistVO getSelectlist() {
+		return selectlist;
+	}
+
+	public void setSelectlist(SelectlistVO selectlist) {
+		this.selectlist = selectlist;
+	}
+
+	public TasteSelectVO getTasteselect() {
+		return tasteselect;
+	}
+
+	public void setTasteselect(TasteSelectVO tasteselect) {
+		this.tasteselect = tasteselect;
+	}
+	
 	public int getOrderdetailno() {
 		return orderdetailno;
 	}

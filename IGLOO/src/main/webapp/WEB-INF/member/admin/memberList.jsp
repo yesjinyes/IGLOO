@@ -137,7 +137,7 @@
 	}
 </script>
 
-<div class="container" style="padding: 3% 0;">
+<div class="container mt-5 pt-5" style="padding: 3% 0;">
    <h2 class="text-center mb-5"><img style="width: 30%;" src="${pageContext.request.contextPath}/images/img_narae/회원정보목록.png"/></h2>
    
    <form name="member_search_frm">

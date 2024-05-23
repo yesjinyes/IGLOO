@@ -19,7 +19,7 @@ import my.util.MyUtil;
 
 public class FaqAnswer extends AbstractController{
 
-private AdminDAO adao = null;
+	private AdminDAO adao = null;
 	
 	public FaqAnswer() {
 		adao = new AdminDAO_imple();
