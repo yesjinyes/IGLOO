@@ -39,8 +39,8 @@ public class OrderlistJSON extends AbstractController {
          String searchorderList = request.getParameter("searchorderList");
          String orderListPeriod = request.getParameter("orderListPeriod");
          
-         System.out.println("확인용 => " + searchorderList);
-         System.out.println("확인용 => " + orderListPeriod);
+         // System.out.println("확인용 => " + searchorderList);
+         // System.out.println("확인용 => " + orderListPeriod);
          
          List<OrderdetailVO> orderdetailList = new ArrayList<>();
 
@@ -49,18 +49,12 @@ public class OrderlistJSON extends AbstractController {
          
          try {
 	         if(searchorderList != "") {
-	        	 /*
-	        	 if("none".equals(orderListPeriod)) {
-	        		 
-	        	 }
-	        	 */
 	        	 // === 주문조회 검색창에 검색 === //
 	             Map<String,String> paraMap = new HashMap<>();
 	               
 	             paraMap.put("userid", userid);
 	             paraMap.put("searchorderList", searchorderList);                  
 	               
-	             // try {
 	             // === 제품, 맛 주문내역 검색하여 selectno 추출 === //
 	             List<String> selectnolist = cdao.searchorderlist(paraMap);
 	                  
@@ -86,7 +80,7 @@ public class OrderlistJSON extends AbstractController {
 	         }  
 	         else{
 	         
-	        	System.out.println("주문조회기간설정");
+	        	// System.out.println("주문조회기간설정");
 	            // === 주문조회 기간 설정 검색 === //
 	        	Map<String,String> paraMap = new HashMap<>();
 	            
@@ -132,7 +126,7 @@ public class OrderlistJSON extends AbstractController {
             
          // String json = jsonArr.toString();   // 문자열로 변환
          String json = jsonArr_info.toString();
-         System.out.println("확인용 json => " + json);
+         // System.out.println("확인용 json => " + json);
          // System.out.println("확인용 json_info => " + json_info);
             
          request.setAttribute("json", json);
