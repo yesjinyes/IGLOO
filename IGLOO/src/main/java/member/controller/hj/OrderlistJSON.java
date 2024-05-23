@@ -1,5 +1,6 @@
 package member.controller.hj;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,29 +76,37 @@ public class OrderlistJSON extends AbstractController {
 					// === 검색창 자리에 글씨 남기기용 === //
 					jsonObj.put("searchorderList", searchorderList);	
 					
-					// === 제품, 맛 주문내역 검색하여 selectno 추출 === //
-					List<String> selectnolist = cdao.searchorderlist(paraMap);
+					try {
+						// === 제품, 맛 주문내역 검색하여 selectno 추출 === //
+						List<String> selectnolist = cdao.searchorderlist(paraMap);
+						
+						String[] selectnoArr = new String[selectnolist.size()];
+						
+						// System.out.println(selectnolist.size());
+						// 0 => 검색한 결과값이 없을 경우
+						// 있을 경우는 다른 사이즈가 나옴
+						
+						for(int i=0; i<selectnolist.size(); i++) {
+							selectnoArr[i] = selectnolist.get(i);
+							// System.out.println("확인용 selectnolist : " + selectnolist.get(i));
+						}
+						
+						String selecnoJoin = String.join(",", selectnoArr);
+						// System.out.println("확인용 selecnoJoin : " + selecnoJoin);
+						
+						// === 추출한 selectno 가지고 list 추출 === //
+						orderdetailList = cdao.finalSearchlist(selecnoJoin);
+						
+						// System.out.println("확인용 orderdetailList : " + orderdetailList);
+						// System.out.println("확인용 orderdetailList.size() : " + orderdetailList.size());
 					
-					String[] selectnoArr = new String[selectnolist.size()];
-					
-					for(int i=0; i<selectnolist.size(); i++) {
-						// System.out.println("확인용 : " + selectnolist.get(i));
-						selectnoArr[i] = selectnolist.get(i);
+						for(int i=0; i<orderdetailList.size(); i++) {
+							jsonArr.put(orderdetailList);
+						}	// end of for-----------
+					}catch(SQLException e){		// 검색한 결과값이 없을 경우
+						String noresult = "결과값없음";
+						jsonObj.put("noresult",noresult);
 					}
-					
-					String selecnoJoin = String.join(",", selectnoArr);
-					
-					// System.out.println("확인용 selecnoJoin : " + selecnoJoin);
-					
-					// === 추출한 selectno 가지고 list 추출 === //
-					orderdetailList = cdao.finalSearchlist(selecnoJoin);
-					
-					// System.out.println("확인용 orderdetailList : " + orderdetailList);
-					// System.out.println("확인용 orderdetailList.size() : " + orderdetailList.size());
-				
-					for(int i=0; i<orderdetailList.size(); i++) {
-						jsonArr.put(orderdetailList);
-					}	// end of for-----------
 				}
 			}catch(NullPointerException e) {
 				// === 주문조회 기간 설정 검색 === //
