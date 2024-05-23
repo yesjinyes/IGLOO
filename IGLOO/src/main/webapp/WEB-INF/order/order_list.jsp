@@ -27,7 +27,7 @@
 		<label class="my-auto col-6 p-0">
 			<input class="my-sm-0" type="text" name="orderlist_search" id="orderlist_search" required="required">
 		</label>
-		<button id="btnSearch" class="btn my-sm-0 px-0 pt-0 col-1" type="submit">
+		<button id="btnorderlistSearch" class="btn my-sm-0 px-0 pt-0 col-1" type="button">
 			<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
 		</button>
 	</div>	
@@ -50,23 +50,28 @@
 		
 	<%-- 기간 표시 --%>
 	<div class="ml-4 my-3">
-		기간 : 2024.01.01 ~ 2024.05.13
+		기간 : 
+		<span id="selectdate"></span> ~ 
+		<span id="nowdate">2024.05.13</span>
 	</div>
 	
 	<hr style="border: solid 2px #6190BC">
+	<div id="orderlist"></div>
+	
 	<c:if test="${requestScope.haveorderlist == 'none'}">
-		<div class="mx-auto text-center">
+		<div id="noorderlist" class="mx-auto text-center">
 			<h3 class="mt-5 font-weight-bolder">주문내역에 담긴 상품이 없습니다.</h3>
 			<div class="h-50 p-5 m-3"></div>
 		</div>
 	</c:if>
+	
 	<c:if test="${requestScope.haveorderlist != 'none'}">
 	<%-- 주문내역 결과창 --%>
 	<div id="SearchorderlistContents">
 		<div class="orderdate ml-4"></div>
 		
 		<div class="Oneorderdate">
-			<c:forEach var="orderdetailList" items="${requestScope.orderdetailList}" varStatus="Status">
+			<c:forEach var="orderdetailList" items="${requestScope.orderdetailList}" varStatus="orderdetailStatus">
 				<%-- 해당 날짜 주문시간과 주문코드 --%>
 				<div class="dateorderlist my-3 ml-4">
 					<div>${orderdetailList.order.orderdate}</div>
@@ -89,8 +94,12 @@
 		       			<%-- 제품 선택한 맛 나열 --%>
 		       			<div class="choiceAlltaste my-auto">
 		       				<ul class="list-group list-group-flush">
-		       					<c:forEach var="totaltastelist" items="${requestScope.totaltastelist}" varStatus="Status">
-				  					<li class="list-group-item">${totaltastelist}</li>
+		       					<c:forEach var="jjintotaltastelist" items="${requestScope.jjintotaltastelist}" varStatus="jjinStatus">
+				  					<c:forEach var="totaltastelist" items="${jjintotaltastelist}">
+				  						<c:if test="${jjinStatus.index == orderdetailStatus.index}">
+				  							<li class="list-group-item">${totaltastelist}</li>
+				  						</c:if>
+				  					</c:forEach>
 				  				</c:forEach>
 							</ul>
 						</div>
@@ -163,5 +172,14 @@
 		</div>
 	</div>
 </div>
+
+<%-- 넘겨줄 정보 --%>
+<form name="sendinfo">
+	<input type="text" name="searchorderList" value=""/>
+	<input type="text" name="orderListPeriod" value=""/>
+	<input type="text" name="selectPeriodindex" value="0"/>
+</form>
+
+<div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 
 <jsp:include page="../footer.jsp" />

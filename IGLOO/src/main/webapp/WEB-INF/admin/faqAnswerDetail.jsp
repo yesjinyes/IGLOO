@@ -27,6 +27,13 @@ $(document).ready(function(){
 	
 	$("span#submit").click(function(){
 		// alert("제출");
+		if($("textarea[name='answerText']").val().trim()==""){
+			alert('답변을 입력하세요.');
+			$("textarea[name='answerText']").val("");
+			$("textarea[name='answerText']").focus();
+			return;
+		}
+		
 		const frm = document.answer;
 		frm.action = "${pageContext.request.contextPath}/admin/faqAnswerRegister.ice";
 		frm.method = "post";

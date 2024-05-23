@@ -87,6 +87,9 @@ public class Cart extends AbstractController {
 		        super.setViewPage("/WEB-INF/order/cart.jsp");
 			}
 			else {
+				
+				super.goBackURL(request);
+				
 				String message = "로그인이 필요합니다.";
 		        String loc = request.getContextPath() + "/login/login.ice";
 		        // 테이블 적용 후 이동 이전페이지(get 타입 변경)할 지 메인페이지 갈지 선정해야할 것

@@ -23,7 +23,7 @@ from tbl_member;
 
 commit;
 
--- === 로그인을 위한 로그기록 시퀀스 생성 === --
+-- === 로그인을 위한 로그기록 생성 === --
 create sequence seq_historyno
 start with 1
 increment by 1
@@ -250,7 +250,7 @@ delete from tbl_tasteselect where fk_selectno = '2';
 delete from tbl_cart where cartno = '1';
 delete from tbl_cart where cartno = '2';
 delete from tbl_selectlist where fk_productcodeno = 'P';
-
+delete from tbl_order
 commit;
 
 -- === 시퀀스 생성(tbl_selectlist) === --
@@ -322,6 +322,155 @@ commit;
 ----------------------------------------------------------------------------
 
 -- === 주문내역 출력 === --
+SELECT ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME, ORDERPRICE
+     , ORDERDETAILNO, ORDERCODE, TOTALPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME
+FROM
+(
+    SELECT ORDERDATE, TOTALPRICE, A.FK_USERID, ORDERCODE, PRODUCTNAME, TASTENAME, PRODUCTIMG, ORDERDETAILNO, ORDERCOUNT, ORDERPRICE, PICKUPSTATUS, PICKUPTIME
+    FROM
+    (
+        ------------------------------------------------------------
+        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG
+        FROM
+        (
+            SELECT tasteselectno, fk_selectno, TASTENAME
+            FROM 
+            (
+                select tasteselectno, fk_selectno, fk_tasteno
+                from tbl_tasteselect
+            )
+            JOIN
+            (
+                SELECT TASTENO, TASTENAME
+                FROM TBL_TASTE
+            )
+            ON FK_TASTENO = TASTENO
+        ) T
+        JOIN
+        (
+            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+            from
+            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+                FROM
+                (
+                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG
+                    from tbl_product
+                )
+                JOIN
+                (
+                    select selectno, fk_productcodeno, FK_USERID
+                    from tbl_selectlist
+                )
+                ON PRODUCTCODENO = FK_PRODUCTCODENO
+            )
+            JOIN
+            (
+                select userid
+                from TBL_MEMBER
+            )
+            ON FK_USERID = USERID
+        ) O
+        ON fk_selectno = selectno
+        ---------------------------------------
+    ) A
+    JOIN
+    (
+        select ORDERDETAILNO, ORDERCODE, FK_USERID, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME, TOTALPRICE, ORDERDATE
+        from
+        (
+            SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE
+            FROM TBL_ORDER
+        )
+        join
+        (
+            SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME
+            FROM TBL_ORDERDETAIL
+        )
+        on ORDERCODE = FK_ORDERCODE
+    ) B
+    ON A.FK_USERID = B.FK_USERID
+)
+where fk_userid = 'jjoung';
+
+-- === 픽업상태(주문완료/준비중/픽업대기/픽업완료) 로 제약 변경 === --
+alter table TBL_ORDERDETAIL
+drop constraint CK_pickupstatus;
+-- Table TBL_ORDERDETAIL이(가) 변경되었습니다.
+
+alter table TBL_ORDERDETAIL add constraint CK_pickupstatus check(pickupstatus in(1,2,3,4));
+-- Table TBL_ORDERDETAIL이(가) 변경되었습니다.
+
+commit;
+
+-- === 제품검색, 맛검색 === --
+SELECT ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME
+     , ORDERDETAILNO, ORDERCODE, TOTALPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME, selectno
+FROM
+(
+    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG, selectno
+    FROM
+    (
+        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG
+        FROM
+        (
+            SELECT tasteselectno, fk_selectno, TASTENAME
+            FROM
+            (
+                select tasteselectno, fk_selectno, fk_tasteno
+                from tbl_tasteselect
+            )
+            JOIN
+            (
+                SELECT TASTENO, TASTENAME
+                FROM TBL_TASTE
+            )
+            ON FK_TASTENO = TASTENO
+        ) T
+        JOIN
+        (
+            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+            from
+            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+                FROM
+                (
+                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG
+                    from tbl_product
+                )
+                RIGHT JOIN
+                (
+                    select selectno, fk_productcodeno, FK_USERID
+                    from tbl_selectlist
+                )
+                ON PRODUCTCODENO = FK_PRODUCTCODENO
+            )
+            JOIN
+            (
+                select userid
+                from TBL_MEMBER
+            )
+            ON FK_USERID = USERID
+        ) O
+        ON fk_selectno = selectno
+    ) A
+    JOIN
+    (
+        SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE
+        FROM TBL_ORDER
+    ) B
+    ON A.FK_USERID = B.FK_USERID
+)
+JOIN
+(
+    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME
+    FROM TBL_ORDERDETAIL
+)
+ON ORDERCODE = FK_ORDERCODE
+where fk_userid = 'jjoung' and (PRODUCTNAME like '%' || '마' || '%' or TASTENAME like '%' || '마' || '%');
+
+
+------------------------------------------------------------------------------------------
+
+-- === 기간설정 검색 === --
 SELECT ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME
      , ORDERDETAILNO, ORDERCODE, TOTALPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME
 FROM
@@ -333,7 +482,7 @@ FROM
         FROM
         (
             SELECT tasteselectno, fk_selectno, TASTENAME
-            FROM 
+            FROM
             (
                 select tasteselectno, fk_selectno, fk_tasteno
                 from tbl_tasteselect
@@ -384,12 +533,382 @@ JOIN
     FROM TBL_ORDERDETAIL
 )
 ON ORDERCODE = FK_ORDERCODE
-where fk_userid = 'jjoung';
+where fk_userid = 'jjoung' and ORDERDATE;
 
--- === 픽업상태(주문완료/준비중/픽업대기/픽업완료) 로 제약 변경 === --
-alter table TBL_ORDERDETAIL
-drop constraint CK_pickupstatus;
--- Table TBL_ORDERDETAIL이(가) 변경되었습니다.
+select *
+from tbl_order
+where fk_userid = 'jjoung' and ORDERDATE > '2024.05.10';
 
-alter table TBL_ORDERDETAIL add constraint CK_pickupstatus check(pickupstatus in(1,2,3,4));
--- Table TBL_ORDERDETAIL이(가) 변경되었습니다.
+------------------------------------------------------------------------------------
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'jjoung');
+
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 3, 15);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 3, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 3, 10);
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 3);
+
+insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
+
+commit;
+
+-----------------------------------------------------------------------------------------------
+
+SELECT selectno
+FROM
+(
+    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG, selectno
+    FROM
+    (
+        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG
+        FROM
+        (
+            SELECT tasteselectno, fk_selectno, TASTENAME
+            FROM
+            (
+                select tasteselectno, fk_selectno, fk_tasteno
+                from tbl_tasteselect
+            )
+            JOIN
+            (
+                SELECT TASTENO, TASTENAME
+                FROM TBL_TASTE
+            )
+            ON FK_TASTENO = TASTENO
+        ) T
+        JOIN
+        (
+            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+            from
+            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+                FROM
+                (
+                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG
+                    from tbl_product
+                )
+                RIGHT JOIN
+                (
+                    select selectno, fk_productcodeno, FK_USERID
+                    from tbl_selectlist
+                )
+                ON PRODUCTCODENO = FK_PRODUCTCODENO
+            )
+            JOIN
+            (
+                select userid
+                from TBL_MEMBER
+            )
+            ON FK_USERID = USERID
+        ) O
+        ON fk_selectno = selectno
+    ) A
+    JOIN
+    (
+        SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE
+        FROM TBL_ORDER
+    ) B
+    ON A.FK_USERID = B.FK_USERID
+)
+JOIN
+(
+    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME
+    FROM TBL_ORDERDETAIL
+)
+ON ORDERCODE = FK_ORDERCODE
+where fk_userid = 'jjoung' and (PRODUCTNAME like '%' || '마' || '%' or TASTENAME like '%' || '마' || '%');
+
+
+------------------------------------------------------
+
+SELECT ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME
+     , ORDERDETAILNO, ORDERCODE, TOTALPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME, selectno
+FROM
+(
+    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG, selectno
+    FROM
+    (
+        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG
+        FROM
+        (
+            SELECT tasteselectno, fk_selectno, TASTENAME
+            FROM
+            (
+                select tasteselectno, fk_selectno, fk_tasteno
+                from tbl_tasteselect
+            )
+            JOIN
+            (
+                SELECT TASTENO, TASTENAME
+                FROM TBL_TASTE
+            )
+            ON FK_TASTENO = TASTENO
+        ) T
+        JOIN
+        (
+            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+            from
+            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG
+                FROM
+                (
+                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG
+                    from tbl_product
+                )
+                RIGHT JOIN
+                (
+                    select selectno, fk_productcodeno, FK_USERID
+                    from tbl_selectlist
+                )
+                ON PRODUCTCODENO = FK_PRODUCTCODENO
+            )
+            JOIN
+            (
+                select userid
+                from TBL_MEMBER
+            )
+            ON FK_USERID = USERID
+        ) O
+        ON fk_selectno = selectno
+    ) A
+    JOIN
+    (
+        SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE
+        FROM TBL_ORDER
+    ) B
+    ON A.FK_USERID = B.FK_USERID
+)
+JOIN
+(
+    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME
+    FROM TBL_ORDERDETAIL
+)
+ON ORDERCODE = FK_ORDERCODE
+where selectno in(1,3,3)
+order by selectno desc;
+
+-- === 시퀀스 확인 === --
+select * from user_sequences;
+
+insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice, pickupstatus, pickuptime) 
+values(SEQ_ORDERDETAILNO.nextval, 'P-20240522-000004', 1, 3, 8000, 1, sysdate);
+
+select *
+from tbl_orderdetail;
+
+commit;
+
+---------------------------------------------------------
+--------------------------------------------------------
+---------------------------------------------------------
+
+-- === 테이블 내용 삭제 === --
+delete from tbl_selectlist;
+delete from tbl_tasteselect;
+delete from tbl_cart;
+delete from tbl_order;
+delete from tbl_orderdetail;
+
+commit;
+
+
+-- === 시퀀스 삭제 하기 === --
+drop sequence SEQ_CARTNO;
+drop sequence SEQ_ORDERCODE;
+drop sequence SEQ_ORDERDETAILNO;
+drop sequence SEQ_SELECTNO;
+drop sequence SEQ_TASTESELECTNO;
+
+commit;
+
+-------------------------- === 시퀀스 재생성 === ----------------------
+-- === 시퀀스 생성(tbl_selectlist) === --
+create sequence seq_selectno
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+-- Sequence SEQ_SELECTNO이(가) 생성되었습니다.
+
+-- === 시퀀스 생성(tbl_cart) === --
+create sequence seq_cartno
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+-- Sequence SEQ_CARTNO이(가) 생성되었습니다.
+
+-- === 시퀀스 생성(tbl_tasteselect) === --
+create sequence seq_tasteselectno
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+-- Sequence SEQ_TASTESELECTNO이(가) 생성되었습니다.
+
+-- === 시퀀스 생성(tbl_order) === --
+create sequence seq_ordercode
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+-- Sequence SEQ_ORDERCODE이(가) 생성되었습니다.
+
+-- === 시퀀스 생성(tbl_orderdetail) === --
+create sequence seq_orderdetailno
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+-- Sequence SEQ_ORDERDETAILNO이(가) 생성되었습니다
+
+
+-- === insert 해주기(장바구니, 주문내역 확인용) === --
+-- tbl_selectlist, tbl_tasteselect, tbl_cart, tbl_order, tbl_orderdetail
+
+-- === 정보1 === --
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'jjoung');
+
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 1, 5);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 1, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 1, 13);
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 1);
+
+insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
+
+commit;
+
+insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice)
+values(seq_orderdetailno.nextval,'P-20240523-000001', 1, 1, 8000);
+
+commit;
+
+---------------------------------------------
+-- === 정보2 === --
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'jjoung');
+
+commit;
+
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 2, 10);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 2, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 2, 15);
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 2);
+
+insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
+
+commit;
+
+insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice)
+values(seq_orderdetailno.nextval,'P-20240523-000002', 1, 2, 8000);
+
+commit;
+
+-----------------------------------------------------------------------------------------------------
+
+-- === 주문내역 === --
+select SELECTNO, productname, tastename, orderdate, productimg, ORDERDETAILNO, ORDERCODE, TOTALPRICE
+       , PICKUPSTATUS, ORDERCOUNT, PICKUPTIME
+from TBL_TASTESELECT join tbl_taste on FK_TASTENO = TASTENO
+    join TBL_SELECTLIST on FK_SELECTNO = SELECTNO
+    join TBL_PRODUCT on FK_PRODUCTCODENO = PRODUCTCODENO
+    join TBL_ORDER on TBL_SELECTLIST.FK_USERID =TBL_ORDER.FK_USERID
+    join TBL_ORDERDETAIL on FK_ORDERCODE = ORDERCODE
+where SELECTNO in (1,3)
+order by SELECTNO desc;
+
+---------------------------------
+
+-- {(제품 - [선택내역) - 맛선택 - 맛] - 회원} - (주문 - 주문상세)
+SELECT ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
+FROM
+(
+SELECT fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
+    FROM
+    (
+        SELECT fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
+        FROM
+        (
+            SELECT selectno, fk_userid, productname, productimg, tastename
+            FROM 
+            (
+                SELECT productcodeno, productname, productimg
+                FROM tbl_product
+            )
+            JOIN
+            (
+                SELECT selectno, fk_productcodeno, fk_userid, tastename
+                FROM (
+                    SELECT selectno, fk_productcodeno, fk_userid
+                    FROM tbl_selectlist
+                )
+                JOIN
+                (
+                    SELECT fk_selectno, tastename
+                    FROM 
+                    (
+                        SELECT fk_selectno, fk_tasteno
+                        FROM tbl_tasteselect
+                    )
+                    JOIN
+                    (
+                        SELECT tasteno, tastename
+                        FROM tbl_taste
+                    )
+                    ON fk_tasteno = tasteno
+                )
+                ON selectno = fk_selectno
+            )
+            ON productcodeno = fk_productcodeno
+        )
+        JOIN
+        (
+            SELECT fk_ordercode, orderprice, pickupstatus, pickuptime, ordercount, fk_selectno
+            FROM tbl_orderdetail
+        )
+        ON selectno = fk_selectno
+    )
+    JOIN 
+    (
+        SELECT ordercode, orderdate
+        FROM tbl_order
+    )
+    ON fk_ordercode = ordercode
+)
+JOIN
+(
+    SELECT userid
+    FROM TBL_MEMBER
+)
+ON fk_userid = userid
+WHERE userid = 'jjoung';
+
+
+/*
+    주문상세 - Fk_ordercode, Orderprice, Pickupstatus, Pickuptime, Ordercount
+    oddto.setFk_ordercode(rs.getString("ORDERCODE"));
+    oddto.setOrderprice(rs.getInt("ORDERPRICE"));
+    oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
+    oddto.setPickuptime(rs.getString("PICKUPTIME"));
+    oddto.setOrdercount(rs.getInt("ORDERCOUNT"));
+
+    주문 - Orderdate
+    odto.setOrderdate(rs.getString("ORDERDATE"));
+
+    제품 - Productname, Productimg
+    pdto.setProductname(rs.getString("productname"));
+    pdto.setProductimg(rs.getString("productimg"));
+
+    맛 - setTastename
+    tdto.setTastename(rs.getString("tastename"));
+ */
+

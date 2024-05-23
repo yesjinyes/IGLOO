@@ -1,7 +1,9 @@
 package member.controller.hj;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cart.model.hj.CartDAO;
 import cart.model.hj.CartDAO_imple;
@@ -53,17 +55,21 @@ public class Order_list extends AbstractController {
 				
 				request.setAttribute("haveorderlist", haveorderlist);
 				
-				List <String> totaltastelist = new ArrayList<>();
+				String[] totaltastelist = null;
+				List <String[]> JJINtotaltastelist = new ArrayList<>();
 				
 				for(int i=0; i<orderdetailList.size(); i++) {
+					totaltastelist = new String[orderdetailList.get(i).getTastenamelist().size()];
 					for(int j=0; j<orderdetailList.get(i).getTastenamelist().size(); j++) {
-						totaltastelist.add(orderdetailList.get(i).getTastenamelist().get(j).getTastename());
+						totaltastelist[j] = (orderdetailList.get(i).getTastenamelist().get(j).getTastename());
 					}
+					JJINtotaltastelist.add(totaltastelist);
+					// System.out.println(JJINtotaltastelist);
 				}	// end of for----------
 				
-				request.setAttribute("totaltastelist", totaltastelist);
+				request.setAttribute("jjintotaltastelist", JJINtotaltastelist);
 				
-				super.setRedirect(false);
+				// super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/order/order_list.jsp");
 			
 			}
@@ -82,6 +88,7 @@ public class Order_list extends AbstractController {
 		        super.setViewPage("/WEB-INF/msg.jsp");
 			}
 		}
+		
 
 	}
 
