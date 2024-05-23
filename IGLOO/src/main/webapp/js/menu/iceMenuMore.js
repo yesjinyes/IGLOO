@@ -14,7 +14,7 @@ $(document).ready(function(){
     
     $("select[name='menuAlign']").bind("change", function(){
         const frm = document.align_frm;
-    //재	frm.action = "memberList.up";  // form 태그에 action 이 명기되지 않았으면 현보이는 URL 경로로 submit 되어진다. 
+        //frm.action = "displayIceJSON.ice";  // form 태그에 action 이 명기되지 않았으면 현보이는 URL 경로로 submit 되어진다. 
     //	frm.method = "get";  // form 태그에 method 를 명기하지 않으면 "get" 방식이다. 
         frm.submit();
     });
@@ -48,12 +48,13 @@ $(document).ready(function(){
 
 
 
-    $("span#totalCount").hide();
-    $("span#count").hide();
+    //$("span#totalCount").hide();
+    //$("span#count").hide();
    
     // HIT상품 게시물을 더보기 위하여 "더보기..." 버튼 클릭액션에 대한 초기값 호출하기 
     // 즉, 맨처음에는 "더보기..." 버튼을 클릭하지 않더라도 클릭한 것 처럼 8개의 HIT상품을 게시해주어야 한다는 말이다.
     displayAlign("1");
+    
 
     // HIT 상품 게시물을 더보기 위하여 "더보기..." 버튼 클릭액션 이벤트 등록하기  
     $("button#btnMore").click(function(){
@@ -90,12 +91,13 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
    $.ajax({
        url:"displayIceJSON.ice",
    //  type:"get",
-       data:{ 
+       data:{
+            
              "start":start,  //  "1"  "9"  "17"  "25"  "33"
              "len":lenAlign},  //   8    8     8     8     8 
        dataType:"json",
        success:function(json){
-       /*    	
+           	
            console.log(json);
            console.log(typeof json); // object
            
@@ -106,7 +108,7 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
            const obj_json = JSON.parse(str_json); // JSON 모양으로 되어진 string 을 실제 JSON 객체로 변경시켜주는 것. 
            console.log(typeof obj_json); // object
            console.log(obj_json);
-       */
+       
        
        /*
           json ==> [{"pnum":36,"discountPercent":17,"pname":"노트북30","pcompany":"삼성전자","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"59.jpg","pqty":100,"pimage2":"60.jpg","pcontent":"30번 노트북","price":1200000,"sname":"HIT"}
@@ -150,6 +152,9 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
                        
                    });
                */	
+                
+                    
+                
 
                $.each(json, function(index, item){
                    v_html += `<div class='col-md-3'>
@@ -162,7 +167,7 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
                                     <div class='iceName text-center pt-3'>${item.tname}</div>
                                 </div> `;
                });// end of $.each(json, function(index, item){})--------------
-
+            
                // HIT 상품 결과를 출력하기
                $("div#displayAlign").append(v_html);
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import product.domain.ProductVO;
 import product.domain.SelectlistVO;
-import product.domain.TasteSelectVO;
 import product.domain.TasteVO;
 
 public class OrderdetailVO {
@@ -27,7 +26,6 @@ public class OrderdetailVO {
 	private	ProductVO product = new ProductVO();
 	private TasteVO taste = new TasteVO();
 	private SelectlistVO selectlist = new SelectlistVO();
-	private TasteSelectVO tasteselect = new TasteSelectVO();
 	
 	//////////////////////////////////////////////////////////////
 	
@@ -50,14 +48,6 @@ public class OrderdetailVO {
 		this.selectlist = selectlist;
 	}
 
-	public TasteSelectVO getTasteselect() {
-		return tasteselect;
-	}
-
-	public void setTasteselect(TasteSelectVO tasteselect) {
-		this.tasteselect = tasteselect;
-	}
-	
 	public int getOrderdetailno() {
 		return orderdetailno;
 	}

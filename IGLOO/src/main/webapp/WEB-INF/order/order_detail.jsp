@@ -6,7 +6,7 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
-   // String productimg = request.getParameter("productimg");
+    String productimg = request.getParameter("productimg");
     String productname = request.getParameter("productname");
     String productprice = request.getParameter("productprice");
 %>
@@ -25,14 +25,18 @@
 
 	<div id="imgdiv" class="row">
 	  
-	  <c:forEach var="imgList" items="${requestScope.imgList}">
-		<div>
-			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg.productname}" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
-		</div>
-	  </c:forEach>
-		<<%-- c:forEach var="imgList" items="${requestScope.imgList}">
-			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨">
-		</c:forEach> --%>
+	 
+		<%-- <div>
+			<img id="cupsize" src="<%= ctxPath%>/images/img_yejin/cup_size/<%= productimg%>" style="width: 300px; height: 350px; border: solid 1px red;" alt="경로다시설정"/>
+		</div> --%>
+	 
+	
+		<%-- <img src="<%= ctxPath%>/images/img_yejin/cup_size/<%= productimg%>" class="card-img-top" style="height: 50%;" alt="사진경로잘못됨"> --%>
+		<c:forEach var="imgList" items="${requestScope.imgList}">
+			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${imgList.productimg}" class="card-img-top" style="width: 300px; height: 350px;" alt="사진경로잘못됨">
+		</c:forEach>
+
+
 		<div id="item_detail">
 			<div class="p-0  my-auto">
 				<div style="font-size: 30pt;"><%= productname%></div>
@@ -45,9 +49,10 @@
 		    </div>
 		    <hr style="border: solid 1px #81BEF7;">
 		    
-		<c:forEach var="tvo" items="${requestScope.tasteList}" begin="0" end="2" varStatus="status">
-  			<%-- <p> id="status">${status.index}</p> --%>
-  			<p id="status">index값${status.index}</p>
+		    
+		    
+		<c:forEach var="tasteList" items="${requestScope.tasteList}" begin="0" end="2" varStatus="status">
+  			<p class="status">index값${status.index}</p>
   			<select id="taste" name="selectbox" class="infoData" > <!-- onchange="selectTaste(this)" -->
 			<option value="">맛을 선택하세요</option>
       			<c:forEach var="tvo" items="${requestScope.tasteList}">	
@@ -55,17 +60,19 @@
  		        </c:forEach> 
             </select>
         </c:forEach>
-      
 
 	  		<hr style="border: solid 1px #81BEF7;">
   
   			<div class="row justify-content-around">
-				 <div class="p-0 my-auto justify-content-center">
-		 			 <h4 style="font-weight: bold;" ><%= productname%></h4>
-				     <div id="selecttaste"></div>
-				 </div>
+				<div class="p-0 my-auto justify-content-center">
+				    <h4 style="font-weight: bold;" ><%= productname%></h4>
+				    <div id="selecttasteList">
+				    	<p id="tasteresult"></p>
+				        <input type="text" name="selecttasteList"/>
+				    </div>
+				</div>
 				
-				 <%-- 수량 +, - --%>
+				 <%-- 수량 +, - 버튼 --%>
 				 <div class="num">
 				 	<span>수량</span><br>
 				 	<span class="count">
@@ -75,28 +82,8 @@
 				 	</span>
 				 </div>
 				 
-				 
-				
-				
-				
-				
-				<%-- 수량 버튼
-				<div class="selectMenucnt justify-content-end col-xl-4 col-lg-4 col-md-2 p-0 my-auto">
-	                  <div class="d-inline-block"></div>
-	                  <div class="mb-5">
-	                     <div>수량</div>
-	                     <button type="button" class="btn ml-5">
-	                        <i class="fa-solid fa-minus"></i>
-	                     </button>
-	                     	<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
-	                     <button type="button" class="btn">
-	                        <i class="fa-solid fa-plus"></i>
-	                     </button>
-	                  </div>
-	             </div> --%>
-				 
             </div>
-             
+                          
 			<hr style="border: solid 1px #81BEF7;">
 			
 			<div class="row justify-content-between mb-3">
@@ -107,7 +94,7 @@
 			</div>
 			
 			<div id="button" class="mx-auto">
-				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart()" />
+				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
 	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="goOrder()" />
 			</div>
 		</div>
@@ -119,10 +106,10 @@
 	<hr style="border: solid 2px #4198e8;">
 
 	<div id="image">
-	  <c:forEach var="imgDetailList" items="${requestScope.imgDetailList}">
+	  <c:forEach var="imgList" items="${requestScope.imgList}">
 		<div class="row justify-content-center">
 			<div class="col-md-7" style="font-weight: bold;"> 
-				<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgDetailList.productimgBelow}">
+				<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${imgList.productimgBelow}">
 			</div>
 		</div>
 	  </c:forEach>

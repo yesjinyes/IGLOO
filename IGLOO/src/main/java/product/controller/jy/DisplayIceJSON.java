@@ -1,12 +1,9 @@
 package product.controller.jy;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,22 +23,13 @@ public class DisplayIceJSON extends AbstractController {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
 		String start = request.getParameter("start");
 		String len = request.getParameter("len");
-		String menuAlign = request.getParameter("menuAlign");
 	/*
 	    맨 처음에는 sname("HIT")상품을  start("1") 부터 len("8")개를 보여준다.
 	    더보기... 버튼을 클릭하면  sname("HIT")상품을  start("9") 부터 len("8")개를 보여준다.
 	    또  더보기... 버튼을 클릭하면 sname("HIT")상품을  start("17") 부터 len("8")개를 보여준다.      
     */	
-		
-		if( menuAlign == null || 
-		  (!"name".equals(menuAlign) &&
-		   !"order".equals(menuAlign)) )  {
-				menuAlign = "name";
-		}
-		
 		
 		Map<String, String> paraMap = new HashMap<>();
 		paraMap.put("start", start);  // start  "1"  "9"  "17"  "25"  "33"
@@ -49,11 +37,6 @@ public class DisplayIceJSON extends AbstractController {
 		String end = String.valueOf(Integer.parseInt(start) + Integer.parseInt(len) - 1); 
 		paraMap.put("end", end);      // end => start + len - 1; 
                                       // end    "8"   "16"  "24"  "32"  "40"
-		paraMap.put("menuAlign", menuAlign);
-		
-		
-		int totalCount = mdao.totalCount();
-		
 		
 		List<TasteVO> productList = mdao.selectIceAll(paraMap); 
 		
@@ -70,8 +53,8 @@ public class DisplayIceJSON extends AbstractController {
 				jsonObj.put("timg", tvo.getTasteimg());   // {"pnum":36}
 				jsonObj.put("tname", tvo.getTastename());   // {"pnum":36}
 				jsonObj.put("tgredi", tvo.getIngredients());   // {"pnum":36}
-				
-				
+
+
 				// jsonObj ==> {"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}    
 				
 				jsonArr.put(jsonObj); // [{"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}] 
@@ -100,9 +83,7 @@ public class DisplayIceJSON extends AbstractController {
 		
 	//	super.setRedirect(false);
 		super.setViewPage("/WEB-INF/jsonview.jsp");
-
 		
 		
 	}
-
 }

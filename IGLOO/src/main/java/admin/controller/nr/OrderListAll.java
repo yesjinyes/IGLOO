@@ -31,12 +31,14 @@ public class OrderListAll extends AbstractController {
 		
 		
 		if(loginuser != null && "admin".equals(loginuser.getUserid())) {
-	
-			List<OrderdetailVO> odvo = adao.selectOrderListAll();
 			
-			// System.out.println(odvo); 확인 완료
+			List<OrderdetailVO> odvoList = adao.selectOrderListAll();
 			
-			request.setAttribute("odvo", odvo);
+			// System.out.println(odvoList.get(1).getTastenamelist().get(0).getTastename());
+			// System.out.println(odvoList.get(1).getTastenamelist().get(1).getTastename());
+			// System.out.println(odvoList.get(1).getTastenamelist().get(2).getTastename()); // 확인 완료
+			
+			request.setAttribute("odvoList", odvoList);
 			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/admin/orderListAll.jsp");
