@@ -16,13 +16,16 @@
 		
 		$("button#btnOrder").click(function(e) {
 			
-			const productimg = $(e.target).parent().parent().find(".productimg").text();
-			const productname = $(e.target).parent().find(".productname").text();
-			const productprice = $(e.target).parent().find(".productprice").text();
+			const productimg = $(e.target).parent().parent().find(".selectedproductimg").text();
+			const productname = $(e.target).parent().find(".selectedproductname").text();
+			const productdetail = $(e.target).parent().parent().find(".selectedproductdetail").text();
+			const productprice = $(e.target).parent().find(".selectedproductprice").text();
 			
-			$("img[name='productimg']").attr("src", "/images/img_yejin/cup_size/"+productimg);
+			$("img[name='productimg']").val(productimg);
+			$("input[name='productimgBelow']").val(productimgBelow);
 			$("input[name='productname']").val(productname);
 			$("input[name='productprice']").val(productprice);
+			$("input[name='productimgBelow']").val(productprice);
 			
 			const frm = document.orderFrm; 
 			frm.action = "order_detail.ice"; 
@@ -49,13 +52,14 @@
 	    <c:forEach var="productList" items="${requestScope.productList}">
 			<div class="card">
 			  
-		      <img name="productimg" src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top productimg" style="height: 50%;" alt="...">
+		      <img name="productimg" src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top selectedproductimg" style="height: 50%;" alt="...">
 		     
 		      <div class="card-body">
-		        <h5 class="card-title productname">${productList.productname}</h5>
-		        <p class="card-text productdetail">${productList.productdetail}</p>
-		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
+		        <h5 class="card-title selectedproductname">${productList.productname}</h5>
+		        <p class="card-text selectedproductdetail">${productList.productdetail}</p>
+		        <p class="card-text selectedproductprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
 		        <input type="text" name="productimg" value="${productList.productimg}"/>
+		        <input type="text" name="productimgBelow" value="${productList.productimgBelow}"/>
 		        <input type="text" name="productname" value="${productList.productname}"/>
 		        <input type="text" name="productprice" value="${productList.price}"/>
 		      	<button type="button" id="btnOrder" style="float: right">주문하기</button>
