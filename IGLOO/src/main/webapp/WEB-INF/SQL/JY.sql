@@ -158,10 +158,20 @@ order by tastename;
 
 
 
+SELECT  tasteno, tastename, tasteimg , ingredients
+FROM
+
+(
+    select row_number() over(order by tasteno desc) AS RNO 
+                    , tasteno ,tastename, tasteimg, ingredients
+    from tbl_taste
+);
+ 
+
 ------
 
 
    select *
-   from tbl_orderdetail
+   from tbl_orderdetail;
 
 
