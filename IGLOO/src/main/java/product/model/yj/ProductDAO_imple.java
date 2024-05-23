@@ -129,11 +129,9 @@ public class ProductDAO_imple implements ProductDAO {
 	         conn = ds.getConnection();
 	         
 	         String sql = " select productcodeno, productimg, productimgBelow, productname, productdetail, price "
-		         		+ " from tbl_product "
-		         		+ " where productcodeno = ? ";
+		         		+ " from tbl_product ";
 	         
 	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, pvo.getProductcodeno());
 	         
 	         rs = pstmt.executeQuery();
 	         

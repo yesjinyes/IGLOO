@@ -6,6 +6,13 @@
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
+    String productimg = request.getParameter("productimg");
+    String productname = request.getParameter("productname");
+    String productprice = request.getParameter("productprice");
+    
+    System.out.println("productimg : "+ productimg);
+    System.out.println("productname : "+ productname);
+    System.out.println("productprice : "+ productprice);
 %>
 
 <jsp:include page="../header.jsp" />
@@ -21,11 +28,11 @@
   <form name="orderDetailFrm">
   	<c:forEach var="detailList" items="${requestScope.detailList}" varStatus="status">
 		
-		<%-- 상품 정보 전체 --%>
+		<%-- 상품 정보(이미지, 상품명, 가격) --%>
 		<div id="item_detail">
 			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${detailList.productimg}" class="card-img-top" style="width: 300px; height: 350px;" alt="사진경로잘못됨">
 			<div class="p-0  my-auto">
-				<div style="font-size: 30pt;">${detailList.productname}</div>
+				<div style="font-size: 30pt;"><%= productname%></div>
 				<h6 style="font-size: 27pt; text-align: right;">${detailList.price}</h6>
 			</div>
 			
