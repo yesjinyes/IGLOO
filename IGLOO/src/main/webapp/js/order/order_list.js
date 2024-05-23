@@ -99,7 +99,7 @@ $(document).ready(function(){
     // === 주문내역 검색 시 input 태그에 담아주기(2) === //
     $("button#btnorderlistSearch").click(function(){
 
-        if($("input#orderlist_search").text() == ""){
+        if($("input#orderlist_search").val() == ""){
             alert("검색내용을 입력해주세요.");
             return;
         }
@@ -239,19 +239,20 @@ function submitfrm(){
                 const str_json = JSON.stringify(json);  // json 객체를 string 타입으로 변경
                 let v_html = ``;
                 alert("jsonCheck");
-/*
+
                 $.each(json, function(index, item){
                         
                     let searchinput = json[index].searchorderList;
 
-                    if(searchinput == ""){  // 기간 설정한 경우
+                    if(json[index].noresult == "결과값없음"){
+                        alert("결과값없음");
                         $("input#orderlist_search").html(searchinput);
                         v_html = `<div class="mx-auto text-center">
                                     <h3 class="mt-5 font-weight-bolder">해당하는 상품이 없습니다.</h3>
                                     <div class="h-50 p-5 m-3"></div>
-                                </div>`;
+                                </div>`
+                        $("div#SearchorderlistContents").html(v_html);
                     }
-                    $("input#orderlist_search").html(v_html);
 
                     console.log(index);
 
@@ -287,11 +288,10 @@ function submitfrm(){
                 
                 // div 안에 꽂아주기
             }
-            /*
             , error: function(request, status, error){
                 alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
             }
-            */
+            
 
         })  // end of $.ajax-------------
     
