@@ -119,7 +119,37 @@ public class ProductDAO_imple implements ProductDAO {
 	}// end of public List<TasteVO> selectTasteList() throws SQLException
 
 	///////////////////////////////////////////////////////////////
-	
+		
+	// == 주문상세 상단 이미지 띄우기 == //
+	/*
+	 * @Override public List<ProductVO> getimgList() throws SQLException {
+	 * 
+	 * List<ProductVO> img = new ArrayList<>();
+	 * 
+	 * try { conn = ds.getConnection();
+	 * 
+	 * String sql = " select productimg " + " from tbl_product " +
+	 * " where productname = ? ";
+	 * 
+	 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, );
+	 * 
+	 * rs = pstmt.executeQuery();
+	 * 
+	 * while(rs.next()) { ProductVO pvo = new ProductVO();
+	 * pvo.setProductimg(rs.getString(1));
+	 * 
+	 * imgList.add(pvo);
+	 * 
+	 * }// end of while-----------------
+	 * 
+	 * } finally { close(); }
+	 * 
+	 * return imgList;
+	 * 
+	 * }// end of public List<ProductVO> getimgList() throws SQLException
+	 */	
+	///////////////////////////////////////////////////////////////
+
 	// == 주문상세 하단 이미지 띄우기 == //
 	@Override
 	public List<ProductVO> selectImageDetail() throws SQLException {
@@ -138,9 +168,13 @@ public class ProductDAO_imple implements ProductDAO {
 	         
 	         while(rs.next()) {
 	        	 ProductVO pvo = new ProductVO();
-	        	 pvo.setProductimgBelow(rs.getString("productimgBelow"));
+	        	 pvo.setProductimgBelow(rs.getString(1));
 	             imgDetailList.add(pvo);
 	         }// end of while -----------------
+	         
+	         //System.out.println("이미지확인 detail : " + imgDetailList);
+	         //이미지확인 detail : [product.domain.ProductVO@3a4c2f84, product.domain.ProductVO@8ee7528, product.domain.ProductVO@7f62cfa8, product.domain.ProductVO@4de1a8df]
+
 	         
 	      } finally {
 	         close();
@@ -151,40 +185,7 @@ public class ProductDAO_imple implements ProductDAO {
 	}// end of public List<Map<String, String>> selectImageDetail() throws SQLException
  
 	///////////////////////////////////////////////////////////////
-	
-	// 주문상세에서 상단 이미지 띄우기
-	@Override
-	public List<ProductVO> getimgList() throws SQLException {
-		
-		List<ProductVO> imgList = new ArrayList<>(); 
-	      
-	    try {
-	         conn = ds.getConnection();
-	         
-	         String sql = " select productimg "
-		         		+ " from tbl_product ";
-	         
-	         pstmt = conn.prepareStatement(sql);
-	         
-	         rs = pstmt.executeQuery();
-	         
-	         while(rs.next()) {
-	        	 ProductVO pvo = new ProductVO();
-	        	 pvo.setProductimg(rs.getString(1));
-	        	 
-	        	 imgList.add(pvo);
-	        	 
-	         }// end of while-----------------
-	         
-	         System.out.println("이미지확인" + imgList);
-	         
-	    } finally {
-	         close();
-	    }
-	      
-	    return imgList;
-		
-	}// end of public List<ProductVO> getimgList() throws SQLException
+
 
 	
 

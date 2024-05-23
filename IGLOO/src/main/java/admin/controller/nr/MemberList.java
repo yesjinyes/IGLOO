@@ -148,7 +148,7 @@ public class MemberList extends AbstractController {
 		    */
 			
 			String pageBar = "";
-			int blockSize = 10; // blockSize 는 블럭(토막)당 보여지는 페이지 번호의 개수이다.
+			int blockSize = 5; // blockSize 는 블럭(토막)당 보여지는 페이지 번호의 개수이다.
 			int loop = 1;  // loop 는 1부터 증가하여 1개 블럭을 이루는 페이지번호의 개수(지금은 10개)까지만 증가하는 용도이다.
 
 			// pageNo  ==> ( (currentShowPageNo - 1)/blockSize ) * blockSize + 1

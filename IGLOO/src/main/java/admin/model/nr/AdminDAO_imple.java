@@ -107,7 +107,7 @@ public class AdminDAO_imple implements AdminDAO {
 					   + "(select rownum rn, q_no, fk_userid, fk_categoryno, q_title, q_content, q_writeday, answerstatus, name "
 					   + "from tbl_faq_q A join tbl_member B "
 					   + "on A.fk_userid = B.userid "
-					   + "order by q_writeday desc, answerstatus asc) "
+					   + "order by answerstatus asc, q_writeday desc) "
 					   + "where rn between ? and ? ";
 					   
 			int currentShowPageNo = Integer.parseInt(paramap.get("currentShowPageNo"));
@@ -180,6 +180,94 @@ public class AdminDAO_imple implements AdminDAO {
 		}
 		
 		return totalFaqCount;
+	}
+
+	
+	
+	
+	
+	// 관리자 - 1:1 질문 상세보기
+	@Override
+	public FaqVO getFaq(String fk_q_no) throws SQLException {
+		
+		FaqVO fvo = new FaqVO();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select q_no, fk_userid, fk_categoryno, q_title, q_content, to_char(q_writeday, 'yyyy-mm-dd hh24:mi:ss'), name, answerstatus, a_no, fk_q_no, a_content, to_char(a_writeday, 'yyyy-mm-dd hh24:mi:ss') "
+					   + "from tbl_faq_q A join tbl_member B "
+					   + "on A.fk_userid = B.userid "
+					   + "left join tbl_faq_a C "
+					   + "on A.q_no = C.fk_q_no "
+					   + "where q_no = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fk_q_no);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			fvo.setQ_no(rs.getInt(1));
+			fvo.setFk_userid(rs.getString(2));
+			fvo.setFk_categoryno(rs.getInt(3));
+			fvo.setQ_title(rs.getString(4));
+			fvo.setQ_content(rs.getString(5));
+			fvo.setQ_writeday(rs.getString(6));
+			fvo.setAnswerstatus(rs.getInt(8));
+			fvo.setA_no(rs.getInt(9));
+			fvo.setFk_q_no(rs.getInt(10));
+			fvo.setA_content(rs.getString(11));
+			fvo.setA_writeday(rs.getString(12));
+			
+			MemberVO mvo = new MemberVO();
+			mvo.setName(rs.getString(7));
+			fvo.setMvo(mvo);
+			
+		} finally {
+			close();
+		}
+		
+		
+		return fvo;
+		
+	}
+
+	
+	
+	
+	// 관리자 - 1:1 답변 등록
+	@Override
+	public int insertAnswer(Map<String, String> paramap) throws SQLException {
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "insert into tbl_faq_a(a_no, fk_q_no, a_content) values(seq_tbl_faq_a.nextval, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramap.get("q_no"));
+			pstmt.setString(2, paramap.get("input"));
+			
+			n = pstmt.executeUpdate();
+			
+			if(n==1) {
+				sql = "update tbl_faq_q set answerstatus = 1 "
+					+ "where q_no = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, paramap.get("q_no"));
+				n = pstmt.executeUpdate();
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return n;
 	}
 
 	

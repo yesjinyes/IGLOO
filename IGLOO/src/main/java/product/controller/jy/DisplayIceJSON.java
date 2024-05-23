@@ -56,6 +56,7 @@ public class DisplayIceJSON extends AbstractController {
 				jsonObj.put("tnum", tvo.getTasteno());   // {"pnum":36}
 				jsonObj.put("timg", tvo.getTasteimg());   // {"pnum":36}
 				jsonObj.put("tname", tvo.getTastename());   // {"pnum":36}
+				jsonObj.put("tgredi", tvo.getIngredients());   // {"pnum":36}
 				
 				
 				// jsonObj ==> {"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}    

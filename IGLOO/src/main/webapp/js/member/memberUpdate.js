@@ -1,9 +1,6 @@
 // === 이메일 중복확인 클릭확인 용도 === //
 let b_emailcheck_click = false;
 
-// === 우편번호찾기 클릭확인 용도 === //
-let b_zipcodeSearch_click = false;
-
 $(document).ready(function(){
 	
     $("iframe#iframe_agree").hide();
@@ -163,7 +160,6 @@ $(document).ready(function(){
     // === "우편번호찾기" 클릭 === //
    $("span#zipcodeSearch").click(function(){
       
-        b_zipcodeSearch_click = true;   
     
         new daum.Postcode({
             oncomplete: function(data) {
@@ -308,17 +304,13 @@ $(document).ready(function(){
     // === "이메일 중복확인" 을 클릭 === //
     $("span#emailcheck").click(function(){
 
-        if($("input#email").val() == "" || $("input#email").val() == null){
-            $("span#emailCheckResult").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
-            return;
-        }
-
         b_emailcheck_click = true;  // 클릭 유무 파악
 
         $.ajax({
 
-            url: "emailDuplicateCheck.ice"
-            , data: {"email":$("input#email").val()}
+            url: "emailDuplicateCheck2.ice"
+            , data: {"email":$("input#email").val()
+                    ,"userid":$("input:hidden[name='userid']").val()}
             , type:"post"       // type을 생략하면 type: "get" 이다.   
             // [주의] method 가 아닌 type 작성!!
 
@@ -329,7 +321,7 @@ $(document).ready(function(){
 
             , success: function(json){  
 
-                // console.log("json => ", json);
+                 console.log("json => ", json);
                 // json => {"isExists":true}
                 // json => {"isExists":false}
                 // json 는 EmailDuplicateCheck.ice 을 통해 가져온 결과물인 "{"isExists":true}" 또는 "{"isExists":false}" 로 되어지는 string 타입의 결과물이다.
@@ -412,13 +404,6 @@ function goUpdate(){
     if(!b_emailcheck_click){    // "이메일 중복확인"을 클릭 안 했을 경우
         alert("이메일 중복확인을 클릭하셔야 합니다.");
         return;     // goUpdate() 함수를 종료한다.
-    }
-
-    // === "우편번호찾기" 클릭 유무 확인 //
-    if(!b_zipcodeSearch_click){
-        alert("우편번호찾기를 클릭하셔서 우편번호를 입력하셔야 합니다.");
-        return; // goUpdate() 함수를 종료한다.    
-        // => button의 type 이 submit 이 아닌 button 타입이므로 return false 가 아니다.
     }
 
     //////////////////////////////////////////////////////////////////////////////////

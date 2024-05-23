@@ -33,14 +33,12 @@
 		});
 		
 		$("tbody > tr.faqInfo").click(function(e){ // 선택자는 tr이지만 클릭한 것은 td이다. 그러므로 e.target은 td태그를 가리킨다.
-			// alert($(e.target).parent().text()," 클릭");
-			const userid = $(e.target).parent().find(".userid").text();
-			// 또는 const userid = $(e.target).parent().children(".userid").text();
 			
-			const frm = document.memberOneDetail_frm;
-			frm.userid.value = userid;
-			frm.action = "${pageContext.request.contextPath}/admin/memberOneDetail.ice";
-			// 만약 상단에서 .getContextPath를 하지 않았다면 따로 쓸 필요 없이 위와 같이 해주어도 동일하다.
+			const q_no = $(this).children("#q_no").text();
+			
+			const frm = document.faqOneDetail_frm;
+			frm.fk_q_no.value = q_no;
+			frm.action = "${pageContext.request.contextPath}/admin/faqAnswerDetail.ice";
 			frm.method = "post";
 			frm.submit();
 		});		
@@ -50,13 +48,14 @@
 		
 	});
 	
-	function goSearch() {
-		
-		const frm = document.member_search_frm;
-		frm.submit();
-		
-	}
 </script>
+
+<head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
 
 <jsp:include page="../header.jsp" />
 
@@ -66,13 +65,48 @@
       background-color: #e6ffe6;
       cursor: pointer;
    }
+   
+   div#tableDiv {
+   	  border: solid 1px #cce6ff;
+   	  border-radius: 12px;
+      overflow: hidden;
+   	  
+   }
+   
+   table#faqQ {
+   margin: 0%;
+   border-style: hidden;
+   }
+
+	.page-link {
+	  color: #000; 
+	  background-color: #fff;
+	  border: 1px solid #cce6ff; 
+	  font-weight: normal;
+	}
+	
+	.page-item.active .page-link {
+	 z-index: 1;
+	 color: #555;
+	 font-weight:bold;
+	 background-color: #cce6ff;
+	 border-color: #cce6ff;
+	 	  font-weight: normal;
+	}
+	
+	.page-link:focus, .page-link:hover {
+	  color: #000;
+	  background-color: #fafafa; 
+	  border-color: #cce6ff;
+		  font-weight: normal;
+	}
 
 </style>
 
-<div class="container mt-5 pt-5" style="border: solid 1px red;">
+<div class="container mt-5 pt-5">
 
-	<div style="text-align: center; font-weight: bold;">1:1 문의 내역</div>
-	<form name="member_search_frm">
+	<div style="text-align: center; font-weight: bold;"><img style="width: 25%;" src="<%=ctxPath %>/images/img_narae/1대1문의목록.png"/></div>
+	<form name="member_search_frm" class="mt-5">
 		<span style="font-size: 12pt; font-weight: bold; margin-left: 80%;">페이지당 게시글수&nbsp;</span>
 		<select name="sizePerPage">
 			<option value="10">10개</option>
@@ -81,15 +115,19 @@
 		</select>
 	</form>
 
+
+	<div class="mb-5" id="tableDiv">
 	<table class="table table-bordered" id="faqQ">
 	
 		<thead>
 			<tr style="background-color: #ccf3ff; text-align: center;">
-				<th style="width: 5%;">번호</th>
+				<th style="width: 7%;">번호</th>
+				<th style="display: none;">문의테이블 번호</th>
 				<th style="width: 10%;">아이디</th>
-				<th style="width: 10%;">회원명</th>
-				<th style="width: 50%;">제목</th>
-				<th style="width: 15%;">답변여부</th>
+				<th style="width: 8%;">회원명</th>
+				<th style="width: 40%;">제목</th>
+				<th style="width: 25%;">작성일자</th>
+				<th style="width: 10%;">답변여부</th>
 			</tr>
 		</thead>
 		
@@ -100,9 +138,11 @@
 					<fmt:parseNumber var="currentShowPageNo" value="${requestScope.currentShowPageNo}" />
           			<fmt:parseNumber var="sizePerPage" value="${requestScope.sizePerPage}" />
 					<td style="text-align: center;">${requestScope.totalFaqCount - (currentShowPageNo-1)*sizePerPage - status.index}</td>
+					<td id="q_no" style="text-align: center; display: none;">${faq.q_no }</td>
 					<td style="text-align: center;">${faq.fk_userid}</td>
 					<td style="text-align: center;">${faq.mvo.name}</td>
 					<td>${faq.q_title}</td>
+					<td style="text-align: center;">${faq.q_writeday }</td>
 					<td style="text-align: center;">
 						<c:if test="${faq.answerstatus == 0}"><span style="color: red; font-weight: bold;">미답변</span></c:if>
 						<c:if test="${faq.answerstatus == 1}"><span style="color: blue;">답변완료</span></c:if>
@@ -115,8 +155,9 @@
 			</c:if>
 		</tbody>
 	</table>
+	</div>
 
-	<div id="pageBar" style="margin-left: 40%;">
+	<div id="pageBar" style="margin-left: 42%;">
        <nav>
           <ul class="pagination">${requestScope.pageBar}</ul>
        </nav>
@@ -124,6 +165,7 @@
 </div>
 
 <form name="faqOneDetail_frm">
+	<input type="hidden" name="fk_q_no" />
 	<input type="hidden" name="goBackURL" value="${requestScope.currentURL}"/>
 </form>
 

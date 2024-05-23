@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
     
 <% String ctxPath = request.getContextPath(); %>
 
-<jsp:include page="../header.jsp"/>
+<jsp:include page="../header.jsp"/> 
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order.css" />
@@ -27,8 +28,8 @@
 			$("input[name='productname']").val(productname);
 			$("input[name='productprice']").val(productprice);
 			
-			const frm = document.orderFrm;
-			frm.action = "order_detail.ice";
+			const frm = document.orderFrm; 
+			frm.action = "order_detail.ice"; 
 			frm.submit();
 			
 		 /* console.log("확인용 productimg => " , productimg); 
@@ -53,16 +54,16 @@
 	    <c:forEach var="productList" items="${requestScope.productList}">
 			<div class="card">
 			  
-		      <img src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top" style="height: 50%;" alt="...">
+		      <img name="testproductimg" src="<%= ctxPath%>/images/img_yejin/cup_size/${productList.productimg}" class="card-img-top" style="height: 50%;" alt="...">
 		     
 		      <div class="card-body">
 		        <h5 class="card-title productname">${productList.productname}</h5>
 		        <p class="card-text productdetail">${productList.productdetail}</p>
-		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;">${productList.price}</p>
+		        <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
 		        <input type="hidden" name="productimg"/>
-		        <input type="hidden" name="productname"/>
-		        <input type="hidden" name="productprice"/>
-		      	<button type="button" id="btnOrder" style="float: right">주문하기</button>
+		        <input type="text" name="productname"/>
+		        <input type="text" name="productprice"/>
+		      	<button type="text" id="btnOrder" style="float: right">주문하기</button>
 		      </div>
 			</div>
 	    </c:forEach>

@@ -6,6 +6,7 @@ public class TasteVO {
 	private int tasteno;				// 맛종류번호
 	private String tastename;			// 맛이름
 	private String tasteimg;			// 이미지명
+	private String ingredients;			// 이미지명
 	
 /////////////////////////////////////////////////////////////////////////
 	
@@ -21,6 +22,12 @@ public class TasteVO {
 	}
 	public void setTasteno(int tasteno) {
 		this.tasteno = tasteno;
+	}
+	public String getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(String ingredients) {
+		this.ingredients = ingredients;
 	}
 	public String getTastename() {
 		return tastename;

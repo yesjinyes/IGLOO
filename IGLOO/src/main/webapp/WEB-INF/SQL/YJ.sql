@@ -159,6 +159,7 @@ drop table 테이블명;
 select *
 from tbl_product;
 
+select * from user_sequences;
 
 select productimgbelow
 from tbl_product
@@ -180,3 +181,13 @@ ALTER TABLE TBL_TASTE DROP CONSTRAINT PK_TBL_TASTE_TASTENO;
 
 select *
 from tbl_taste;
+
+
+select productimgBelow
+from tbl_product;
+
+select *
+from tbl_product;
+
+
+

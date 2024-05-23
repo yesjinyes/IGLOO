@@ -128,5 +128,34 @@ public class MemberDAO_imple implements MemberDAO {
 		return result;
 	} //  end of public String updatePswCheck(Map<String, String> paraMap) throws SQLException {} --------------------------
 
+	@Override
+	public boolean emailDuplicateCheck2(Map<String, String> paraMap) throws SQLException {
+		boolean isExists = false;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select email "
+	                    + " from tbl_member "
+	                    + " where userid != ? and email = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql); 
+	         pstmt.setString(1, paraMap.get("userid"));
+	         pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         isExists = rs.next(); // 행이 있으면(중복된 email) true,
+	                               // 행이 없으면(사용가능한 email) false
+	         
+	      } catch(GeneralSecurityException | UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      
+	      return isExists;      
+	}
+
 
 }

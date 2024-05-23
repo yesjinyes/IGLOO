@@ -68,7 +68,7 @@ private AdminDAO adao = null;
 			}
 			
 			String pageBar = "";
-			int blockSize = 10; // blockSize 는 블럭(토막)당 보여지는 페이지 번호의 개수이다.
+			int blockSize = 5; // blockSize 는 블럭(토막)당 보여지는 페이지 번호의 개수이다.
 			int loop = 1;  // loop 는 1부터 증가하여 1개 블럭을 이루는 페이지번호의 개수(지금은 10개)까지만 증가하는 용도이다.
 
 			// pageNo  ==> ( (currentShowPageNo - 1)/blockSize ) * blockSize + 1
@@ -78,7 +78,7 @@ private AdminDAO adao = null;
 			
 			// *** [맨처음][이전] 만들기 *** //
 			   
-			pageBar += "<li class='page-item'><a class='page-link' href='faqAnswer.ice?sizePerPage="+sizePerPage+"&currentShowPageNo=1'>[맨처음]</a></li>";
+			pageBar += "<li class='page-item'><a class='page-link' href='faqAnswer.ice?sizePerPage="+sizePerPage+"&currentShowPageNo=1'>[처음]</a></li>";
 
 			if(pageNo != 1) {
 				pageBar += "<li class='page-item'><a class='page-link' href='faqAnswer.ice?sizePerPage="+sizePerPage+"&currentShowPageNo="+(pageNo-1)+"'>[이전]</a></li>";
@@ -105,7 +105,7 @@ private AdminDAO adao = null;
 			if(pageNo <= totalPage) {
 				pageBar += "<li class='page-item'><a class='page-link' href='faqAnswer.ice?sizePerPage="+sizePerPage+"&currentShowPageNo="+pageNo+"'>[다음]</a></li>";
 			}
-			pageBar += "<li class='page-item'><a class='page-link' href='faqAnswer.ice?sizePerPage="+sizePerPage+"&currentShowPageNo="+totalPage+"'>[맨마지막]</a></li>";
+			pageBar += "<li class='page-item'><a class='page-link' href='faqAnswer.ice?sizePerPage="+sizePerPage+"&currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
 	           
 			String currentURL = MyUtil.getCurrentURL(request);
 			

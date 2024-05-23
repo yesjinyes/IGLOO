@@ -44,11 +44,11 @@ select *
 from tbl_taste;
 
 
-SELECT tasteno, tastename, tasteimg  
+SELECT RNO, tastename, tasteimg, ingredients 
 FROM
 ( 
 select row_number() over(order by tasteno desc) AS RNO 
-		,tastename, tasteimg 
+		,tastename, tasteimg ,ingredients
 from tbl_taste 
 ) V
 WHERE RNO between 1 and 8 ;
@@ -115,5 +115,63 @@ WHERE tasteno = 12;
 ----
 commit;
 
+-------주문된 맛의 개수 알아오기 -> 맛 개수로 인기순 정렬! 또는 가나다라 정렬!--------
+-------------------------------------------------------------------------------
+SELECT  tasteno, tastename, tasteimg , ingredients , count(*)
+FROM
+(
+    select tasteno, tastename, tasteimg , ingredients, tasteselectno, fk_selectno
+    from
+    (
+        select tasteselectno, fk_selectno, fk_tasteno
+        from tbl_tasteselect
+    )
+    join
+    (
+        select row_number() over(order by tasteno desc) AS RNO 
+                , tasteno ,tastename, tasteimg, ingredients
+        from tbl_taste
+    )
+    ON fk_tasteno = tasteno
+    
+) T 
+JOIN
+(
+    select selectno, FK_USERID
+    from
+    (
+        select selectno, FK_USERID
+        from tbl_selectlist
+    )
+    JOIN
+    (
+        select fk_selectno, fk_ordercode, orderdetailno
+        from tbl_orderdetail
+    )
+    ON fk_selectno = selectno
+) O
+
+ON fk_selectno = selectno
+group by tasteno, tastename, tasteimg , ingredients
+order by tastename;
+--order by count(*) asc;
+
+
+
+SELECT  tasteno, tastename, tasteimg , ingredients
+FROM
+
+(
+    select row_number() over(order by tasteno desc) AS RNO 
+                    , tasteno ,tastename, tasteimg, ingredients
+    from tbl_taste
+);
+ 
+
+------
+
+
+   select *
+   from tbl_orderdetail;
 
 
