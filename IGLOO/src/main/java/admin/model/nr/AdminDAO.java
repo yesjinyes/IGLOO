@@ -27,6 +27,8 @@ public interface AdminDAO {
 	// 전체주문내역 불러오기(선택 맛 제외)
 	List<OrderdetailVO> selectOrderListAll() throws SQLException;
 
+	
+
 
 
 }
