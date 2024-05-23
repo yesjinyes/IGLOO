@@ -173,7 +173,7 @@ ALTER TABLE TBL_TASTESELECT DROP CONSTRAINT FK_FK_TASTENO;
 
 ALTER TABLE TBL_TASTESELECT ADD CONSTRAINT FK_FK_TASTENO FOREIGN KEY(fk_tasteno) REFERENCES tbl_taste(tasteno);
 
-
+commit;
 ALTER TABLE TBL_TASTE DROP CONSTRAINT PK_TBL_TASTE_TASTENO;
 
 select *
@@ -187,4 +187,5 @@ select *
 from tbl_product;
 
 
-
+select productimg, productimgBelow 
+from tbl_product ;

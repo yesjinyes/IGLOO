@@ -20,7 +20,7 @@
 			const productname = $(e.target).parent().find(".productname").text();
 			const productprice = $(e.target).parent().find(".productprice").text();
 			
-			$("img[name='productimg']").val(productimg);
+			$("img[name='productimg']").attr("src", "/images/img_yejin/cup_size/"+productimg);
 			$("input[name='productname']").val(productname);
 			$("input[name='productprice']").val(productprice);
 			
@@ -58,7 +58,7 @@
 		        <input type="text" name="productimg" value="${productList.productimg}"/>
 		        <input type="text" name="productname" value="${productList.productname}"/>
 		        <input type="text" name="productprice" value="${productList.price}"/>
-		      	<button type="text" id="btnOrder" style="float: right">주문하기</button>
+		      	<button type="button" id="btnOrder" style="float: right">주문하기</button>
 		      </div>
 			</div>
 	    </c:forEach>

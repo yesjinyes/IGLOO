@@ -1,89 +1,96 @@
 
 $(document).ready(function() {
+
+	$("select[class='selectedtaste']").change(function(){
 	
- 	$("select[id='taste']").change(function(){
+		var result = "";
+		var tasteList = [];
+		const tastecount = $("input#tastecount").val();
 		
-		const selecttaste = $("select[id='taste'] option:selected").text();
-		console.log("selecttaste 선택한 맛 => ", selecttaste); 
-					
 		// option 값 다 선택되면 선택옵션 한줄로 출력
-		// $("input[name='selecttaste']").val("확인용");
-		// $("div#test > input[name='selectPeriodindex']").val(selecttaste);
-		
-		$("div#selecttaste").text();
-		$("div#selecttaste").val();
-		$("div#selecttasteList > input[name='selecttasteList']").val(selecttaste);
-		// $("div[id='selecttasteList']").val(selecttaste);
-		$("div#selecttasteList > p#tasteresult").val(selecttaste);
-		
+		const selecttaste = $("select[class='selectedtaste'] option:selected").text();
+		if(!selecttaste.includes('맛을 선택하세요')){
+			//console.log("selecttaste 선택한 맛 => ", selecttaste);
+			//$("div#selecttasteList > p#tasteresult").text(selecttaste);
+			
+			for(let i=1; i<=tastecount; i++) {
+				tasteList.push('taste'+ i);
+			}// end of for------------------
+	
+			for(let i=0; i<tastecount; i++) {
+	
+				var str_taste = $("select[id='"+ tasteList[i] +"'] option:selected").text();
+				
+				console.log(str_taste);
+	
+				if(i == tastecount - 1) {
+					result += str_taste;
+				}
+				else {
+					result += str_taste + ", ";
+				}
+				
+			}// end of for-------------------
+			console.log(result);
+
+			$("p#tasteresult").text(result);
+		}
 
 	});// end of $("select[id='taste']").change(function()----------------------
-		// select 에서 선택한 맛 밑에 한번에 출력---------------------------------
+	   // select 에서 선택한 맛 밑에 한번에 출력
 	
-
 
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
-
-
-	///////////////////////////////////////////////////////////////////////////////////////////
-
+	// == 수량 +, - 버튼 클릭에 대한 함수 == //
 	let plus = document.querySelector(".plus");
 	let minus = document.querySelector(".minus");
 	let result = document.querySelector("#result");
-	let totalcost = document.querySelector('.productprice');
-
+	
 	let i = 1;
+
+	var price = Number($("h6").text());
+	//console.log("price 확인 :" ,price);
+
 	// 플러스 버튼 클릭 이벤트
 	plus.addEventListener("click", () => {
-		i++;
-		result.textContent = i;
-		let totalcostNum = i * 8000;
-		totalcost.textContent = totalcostNum.toLocaleString();
+		//let totalcost = document.querySelector('.productprice');
+		var totalcost = Number($("div.productprice").text());
+		totalcost += price;
+		$("div.productprice").html(totalcost);
+
 	});// end of plus.addEventListener("click", () => {})-----------
 
 	// 마이너스 버튼 클릭 이벤트   
 	minus.addEventListener("click", () => {
 		if(i>0){
-			i--;
-			result.textContent = i;
-			let totalcostNum = i * 8000;
-			totalcost.textContent = totalcostNum.toLocaleString();
+			var totalcost = Number($("div.productprice").text());
+			totalcost -= price;
+			$("div.productprice").html(totalcost);
 		}
 		else {
-			totalcost.textContent = 0 + "원"
+			$("div.productprice").html(0+"원");
 		}
 	});// end of plus.addEventListener("click", () => {})-----------
-		
-		
-		
-		
-});// end of $(document).ready(function() {})-------------------------------
 
-// == 장바구니 연결하는 함수 == //
-function goCart(ctxPath) {
 
-	location.href = `${ctxPath}/member/cart.ice`;
-
-	// const frm = document.orderDetailFrm;
-	// frm.method = "POST"; 
-	// frm.action = "/member/cart.ice";
-	// frm.submit();
-
-}// end of 주문상세 > 장바구니 연결------------------------
+});// end of $(document).ready(function() {})----------------------------------------------
 	
-/* 
-function changeSelect(){
-	var langSelect = document.getElementById("selectbox");
-		
-	// select element에서 선택된 option의 value가 저장된다.
-	var selectValue = langSelect.options[langSelect.selectedIndex].val;
 	
-	// select element에서 선택된 option의 text가 저장된다.
-	var selectText = langSelect.options[langSelect.selectedIndex].text;
+	// == 장바구니 연결하는 함수 == //
+	function goCart(ctxPath) {
 	
-	console.log("확인용 langSelect : ",langSelect);
-	console.log("확인용 selectValue : ",selectValue);
-	console.log("확인용 selectText : ",selectText);
-}
-*/
+	   location.href = `${ctxPath}/member/cart.ice`;
+	
+	   // const frm = document.orderDetailFrm;
+	   // frm.method = "POST"; 
+	   // frm.action = "/member/cart.ice";
+	   // frm.submit();
+	
+	}// end of 주문상세 > 장바구니 연결------------------------
+	
+	
+	
+	
+	
+	
