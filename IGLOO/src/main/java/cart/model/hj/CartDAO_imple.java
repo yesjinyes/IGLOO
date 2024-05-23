@@ -373,7 +373,7 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "        FROM "
 	         		+ "        ( "
 	         		+ "            SELECT selectno, fk_userid, productname, productimg, tastename "
-	         		+ "            FROM  "
+	         		+ "            FROM "
 	         		+ "            ( "
 	         		+ "                SELECT productcodeno, productname, productimg "
 	         		+ "                FROM tbl_product "
@@ -388,7 +388,7 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "                JOIN "
 	         		+ "                ( "
 	         		+ "                    SELECT fk_selectno, tastename "
-	         		+ "                    FROM "
+	         		+ "                    FROM  "
 	         		+ "                    ( "
 	         		+ "                        SELECT fk_selectno, fk_tasteno "
 	         		+ "                        FROM tbl_tasteselect "
@@ -690,64 +690,64 @@ public class CartDAO_imple implements CartDAO {
 	         String sql = " SELECT selectno "
 	         		+ " FROM "
 	         		+ " ( "
-	         		+ "    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG, selectno "
+	         		+ " SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ "    FROM "
 	         		+ "    ( "
-	         		+ "        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
+	         		+ "        SELECT selectno, fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ "        FROM "
 	         		+ "        ( "
-	         		+ "            SELECT tasteselectno, fk_selectno, TASTENAME "
-	         		+ "            FROM  "
+	         		+ "            SELECT selectno, fk_userid, productname, productimg, tastename "
+	         		+ "            FROM "
 	         		+ "            ( "
-	         		+ "                select tasteselectno, fk_selectno, fk_tasteno "
-	         		+ "                from tbl_tasteselect "
+	         		+ "                SELECT productcodeno, productname, productimg "
+	         		+ "                FROM tbl_product "
 	         		+ "            ) "
 	         		+ "            JOIN "
 	         		+ "            ( "
-	         		+ "                SELECT TASTENO, TASTENAME "
-	         		+ "                FROM TBL_TASTE "
-	         		+ "            ) "
-	         		+ "            ON FK_TASTENO = TASTENO "
-	         		+ "        ) T "
-	         		+ "        JOIN "
-	         		+ "        ( "
-	         		+ "            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG "
-	         		+ "            from "
-	         		+ "            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG "
-	         		+ "                FROM "
-	         		+ "                ( "
-	         		+ "                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG "
-	         		+ "                    from tbl_product "
+	         		+ "                SELECT selectno, fk_productcodeno, fk_userid, tastename "
+	         		+ "                FROM ( "
+	         		+ "                    SELECT selectno, fk_productcodeno, fk_userid "
+	         		+ "                    FROM tbl_selectlist "
 	         		+ "                ) "
 	         		+ "                JOIN "
 	         		+ "                ( "
-	         		+ "                    select selectno, fk_productcodeno, FK_USERID "
-	         		+ "                    from tbl_selectlist "
+	         		+ "                    SELECT fk_selectno, tastename "
+	         		+ "                    FROM "
+	         		+ "                    ( "
+	         		+ "                        SELECT fk_selectno, fk_tasteno "
+	         		+ "                        FROM tbl_tasteselect "
+	         		+ "                    ) "
+	         		+ "                    JOIN "
+	         		+ "                    ( "
+	         		+ "                        SELECT tasteno, tastename "
+	         		+ "                        FROM tbl_taste "
+	         		+ "                    ) "
+	         		+ "                    ON fk_tasteno = tasteno "
 	         		+ "                ) "
-	         		+ "                ON PRODUCTCODENO = FK_PRODUCTCODENO "
+	         		+ "                ON selectno = fk_selectno "
 	         		+ "            ) "
-	         		+ "            JOIN "
-	         		+ "            ( "
-	         		+ "                select userid "
-	         		+ "                from TBL_MEMBER "
-	         		+ "            ) "
-	         		+ "            ON FK_USERID = USERID "
-	         		+ "        ) O "
-	         		+ "        ON fk_selectno = selectno "
-	         		+ "    ) A "
+	         		+ "            ON productcodeno = fk_productcodeno "
+	         		+ "        ) "
+	         		+ "        JOIN "
+	         		+ "        ( "
+	         		+ "            SELECT fk_ordercode, orderprice, pickupstatus, pickuptime, ordercount, fk_selectno "
+	         		+ "            FROM tbl_orderdetail "
+	         		+ "        ) "
+	         		+ "        ON selectno = fk_selectno "
+	         		+ "    ) "
 	         		+ "    JOIN "
 	         		+ "    ( "
-	         		+ "        SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE "
-	         		+ "        FROM TBL_ORDER "
-	         		+ "    ) B "
-	         		+ "    ON A.FK_USERID = B.FK_USERID "
+	         		+ "        SELECT ordercode, orderdate "
+	         		+ "        FROM tbl_order "
+	         		+ "    ) "
+	         		+ "    ON fk_ordercode = ordercode "
 	         		+ " ) "
 	         		+ " JOIN "
 	         		+ " ( "
-	         		+ "    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME "
-	         		+ "    FROM TBL_ORDERDETAIL "
+	         		+ "    SELECT userid "
+	         		+ "    FROM TBL_MEMBER "
 	         		+ " ) "
-	         		+ " ON ORDERCODE = FK_ORDERCODE "
+	         		+ " ON fk_userid = userid "
 	         		+ " where fk_userid = ? and (PRODUCTNAME like '%' || ? || '%' or TASTENAME like '%' || ? || '%') ";
 	         
 	         pstmt = conn.prepareStatement(sql); 
@@ -755,7 +755,7 @@ public class CartDAO_imple implements CartDAO {
 	         pstmt.setString(1, paraMap.get("userid"));
 	         pstmt.setString(2, paraMap.get("searchorderList"));
 	         pstmt.setString(3, paraMap.get("searchorderList"));
-	         
+
 	         rs = pstmt.executeQuery();
 	         
 	         while(rs.next()) {
@@ -767,6 +767,7 @@ public class CartDAO_imple implements CartDAO {
 		}finally {
 	    	  close();
 	    }
+
 		return selectnolist;
 		
 	}	// end of public List<OrderdetailVO> searchorderlist(Map<String, String> paraMap) throws SQLException-----
@@ -782,69 +783,68 @@ public class CartDAO_imple implements CartDAO {
 		try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " SELECT ORDERDATE, PRODUCTIMG, PRODUCTNAME, TASTENAME "
-	         		+ "     , ORDERDETAILNO, ORDERCODE, ORDERPRICE, PICKUPSTATUS, ORDERCOUNT, PICKUPTIME "
+	         String sql = " SELECT ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ " FROM "
 	         		+ " ( "
-	         		+ "    SELECT A.FK_USERID, ORDERCODE, TOTALPRICE, ORDERDATE, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG, selectno "
+	         		+ " SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ "    FROM "
 	         		+ "    ( "
-	         		+ "        SELECT FK_USERID, selectno, PRODUCTNAME, TASTENAME, PRICE, PRODUCTIMG "
+	         		+ "        SELECT selectno, fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ "        FROM "
 	         		+ "        ( "
-	         		+ "            SELECT tasteselectno, fk_selectno, TASTENAME "
+	         		+ "            SELECT selectno, fk_userid, productname, productimg, tastename "
 	         		+ "            FROM "
 	         		+ "            ( "
-	         		+ "                select tasteselectno, fk_selectno, fk_tasteno "
-	         		+ "                from tbl_tasteselect "
+	         		+ "                SELECT productcodeno, productname, productimg "
+	         		+ "                FROM tbl_product "
 	         		+ "            ) "
 	         		+ "            JOIN "
 	         		+ "            ( "
-	         		+ "                SELECT TASTENO, TASTENAME "
-	         		+ "                FROM TBL_TASTE "
+	         		+ "                SELECT selectno, fk_productcodeno, fk_userid, tastename "
+	         		+ "                FROM ( "
+	         		+ "                    SELECT selectno, fk_productcodeno, fk_userid "
+	         		+ "                    FROM tbl_selectlist "
+	         		+ "                ) "
+	         		+ "                JOIN "
+	         		+ "                ( "
+	         		+ "                    SELECT fk_selectno, tastename "
+	         		+ "                    FROM "
+	         		+ "                    ( "
+	         		+ "                        SELECT fk_selectno, fk_tasteno "
+	         		+ "                        FROM tbl_tasteselect "
+	         		+ "                    ) "
+	         		+ "                    JOIN "
+	         		+ "                    ( "
+	         		+ "                        SELECT tasteno, tastename "
+	         		+ "                        FROM tbl_taste "
+	         		+ "                    ) "
+	         		+ "                    ON fk_tasteno = tasteno "
+	         		+ "                ) "
+	         		+ "                ON selectno = fk_selectno "
 	         		+ "            ) "
-	         		+ "            ON FK_TASTENO = TASTENO "
-	         		+ "        ) T "
+	         		+ "            ON productcodeno = fk_productcodeno "
+	         		+ "        ) "
 	         		+ "        JOIN "
 	         		+ "        ( "
-	         		+ "            select selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG "
-	         		+ "            from "
-	         		+ "            (   SELECT selectno, fk_productcodeno, PRODUCTNAME, PRICE, FK_USERID, PRODUCTIMG "
-	         		+ "                FROM "
-	         		+ "                ( "
-	         		+ "                    SELECT PRODUCTCODENO, PRODUCTNAME, PRICE, PRODUCTIMG "
-	         		+ "                    from tbl_product "
-	         		+ "                ) "
-	         		+ "                RIGHT JOIN "
-	         		+ "                ( "
-	         		+ "                    select selectno, fk_productcodeno, FK_USERID "
-	         		+ "                    from tbl_selectlist "
-	         		+ "                ) "
-	         		+ "                ON PRODUCTCODENO = FK_PRODUCTCODENO "
-	         		+ "            ) "
-	         		+ "            JOIN "
-	         		+ "            ( "
-	         		+ "                select userid "
-	         		+ "                from TBL_MEMBER "
-	         		+ "            ) "
-	         		+ "            ON FK_USERID = USERID "
-	         		+ "        ) O "
-	         		+ "        ON fk_selectno = selectno "
-	         		+ "    ) A "
+	         		+ "            SELECT fk_ordercode, orderprice, pickupstatus, pickuptime, ordercount, fk_selectno "
+	         		+ "            FROM tbl_orderdetail "
+	         		+ "        ) "
+	         		+ "        ON selectno = fk_selectno "
+	         		+ "    ) "
 	         		+ "    JOIN "
 	         		+ "    ( "
-	         		+ "        SELECT ORDERCODE, FK_USERID, TOTALPRICE, ORDERDATE "
-	         		+ "        FROM TBL_ORDER "
-	         		+ "    ) B "
-	         		+ "    ON A.FK_USERID = B.FK_USERID "
+	         		+ "        SELECT ordercode, orderdate "
+	         		+ "        FROM tbl_order "
+	         		+ "    ) "
+	         		+ "    ON fk_ordercode = ordercode "
 	         		+ " ) "
 	         		+ " JOIN "
 	         		+ " ( "
-	         		+ "    SELECT ORDERDETAILNO, FK_ORDERCODE, ORDERCOUNT, FK_SELECTNO, ORDERPRICE, PICKUPSTATUS, PICKUPTIME "
-	         		+ "    FROM TBL_ORDERDETAIL "
+	         		+ "    SELECT userid "
+	         		+ "    FROM TBL_MEMBER "
 	         		+ " ) "
-	         		+ " ON ORDERCODE = FK_ORDERCODE "
-	         		+ " where selectno in( " + selecnoJoin + " ) "
+	         		+ " ON fk_userid = userid "
+	         		+ " WHERE selectno in ( " + selecnoJoin + " ) "
 	         		+ " order by selectno desc ";
 	         
 	         pstmt = conn.prepareStatement(sql); 
@@ -868,7 +868,6 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 3;
 					
 						oddto = new OrderdetailVO();
-						oddto.setOrderdetailno(rs.getInt("ORDERDETAILNO"));
 						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
 						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
 						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
@@ -926,7 +925,6 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 4;
 					
 						oddto = new OrderdetailVO();
-						oddto.setOrderdetailno(rs.getInt("ORDERDETAILNO"));
 						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
 						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
 						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
@@ -983,7 +981,6 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 5;
 					
 						oddto = new OrderdetailVO();
-						oddto.setOrderdetailno(rs.getInt("ORDERDETAILNO"));
 						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
 						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
 						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
@@ -1040,7 +1037,6 @@ public class CartDAO_imple implements CartDAO {
 						cnt = 6;
 					
 						oddto = new OrderdetailVO();
-						oddto.setOrderdetailno(rs.getInt("ORDERDETAILNO"));
 						oddto.setFk_ordercode(rs.getString("ORDERCODE"));
 						oddto.setOrderprice(rs.getInt("ORDERPRICE"));
 						oddto.setPickupstatus(rs.getInt("PICKUPSTATUS"));
