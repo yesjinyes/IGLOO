@@ -52,32 +52,45 @@ public class DisplayIceJSON extends AbstractController {
 		paraMap.put("menuAlign", menuAlign);
 		
 		
+		
+		
 		int totalCount = mdao.totalCount();
 		
-		
+		List<TasteVO> menuList = mdao.getMenuList(paraMap);
 		List<TasteVO> productList = mdao.selectIceAll(paraMap); 
 		
 		JSONArray jsonArr = new JSONArray(); // []
+		JSONObject jsonObj = new JSONObject();
 		
-		if( productList.size() > 0 ) {
-			// DB에서 조회해온 결과물이 있을 경우 
+		if( productList.size() > 0 ) { //DB에 데이터가 있을 경우 이름순, 인기순 정렬 
+			
 			
 			for(TasteVO tvo : productList) {
 				
-				JSONObject jsonObj = new JSONObject(); // {}
-				
-				jsonObj.put("tnum", tvo.getTasteno());   // {"pnum":36}
-				jsonObj.put("timg", tvo.getTasteimg());   // {"pnum":36}
+				jsonObj.put("menuAlign", tvo.getTastename());   // {"pnum":36}
 				jsonObj.put("tname", tvo.getTastename());   // {"pnum":36}
-				jsonObj.put("tgredi", tvo.getIngredients());   // {"pnum":36}
-				
-				
+				jsonObj.put("cnt", tvo.getCnt());   // {"pnum":36}
 				// jsonObj ==> {"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}    
 				
-				jsonArr.put(jsonObj); // [{"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}] 
+				 // [{"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}] 
 			}// end of for--------------------
 			
 		}// end of if----------------------------
+		if(menuList.size() > 0) { //DB에 데이터가 있을 경우 더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
+			
+			for(TasteVO tvo : menuList) {
+			
+				jsonObj.put("timg", tvo.getTasteimg());   // {"cnum":1}
+				jsonObj.put("tname", tvo.getTastename());   // {"cnum":1, "code":"100000"} 
+				jsonObj.put("tno", tvo.getTasteno()); // {"cnum":1, "code":"100000", "cname":"전자제품"}  
+				jsonObj.put("tgredi", tvo.getIngredients()); // {"cnum":1, "code":"100000", "cname":"전자제품"}
+				
+				 // [{"pnum":36, "pname":"노트북30", "cname":"전자제품", ....... , "pinputdate":"2024-05-14", "discountPercent":17}]
+			
+			}
+		}// end of if----------------------------
+		
+		jsonArr.put(jsonObj);
 		
 		String json = jsonArr.toString(); // 문자열로 변환 
 		

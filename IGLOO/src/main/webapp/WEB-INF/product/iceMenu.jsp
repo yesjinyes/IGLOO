@@ -37,7 +37,7 @@
 	      <span style="font-size: 12pt; font-weight: bold;">메뉴 정렬&nbsp;-&nbsp;</span>
 	      <select name="menuAlign">
 	         <option value="name">가나다순</option>
-	         <option value="review">리뷰많은순</option>      
+	         <option value="order">인기순</option>      
 	      </select>
 	    </form>
   	</div>

@@ -117,23 +117,108 @@ commit;
 
 -------주문된 맛의 개수 알아오기 -> 맛 개수로 인기순 정렬! 또는 가나다라 정렬!--------
 -------------------------------------------------------------------------------
+
+/*      
+    TBL_ORDERDETAIL.ORDERDETAILNO  주문상세.주문상세일련번호 
+    TBL_TASTE.TASTENO              맛.맛종류번호
+    COUNT(*)                       맛별로 주문되어진 개수
+*/
+
+-------------------------------------------------------------------------------------------
+------------------------------------------- 
+ SELECT A.주문상세일련번호, D.맛종류번호
+ FROM 주문상세 A
+ JOIN 선택내역 B
+ ON A.F선택일련번호 = B.선택일련번호
+ JOIN 맛선택 C
+ ON B.선택일련번호 = C.F선택일련번호
+ JOIN 맛 D
+ ON C.F맛종류번호 = D.맛종류번호;
+ 
+ SELECT A.ORDERDETAILNO, D.TASTENO
+ FROM TBL_ORDERDETAIL A
+ JOIN TBL_SELECTLIST B
+ ON A.FK_SELECTNO = B.SELECTNO
+ JOIN TBL_TASTESELECT C
+ ON B.SELECTNO = C.FK_SELECTNO
+ JOIN TBL_TASTE D
+ ON C.FK_TASTENO = D.TASTENO; 
+ 
+ SELECT V.TASTENAME, COUNT(*) AS CNT
+ FROM 
+ (
+     SELECT A.ORDERDETAILNO, D.TASTENAME
+     FROM TBL_ORDERDETAIL A
+     JOIN TBL_SELECTLIST B
+     ON A.FK_SELECTNO = B.SELECTNO
+     JOIN TBL_TASTESELECT C
+     ON B.SELECTNO = C.FK_SELECTNO
+     JOIN TBL_TASTE D
+     ON C.FK_TASTENO = D.TASTENO
+ ) V 
+ GROUP BY V.TASTENAME;
+ 
+ DESC TBL_TASTE;
+ --------------------------------------------------
+ SELECT TASTENAME, CNT AS ORDER_CNT
+ FROM 
+ (
+     SELECT V.TASTENAME, COUNT(*) AS CNT
+     FROM 
+     (
+         SELECT A.ORDERDETAILNO, D.TASTENAME
+         FROM TBL_ORDERDETAIL A
+         JOIN TBL_SELECTLIST B
+         ON A.FK_SELECTNO = B.SELECTNO
+         JOIN TBL_TASTESELECT C
+         ON B.SELECTNO = C.FK_SELECTNO
+         JOIN TBL_TASTE D
+         ON C.FK_TASTENO = D.TASTENO
+     ) V 
+     GROUP BY V.TASTENAME
+ ) T 
+ ORDER BY T.TASTENAME ASC;
+ ---------------------------------------------------------
+ 
+     SELECT TASTENAME, CNT AS REVIEW_CNT
+     FROM 
+     (
+         SELECT V.TASTENAME, COUNT(*) AS CNT
+         FROM 
+         (
+             SELECT A.ORDERDETAILNO, D.TASTENAME
+             FROM TBL_ORDERDETAIL A
+             JOIN TBL_SELECTLIST B
+             ON A.FK_SELECTNO = B.SELECTNO
+             JOIN TBL_TASTESELECT C
+             ON B.SELECTNO = C.FK_SELECTNO
+             JOIN TBL_TASTE D
+             ON C.FK_TASTENO = D.TASTENO
+         ) V 
+         GROUP BY V.TASTENAME
+     ) T 
+     ORDER BY REVIEW_CNT DESC, TASTENAME ASC;
+
+
+-------------------------------------------
+--------------------------------------------------------------------------------------------
+
 SELECT  tasteno, tastename, tasteimg , ingredients , count(*)
 FROM
 (
-    select tasteno, tastename, tasteimg , ingredients, tasteselectno, fk_selectno
+    select row_number() over(order by tastename asc) AS RNO, tasteno, tastename, tasteimg , ingredients, tasteselectno, fk_selectno
     from
     (
         select tasteselectno, fk_selectno, fk_tasteno
         from tbl_tasteselect
-    )
+    ) A
     join
     (
-        select row_number() over(order by tasteno desc) AS RNO 
-                , tasteno ,tastename, tasteimg, ingredients
+        select tasteno ,tastename, tasteimg, ingredients
         from tbl_taste
-    )
-    ON fk_tasteno = tasteno
-    WHERE RNO between 1 and 8
+    ) B 
+    ON A.fk_tasteno = B.tasteno
+    
 ) T 
 JOIN
 (
