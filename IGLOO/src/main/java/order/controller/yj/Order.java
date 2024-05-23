@@ -28,15 +28,8 @@ public class Order extends AbstractController {
 			List<ProductVO> productList = pdao.getproductList();
 			request.setAttribute("productList", productList);
 			
-			
-			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order.jsp");
-			
-		}
-		
-		else {
-			
 		}
 		
 		

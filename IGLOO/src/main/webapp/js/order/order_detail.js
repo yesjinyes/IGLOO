@@ -7,7 +7,7 @@ $(document).ready(function() {
 		var tasteList = [];
 		const tastecount = $("input#tastecount").val();
 		
-		
+		// option 값 다 선택되면 선택옵션 한줄로 출력
 		const selecttaste = $("select[class='selectedtaste'] option:selected").text();
 		if(!selecttaste.includes('맛을 선택하세요')){
 			//console.log("selecttaste 선택한 맛 => ", selecttaste);
@@ -27,7 +27,7 @@ $(document).ready(function() {
 					result += str_taste;
 				}
 				else {
-					result += str_taste + ",";
+					result += str_taste + ", ";
 				}
 				
 			}// end of for-------------------
@@ -36,39 +36,17 @@ $(document).ready(function() {
 			$("p#tasteresult").text(result);
 		}
 
-		
-
-
-
-
-		// const tastecount = $("input#tastecount").val();
-		// console.log(tastecount);   
-
-
-		
-		
-
-		
-
-		// option 값 다 선택되면 선택옵션 한줄로 출력
-		   
-	
-		//    $("div#selecttaste").text();
-		//    $("div#selecttaste").val();
-		//    $("div#selecttasteList > input[name='selecttasteList']").val(selecttaste);
-		   // $("div[id='selecttasteList']").text(selecttaste);
-	
-	
 	});// end of $("select[id='taste']").change(function()----------------------
-		// select 에서 선택한 맛 밑에 한번에 출력
+	   // select 에서 선택한 맛 밑에 한번에 출력
 	
 
 	///////////////////////////////////////////////////////////////////////////////////////////
+	
+	// == 수량 +, - 버튼 클릭에 대한 함수 == //
 	let plus = document.querySelector(".plus");
 	let minus = document.querySelector(".minus");
 	let result = document.querySelector("#result");
 	
-
 	let i = 1;
 
 	var price = Number($("h6").text());
@@ -81,28 +59,22 @@ $(document).ready(function() {
 		totalcost += price;
 		$("div.productprice").html(totalcost);
 
-
-		// i++;
-		// result.textContent = i;
-		// let totalcostNum = i * 8000;
-		// totalcost.textContent = totalcostNum.toLocaleString();
 	});// end of plus.addEventListener("click", () => {})-----------
 
 	// 마이너스 버튼 클릭 이벤트   
 	minus.addEventListener("click", () => {
 		if(i>0){
-			i--;
-			result.textContent = i;
-			let totalcostNum = i * 8000;
-			totalcost.textContent = totalcostNum.toLocaleString();
+			var totalcost = Number($("div.productprice").text());
+			totalcost -= price;
+			$("div.productprice").html(totalcost);
 		}
 		else {
-			totalcost.textContent = 0 + "원"
+			$("div.productprice").html(0+"원");
 		}
 	});// end of plus.addEventListener("click", () => {})-----------
 
 
-});// end of $(document).ready(function() {})-------------------------------
+});// end of $(document).ready(function() {})----------------------------------------------
 	
 	
 	// == 장바구니 연결하는 함수 == //
@@ -110,7 +82,7 @@ $(document).ready(function() {
 	
 	   location.href = `${ctxPath}/member/cart.ice`;
 	
-	  // const frm = document.orderDetailFrm;
+	   // const frm = document.orderDetailFrm;
 	   // frm.method = "POST"; 
 	   // frm.action = "/member/cart.ice";
 	   // frm.submit();
