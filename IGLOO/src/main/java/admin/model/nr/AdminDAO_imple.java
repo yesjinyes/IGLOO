@@ -304,7 +304,8 @@ public class AdminDAO_imple implements AdminDAO {
 					   + "join tbl_product D "
 					   + "on C.fk_productcodeno = D.productcodeno "
 					   + "join tbl_member E "
-					   + "on B.fk_userid = E.userid ";
+					   + "on B.fk_userid = E.userid "
+					   + "order by 1 desc ";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
