@@ -17,23 +17,24 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail.js"></script>
 
 
-<div class="container contents d-flex justify-content-center">
+<div class="container contents justify-content-arround">
 
 	<form name="orderDetailFrm">
-  		
-  		<%-- 상품 구매정보 --%>
-		<div id="imgdiv" style="width: 300px; height: 350px; display: inline-block; background-color: pink;">
-			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" style="width: 350px; height: 400px; margin-right:10%; ; border: solid 1px gray;]" alt="...">
+  	  <div class="row justify-content-center">
+  	  
+  		<%-- 상품 구매 정보 --%>
+		<div id="imgdiv" style="width: 300px; height: 350px; vertical-align: middle; border: solid 1px red;" class="col-md-4">
+			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" class="img-fluid" style="border: solid 1px blue;" alt="...">
 		</div>
 		
-		<div id="item_detail" style="border: solid 1px green; display: inline-block;">
+		<div id="item_detail" style="border: solid 1px #81BEF7; padding: 4% 5%;" class="col-md-6">
 			
 			<div style="font-size: 30pt;">${requestScope.productname}</div>
 			<h6 style="font-size: 27pt; text-align: right;">
 				<fmt:formatNumber value="${requestScope.productprice}" pattern="###,###" />원
 			</h6>
 		
-			<hr style="border: solid 1px #81BEF7;">
+			<hr style="border: solid 1px #81BEF7;"><br>
 
 			<%-- 맛 선택 --%>
 			<c:forEach begin="1" end="${requestScope.tastecount}" varStatus="status">
@@ -47,7 +48,7 @@
 		    </c:forEach>
 		    
 			<input type="hidden" id="tastecount" value="${requestScope.tastecount}"/>
-			<hr style="border: solid 1px #81BEF7;">
+			<br><hr style="border: solid 1px #81BEF7;">
 
 			<%-- 선택한 맛, 수량 --%>
 			<div style="border: solid 1px orange; display: flex;">
@@ -85,7 +86,7 @@
 			</div>
 			
 		</div>
-	
+	</div>
 		<%----------------------------------------------------------------------%>
 	
 		<%-- 하단 사진 --%>
