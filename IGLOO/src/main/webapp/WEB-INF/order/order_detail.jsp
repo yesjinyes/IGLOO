@@ -23,7 +23,7 @@
   	  <div class="row justify-content-center">
   	  
   		<%-- 상품 구매 정보 --%>
-		<div id="imgdiv" style="width: 300px; height: 350px; vertical-align: middle; border: solid 1px red;" class="col-md-4">
+		<div id="imgdiv" style="width: 300px; height: 350px; vertical-align: middle; border: solid 0px red;" class="col-md-4">
 			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" class="img-fluid" style="border: solid 1px blue;" alt="...">
 		</div>
 		
@@ -39,11 +39,11 @@
 			<%-- 맛 선택 --%>
 			<c:forEach begin="1" end="${requestScope.tastecount}" varStatus="status">
 		 		<p class="status"></p>
-		 		<select id="taste${status.index}" name="selectbox" class="selectedtaste"> 
+		 		<select id="taste${status.index}" name="selectbox" class="selectedtaste" style="border: solid 1px black;"> 
 					<option value="">맛을 선택하세요</option>
 		    		<c:forEach var="tvo" items="${requestScope.tasteList}">	
 		             	<option value="${tvo.tasteno}">${tvo.tastename}</option>
-			        </c:forEach> 
+			        </c:forEach>
 		        </select>
 		    </c:forEach>
 		    
@@ -51,8 +51,8 @@
 			<br><hr style="border: solid 1px #81BEF7;">
 
 			<%-- 선택한 맛, 수량 --%>
-			<div style="border: solid 1px orange; display: flex;">
-				<div class="row justify-content-around" style="border: solid 1px blue; width: 70%; margin-right: 10%;">
+			<div id="resulteach" style="border: solid 1px orange; display: block; ">
+				<div style="border: solid 1px blue; display: inline-block; width: 70%;">
 					<div id="selecttasteList">
 				    	<p id="tasteresult"></p>
 				        <input type="hidden" name="selecttasteList"/>
@@ -60,15 +60,16 @@
 				</div>
 
 				 <%-- 수량 +, - 버튼 --%>
-				 <div class="num" style="border: solid 1px red; text-align: center; width: 20%;" >
-				 	<span style="text-align: center;">수량</span><br>
+				 <div class="num" style="border: solid 1px red; float: right;" >
+				 	<!-- <span style="text-align: center;">수량</span><br> -->
 				 	<span class="count">
-				 		<a href="#" class="minus" style="font-size: 30pt; margin-right: 10pt;">-</a>
+				 		<a href="#" class="minus" style="font-size: 30pt; margin-right: 10pt; text-decoration-line: none;">-</a>
 				 		<span id="result" style="font-size: 20pt;">1</span>
-				 		<a href="#" class="plus" style="font-size: 20pt; margin-left: 10pt;">+</a>
+				 		<a href="#" class="plus" style="font-size: 20pt; margin-left: 10pt; text-decoration-line: none;">+</a>
 				 	</span>
 				 </div>
 			</div>
+			
 
 			<hr style="border: solid 1px #81BEF7;">
 		
@@ -76,11 +77,11 @@
 			<div class="row justify-content-between mb-3">
 				<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
 				<div class="col-4"></div>
-				<div class="col-4 text-right productprice" style="font-weight: bold; font-size: 20pt;"></div>
+				<div class="col-4 text-right productprice" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.productprice}" pattern="###,###" />원</div>
 				<br>
 			</div>
 		
-			<div id="button" class="mx-auto">
+			<div id="button" class="mx-auto" align="center">
 				<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
 		        <input type="button"  class="btn btn-lg" value="구매하기" onclick="goOrder()" />
 			</div>
@@ -90,7 +91,7 @@
 		<%----------------------------------------------------------------------%>
 	
 		<%-- 하단 사진 --%>
-		<hr style="border: solid 2px #4198e8;">
+		<br><br><hr style="border: solid 2px #4198e8;"><br><br>
 	
 		<div id="image">
 			<div class="row justify-content-center">

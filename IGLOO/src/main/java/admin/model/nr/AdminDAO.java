@@ -27,6 +27,9 @@ public interface AdminDAO {
 	// 전체주문내역 불러오기(선택 맛 제외)
 	List<OrderdetailVO> selectOrderListAll() throws SQLException;
 
+	// 관리자 - 주문 상태(픽업시간, 주문 상태 등) 변경
+	int updateOrder(Map<String, String> paramap) throws SQLException;
+
 	
 
 

@@ -304,7 +304,8 @@ public class AdminDAO_imple implements AdminDAO {
 					   + "join tbl_product D "
 					   + "on C.fk_productcodeno = D.productcodeno "
 					   + "join tbl_member E "
-					   + "on B.fk_userid = E.userid ";
+					   + "on B.fk_userid = E.userid "
+					   + "order by 1 desc ";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -395,6 +396,38 @@ public class AdminDAO_imple implements AdminDAO {
 		}
 		
 		return odvoList;
+	}
+
+	
+	
+	
+	
+	
+	// 관리자 - 주문 상태(픽업시간, 주문 상태 등) 변경
+	@Override
+	public int updateOrder(Map<String, String> paramap) throws SQLException {
+		
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "update tbl_orderdetail set pickupstatus = ? , pickuptime = ? "
+					   + "where orderdetailno = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramap.get("status"));
+			pstmt.setString(2, paramap.get("pickupTime"));
+			pstmt.setString(3, paramap.get("orderdetailno"));
+			
+ 			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return n;
 	}
 
 

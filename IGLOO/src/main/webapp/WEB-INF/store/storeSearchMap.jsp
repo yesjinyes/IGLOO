@@ -42,7 +42,7 @@
 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 	<div class="card-body">
     	<div class="card-columns m-5 row">
-			<div class="card bg-primary text-white col-lg-5 p-0">
+			<div class="card text-white col-lg-5 p-0">
 				<div class="card-body text-center ">
 					<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
 				</div>
