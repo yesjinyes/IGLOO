@@ -90,18 +90,22 @@ function goUpdate() {
 	$("input:radio[name='pickupStatus']").each((index, item)=>{
 		
 		if($(item).prop("checked")){
-			$("input:text[name='status']").val($(item).val());
+			$("input:hidden[name='status']").val($(item).val());
 		}
 		
 	});
 	
-	$("input:text[name='pickupTime']").val($("span#pickuptime").html());
 
-	const status = $("input:text[name='status']").val();
-	const pickupTime = $("input:text[name='pickupTime']").val();
-	const orderdetailno = $("input:text[name='orderdetailno']").val();
-	
-	console.log(status+"  "+pickupTime+"  "+orderdetailno);
+	const status = $("input:hidden[name='status']").val();
+
+	if(status == '2'){
+		$("input:hidden[name='pickupTime']").val($("span#pickuptime").html());
+	}
+	else {
+		$("input:hidden[name='pickupTime']").val("");
+	}
+	const pickupTime = $("input:hidden[name='pickupTime']").val();
+	const orderdetailno = $("input:hidden[name='orderdetailno']").val();
 	
     $.ajax({
         url: "<%=ctxPath%>/admin/updateOrderStatus.ice",
@@ -112,6 +116,7 @@ function goUpdate() {
             console.log(JSON.stringify(json));
         }
     });
+
 }
 
 function dateToString(date){
@@ -322,9 +327,9 @@ span#timeCss {
 									  	<div class="m-3"><input type="radio" name="pickupStatus" id="4" value="4"/> <label for="4">픽업완료</label></div>
 									  </div>
 									  <form name="hiddenFrm">
-									  	<input type="text" name="orderdetailno" value="${odvo.orderdetailno}"/>
-									  	<input type="text" name="status"/>
-									  	<input type="text" name="pickupTime"/>
+									  	<input type="hidden" name="orderdetailno" value="${odvo.orderdetailno}"/>
+									  	<input type="hidden" name="status"/>
+									  	<input type="hidden" name="pickupTime"/>
 									  </form>
 							      </div>
 							      
