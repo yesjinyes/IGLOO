@@ -46,7 +46,7 @@ div#accordion_container > div.accordion > div.card > div#collapseOne  {
 }
 
 div#accordion_container > div.accordion > div.card p.storeinfoDetails{
-	/* border: solid 1px red; */
+	border: solid 1px red;
 	margin: 25px auto;
 }
 

@@ -136,27 +136,27 @@ function goSearch(){
 <div id="accordion_container" style="padding-left: 9%;">
 	<div class="accordion" id="accordionExample" style="width: 90%;">
   	
-  	<c:forEach var="store" items="${requestScope.storeList }" varStatus="status">
+  	<c:forEach var="store" items="${requestScope.storeList}" varStatus="status">
 
 	  	<div class="card">
-	   		<div class="card-header" id="heading${status.index }">
+	   		<div class="card-header" id="heading${status.index}">
 	     			<h2 class="mb-0">
 	       			<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse${status.index }" aria-expanded="false" aria-controls="collapse${status.index }">
-	         				<h3>${store.storename }</h3>
-	         				<p>${store.storeaddress }</p>
+	         				<h3>${store.storename}</h3>
+	         				<p>${store.storeaddress}</p>
 	       			</button>
 	     			</h2>
 	   		</div>
 			<%-- 아코디언 내부 --%>
 	   		<div id="collapse${status.index }" class="collapse" aria-labelledby="heading${status.index }" data-parent="#accordionExample">
 	     			<div class="card-body">
-	       			<div class="card-columns m-5 row">
-						<div class="card text-white col-lg-3 p-0">
-						    <div class="card-body text-center ">
+	       			<div class="card-columns my-5 row justify-content-center">
+						<div class="card text-white text-center col-lg-5 p-0">
+						    <%-- <div class="card-body text-center "> --%>
 						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
-						    </div>
+						    <%-- </div> --%>
 						</div>
-						<div class="ml-5 pt-5 col-lg-5 col-md-4">
+						<div class="col-lg-6">
 						    <h1 class="card-text">${store.storename }</h1>
 						    <p class="card-text storeinfoDetails">${store.storeaddress }</p>
 						    <p class="card-text storeinfoDetails">홈페이지: ${store.storepage }</p>
