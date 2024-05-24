@@ -115,6 +115,6 @@ function continueShopping(ctxPath){
 }   // end of function continueShopping(ctxPath){----------
 
 // === 주문하기 창 이동 === //
-function continueOrder(ctxPath){
+function continueOrder(){
     location.href = `order/payment.ice`;
-}   // end of function continueOrder(ctxPath){--------
+}   // end of function continueOrder(){--------

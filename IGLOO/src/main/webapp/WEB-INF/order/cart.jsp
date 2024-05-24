@@ -138,7 +138,7 @@
 				원
 			</div>
 			<div class="mb-5"></div>
-			<button type="button" class="btn btn-sm col-5 col-sm-4" onclick="javascript:continueOrder('<%= ctxPath%>')">
+			<button type="button" class="btn btn-sm col-5 col-sm-4" onclick="javascript:continueOrder()">
 			<span class="choiceCnt">0</span>
 			건 주문하기</button>
 			<div class="col-1"></div>
@@ -158,7 +158,7 @@
 	    	<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
 	    	원
 	    </p>
-		<button onclick="javascript:continueOrder('<%= ctxPath%>')" type="button" style="font-weight: bold; font-size:15pt;" class="orderbtn btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
+		<button onclick="javascript:continueOrder()" type="button" style="font-weight: bold; font-size:15pt;" class="orderbtn btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
 	</nav>
 </c:if>
 </div>
