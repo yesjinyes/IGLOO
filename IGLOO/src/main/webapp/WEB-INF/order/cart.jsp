@@ -55,9 +55,8 @@
 				<%-- 하나의 선택 메뉴 --%>
 				<div>
 					<%-- 하나의 선택 버튼 --%>
-					<input name="choicemenu" class="custom-control-input" type="checkbox" value="">
+					<input name="choicemenu" class="custom-control-input" type="checkbox" value="" />
 					<div class="choiceOneMenu row custom-control-label">
-	
 						<%-- 선택한 메뉴 이미지 --%>
 						<div class="menuclick col-xl-2 col-lg-2 col-md-2">
 							<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/${cartList.product.productimg}" alt="Responsive image">
@@ -68,7 +67,9 @@
 							<%-- 선택한 제품 삭제 --%>
 							<div class="row justify-content-end">
 								<div class="col-2 mt-2">
-									<i class="fa-solid fa-xmark"></i>
+									<button class="delete btn pl-0 mr-5">
+										<i class="fa-solid fa-xmark"></i>
+									</button>
 								</div>
 							</div>
 							<%-- 선택한 제품 품목 --%>
@@ -100,6 +101,7 @@
 						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
+								<div id="cartno" style="display:none;">${cartList.cartno}</div>	<%-- 숨길 항목 --%>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
 									<i class="fa-solid fa-minus"></i>
@@ -114,9 +116,8 @@
 						<%-- 금액 --%>
 						<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div>
-								<span>
-									<fmt:formatNumber value="${cartList.product.price}" pattern="###,###" />
-								</span>
+								<input type="text" value="${cartList.product.price}" />
+								<span class="resultprice">${cartList.product.price}</span>	<%-- 수량 * 제품가격 --%>
 							</div>
 						</div>
 					</div>
@@ -137,7 +138,7 @@
 				원
 			</div>
 			<div class="mb-5"></div>
-			<button type="button" class="btn btn-sm col-5 col-sm-4">
+			<button type="button" class="btn btn-sm col-5 col-sm-4" onclick="javascript:continueOrder('<%= ctxPath%>')">
 			<span class="choiceCnt">0</span>
 			건 주문하기</button>
 			<div class="col-1"></div>
@@ -157,11 +158,16 @@
 	    	<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
 	    	원
 	    </p>
-		<button type="button" style="font-weight: bold; font-size:15pt;" class="btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
+		<button onclick="javascript:continueOrder('<%= ctxPath%>')" type="button" style="font-weight: bold; font-size:15pt;" class="orderbtn btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
 	</nav>
 </c:if>
 </div>
 <%-- ======================================================================================= --%>
 
+<%-- 넘겨줄 정보 --%>
+<form name="sendinfo">
+	<input type="text" name="cartno" value=""/>
+	<input type="text" name="count" value=""/>
+</form>
 
 <jsp:include page="../footer.jsp" />
