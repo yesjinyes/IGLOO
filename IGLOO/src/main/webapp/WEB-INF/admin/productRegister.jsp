@@ -4,14 +4,14 @@
 <jsp:include page="../header.jsp" />
 
 <style type="text/css">
-   table#tblProdInput {border: solid gray 1px; 
+   table#tblProdInput {border: solid gray 1px; border-radius:10px;
                        border-collapse: collapse; }
                        
     table#tblProdInput td {border: solid gray 1px; 
                           padding-left: 10px;
                           height: 50px; }
                           
-    .prodInputName {background-color: #e6fff2; 
+    .prodInputName { background-color: #ccf2ff;  
                     font-weight: bold; }                                                 
    
    .error {color: red; font-weight: bold; font-size: 9pt;}
@@ -89,7 +89,7 @@
 	       fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result 속성에 파일을 나타내는 URL을 저장 시켜준다.
 	       
 	       fileReader.onload = function(){ // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임.
-	    	   // console.log(fileReader.result);
+	    	    // console.log(fileReader.result);
 	    	   /*
 	              data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
 	              이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
@@ -102,7 +102,7 @@
 	        // 첨부한 파일의 총량을 누적하는 용도 
 	        total_fileSize += input_file.files[0].size; 
 	        ///////////////////////////////////////////////////
-       
+	        
 	   }); // end of $(document).on("change", "input.img_file", function(e){}-------------------------------------------------------------------------------------------------------------
 	   // ==>> 제품이미지 파일선택을 선택하면 화면에 이미지를 미리 보여주기 끝 <<== //
 	   
@@ -261,7 +261,7 @@
 	   
 	   
 	   // 제품등록하기
-	   $("input:button[id='btnRegister']").click(function(){ // ■■■■■ 나는 이제 여기서 DB에 넣어주면 될것같다. ■■■■■
+	   $("input:button[id='btnRegister']").click(function(){
 		  
 		   $("span.error").hide();
 		   
@@ -277,13 +277,86 @@
 		   }); // ■■■■■■■ 폼태그의 입력값이 전부 들어와 있는지 확인하는 것 ■■■■■■■■
 		   
 		   if(is_infoData_OK){
-				
-			   const frm = document.prodInputFrm;
-			   frm.action = "productRegister.ice";
-			   frm.method = "post";
-			   frm.submit();
 			   
-		   }
+				 var formData = new FormData($("form[name='prodInputFrm']").get(0)); // $("form[name='prodInputFrm']").get(0) 폼 에 작성된 모든 데이터 보내기
+			   
+			     if(file_arr.length > 0){ // 추가 이미지 파일을 추가했을 경우
+				   
+					 // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 전송을 하지 못하게 막는다.
+					 let sum_file_size = 0;
+				   
+				   	 for(let i=0; i<file_arr.length; i++){
+				   		sum_file_size += file_arr[i].size;
+				   	 }// end of for-----------------------
+	
+				  	 ////////////////////////////////////////
+	                 // 첨부한 파일의 총량을 누적하는 용도 
+	                 total_fileSize += sum_file_size;
+		          	 ////////////////////////////////////////
+				   	 
+				   	 
+				   	 if( sum_file_size >= 10*1024*1024 ) { // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 
+		                   alert("첨부한 추가이미지 파일의 총합의 크기가 10MB 이상이라서 제품등록을 할 수 없습니다.!!");
+		                   return; // 종료
+		             }
+				   	 else { // 첨부한 파일의 총합의 크기가 10MB 미만 이라면, formData 속에 첨부파일 넣어주기
+				   		 formData.append("attachCount", file_arr.length); // 추가이미지 파일 개수
+				   		 
+				   		 file_arr.forEach(function(item, index){
+				   			formData.append("attach"+index,item); // 첨부파일 추가하기. item 이 첨부파일이다.
+				   		 });
+				   	 }
+				 
+			     }// end of if(file_arr.length > 0){}-------------------------------------------------------------
+	             // end of 추가이미지파일을 추가했을 경우
+	           
+	           ///////////////////////////////////////
+	           // 첨부한 파일의 총량이 20MB 초과시 //   
+	           if( total_fileSize > 20*1024*1024 ) {
+	                 alert("ㅋㅋㅋ 첨부한 파일의 총합의 크기가 20MB를 넘어서 제품등록을 할 수 없습니다.!!");
+	               return; // 종료
+	           }
+	           ///////////////////////////////////////
+	           
+	           $.ajax({
+	          <%-- url : "<%= ctxPath%>/shop/admin/productRegister.up", --%>
+	               url : "${pageContext.request.contextPath}/admin/productRegister.ice",
+	               type : "post",
+	               data : formData,
+	               processData:false,  // 파일 전송시 설정 
+	               contentType:false,  // 파일 전송시 설정
+	               dataType:"json",
+	               success:function(json){
+	            	   console.log("~~~ 확인용 : " + JSON.stringify(json));
+	                   // ~~~ 확인용 : {"result":1}
+	                   if(json.result == 1) {
+	                     location.href="${pageContext.request.contextPath}/order/order.ice"; 
+	                   }
+	               },
+	               error: function(request, status, error){
+	               // alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	                  alert("첨부된 파일의 크기의 총합이 20MB 를 초과하여 제품등록이 실패했습니다.ㅜㅜ");
+	              }
+	           });
+			   
+	           /*
+	             processData 관련하여, 일반적으로 서버에 전달되는 데이터는 query string(쿼리 스트링)이라는 형태로 전달된다. 
+	             ex) http://localhost:9090/board/list.action?searchType=subject&searchWord=안녕
+	                 ? 다음에 나오는 searchType=subject&searchWord=안녕 이라는 것이 query string(쿼리 스트링) 이다. 
+	   
+	             data 파라미터로 전달된 데이터를 jQuery에서는 내부적으로 query string 으로 만든다. 
+	             하지만 파일 전송의 경우 내부적으로 query string 으로 만드는 작업을 하지 않아야 한다.
+	             이와 같이 내부적으로 query string 으로 만드는 작업을 하지 않도록 설정하는 것이 processData: false 이다.
+	           */
+	          
+	           /*
+	             contentType 은 default 값이 "application/x-www-form-urlencoded; charset=UTF-8" 인데, 
+	             "multipart/form-data" 로 전송이 되도록 하기 위해서는 false 로 해야 한다. 
+	             만약에 false 대신에 "multipart/form-data" 를 넣어보면 제대로 작동하지 않는다.
+	           */
+		   }// if(is_infoData_OK){}----------------------------------------------------
+		   
+		} // $("input:button[id='btnRegister']").click(function(){})----------------------------------
 		   
 	   });// end of 제품 등록하기 ------------------------------------------------------------------
 	   
@@ -323,9 +396,9 @@
 	   
 	   <%-- === jQuery 를 사용하여 드래그앤드롭(DragAndDrop)을 통한 파일 업로드 끝 === --%>
 	   
+
 	   
 	}) // end of $(document).ready(function(){})---------------------------------
-
 
 </script>
 
@@ -344,19 +417,19 @@
         enctype="multipart/form-data" 으로 지정해주어야 한다.!! --%>
    <form name="prodInputFrm" enctype="multipart/form-data"> 
          
-      <table id="tblProdInput" style="width: 50%;">
+      <table id="tblProdInput" style="width: 50%;  background-color: #ccf2ff;">
       <tbody>
          <tr>
             <td width="25%" class="prodInputName">사이즈명</td>
             <td width="75%" align="left">
-               <input placeholder="ex)파인트, 쿼터 ..."type="text" style="width: 300px;" name="pname" class="box infoData" />
+               <input placeholder="ex)파인트, 쿼터 ..."type="text" style="width: 300px;" name="productname" class="box infoData" />
                <span class="error">필수입력</span>
             </td>
          </tr>
          <tr>
             <td width="25%" class="prodInputName">제품코드</td>
             <td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
-               <input placeholder="ex)P, Q, F, H ..." type="text" style="width: 300px;" name="pcompany" class="box infoData" />
+               <input placeholder="ex)P, Q, F, H ..." type="text" style="width: 300px;" name="productcodeno" class="box infoData" />
                <span class="error">필수입력</span>
             </td>
          </tr>
@@ -364,20 +437,20 @@
             <td width="25%" class="prodInputName">제품이미지</td>
             <td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
                <input type="file" name="pimage1" class="infoData img_file" accept='image/*' /><span class="error">필수입력</span>
-               <input type="hidden" id="imgname" /> <%-- ==== 이미지파일 이름 폼태그로 전송시키려고 해둔 것 ==== --%>
+               <input type="text" id="imgname" name="productimg" /> <%-- ==== 이미지파일 이름 폼태그로 전송시키려고 해둔 것 ==== --%>
             </td>
          </tr>
          <tr>
             <td width="25%" class="prodInputName">제품판매가</td>
             <td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
-               <input type="text" style="width: 100px;" name="saleprice" class="box infoData" /> 원
+               <input type="text" style="width: 100px;" name="price" class="box infoData" /> 원
                <span class="error">필수입력</span>
             </td>
          </tr>
          <tr>
             <td width="25%" class="prodInputName">제품설명</td>
             <td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
-               <textarea placeholder="ex)3가지 맛 선택 ..." name="pcontent" rows="5" cols="60"></textarea>
+               <textarea placeholder="ex)3가지 맛 선택 ..." name="productdetail" rows="5" cols="60"></textarea>
             </td>
          </tr>
          
@@ -394,19 +467,19 @@
           <tr>
                 <td width="25%" class="prodInputName" style="padding-bottom: 10px;">이미지파일 미리보기</td>
                 <td>
-               	   <input type="hidden" id="imgdetailname" /> <%-- ==== 이미지파일 이름 폼태그로 전송시키려고 해둔 것 ==== --%>
+               	   <input type="text" id="imgdetailname" name="productimgbelow"/> <%-- ==== 이미지파일 이름 폼태그로 전송시키려고 해둔 것 ==== --%>
                    <img id="previewImg" width="300"/>
                 </td>
           </tr>
-         
-         <tr style="height: 70px;">
-            <td colspan="2" align="center" style="border-left: hidden; border-bottom: hidden; border-right: hidden; padding: 50px 0;">
-                <input type="button" value="제품등록" id="btnRegister" style="width: 120px;" class="btn btn-info btn-lg mr-5" /> 
-                <input type="reset" value="취소"  style="width: 120px;" class="btn btn-danger btn-lg" />   
-            </td>
-         </tr>
       </tbody>
       </table>
+         
+         <div style="height: 70px;  background-color: white; margin-bottom: 10%;">
+            <div colspan="2" align="center" style="border-left: hidden; border-bottom: hidden; border-right: hidden; padding: 50px 0;">
+                <input type="button" value="제품등록" id="btnRegister" style="width: 120px;" class="btn btn-info btn-lg mr-5" /> 
+                <input type="reset" value="취소"  style="width: 120px;" class="btn btn-danger btn-lg" />   
+            </div>
+         </div>
       
    </form>
 </div>
