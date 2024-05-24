@@ -6,68 +6,16 @@ div.container.contents {
 	margin-top: 10%;
 }
 
-div#item_img { /* 상단 왼쪽 */
-	border: solid 0px grey;
-	margin: 2% auto;
-	display: flex;
-}
-
-div#item_detail { /* 상단 오른쪽 */
-	border: solid 0px grey;
-	width: 49%;
-	margin: 2% auto;
-}
-
 #item_detail > div:nth-child(1){ /* 파인트 */
 	font-weight: bold;
 	font-size: 20pt;
 }
 
-div#imgdiv {
-	border: solid 0px grey;
-	display: flex;
-	
-}
-
-img#shootingstar {
-	height: 300px;
-	margin: auto;
-}
-
-div#sum {
-	display:flex;
-}
-
-div#detail_ingredient > div {
+.btn { /* 구매하기, 장바구니 버튼 */
 	text-align: center;
-	font-size: 10pt;
-	margin: 2%;
-}
-
-div#image {
-	border: solid 0px grey;
-	margin: 2% auto;
-}
-
-
-#item_detail > h6 { /* 가격 */
-	text-align: right;
-	border: solid 0px red;
-}
-
-#item_detail > div:nth-child(10) { /* 맛이름 */
-	text-align: left;
-	border: solid 0px blue;
-}
-
-#button{ /* 구매하기, 장바구니 버튼 */
-	text-align: center;
-	border: solid 0px black;
-}
-
-div#detail_ingredient > div { /* 합계,원 */
-	display: flex;
-	border: solid 0px blue;
+	border: solid 1px #4198e8;
+	background-color: #81BEF7;
+	margin-top: 9%;
 }
 
 #item_detail > select {
@@ -75,18 +23,7 @@ div#detail_ingredient > div { /* 합계,원 */
 	width: 100%;	
 }
 
-#item_detail > div.row.justify-content-around > div > div.mb-5 > div { /* 수량 글자 */
-	font-weight: bold;
-	text-align: center;
-	border: solid 0px red;
+div#resulteach {
+	display: block;
+	
 }
-
-#item_detail > select{
-	margin: 1.5% 0;
-}
-
-#button > input.btn.btn-lg.mr-5, #button > input:nth-child(2){ 
-	background-color: #81BEF7;
-	border: solid 2px #063460;
-}
-
