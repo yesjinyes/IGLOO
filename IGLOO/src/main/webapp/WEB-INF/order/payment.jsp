@@ -14,6 +14,21 @@
 <jsp:include page="../header.jsp" />
 
 <div class="container contents">
+	
+	<div id="orderProcedure" class="row justify-content-end mt-5">
+		<div class="col-md-2 p-0">
+			장바구니
+		</div>
+		<div class="col-md-2 col-lg-2 p-0">
+			주문/결제
+		</div>
+		<div class="col-md-1 p-0">
+			완료
+		</div>
+	</div>   
+
+	<hr style="border: solid 2px #6190BC">
+
 
 	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:130px;"/>
 	<span style="margin-bottom: 1%; font-size: 25pt; font-weight: bold;">결제창</span>
