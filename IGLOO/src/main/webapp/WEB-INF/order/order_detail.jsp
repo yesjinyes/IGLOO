@@ -17,13 +17,13 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail.js"></script>
 
 
-<div class="container contents d-flex justify-content-center">
+<div class="container contents d-flex justify-content-center row">
 
 	<form name="orderDetailFrm">
   		
   		<%-- 상품 구매정보 --%>
-		<div id="imgdiv" style="width: 300px; height: 350px; display: inline-block; background-color: pink;">
-			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" style="width: 350px; height: 400px; margin-right:10%; ; border: solid 1px gray;]" alt="...">
+		<div id="imgdiv" style="width: 300px; height: 350px;">
+			<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" style="width: 350px; height: 400px;]" alt="...">
 		</div>
 		
 		<div id="item_detail" style="border: solid 1px green; display: inline-block;">
