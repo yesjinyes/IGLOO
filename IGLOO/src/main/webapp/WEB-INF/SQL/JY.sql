@@ -179,7 +179,13 @@ commit;
  ) T 
  ORDER BY T.TASTENAME ASC;
  ---------------------------------------------------------
- 
+ --===================================================================
+     select rno, tastename, REVIEW_CNT 
+    from
+    (
+    select row_number() over(order by REVIEW_CNT desc) as rno, REVIEW_CNT, tastename
+    from
+    (
      SELECT TASTENAME, CNT AS REVIEW_CNT
      FROM 
      (
@@ -197,10 +203,77 @@ commit;
          ) V 
          GROUP BY V.TASTENAME
      ) T 
-     ORDER BY REVIEW_CNT DESC, TASTENAME ASC;
-
-
--------------------------------------------
+     ORDER BY REVIEW_CNT DESC
+     )
+     )
+     WHERE RNO between 1 and 8; 
+ --================================================================    
+SELECT  rno, tasteno, tastename, tasteimg , ingredients
+from
+(
+select row_number() over(order by tastename desc) as rno
+        , tasteno , tastename, tasteimg, ingredients 
+from tbl_taste
+)V
+WHERE rno between 1 and 8;
+-------------------------------------------   
+select rno, tastename, REVIEW_CNT 
+    from
+    (
+        select row_number() over(order by REVIEW_CNT desc) as rno, REVIEW_CNT, tastename
+        from
+        (
+         SELECT TASTENAME, CNT AS REVIEW_CNT
+         FROM 
+         (
+             SELECT V.TASTENAME, COUNT(*) AS CNT
+             FROM 
+             (
+                 SELECT A.ORDERDETAILNO, D.TASTENAME
+                 FROM TBL_ORDERDETAIL A
+                 JOIN TBL_SELECTLIST B
+                 ON A.FK_SELECTNO = B.SELECTNO
+                 JOIN TBL_TASTESELECT C
+                 ON B.SELECTNO = C.FK_SELECTNO
+                 JOIN TBL_TASTE D
+                 ON C.FK_TASTENO = D.TASTENO
+             ) V 
+             GROUP BY V.TASTENAME
+         ) T 
+         ORDER BY REVIEW_CNT DESC
+         )
+     )
+     WHERE RNO between 1 and 8; 
+     
+     ---
+     
+SELECT rno, tastename, REVIEW_CNT, tasteno, tasteimg, ingredients
+FROM
+(
+    SELECT row_number() OVER(ORDER BY REVIEW_CNT DESC) AS rno, REVIEW_CNT, tastename, tasteno, tasteimg, ingredients
+    FROM
+    (
+        SELECT TASTENAME, CNT AS REVIEW_CNT, TASTENO, TASTEIMG, INGREDIENTS
+        FROM
+        (
+            SELECT V.TASTENAME, COUNT(*) AS CNT, V.TASTENO, V.TASTEIMG, V.INGREDIENTS
+            FROM
+            (
+                SELECT A.ORDERDETAILNO, D.TASTENAME, D.TASTENO, D.TASTEIMG, D.INGREDIENTS
+                FROM TBL_ORDERDETAIL A
+                JOIN TBL_SELECTLIST B
+                ON A.FK_SELECTNO = B.SELECTNO
+                JOIN TBL_TASTESELECT C
+                ON B.SELECTNO = C.FK_SELECTNO
+                JOIN TBL_TASTE D
+                ON C.FK_TASTENO = D.TASTENO
+            ) V
+            GROUP BY V.TASTENAME, V.TASTENO, V.TASTEIMG, V.INGREDIENTS
+        ) T
+        ORDER BY REVIEW_CNT DESC
+    )
+)
+WHERE RNO BETWEEN 1 AND 8;
 --------------------------------------------------------------------------------------------
 
 SELECT  tasteno, tastename, tasteimg , ingredients , count(*)
@@ -263,4 +336,14 @@ FROM
  from user_col_comments
  where table_name = 'tbl_orderdetail';
  
+ 
+ 
+SELECT tasteno, tastename, tasteimg , ingredients 
+					FROM 
+					( 
+				select row_number() over(order by tasteno desc) AS RNO 
+							, tasteno ,tastename, tasteimg , ingredients 
+						   from tbl_taste 
+						) V 
+						 WHERE RNO between 1 and 3 ;
 
