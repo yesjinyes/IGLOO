@@ -10,6 +10,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import member.domain.MemberVO;
+import order.domain.OrderdetailVO;
 import product.domain.TasteVO;
 public class MenuDAO_imple implements MenuDAO {
 	
@@ -79,11 +82,104 @@ public class MenuDAO_imple implements MenuDAO {
 	
 	
 	
-	//아이스크림 정보 조회
+	
+	
+	
+	
+	//정렬
 	@Override
-	public List<TasteVO> getMenuList() throws Exception {
+	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
 		
-		List<TasteVO> menuList = new ArrayList<>(); 
+		List<TasteVO> productList = new ArrayList<>();
+		
+		
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select rno, tastename, review_cnt "
+					+ "    from "
+					+ "    ( "
+					+ "        select rownum rno, tastename, review_cnt "
+					+ "        from "
+					+ "        ( "
+					+ "         SELECT TASTENAME, CNT AS REVIEW_CNT "
+					+ "         FROM "
+					+ "         ( "
+					+ "             SELECT V.TASTENAME, COUNT(*) AS CNT "
+					+ "             FROM "
+					+ "             ( "
+					+ "                 SELECT A.ORDERDETAILNO, D.TASTENAME "
+					+ "                 FROM TBL_ORDERDETAIL A "
+					+ "                 JOIN TBL_SELECTLIST B "
+					+ "                 ON A.FK_SELECTNO = B.SELECTNO "
+					+ "                 JOIN TBL_TASTESELECT C"
+					+ "                 ON B.SELECTNO = C.FK_SELECTNO "
+					+ "                 JOIN TBL_TASTE D "
+					+ "                 ON C.FK_TASTENO = D.TASTENO "
+					+ "             ) V "
+					+ "             GROUP BY V.TASTENAME "
+					+ "            ) T ";
+					
+			
+			
+			
+			String colname = paraMap.get("menuAlign");
+			
+			
+			if("name".equals(colname) ) { //메뉴정렬이 가나다순 인 경우 
+				sql += " order by TASTENAME asc";
+			}
+			
+			else if("order".equals(colname) ) { //메뉴정렬이 인기순 인 경우 
+				sql += " order by REVIEW_CNT DESC";
+			}
+			
+			sql += "         ) "
+				+ "     )"
+				+ "     WHERE rno between ? and ? ";
+			
+			
+			pstmt = conn.prepareStatement(sql);
+	
+			
+			pstmt.setString(1, paraMap.get("start"));
+			pstmt.setString(2, paraMap.get("end"));
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+				
+			while(rs.next()) {
+				
+				TasteVO tvo = new  TasteVO();
+				
+				tvo.setRno(rs.getInt(1));
+				tvo.setTastename(rs.getString(2));
+				tvo.setCnt(rs.getInt(3));
+				
+				productList.add(tvo);
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return productList;		
+	}
+
+	
+	
+	
+	
+	
+	
+	//정보
+	@Override
+	public List<TasteVO> icejsonList(Map<String, String> paraMap)  throws Exception{
+		
+		List<TasteVO> icejsonList = new ArrayList<>(); 
 		
 		try {
 			 conn = ds.getConnection();
@@ -102,66 +198,16 @@ public class MenuDAO_imple implements MenuDAO {
 				tvo.setTasteimg(rs.getString(3));
 				tvo.setIngredients(rs.getString(4));	
 
-				menuList.add(tvo);
+				icejsonList.add(tvo);
 			}// end of while(rs.next())----------------------------------
 			
 		} finally {
 			close();
 		}	
 		
-		return menuList;
-	}
+		return icejsonList;
 	
-	
-	
-	
-	
-	
-	
-	//더보기 방식으로 상품정보 8개씩 잘라서 조회해오기
-	@Override
-	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
-		
-		List<TasteVO> productList = new ArrayList<>();
-		
-		try {
-			conn = ds.getConnection();
-			
-			String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
-						+ " FROM "
-						+ " ( "
-						+ "   select row_number() over(order by tasteno desc) AS RNO "
-						+ " 		, tasteno ,tastename, tasteimg , ingredients "
-						+ "    from tbl_taste "
-						+ " ) V "
-						+ " WHERE RNO between ? and ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, paraMap.get("start"));
-			pstmt.setString(2, paraMap.get("end"));
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				
-				TasteVO tvo = new TasteVO();
-				
-				tvo.setTasteno(rs.getInt(1));     // 제품번호
-				tvo.setTastename(rs.getString(2)); // 제품명
-				tvo.setTasteimg(rs.getString(3)); // 제품명
-				tvo.setIngredients(rs.getString(4)); // 제품명
 
-
-				productList.add(tvo);
-				
-			}// end of while(rs.next())-------------------------
-			
-			
-		} finally {
-			close();
-		}
-		
-		return productList;		
 	}
 	
 	

@@ -73,8 +73,8 @@
 	<div id="content" class="col-9">
 
 	<div id="btnReview">
-		<a class="menufont_size" href="<%= ctxPath %>/index.up">my review</a>
-		<a class="menufont_size" href="<%= ctxPath %>/index.up">write</a>
+		<a class="menufont_size" href="<%= ctxPath %>/index.ice">write</a>
+		<a class="menufont_size" href="<%= ctxPath %>/index.ice">my review</a>
 	</div>
 	
 	<hr>
