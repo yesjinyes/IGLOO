@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/bootstrap-4.6.2-dist/css/bootstrap.min.css" > 
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/pwdUpdate.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/pwdUpdateEnd.css" />
 
 
 <jsp:include page="../header.jsp"/>
@@ -27,7 +27,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     
-    $("button.btn-success").click(function(){
+    $("button.btn-info").click(function(){
        
        const pwd = $("input:password[name='pwd']").val();
        const pwd2 = $("input:password[id='pwd2']").val();
@@ -36,6 +36,7 @@ $(document).ready(function(){
           alert("암호가 일치하지 않습니다.");
           $("input:password[name='pwd']").val("");
           $("input:password[id='pwd2']").val("");
+          $("input:password[name='pwd']").focus();
           return;
        }
        
@@ -53,65 +54,58 @@ $(document).ready(function(){
                 return; // 종료
             }
             else {
-               // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
-               const frm = document.pwdUpdateEndFrm;
-               frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.ice";
-               frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
-               frm.submit();
+                // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
+                const frm = document.pwdUpdateEndFrm;
+                frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.ice";
+                frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
+                frm.submit();
                
             }
        }
-    });// end of $("button.btn-success").click(function(){})
+    });// end of $("button.btn-success").click(function(){})-------------
     
-    
- }); // end of $(document).ready(function(){})
-
-
+ }); // end of $(document).ready(function(){})-------------
 </script>
 
 
-
-
-<div>
-비밀번호 변경 화면이 나와야 할 자리... 인데 밑에 c:if 가 안먹는건지, ${requestScope.method == 'GET'} 이 안먹는건지.. 화면이 안뜬다
-</div>
-
-
-
-<%-- get 방식일 때의 form 태그 --%>
-<c:if test="${not empty sessionScope.userid}" >
-  <form name="pwdUpdateEndFrm">
-  
-  	<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 10%; padding: 0 5% 5% 0;"/>
-    <h2 style="font-weight: bold; margin-bottom: 2%; display: inline-block;">비밀번호 변경</h2>
-    <p style="margin: 7% 0 15% 0; color: gray;">새롭게 지정할 비밀번호를 입력해주세요.</p>
-  
-    <div id="inputBox">
-      	
-      <div class="input-form-box">
-      	<span style="font-size: 13pt; color: #262626;">새 비밀번호</span>
-      	<input type="password" name="pwd" class="form-control" placeholder="8~16자 영문자, 숫자, 특수문자 조합" />
-      </div>
-      
-      <div class="input-form-box">
-      	<span style="font-size: 13pt; color: #262626;">새 비밀번호 확인</span>
-      	<input type="password" id="pwd2" class="form-control" placeholder="비밀번호 재입력"/>
-      </div>
-      
-      <%-- 새로운 암호 입력했을 때 --%>
-      <input type="hidden" name="userid" value="${requestScope.userid}"/>  
-      
-      <div class="button-box" style="margin-top: 12%;" >
-        <button type="button" class="btn btn-light btn-xs" style="width: 20%;">초기화</button>
-        <button type="button" class="btn btn-success btn-xs" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
-      </div>
-    </div>
-  </form>
+<%-- userid 가 넘어온 경우에 비밀번호 변경 뷰단 띄움 --%>
+<c:if test="${not empty requestScope.userid}" >
+ 	<form name="pwdUpdateEndFrm">
+ 	
+  		<div id="containerPwd" class="mt-5">
+			<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 11%; padding: 0 3% 3% 0; border: solid 0px red;"/>
+			<h2 style="font-weight: bold; display: inline-block;">비밀번호 변경</h2>
+			<p style="margin: 3% 0 10% 0; color: gray;">새롭게 지정할 비밀번호를 입력해주세요.</p>
+			
+			<div id="inputBox">
+			  	
+			  	<%-- 비밀번호 입력받는 폼 --%>
+				<div class="input-form-box">
+			  		<span style="font-size: 13pt; color: #262626;">새 비밀번호</span>
+					<input type="password" name="pwd" class="form-control" placeholder="8~16자 영문자, 숫자, 특수문자 조합" />
+				</div>
+			
+				<div class="input-form-box">
+					<span style="font-size: 13pt; color: #262626;">새 비밀번호 확인</span>
+					<input type="password" id="pwd2" class="form-control" placeholder="비밀번호 재입력"/>
+				</div>
+			
+				<%-- 새로운 암호 입력했을 때 --%>
+				<input type="hidden" name="userid" value="${requestScope.userid}"/>  
+				
+				<div class="button-box" style="margin-top: 15%;" >
+					<button type="button" class="btn btn-light btn-xs" style="width: 20%;">초기화</button>
+					<button type="button" class="btn btn-info btn-xs" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
+				</div>
+			</div>
+	    </div>
+	    
+	</form>
 </c:if>
 
 
-<%-- post 방식일 때의 form 태그 --%>
-<c:if test="${empty sessionScope.userid}" >
+<%-- if 문의 조건에 뭘 넣어야할까.... --%>
+<c:if test="${requestScope.method = 'POST'}" >
    <div style="text-align: center; font-size: 14pt; color: navy;">
       <c:if test="${requestScope.n == 1}">
          사용자 ID ${requestScope.userid}님의 비밀번호가 새로이 변경되었습니다.
