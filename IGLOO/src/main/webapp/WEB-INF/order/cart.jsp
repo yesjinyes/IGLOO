@@ -47,6 +47,12 @@
 	  	<label class="form-check-label ml-5" for="Allchecked">
 	    	전체 선택
 	  	</label>
+		<label class="ml-5 my-auto">
+			<span id="cartTotalprice" style="display:none;">${requestScope.totalprice}</span>
+			총 금액 : 
+			<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+			원
+		</label>
 	</div>
 	
 	<div id="cartview" class="col">
@@ -102,6 +108,7 @@
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
 								<div id="cartno" style="display:none;">${cartList.cartno}</div>	<%-- 숨길 항목 --%>
+								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
 									<i class="fa-solid fa-minus"></i>
@@ -116,8 +123,8 @@
 						<%-- 금액 --%>
 						<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div>
-								<input type="text" value="${cartList.product.price}" />
-								<span class="resultprice">${cartList.product.price}</span>	<%-- 수량 * 제품가격 --%>
+								<%-- 수량 * 제품가격 --%>
+								<div class="choiceproductprice">${cartList.product.price * cartList.count}</div>
 							</div>
 						</div>
 					</div>
@@ -134,7 +141,7 @@
 		<div class="row justify-content-end">
 			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
 			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">
-				<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+				<span class="totalPrice">0</span>
 				원
 			</div>
 			<div class="mb-5"></div>
@@ -155,8 +162,8 @@
 	  	</p>
 	  	&nbsp;&nbsp;
 	    <p class="my-auto p-0 col-md-3">
-	    	<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
-	    	원
+	    	<span class="navtotalPrice">0</span>
+			원
 	    </p>
 		<button onclick="javascript:continueOrder()" type="button" style="font-weight: bold; font-size:15pt;" class="orderbtn btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
 	</nav>
