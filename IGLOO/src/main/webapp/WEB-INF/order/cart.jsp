@@ -50,7 +50,7 @@
 		<label class="ml-5 my-auto">
 			<span id="cartTotalprice" style="display:none;">${requestScope.totalprice}</span>
 			총 금액 : 
-			<span>0</span>
+			<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
 			원
 		</label>
 	</div>
@@ -124,7 +124,8 @@
 						<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div>
 								<%-- 수량 * 제품가격 --%>
-								<div class="choiceproductprice">${cartList.product.price * cartList.count}</div>
+								<div class="choiceproductprice" style="display:none;">${cartList.product.price * cartList.count}</div>
+								<fmt:formatNumber value="${cartList.product.price * cartList.count}" pattern="###,###" />
 							</div>
 						</div>
 					</div>

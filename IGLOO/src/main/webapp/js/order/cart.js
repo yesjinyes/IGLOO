@@ -16,8 +16,9 @@ $(document).ready(function() {
         if($("input[name='choicemenu']").prop("checked") == true){
 
             let price = $(this).parent().find("span#cartTotalprice").text();
+            price = Number(price);
             // alert("확인용 price : " + price);
-
+            
             $("span.totalPrice").text(price.toLocaleString());
             $("span.navtotalPrice").text(price.toLocaleString());
 
@@ -81,6 +82,34 @@ $(document).ready(function() {
             $("span.choiceCnt").html(Number(checkboxcnt) - 1);
         }
 
+        // === 금액 변동시키기 === //
+        if($(this).prev().prop("checked") == false){
+            let choiceproductprice = $(this).find("div.choiceproductprice").text();
+            choiceproductprice = choiceproductprice.replaceAll(",","");
+            // alert(choiceproductprice);
+
+            let totalPrice = $("span.totalPrice").text();
+            totalPrice = totalPrice.replaceAll(",","");
+            // alert(totalPrice);
+
+            let Orderprice = Number(totalPrice) + Number(choiceproductprice)
+            $("span.totalPrice").text(Orderprice.toLocaleString());
+            $("span.navtotalPrice").text(Orderprice.toLocaleString());
+        }
+        else{
+            let choiceproductprice = $(this).find("div.choiceproductprice").text();
+            choiceproductprice = choiceproductprice.replaceAll(",","");
+            // alert(choiceproductprice);
+
+            let totalPrice = $("span.totalPrice").text();
+            totalPrice = totalPrice.replaceAll(",","");
+            // alert(totalPrice);
+
+            let Orderprice = Number(totalPrice) - Number(choiceproductprice)
+            $("span.totalPrice").text(Orderprice.toLocaleString());
+            $("span.navtotalPrice").text(Orderprice.toLocaleString());
+        }
+       
     })  // end of $("div.choiceOneMenu").click(function() {-------------
 
     // === 제품삭제 버튼 클릭되게 하기 === //
@@ -110,7 +139,7 @@ $(document).ready(function() {
             let cartno = $(this).parent().find("div#cartno").text();
             $("form[name='sendinfo'] > input[name='cartno']").val(cartno);
             // alert("확인용 : cartno" + cartno);
-
+/*
             // === 금액 변동 시키기 === //
             let Productprice = $(this).parent().find("span.Productprice").text();
             // alert("확인용 : Productprice : " + Productprice);
@@ -121,7 +150,7 @@ $(document).ready(function() {
             choiceproductprice = (Number(count) - 1) * Number(Productprice);
 
             $(this).parent().parent().parent().find("div.choiceproductprice").text(choiceproductprice.toLocaleString());
-
+*/
         }
         
     })  // end of $("div.choiceOneMenu > div.selectMenucnt button.btnminus").click(function(){----
@@ -143,7 +172,7 @@ $(document).ready(function() {
         let cartno = $(this).parent().find("div#cartno").text();
         $("form[name='sendinfo'] > input[name='cartno']").val(cartno);
         // alert("확인용 : cartno" + cartno);
-
+/*
         // === 금액 변동 시키기 === //
         let Productprice = $(this).parent().find("span.Productprice").text();
         Productprice = Productprice.replaceAll(",","");
@@ -156,7 +185,7 @@ $(document).ready(function() {
         // alert("확인용 : choiceproductprice : " + choiceproductprice);
 
         $(this).parent().parent().parent().find("div.choiceproductprice").text(choiceproductprice.toLocaleString()); 
-
+*/
     })  // end of $("div.choiceOneMenu > div.selectMenucnt button.btnplus").click(function(){-------
 
     $("button.orderbtn").click(function(){
