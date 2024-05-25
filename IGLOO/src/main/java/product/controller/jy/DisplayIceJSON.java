@@ -44,19 +44,19 @@ public class DisplayIceJSON extends AbstractController {
 		String end = String.valueOf(Integer.parseInt(start) + Integer.parseInt(len) - 1); 
 		paraMap.put("end", end);      // end => start + len - 1; 
                                       // end    "8"   "16"  "24"  "32"  "40"
-		paraMap.put("menuAlign", menuAlign);
+		//paraMap.put("menuAlign", menuAlign);
 		
-		List<TasteVO> productList = mdao.selectIceAll(paraMap); 
+		//List<TasteVO> productList = mdao.selectIceAll(paraMap); //8개씩 자르고 정렬
 		
-		request.setAttribute("menuAlign", productList);
-		System.out.println(menuAlign);
+		//request.setAttribute("menuAlign", productList);
+		//System.out.println(menuAlign);
 		
-		super.setViewPage("/WEB-INF/product/iceMenu.jsp");
-		
-		
+		//super.setViewPage("/WEB-INF/product/iceMenu.jsp");
 		
 		
-		List<TasteVO> icejsonList = mdao.icejsonList(paraMap);
+		
+		
+		List<TasteVO> icejsonList = mdao.icejsonList(paraMap); //8개씩 자르고 정보
 		
 		
 		JSONArray jsonArr = new JSONArray(); // []

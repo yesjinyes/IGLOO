@@ -87,87 +87,87 @@ public class MenuDAO_imple implements MenuDAO {
 	
 	
 	//정렬
-	@Override
-	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
-		
-		List<TasteVO> productList = new ArrayList<>();
-		
-		
-		
-		try {
-			conn = ds.getConnection();
-			
-			String sql = " select rno, tastename, review_cnt "
-					+ "    from "
-					+ "    ( "
-					+ "        select rownum rno, tastename, review_cnt "
-					+ "        from "
-					+ "        ( "
-					+ "         SELECT TASTENAME, CNT AS REVIEW_CNT "
-					+ "         FROM "
-					+ "         ( "
-					+ "             SELECT V.TASTENAME, COUNT(*) AS CNT "
-					+ "             FROM "
-					+ "             ( "
-					+ "                 SELECT A.ORDERDETAILNO, D.TASTENAME "
-					+ "                 FROM TBL_ORDERDETAIL A "
-					+ "                 JOIN TBL_SELECTLIST B "
-					+ "                 ON A.FK_SELECTNO = B.SELECTNO "
-					+ "                 JOIN TBL_TASTESELECT C"
-					+ "                 ON B.SELECTNO = C.FK_SELECTNO "
-					+ "                 JOIN TBL_TASTE D "
-					+ "                 ON C.FK_TASTENO = D.TASTENO "
-					+ "             ) V "
-					+ "             GROUP BY V.TASTENAME "
-					+ "            ) T ";
-					
-			
-			
-			
-			String colname = paraMap.get("menuAlign");
-			
-			
-			if("name".equals(colname) ) { //메뉴정렬이 가나다순 인 경우 
-				sql += " order by TASTENAME asc";
-			}
-			
-			else if("order".equals(colname) ) { //메뉴정렬이 인기순 인 경우 
-				sql += " order by REVIEW_CNT DESC";
-			}
-			
-			sql += "         ) "
-				+ "     )"
-				+ "     WHERE rno between ? and ? ";
-			
-			
-			pstmt = conn.prepareStatement(sql);
-	
-			
-			pstmt.setString(1, paraMap.get("start"));
-			pstmt.setString(2, paraMap.get("end"));
-			
-			rs = pstmt.executeQuery();
-			
-			rs.next();
-				
-			while(rs.next()) {
-				
-				TasteVO tvo = new  TasteVO();
-				
-				tvo.setRno(rs.getInt(1));
-				tvo.setTastename(rs.getString(2));
-				tvo.setCnt(rs.getInt(3));
-				
-				productList.add(tvo);
-				
-			}
-			
-		} finally {
-			close();
-		}
-		
-		return productList;		
-	}
+//	@Override
+//	public List<TasteVO> selectIceAll(Map<String, String> paraMap) throws Exception {
+//		
+//		List<TasteVO> productList = new ArrayList<>();
+//		
+//		
+//		
+//		try {
+//			conn = ds.getConnection();
+//			
+//			String sql = " select rno, tastename, review_cnt "
+//					+ "    from "
+//					+ "    ( "
+//					+ "        select rownum rno, tastename, review_cnt "
+//					+ "        from "
+//					+ "        ( "
+//					+ "         SELECT TASTENAME, CNT AS REVIEW_CNT "
+//					+ "         FROM "
+//					+ "         ( "
+//					+ "             SELECT V.TASTENAME, COUNT(*) AS CNT "
+//					+ "             FROM "
+//					+ "             ( "
+//					+ "                 SELECT A.ORDERDETAILNO, D.TASTENAME "
+//					+ "                 FROM TBL_ORDERDETAIL A "
+//					+ "                 JOIN TBL_SELECTLIST B "
+//					+ "                 ON A.FK_SELECTNO = B.SELECTNO "
+//					+ "                 JOIN TBL_TASTESELECT C"
+//					+ "                 ON B.SELECTNO = C.FK_SELECTNO "
+//					+ "                 JOIN TBL_TASTE D "
+//					+ "                 ON C.FK_TASTENO = D.TASTENO "
+//					+ "             ) V "
+//					+ "             GROUP BY V.TASTENAME "
+//					+ "            ) T ";
+//					
+//			
+//			
+//			
+//			String colname = paraMap.get("menuAlign");
+//			
+//			
+//			if("name".equals(colname) ) { //메뉴정렬이 가나다순 인 경우 
+//				sql += " order by TASTENAME asc";
+//			}
+//			
+//			else if("order".equals(colname) ) { //메뉴정렬이 인기순 인 경우 
+//				sql += " order by REVIEW_CNT DESC";
+//			}
+//			
+//			sql += "         ) "
+//				+ "     )"
+//				+ "     WHERE rno between ? and ? ";
+//			
+//			
+//			pstmt = conn.prepareStatement(sql);
+//	
+//			
+//			pstmt.setString(1, paraMap.get("start"));
+//			pstmt.setString(2, paraMap.get("end"));
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			rs.next();
+//				
+//			while(rs.next()) {
+//				
+//				TasteVO tvo = new  TasteVO();
+//				
+//				tvo.setRno(rs.getInt(1));
+//				tvo.setTastename(rs.getString(2));
+//				tvo.setCnt(rs.getInt(3));
+//				
+//				productList.add(tvo);
+//				
+//			}
+//			
+//		} finally {
+//			close();
+//		}
+//		
+//		return productList;		
+//	}
 
 	
 	
@@ -184,10 +184,18 @@ public class MenuDAO_imple implements MenuDAO {
 		try {
 			 conn = ds.getConnection();
 			 
-			 String sql = " select tasteno, tastename, tasteimg, ingredients "  
-			 		    + " from tbl_taste ";
-			 		    
+			 String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
+						+ " FROM "
+						+ " ( "
+						+ "   select row_number() over(order by tasteno desc) AS RNO "
+						+ " 		, tasteno ,tastename, tasteimg , ingredients "
+						+ "    from tbl_taste "
+						+ " ) V "
+						+ " WHERE RNO between ? and ? ";
+			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("start"));
+			pstmt.setString(2, paraMap.get("end"));
 					
 			rs = pstmt.executeQuery();
 						
