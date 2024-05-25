@@ -11,12 +11,12 @@ $(document).ready(function() {
 
         $("span.choiceCnt").html(checkboxcnt);
 
-        alert("확인용 checkboxtotal 체크유무 : " + $("input[name='choicemenu']").prop("checked"));
+        // alert("확인용 checkboxtotal 체크유무 : " + $("input[name='choicemenu']").prop("checked"));
 
         if($("input[name='choicemenu']").prop("checked") == true){
 
             let price = $(this).parent().find("span#cartTotalprice").text();
-            alert("확인용 price : " + price);
+            // alert("확인용 price : " + price);
 
             $("span.totalPrice").text(price.toLocaleString());
             $("span.navtotalPrice").text(price.toLocaleString());
@@ -29,90 +29,80 @@ $(document).ready(function() {
 
     })  // end of $("div.totalSelect > input#Allchecked").change(function(){------
 
-    $("div.choiceOneMenu").click(function() {
-        
-        // === 체크박스가 아닌 그림이나 글씨 등 옆쪽 선택시 체크박스 선택되게 하기 === //
-        var checkbox = $(this).prev("input[type='checkbox']");
+    // === 선택에 따른 체크박스 변동 === //
+    $("div.choiceMenu").click(function(){
+
+        let checkbox = $(this).find("input[type='checkbox']");
         checkbox.prop("checked", !checkbox.prop("checked"));
 
-        // === 체크박스 체크유무 확인 === //
-        alert("확인용 checkbox 체크유무 : " + checkbox.prop("checked"));
+    })  // end of $(div.choiceMenu).click(function(){------------
 
-        // === 각 체크박스 선택에 따른 가격변동 === //
-        if(checkbox.prop("checked") == true){
-            let cartno = $(this).parent().find("div#cartno").text();
-            // alert("확인용 cartno : " + cartno);
-
-            let price = $(this).parent().find("span.resultprice").text();
-            // alert("확인용 price : " + price);
-
-            let totalPrice = $("span.totalPrice").text();
-            totalPrice = totalPrice.replaceAll(",","");
-            // alert("확인용 totalPrice : " + totalPrice);
-
-            totalPrice = Number(totalPrice) + Number(price);
-
-            $("span.totalPrice").text(totalPrice.toLocaleString());
-            $("span.navtotalPrice").text(totalPrice.toLocaleString());
-
-        }
-        else{
-            let price = $(this).parent().find("span.resultprice").text();
-
-            let totalPrice = $("span.totalPrice").text();
-            totalPrice = totalPrice.replaceAll(",","");
-
-            totalPrice = Number(totalPrice) - Number(price);
-
-            $("span.totalPrice").text(totalPrice.toLocaleString());
-            $("span.navtotalPrice").text(totalPrice.toLocaleString());
-        }
+    $("div.choiceOneMenu").click(function(e) {
 
         // === 하위 체크박스 여부의 따라 전체 체크박스 체크 변동 === //
         let checkboxlist= document.querySelectorAll("input[name='choicemenu']");
 
-        let is_all_checked = true;
+        let truecheckcnt = 0;
+        let falsecheckcnt = 0;
+        let check = 0;
 
+        // === 현재 상태 false -> true 로 변동될 예정 === //
+        if($(this).prev().prop("checked") == false){
+            check = 1;
+        }   
+    
         for(let checkbox of checkboxlist){
-
+            
+            // alert($(checkbox).prop("checked"));     // 변동하기 전 체크박스 상태
             if(!checkbox.checked){
                 $("div.totalSelect > input#Allchecked").prop("checked",false);
-                is_all_checked = false;
-                break;
+                falsecheckcnt += 1;
             }
-
-            is_all_checked = true;
+            else{
+                truecheckcnt += 1;
+            }
 
         }   // end of for----------
 
-        if(is_all_checked){
+        if(check == 1 && truecheckcnt == 1 && falsecheckcnt == 1){
             $("div.totalSelect > input#Allchecked").prop("checked",true);
+        }
+        else if(truecheckcnt == 2 || falsecheckcnt == 2){
+            $("div.totalSelect > input#Allchecked").prop("checked",false);
         }
 
         // === 체크박스의 체크한 수량 적용시키기 === //
         let checkboxcnt = $("input:checkbox[name='choicemenu']:checked").length;
 
-        $("span.choiceCnt").html(checkboxcnt);
+        if($(this).prev().prop("checked") == false){
+            $("span.choiceCnt").html(Number(checkboxcnt) + 1);
+        }
+        else{
+            $("span.choiceCnt").html(Number(checkboxcnt) - 1);
+        }
 
     })  // end of $("div.choiceOneMenu").click(function() {-------------
 
     // === 제품삭제 버튼 클릭되게 하기 === //
     $("div.choiceOneMenu > div.menuclick button.delete").click(function(){
         alert("삭제버튼 클릭");
-        let checkbox = $("div.choiceOneMenu").prev("input[type='checkbox']");
-        checkbox.prop("checked", false);
-    })  // end of $("div.choiceOneMenu > div.menuclick i").click(function(){---------
+        
+        // === 다른 체크박스 선택의 영향을 주지 않게하기(확인용) === //
+        let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");
+        choiceMenucheckbox.prop("checked", false);
 
-    // === 수량변경 버튼을 클릭할 시 무조건 제품선택되게 하기 === //
-    $("div.choiceOneMenu > div.selectMenucnt button").click(function(){
-        let checkbox = $("div.choiceOneMenu").prev("input[type='checkbox']");
-        checkbox.prop("checked", false);
-    })      // end of $("div.choiceOneMenu > div.selectMenucnt button").click(function(){-----
+    })  // end of $("div.choiceOneMenu > div.menuclick i").click(function(){---------
 
     // === 수량 마이너스 버튼 클릭했을 때 변경 === //
     $("div.choiceOneMenu > div.selectMenucnt button.btnminus").click(function(){
+
+        // === 수량변경 버튼을 클릭할 시 무조건 제품선택되게 하기 === //
+        // === 다른 체크박스 선택의 영향을 주지 않게하기 === //
+        let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");
+        choiceMenucheckbox.prop("checked", false);
+
         let count = $(this).next().text();
-        alert("확인용 이전 수량 : " + count);
+        // alert("확인용 이전 수량 : " + count);
         if(count > 1){
             $(this).next().text(Number(count) - 1);
             $("form[name='sendinfo'] > input[name='count']").val(Number(count) - 1);
@@ -122,29 +112,28 @@ $(document).ready(function() {
             // alert("확인용 : cartno" + cartno);
 
             // === 금액 변동 시키기 === //
-        let Productprice = $(this).parent().find("span.Productprice").text();
-        // alert("확인용 : Productprice : " + Productprice);
+            let Productprice = $(this).parent().find("span.Productprice").text();
+            // alert("확인용 : Productprice : " + Productprice);
 
-        let choiceproductprice = $(this).parent().parent().parent().find("div.choiceproductprice").text();
-        // alert("확인용 : choiceproductprice : " + choiceproductprice);
+            let choiceproductprice = $(this).parent().parent().parent().find("div.choiceproductprice").text();
+            // alert("확인용 : choiceproductprice : " + choiceproductprice);
 
-        choiceproductprice = (Number(count) - 1) * Number(Productprice);
+            choiceproductprice = (Number(count) - 1) * Number(Productprice);
 
-        $(this).parent().parent().parent().find("div.choiceproductprice").text(choiceproductprice.toLocaleString());
+            $(this).parent().parent().parent().find("div.choiceproductprice").text(choiceproductprice.toLocaleString());
 
-        let totalPrice = $("span.totalPrice").text();
-        totalPrice = totalPrice.replaceAll(",","");
-        
-        totalPrice = Number(totalPrice) - Number(Productprice);
-        
-
-        $("span.totalPrice").text(totalPrice.toLocaleString());
-        $("span.navtotalPrice").text(totalPrice.toLocaleString());
         }
+        
     })  // end of $("div.choiceOneMenu > div.selectMenucnt button.btnminus").click(function(){----
 
     // === 수량 플러스 버튼 클릭했을 때 변경 === //
     $("div.choiceOneMenu > div.selectMenucnt button.btnplus").click(function(){
+
+        // === 수량변경 버튼을 클릭할 시 무조건 제품선택되게 하기 === //
+        // === 다른 체크박스 선택의 영향을 주지 않게하기 === //
+        let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");
+        choiceMenucheckbox.prop("checked", false);
+        
         let count = $(this).prev().text();
         // alert("확인용 이전 수량 : " + count);
         
@@ -157,29 +146,18 @@ $(document).ready(function() {
 
         // === 금액 변동 시키기 === //
         let Productprice = $(this).parent().find("span.Productprice").text();
+        Productprice = Productprice.replaceAll(",","");
         // alert("확인용 : Productprice : " + Productprice);
 
         let choiceproductprice = $(this).parent().parent().parent().find("div.choiceproductprice").text();
-        // alert("확인용 : choiceproductprice : " + choiceproductprice);
+        choiceproductprice = choiceproductprice.replaceAll(",","");
 
         choiceproductprice = (Number(count) + 1) * Number(Productprice);
+        // alert("확인용 : choiceproductprice : " + choiceproductprice);
 
-        $(this).parent().parent().parent().find("div.choiceproductprice").text(choiceproductprice.toLocaleString());
+        $(this).parent().parent().parent().find("div.choiceproductprice").text(choiceproductprice.toLocaleString()); 
 
-        let totalPrice = $("span.totalPrice").text();
-        totalPrice = totalPrice.replaceAll(",","");
-
-        if(count == 1){
-            totalPrice = Number(totalPrice) + choiceproductprice;
-        }
-        else{
-            totalPrice = Number(totalPrice) + Number(Productprice);
-        }
-
-        $("span.totalPrice").text(totalPrice.toLocaleString());
-        $("span.navtotalPrice").text(totalPrice.toLocaleString());
-
-    })  // end of $("div.choiceOneMenu > div.selectMenucnt button.btnminus").click(function(){----
+    })  // end of $("div.choiceOneMenu > div.selectMenucnt button.btnplus").click(function(){-------
 
     $("button.orderbtn").click(function(){
         continueOrder();

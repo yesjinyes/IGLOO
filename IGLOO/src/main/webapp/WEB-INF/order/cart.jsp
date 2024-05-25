@@ -50,7 +50,7 @@
 		<label class="ml-5 my-auto">
 			<span id="cartTotalprice" style="display:none;">${requestScope.totalprice}</span>
 			총 금액 : 
-			<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+			<span>0</span>
 			원
 		</label>
 	</div>
@@ -59,9 +59,9 @@
 		<div id="choiceTotalMenu" class="custom-control custom-checkbox">
 			<c:forEach var="cartList" items="${requestScope.cartList}" varStatus="cartStatus">
 				<%-- 하나의 선택 메뉴 --%>
-				<div>
+				<div class="choiceMenu">
 					<%-- 하나의 선택 버튼 --%>
-					<input name="choicemenu" class="custom-control-input" type="checkbox" value="" />
+					<input id="${cartList.cartno}" name="choicemenu" class="custom-control-input test" type="checkbox" value="" />
 					<div class="choiceOneMenu row custom-control-label">
 						<%-- 선택한 메뉴 이미지 --%>
 						<div class="menuclick col-xl-2 col-lg-2 col-md-2">
@@ -107,7 +107,7 @@
 						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
-								<div id="cartno" style="display:none;">${cartList.cartno}</div>	<%-- 숨길 항목 --%>
+								<div id="cartno" style="display:none;">${cartList.cartno}</div>
 								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
