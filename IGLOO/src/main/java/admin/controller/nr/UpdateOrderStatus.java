@@ -3,6 +3,8 @@ package admin.controller.nr;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import admin.model.nr.AdminDAO;
 import admin.model.nr.AdminDAO_imple;
 import common.controller.AbstractController;
@@ -33,16 +35,24 @@ public class UpdateOrderStatus extends AbstractController {
 		paramap.put("orderdetailno", orderdetailno);
 		paramap.put("pickupTime", pickupTime);
 		paramap.put("status", status);
-		
+
 		int n = adao.updateOrder(paramap);
 		
 		if(n==1) {
-			System.out.println("성공");
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("n", n);
+			String json = jsonObj.toString();
+			
+			request.setAttribute("json", json);
+	         
+	        super.setRedirect(false);
+	        super.setViewPage("/WEB-INF/jsonview.jsp");
 		}
 		
 		else {
 			System.out.println("실패");
 		}
+
 	}
 
 }

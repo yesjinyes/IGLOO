@@ -262,8 +262,8 @@ public class ProductRegister extends AbstractController {
 		              </script>   
                   */                  
                   // 입력한 내용에서 엔터는 <br>로 변환하기
-                  productdetail = productdetail.replaceAll("\r\n","<br>");
                   /*
+                  productdetail = productdetail.replaceAll("\r\n","<br>");
                   ProductVO pvo = new ProductVO();
                   pvo.setProductname(productname);   // 제품명
                   pvo.setProductcodeno(productcodeno); // 제품명
@@ -322,8 +322,7 @@ public class ProductRegister extends AbstractController {
                   request.setAttribute("json", json);
                   
                   super.setRedirect(false);
-                  super.setViewPage("/WEB-INF/jsonview.jsp"); 
-                  */
+                  super.setViewPage("/WEB-INF/jsonview.jsp"); */
          }// else { // "POST" 이라면--------------------------------
          
       }
