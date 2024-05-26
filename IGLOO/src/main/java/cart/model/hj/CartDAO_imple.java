@@ -1518,7 +1518,8 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "    FROM tbl_cart "
 	         		+ " ) "
 	         		+ " ON fk_selectno = selectno "
-	         		+ " WHERE O.fk_userid = ? ";
+	         		+ " WHERE O.fk_userid = ? "
+	         		+ " order by cartno ";
 	         		
 
 	         pstmt = conn.prepareStatement(sql); 

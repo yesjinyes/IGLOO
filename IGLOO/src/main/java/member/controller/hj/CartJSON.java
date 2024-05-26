@@ -38,7 +38,7 @@ public class CartJSON extends AbstractController {
 	      
 	        String cartno = request.getParameter("cartno");
 	        String count = request.getParameter("count");
-	         
+	        
 	        // System.out.println("확인용 cartno : " + cartno);
 	        // System.out.println("확인용 count : " + count);
 	         
@@ -61,28 +61,34 @@ public class CartJSON extends AbstractController {
 		        if(n==1){	// 업데이트 성공한 경우
 		        	// === 업데이트 된 장바구니리스트부르기 === //
 		        	cartList = cdao.refreshCartlist(paraMap);
+		        	// System.out.println(cartList.size());
+		        	
+		        	int totalprice = 0;
+			        for(int i=0; i<cartList.size(); i++) {
+			        	
+			        	int result_count = cartList.get(i).getCount();
+						int result_price = cartList.get(i).getProduct().getPrice();
+						// System.out.println("확인용 result_count : " + result_count);
+						// System.out.println("확인용 result_price : " + result_price);
+			        	totalprice += result_count * result_price;
+			        
+			        	// System.out.println(totalprice);
+			        	if(Integer.parseInt(cartno) == cartList.get(i).getCartno()) {
+			        		// System.out.println(cartno);
+			        		jsonObj.put("cartno", cartList.get(i).getCartno());
+			        		jsonObj.put("count", result_count);
+			        		jsonObj.put("price", result_price);
+			        	}
+			        }	// end of for-----------
+			        jsonObj.put("totalprice", totalprice);
 		        }
 	        }catch(SQLException e) {
 	        	e.printStackTrace();
 	        }
 	        
-	        int totalprice = 0;
-	        for(int i=0; i<cartList.size(); i++) {
-	        	
-	        	int result_count = cartList.get(i).getCount();
-				int result_price = cartList.get(i).getProduct().getPrice();
-				
-	        	totalprice += result_count * result_price;
 	        
-	        	if(Integer.parseInt(cartno) == cartList.get(i).getCartno()) {
-	        		// System.out.println(cartno);
-	        		jsonObj.put("cartno", cartList.get(i).getCartno());
-	        		jsonObj.put("count", result_count);
-	        		jsonObj.put("price", result_price);
-	        	}
-	        }
 	        
-	        jsonObj.put("totalprice", totalprice);
+	        
 	        
 	        jsonArr.put(jsonObj);
 	        

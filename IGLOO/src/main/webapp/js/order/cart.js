@@ -71,7 +71,8 @@ $(document).ready(function() {
         for(let checkbox of checkboxlist){
             cnt = checkboxlist.length;
             // alert(checkboxlist.length);             // 체크박스 길이
-            alert($(checkbox).prop("checked"));     // 변동하기 전 체크박스 상태
+            
+            // alert($(checkbox).prop("checked"));     // 변동하기 전 체크박스 상태
             if(!checkbox.checked){
                 $("div.totalSelect > input#Allchecked").prop("checked",false);
                 falsecheckcnt += 1;
@@ -238,6 +239,7 @@ function submitfrm(){
             // alert("jsonCheck");
 
             $.each(json, function(index, item){
+
                 v_html = Number(`${item.totalprice}`).toLocaleString();
                 $("span.cartTotalprice").html(v_html);
 
