@@ -232,9 +232,7 @@ function submitfrm(){
         , data:{"searchorderList":searchorderList
             , "orderListPeriod":orderListPeriod
         }
-        // , async : true  // 돌아가는동안 화면정지
-        , dataType:"json"    // 이전 설정
-        // , dataType:"value"   // default 값
+        , dataType:"json"
         , success:function(json){
             const str_json = JSON.stringify(json);  // json 객체를 string 타입으로 변경
             // console.log("확인용 str_json : " + str_json);

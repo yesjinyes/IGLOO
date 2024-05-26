@@ -18,6 +18,7 @@ import order.domain.OrderVO;
 import order.domain.OrderdetailVO;
 import product.domain.ProductVO;
 import product.domain.TasteVO;
+import util.security.hj.Sha256;
 
 public class CartDAO_imple implements CartDAO {
 
@@ -1421,6 +1422,333 @@ public class CartDAO_imple implements CartDAO {
 		return orderdetailList;
 		
 	}	// end of public List<OrderdetailVO> searchorderListPeriod(Map<String, String> paraMap) throws SQLException-------
+
+/////////////////////////////////////////////////////////////////////////	
+	
+	// === 카트번호에 따른 수량 업데이트 해주기 === //
+	@Override
+	public int updateCartlist(Map<String, String> paraMap) throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();	
+			
+			String sql = " update tbl_cart set count = ? "
+					+ " where fk_userid = ? and cartno = ? "; 
+					
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("count"));
+			pstmt.setString(2, paraMap.get("userid"));
+			pstmt.setString(3, paraMap.get("cartno"));
+			
+	        result = pstmt.executeUpdate();		// return 타입은 int
+	        
+		} finally {
+			close();
+		}	// end of try~finally---------------------
+		
+		return result;
+		
+	}	// end of public int updateCartlist(Map<String, String> paraMap) throws SQLException---
+	
+//////////////////////////////////////////////////////////////////////////////	
+		
+	// === 업데이트 된 장바구니리스트부르기 === //
+	@Override
+	public List<CartVO> refreshCartlist(Map<String, String> paraMap) throws SQLException {
+		
+		List<CartVO> cartList = new ArrayList<>();
+		
+		try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " SELECT cartno, O.fk_userid as userid, count, productname, price, productimg, tastename "
+	         		+ " FROM "
+	         		+ " ( "
+	         		+ "    SELECT fk_userid, selectno, productname, tastename, price, productimg "
+	         		+ "    FROM "
+	         		+ "    ( "
+	         		+ "        SELECT tasteselectno, fk_selectno, tastename "
+	         		+ "        FROM "
+	         		+ "        ( "
+	         		+ "            SELECT tasteselectno, fk_selectno, fk_tasteno "
+	         		+ "            FROM tbl_tasteselect "
+	         		+ "        ) "
+	         		+ "        JOIN "
+	         		+ "        ( "
+	         		+ "            SELECT tasteno, tastename "
+	         		+ "            FROM tbl_taste "
+	         		+ "        ) "
+	         		+ "        ON fk_tasteno = tasteno "
+	         		+ "    ) T "
+	         		+ "    JOIN "
+	         		+ "    ( "
+	         		+ "        SELECT selectno, fk_productcodeno, productname, price, fk_userid, productimg "
+	         		+ "        FROM "
+	         		+ "        ( "
+	         		+ "            SELECT selectno, fk_productcodeno, productname, price, fk_userid, productimg "
+	         		+ "            FROM "
+	         		+ "            ( "
+	         		+ "                SELECT productcodeno, productname, price, productimg "
+	         		+ "                FROM tbl_product "
+	         		+ "            ) "
+	         		+ "            JOIN "
+	         		+ "            ( "
+	         		+ "                SELECT selectno, fk_productcodeno, fk_userid "
+	         		+ "                FROM tbl_selectlist "
+	         		+ "            ) "
+	         		+ "            ON productcodeno = fk_productcodeno "
+	         		+ "        ) "
+	         		+ "        JOIN "
+	         		+ "        ( "
+	         		+ "            SELECT userid "
+	         		+ "            FROM tbl_member "
+	         		+ "        ) "
+	         		+ "        ON fk_userid = userid "
+	         		+ "    ) "
+	         		+ "    ON fk_selectno = selectno "
+	         		+ " ) O "
+	         		+ "    JOIN "
+	         		+ " ( "
+	         		+ "    SELECT fk_userid, cartno, COUNT, fk_selectno "
+	         		+ "    FROM tbl_cart "
+	         		+ " ) "
+	         		+ " ON fk_selectno = selectno "
+	         		+ " WHERE O.fk_userid = ? ";
+	         		
+
+	         pstmt = conn.prepareStatement(sql); 
+	         
+	         pstmt.setString(1, paraMap.get("userid"));
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         boolean start_flag = true;
+	         int cnt = 0;
+	         
+	         while(rs.next()) {
+	        	 
+	        	 String productname = rs.getString("productname");
+	        	 
+	        	 switch (productname) {
+	        	 case "파인트":
+					
+	        		tdto = null;
+	        		 
+					if(start_flag) {
+						start_flag = false;
+						cnt = 3;
+					
+						cdto = new CartVO();
+						cdto.setCartno(rs.getInt("cartno"));
+						cdto.setFk_userid(rs.getString("userid"));
+						cdto.setCount(rs.getInt("count"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setPrice(rs.getInt("price"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							cdto.setProduct(pdto);
+							cdto.setTastenamelist(tastenamelist);
+							
+							cartList.add(cdto);
+							
+							cnt = 0;
+							start_flag = true;
+							tdto = null;
+							pdto = null;
+							cdto = null;
+							
+						}
+					}
+					break;
+				case "쿼터":
+					tdto = null;
+					
+					if(start_flag) {
+						start_flag = false;
+						cnt = 4;
+					
+						cdto = new CartVO();
+						cdto.setCartno(rs.getInt("cartno"));
+						cdto.setFk_userid(rs.getString("userid"));
+						cdto.setCount(rs.getInt("count"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setPrice(rs.getInt("price"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							cdto.setProduct(pdto);
+							cdto.setTastenamelist(tastenamelist);
+							
+							cartList.add(cdto);
+							
+							cnt = 0;
+							start_flag = true;
+							
+							tdto = null;
+							pdto = null;
+							cdto = null;
+						}
+					}
+					break;
+				case "패밀리":
+					tdto = null;
+					
+					if(start_flag) {
+						start_flag = false;
+						cnt = 5;
+					
+						cdto = new CartVO();
+						cdto.setCartno(rs.getInt("cartno"));
+						cdto.setFk_userid(rs.getString("userid"));
+						cdto.setCount(rs.getInt("count"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setPrice(rs.getInt("price"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							cdto.setProduct(pdto);
+							cdto.setTastenamelist(tastenamelist);
+							
+							cartList.add(cdto);
+							
+							cnt = 0;
+							start_flag = true;
+							
+							tdto = null;
+							pdto = null;
+							cdto = null;
+						}
+					}				
+					break;
+				case "하프갤런":
+					tdto = null;
+					
+					if(start_flag) {
+						start_flag = false;
+						cnt = 6;
+					
+						cdto = new CartVO();
+						cdto.setCartno(rs.getInt("cartno"));
+						cdto.setFk_userid(rs.getString("userid"));
+						cdto.setCount(rs.getInt("count"));
+						
+						pdto = new ProductVO();
+						pdto.setProductname(rs.getString("productname"));
+						pdto.setPrice(rs.getInt("price"));
+						pdto.setProductimg(rs.getString("productimg"));
+						
+						tdto = new TasteVO();
+						tdto.setTastename(rs.getString("tastename"));
+						
+						tastenamelist = new ArrayList<>();
+						tastenamelist.add(tdto);
+						
+						cnt--;
+					}
+					else {
+						if(cnt > 1) {
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							cnt--;
+						}
+						else {	// cnt = 1 (마지막)
+							tdto = new TasteVO();
+							tdto.setTastename(rs.getString("tastename"));
+							tastenamelist.add(tdto);
+							
+							cdto.setProduct(pdto);
+							cdto.setTastenamelist(tastenamelist);
+							
+							cartList.add(cdto);
+							
+							cnt = 0;
+							start_flag = true;
+							
+							tdto = null;
+							pdto = null;
+							cdto = null;
+						}
+					}
+					break;
+	        	 }
+	         }
+	         
+	      } finally {
+	    	  close();
+	      }
+		return cartList;
+		
+	}	// end of public List<CartVO> refreshCartlist(Map<String, String> paraMap) throws SQLException {-------
+
+	
 
 	
 

@@ -24,6 +24,12 @@ public interface CartDAO {
 	// === 추출한 selectno 가지고 list 추출 === //
 	List<OrderdetailVO> finalSearchlist(String selecnoJoin) throws SQLException;
 
+	// === 카트번호에 따른 수량 업데이트 해주기 === //
+	int updateCartlist(Map<String, String> paraMap) throws SQLException;
+
+	// === 업데이트 된 장바구니리스트부르기 === //
+	List<CartVO> refreshCartlist(Map<String, String> paraMap)throws SQLException;
+
 	
 
 

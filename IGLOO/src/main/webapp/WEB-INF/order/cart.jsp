@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <%
     String ctxPath = request.getContextPath();
@@ -48,9 +47,8 @@
 	    	전체 선택
 	  	</label>
 		<label class="ml-5 my-auto">
-			<span id="cartTotalprice" style="display:none;">${requestScope.totalprice}</span>
 			총 금액 : 
-			<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+			<span class="cartTotalprice">${requestScope.totalprice}</span>
 			원
 		</label>
 	</div>
@@ -124,8 +122,7 @@
 						<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div>
 								<%-- 수량 * 제품가격 --%>
-								<div class="choiceproductprice" style="display:none;">${cartList.product.price * cartList.count}</div>
-								<fmt:formatNumber value="${cartList.product.price * cartList.count}" pattern="###,###" />
+								<span class="choiceproductprice">${cartList.product.price * cartList.count}</span>
 							</div>
 						</div>
 					</div>
@@ -173,8 +170,9 @@
 <%-- ======================================================================================= --%>
 
 <%-- 넘겨줄 정보 --%>
-<form name="sendinfo">
+<form name="sendinfo" style="display:none;">
 	<input type="text" name="cartno" value=""/>
+	<input type="text" name="prevCount" value=""/>
 	<input type="text" name="count" value=""/>
 </form>
 
