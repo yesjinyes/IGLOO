@@ -367,10 +367,10 @@ public class CartDAO_imple implements CartDAO {
 	         String sql = " SELECT ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ " FROM "
 	         		+ " ( "
-	         		+ " SELECT fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
+	         		+ " SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ "    FROM "
 	         		+ "    ( "
-	         		+ "        SELECT fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
+	         		+ "        SELECT selectno, fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename "
 	         		+ "        FROM "
 	         		+ "        ( "
 	         		+ "            SELECT selectno, fk_userid, productname, productimg, tastename "
@@ -425,7 +425,8 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "    FROM TBL_MEMBER "
 	         		+ " ) "
 	         		+ " ON fk_userid = userid "
-	         		+ " WHERE userid = ? ";
+	         		+ " WHERE userid = ? "
+	         		+ " order by selectno desc ";
 	         
 	         pstmt = conn.prepareStatement(sql); 
 	         
