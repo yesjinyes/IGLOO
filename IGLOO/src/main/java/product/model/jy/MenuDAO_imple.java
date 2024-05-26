@@ -184,20 +184,52 @@ public class MenuDAO_imple implements MenuDAO {
 		try {
 			 conn = ds.getConnection();
 			 
-			 String sql =  " SELECT tasteno, tastename, tasteimg , ingredients " 
-						+ " FROM "
-						+ " ( "
-						+ "   select row_number() over(order by tasteno desc) AS RNO "
-						+ " 		, tasteno ,tastename, tasteimg , ingredients "
-						+ "    from tbl_taste "
-						+ " ) V "
-						+ " WHERE RNO between ? and ? ";
+			 String sql =  "  SELECT tasteno, tastename, tasteimg, ingredients "
+			 		+ " FROM "
+			 		+ " ( ";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, paraMap.get("start"));
-			pstmt.setString(2, paraMap.get("end"));
-					
-			rs = pstmt.executeQuery();
+				String colname = paraMap.get("menuAlign");
+				
+				
+				if("name".equals(colname) ) { //메뉴정렬이 가나다순 인 경우 
+					sql += "    SELECT ROW_NUMBER() OVER(ORDER BY tastename ) AS rno, NVL(REVIEW_CNT, 0) AS REVIEW_CNT, tastename, tasteno, tasteimg, ingredients ";
+				}
+				
+				else if("order".equals(colname) ) { //메뉴정렬이 인기순 인 경우 
+					sql += "    SELECT ROW_NUMBER() OVER(ORDER BY NVL(REVIEW_CNT, 0) DESC) AS rno, NVL(REVIEW_CNT, 0) AS REVIEW_CNT, tastename, tasteno, tasteimg, ingredients ";
+				}
+				
+				sql +=    "    FROM  "
+				 		+ "    ( "
+				 		+ "        SELECT D.TASTENO, D.TASTENAME, D.TASTEIMG, D.INGREDIENTS, R.CNT AS REVIEW_CNT "
+				 		+ "        FROM TBL_TASTE D "
+				 		+ "        LEFT JOIN "
+				 		+ "        ( "
+				 		+ "            SELECT V.TASTENO, COUNT(*) AS CNT "
+				 		+ "            FROM "
+				 		+ "            ( "
+				 		+ "                SELECT A.ORDERDETAILNO, D.TASTENO "
+				 		+ "                FROM TBL_ORDERDETAIL A "
+				 		+ "                JOIN TBL_SELECTLIST B ON A.FK_SELECTNO = B.SELECTNO "
+				 		+ "                JOIN TBL_TASTESELECT C ON B.SELECTNO = C.FK_SELECTNO "
+				 		+ "                JOIN TBL_TASTE D ON C.FK_TASTENO = D.TASTENO "
+				 		+ "            ) V "
+				 		+ "            GROUP BY V.TASTENO "
+				 		+ "        ) R ON D.TASTENO = R.TASTENO "
+				 		+ "        ORDER BY tastename "
+				 		+ "    ) T  "
+				 		+ " ) "
+				 		+ " WHERE rno BETWEEN ? AND ? ";
+				
+				
+				pstmt = conn.prepareStatement(sql);
+		
+				
+				pstmt.setString(1, paraMap.get("start"));
+				pstmt.setString(2, paraMap.get("end"));
+				
+				rs = pstmt.executeQuery();
+
 						
 			while(rs.next()) {
 				TasteVO tvo = new TasteVO();

@@ -36,7 +36,11 @@ public class DisplayIceJSON extends AbstractController {
 	    더보기... 버튼을 클릭하면  sname("HIT")상품을  start("9") 부터 len("8")개를 보여준다.
 	    또  더보기... 버튼을 클릭하면 sname("HIT")상품을  start("17") 부터 len("8")개를 보여준다.      
     */	
-		
+		if(menuAlign == null || 
+				   (!"name".equals(menuAlign) &&
+				    !"order".equals(menuAlign) ) ){
+						menuAlign = "name";
+		}
 		
 		Map<String, String> paraMap = new HashMap<>();
 		paraMap.put("start", start);  // start  "1"  "9"  "17"  "25"  "33"
@@ -44,20 +48,28 @@ public class DisplayIceJSON extends AbstractController {
 		String end = String.valueOf(Integer.parseInt(start) + Integer.parseInt(len) - 1); 
 		paraMap.put("end", end);      // end => start + len - 1; 
                                       // end    "8"   "16"  "24"  "32"  "40"
-		//paraMap.put("menuAlign", menuAlign);
+		paraMap.put("menuAlign", menuAlign);
 		
 		//List<TasteVO> productList = mdao.selectIceAll(paraMap); //8개씩 자르고 정렬
 		
-		//request.setAttribute("menuAlign", productList);
-		//System.out.println(menuAlign);
 		
-		//super.setViewPage("/WEB-INF/product/iceMenu.jsp");
 		
 		
 		
 		
 		List<TasteVO> icejsonList = mdao.icejsonList(paraMap); //8개씩 자르고 정보
 		
+		request.setAttribute("menuAlign", icejsonList);
+		
+		if(menuAlign != null && 
+				("name".equals(menuAlign) ||
+				 "order".equals(menuAlign) ) ){
+					request.setAttribute("menuAlign", menuAlign);
+		}
+		
+		System.out.println(menuAlign);
+		
+		super.setViewPage("/WEB-INF/product/iceMenu.jsp");
 		
 		JSONArray jsonArr = new JSONArray(); // []
 		
@@ -97,6 +109,7 @@ public class DisplayIceJSON extends AbstractController {
 		                  
 		 ~~~ 확인용 json => []              
 		*/ 
+		
 		
 		request.setAttribute("json", json); //뷰단에 뿌리깅
 		

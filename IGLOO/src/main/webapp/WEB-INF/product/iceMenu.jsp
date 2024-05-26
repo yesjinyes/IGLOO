@@ -40,6 +40,7 @@
 	         <option value="order">인기순</option>      
 	      </select>
 	    </form>
+	    <input type="text" id="menuAlign" value="${requestScope.menuAlign}">
   	</div>
   	
  		 
