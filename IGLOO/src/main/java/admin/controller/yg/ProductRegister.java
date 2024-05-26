@@ -66,7 +66,7 @@ public class ProductRegister extends AbstractController {
             // 1. 첨부되어진 파일을 디스크의 어느 경로에 업로드 할 것인지 그 경로를 설정해야 한다.  
             ServletContext svlCtx = session.getServletContext();
             String uploadFileDir = svlCtx.getRealPath("/images");
-          System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
+          // System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
          // === 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir 
          // ==> C:\NCS\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MyMVC\images
          
@@ -81,7 +81,7 @@ public class ProductRegister extends AbstractController {
              
              String attachCount = request.getParameter("attachCount");
              // attachCount 가 추가이미지 파일의 개수이다. null "1" ~ "10"
-              System.out.println("~~~~~~~ attachCount : " + attachCount);
+             //  System.out.println("~~~~~~~ attachCount : " + attachCount);
              // ~~~~~~~ attachCount : null
              // ~~~~~~~ attachCount : 4
              
@@ -128,8 +128,8 @@ public class ProductRegister extends AbstractController {
              
              
              for(Part part : parts) {
-                System.out.printf(">> 확인용   파라미터(name)명 : %s, contentType : %s, size : %d bytes \n"
-                                    , part.getName(), part.getContentType(), part.getSize());
+                // System.out.printf(">> 확인용   파라미터(name)명 : %s, contentType : %s, size : %d bytes \n"
+                   //                  , part.getName(), part.getContentType(), part.getSize());
                 
              /*
                >> 확인용   파라미터(name)명 : fk_cnum, contentType : null, size : 1 bytes 
@@ -163,7 +163,7 @@ public class ProductRegister extends AbstractController {
                    String fileName = extractFileName(part.getHeader("Content-Disposition"));
                    
                    if(part.getSize() > 0) {
-                       System.out.println("~~~ 확인용  업로드한 파일명 :  " + fileName);
+                       // System.out.println("~~~ 확인용  업로드한 파일명 :  " + fileName);
                       /*
                         ~~~ 확인용  업로드한 파일명 :  berkelekle심플라운드01.jpg
                         ~~~ 확인용  업로드한 파일명 :  berkelekle심플V넥02.jpg
@@ -183,7 +183,7 @@ public class ProductRegister extends AbstractController {
                       newFilename += System.nanoTime();
                       newFilename += fileName.substring(fileName.lastIndexOf(".")); // 확장자 붙이기
                       
-                       System.out.println("==== 확인용 실제 업로드 되어질 newFilename : " + newFilename);
+                       // System.out.println("==== 확인용 실제 업로드 되어질 newFilename : " + newFilename);
                       /*
                         ==== 확인용 실제 업로드 되어질 newFilename : berkelekle디스트리뷰트06_202405211028164693264722900.jpg
                         ==== 확인용 실제 업로드 되어질 newFilename : berkelekle심플V넥02_202405211028164693265394400.jpg
@@ -220,8 +220,8 @@ public class ProductRegister extends AbstractController {
                 else { 
                   // form 태그에서 전송되어온 것이 파일이 아닐 경우
                       String formValue = request.getParameter(part.getName());
-                    System.out.printf("파일이 아닌 경우 파라미터(name)명 : %s, value : %s \n"
-                                     , part.getName(), formValue);
+                      // System.out.printf("파일이 아닌 경우 파라미터(name)명 : %s, value : %s \n"
+                      //               , part.getName(), formValue);
                 }
                 // System.out.println("");
                 /*
@@ -244,7 +244,7 @@ public class ProductRegister extends AbstractController {
                   String productname = request.getParameter("productname");       // 제품명
                   String productcodeno = request.getParameter("productcodeno");   // 제품코드
                   String price = request.getParameter("price");                   // 제품가격
-                  String pimage = request.getParameter(pimage1);                  // 제품이미지
+                  // String pimage = request.getParameter(pimage1);                  // 제품이미지
                   
              
                   // !!!! 크로스 사이트 스크립트 공격에 대응하는 안전한 코드(시큐어코드) 작성하기 !!!!  
@@ -259,11 +259,11 @@ public class ProductRegister extends AbstractController {
                   pvo.setProductcodeno(productcodeno); // 제품명
                   pvo.setPrice(Integer.parseInt(price)); // 가격
                   pvo.setProductdetail(productdetail); // 제품설명
-                  pvo.setProductimg(pimage);   // 제품이미지
+                  pvo.setProductimg(pimage1);   // 제품이미지
                   
                   String attachFileName = arr_attachFileName[0];
                   pvo.setProductimgBelow(attachFileName);
-                        
+                  
                // tbl_product 테이블에 제품정보 insert 하기 
                   int n = prdao.productInsert(pvo);
                   
