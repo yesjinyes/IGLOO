@@ -12,58 +12,93 @@ $(document).ready(function(){
 	
 	$("div#forHide").hide();
 	
-	$("input:radio[name='pickupStatus']").change(function(e){
+	// 모달 열었을 때
+	$("span.orderstatus").click(function(e){
 		
-		if($("input:radio[id='2']").prop("checked")){ // 준비 중 클릭 시
+		// 라디오 원상복구
+		const radio = $(e.target).parent().find(".radio");
+		
+		const idx = $(e.target).index();
+		
+		const orderstatus = $(e.target).parent().find("#hidden_orderstatus").val();
+		
+		// console.log(orderstatus);
+		
+		radio.eq(orderstatus).prop("checked", true);
+		
+		
+		// 준비 중 내 시간 원상복구
+		
+		$("span#time").html("20");
+		
+		const orderdate = $(e.target).parent().find("#orderdate").html();
+		let date = new Date(orderdate);
+		date.setMinutes(date.getMinutes() + 20);
+		
+		let pickuptime = dateToString(date);
+		
+		$(e.target).parent().find("#pickuptime").html(pickuptime);
+		
+	});
+	
+	$("input:radio").change(function(e){
+		
+		const radioId = $(e.target).parent().parent().parent().parent().find("#hidden_statusindex").val();
+		
+		// console.log(radioId);
+		
+		if($("input:radio[id="+radioId+"]").prop("checked")){ // 준비 중 클릭 시
+			
 			$("div#forHide").show();
 			
 			// 1. 기본 시간 20분 설정
-			$("span#time").html("20");
+			$(e.target).parent().parent().find("#time").html("20");
 			
-			const orderdate = $("span#orderdate").html();
+			const orderdate = $(e.target).parent().parent().find("#orderdate").html();
+			
 			let date = new Date(orderdate);
 			date.setMinutes(date.getMinutes() + 20);
 			
 			let pickuptime = dateToString(date);
 			
-			$("span#pickuptime").html(pickuptime);
+			$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 			
 			// 2. + 버튼 눌렀을 때
-			$("span#timePlus").click(function(){
+			$(e.target).parent().parent().find("#timePlus").click(function(){
 				
-				const currentTime = Number($("span#time").html());
-				$("span#time").html(currentTime+20);
+				const currentTime = Number($(e.target).parent().parent().find("#time").html());
+				$(e.target).parent().parent().find("#time").html(currentTime+20);
 				
 				date.setMinutes(date.getMinutes() + 20);
 				
 				let pickuptime = dateToString(date);
-				$("span#pickuptime").html(pickuptime);
+				$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 				
 				if(currentTime+20>120){
 					alert("최대 준비 시간은 120분입니다.");
-					$("span#time").html("120");
+					$(e.target).parent().parent().find("#time").html("120");
 					date.setMinutes(date.getMinutes() - 20);
 					
 					let pickuptime = dateToString(date);
-					$("span#pickuptime").html(pickuptime);
+					$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 				}
 				
 			});
 			
 			// 3. - 버튼 눌렀을 때
-			$("span#timeMinus").click(function(){
+			$(e.target).parent().parent().find("#timeMinus").click(function(){
 				
-				const currentTime = Number($("span#time").html());
-				$("span#time").html(currentTime-20);
+				const currentTime = Number($(e.target).parent().parent().find("#time").html());
+				$(e.target).parent().parent().find("#time").html(currentTime-20);
 				
 				date.setMinutes(date.getMinutes() - 20);
 				
 				let pickuptime = dateToString(date);
-				$("span#pickuptime").html(pickuptime);
+				$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 				
 				if(currentTime-20<20){
 					alert("최소 준비 시간은 20분입니다.");
-					$("span#time").html("20");
+					$(e.target).parent().parent().find("#time").html("20");
 					
 					date.setMinutes(date.getMinutes() + 20);
 					
@@ -76,18 +111,41 @@ $(document).ready(function(){
 			
 		}
 		
-		if(!$("input:radio[id='2']").prop("checked")){
+		if(!$("input:radio[id="+radioId+"]").prop("checked")){
 			$("div#forHide").hide();		
 		}
 		
 	});
 	
 	
+	$("button#cancelBtn").click(function(){
+		
+		// 20분으로 초기화
+		$("span#time").html("20");
+		
+		// 픽업 시각 초기화
+		const orderdate = $("span#orderdate").html();
+		
+		let date = new Date(orderdate);
+		date.setMinutes(date.getMinutes() + 20);
+		let pickuptime = dateToString(date);
+		$("span#pickuptime").html(pickuptime);
+		
+		// 라디오버튼 원상복구 및 히든 div 숨기기
+		const radio = $("input:radio");
+		radio.each(function(index, item){
+			item.checked = false;
+		});
+		
+		$("div#forHide").hide();
+		
+	});
+	
 }); // document.ready
 
-function goUpdate() {
+function goUpdate(e) {
 	
-	$("input:radio[name='pickupStatus']").each((index, item)=>{
+	$("input:radio").each((index, item)=>{
 		
 		if($(item).prop("checked")){
 			$("input:hidden[name='status']").val($(item).val());
@@ -105,7 +163,8 @@ function goUpdate() {
 		$("input:hidden[name='pickupTime']").val("");
 	}
 	const pickupTime = $("input:hidden[name='pickupTime']").val();
-	const orderdetailno = $("input:hidden[name='orderdetailno']").val();
+	const orderdetailno = $(e).parent().parent().find("#orderdetailno").val();
+
 	
     $.ajax({
         url: "<%=ctxPath%>/admin/updateOrderStatus.ice",
@@ -113,9 +172,16 @@ function goUpdate() {
         type: "post",
         dataType: "json",
         success: function(json){
-            console.log(JSON.stringify(json));
+            if(json.n == "1"){
+            	alert("변경 완료되었습니다!");
+            	
+            	const modal = $("div.modal");
+            	modal.css("display", "none");
+            	location.reload(true);
+            }
         }
     });
+
 
 }
 
@@ -143,18 +209,20 @@ function dateToString(date){
 	var s1 = yyyy+'-'+mm+'-'+dd+' '+m+':'+s+':'+ss;
 	return s1;
 }
+
+
 </script>
 
 
 <style type="text/css">
 span#ordercode,
-span#orderstatus {
+span.orderstatus {
 	color: #3399ff;
 	cursor: pointer;
 }
 
 span#ordercode:hover,
-span#orderstatus:hover {
+span.orderstatus:hover {
 	text-decoration: underline;
 }
 
@@ -198,8 +266,46 @@ span#timeMinus {
 
 span#timeCss {
 	display: inline-block;
-	width: 10%;
+	width: 25%;
 	text-align: center;
+	font-size: 20pt;
+}
+
+div#info {
+	font-size: 10pt;
+	margin-top: 3%;
+	margin-left: 18%;
+	color: #808080;
+	margin-bottom: 1%;
+}
+
+div#modalWrapDiv {
+	background-color: #fff7e6;
+	width: 70%;
+	border-radius: 20px;
+	
+}
+
+div#forHide {
+	border-radius: 15px;
+	padding: 5%;
+}
+
+div#forHide > div > span:nth-child(1) {
+	display: inline-block;
+	background-color: white;
+	font-weight: bold;
+	font-size: 10pt;
+	width: 30%;
+	text-align: center;
+	height: 30px;
+	padding-top: 1.5%;
+	border-radius: 20px;
+	margin-right: 5%;
+}
+
+div#forHide > div {
+	margin-bottom: 2%;
 }
 
 </style>
@@ -282,7 +388,7 @@ span#timeCss {
 						<td class="align-middle"><fmt:formatNumber value="${odvo.order.totalprice}" pattern="###,###" />원</td>
 						<td class="align-middle">
 
-							<span id="orderstatus" data-toggle="modal" data-target="#orderstatus_${status.index}">
+							<span class="orderstatus" data-toggle="modal" data-target="#orderstatus_${status.index}">
 							  <c:choose>
 									<c:when test="${odvo.pickupstatus == 1}">주문완료</c:when>
 									<c:when test="${odvo.pickupstatus == 2}">준비 중</c:when>
@@ -297,37 +403,39 @@ span#timeCss {
 							    <div class="modal-content">
 
 							      <!-- Modal body -->
-							      <div class="modal-body mt-5">
+							      <div class="modal-body mt-5" align="center">
+							      	  <input type="hidden" id="hidden_orderstatus" value="${odvo.pickupstatus-1}" />
+							      	  <input type="hidden" id="hidden_statusindex" value="2_${status.index}" />
 									  <img src="<%=ctxPath%>/images/img_narae/주문상태설정.png" style="width: 40%;"/>
 									  <div align="left" id="info">
 									  	※ 주문 직후 기본 설정은 '주문완료' 입니다.<br>
 										※ '준비 중' 선택 시 픽업 시간을 설정할 수 있습니다.
 									  </div>
-									  <div align="left" class="mx-5 p-5" style="border: solid 1px red;">
-									  	<div class="m-3"><input type="radio" name="pickupStatus" id="1" value="1"/> <label for="1">주문완료</label></div>
+									  <div id="modalWrapDiv" align="left" class="mx-5 px-5 py-2">
+									  	<div class="m-3"><input type="radio" class="radio" name="pickupStatus_${status.index}" id="1_${status.index}" value="1"/> <label for="1_${status.index}">주문완료</label></div>
 									  	<div class="m-3">
-									  		<div><input type="radio" name="pickupStatus" id="2" value="2"/> <label for="2">준비 중</label></div>
-									  		<div id="forHide" style="background-color: #fff7e6;">
-									  			<div><span>고객 주문 시각</span><span id="orderdate">${odvo.order.orderdate}</span></div>									  		
-									  			<div><span>픽업 시각</span><span id="pickuptime"></span></div>
-									  			<div>※ 최소 설정 시간은 <span style="color: blue; font-weight: bold;">20분</span> 입니다.</div>
+									  		<div><input type="radio" class="radio ready" name="pickupStatus_${status.index}" id="2_${status.index}" value="2"/> <label for="2_${status.index}">준비 중</label></div>
+									  		<div id="forHide" style="background-color: #e6f3ff;">
+									  			<div><span style="margin-right: 10%;">고객 주문 시각</span><span id="orderdate">${odvo.order.orderdate}</span></div>									  		
+									  			<div><span style="margin-right: 10%;">픽업 시각</span><span id="pickuptime" style="color: red;"></span></div>
 									  			
 									  			<div>
 									  				<span>예상 준비 시간</span>
-									  				<span id="timePlus">+</span>
+									  				<span id="timePlus" style="color: #ff8080; font-size: 25pt; font-weight: bold;">+</span>
 									  				<span id="timeCss">
-									  				<span id="time"></span>
+									  				<span id="time" style="font-weight: bolder;"></span>
 									  				분
 									  				</span>
-									  				<span id="timeMinus">-</span>
+									  				<span id="timeMinus" style="color: #ff8080; font-size: 25pt; font-weight: bold;">-</span>
 									  			</div>
+									  			<div style="font-size: 10pt; margin-top: 3%;">※ 최소 설정 시간은 <a style="color: blue; font-weight: bold;">20분</a>입니다.</div>
 									  		</div>
 									  	</div>
-									  	<div class="m-3"><input type="radio" name="pickupStatus" id="3" value="3"/> <label for="3">픽업대기</label></div>
-									  	<div class="m-3"><input type="radio" name="pickupStatus" id="4" value="4"/> <label for="4">픽업완료</label></div>
+									  	<div class="m-3"><input type="radio" class="radio" name="pickupStatus_${status.index}" id="3_${status.index}" value="3"/> <label for="3_${status.index}">픽업대기</label></div>
+									  	<div class="m-3"><input type="radio" class="radio" name="pickupStatus_${status.index}" id="4_${status.index}" value="4"/> <label for="4_${status.index}">픽업완료</label></div>
 									  </div>
 									  <form name="hiddenFrm">
-									  	<input type="hidden" name="orderdetailno" value="${odvo.orderdetailno}"/>
+									  	<input type="hidden" name="orderdetailno" id="orderdetailno" value="${odvo.orderdetailno}"/>
 									  	<input type="hidden" name="status"/>
 									  	<input type="hidden" name="pickupTime"/>
 									  </form>
@@ -335,8 +443,8 @@ span#timeCss {
 							      
 							      <!-- Modal footer -->
 							      <div class="modal-footer">
-							        <button type="button" class="btn btn-primary" onclick="goUpdate()">변경</button>
-							        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+							        <button type="button" class="btn btn-primary" onclick="goUpdate(this)">변경</button>
+							        <button type="button" id="cancelBtn" class="btn btn-danger" data-dismiss="modal">취소</button>
 							      </div>
 							    </div>
 							  </div>

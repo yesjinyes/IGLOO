@@ -116,12 +116,6 @@ public class OrderlistJSON extends AbstractController {
              jsonArr_info.put(jsonObj_info);
          }
             
-         // === 검색 후 화면 유지해주기 위한 용도 === //
-         // request.setAttribute("searchorderList", searchorderList);
-         // request.setAttribute("selectPeriodindex", selectPeriodindex);
-            
-         // jsonObj.put("selectPeriodindex", selectPeriodindex);
-            
          jsonArr.put(jsonObj);
             
          // String json = jsonArr.toString();   // 문자열로 변환

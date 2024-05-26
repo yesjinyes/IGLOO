@@ -26,10 +26,13 @@ public class PwdUpdateEnd extends AbstractController {
       
       String method = request.getMethod();
       
+      System.out.println("method"+method);
+      System.out.println("method"+method);
+      
       if("POST".equalsIgnoreCase(method)) {
-         // "암호변경하기" 버튼을 클릭했을 때
+         // "비밀번호변경" 버튼을 클릭했을 때
          String new_pwd = request.getParameter("pwd"); 
-         
+         System.out.println("new_pwd:"+new_pwd);
          Map<String, String> paraMap = new HashMap<>(); 
          paraMap.put("userid", userid);
          paraMap.put("new_pwd", new_pwd);
@@ -43,9 +46,9 @@ public class PwdUpdateEnd extends AbstractController {
          }
          
          request.setAttribute("n", n); 
+         System.out.println("n:"+n);
             
       }// end of if("POST".equalsIgnoreCase(method))
-      
       request.setAttribute("userid", userid);
       request.setAttribute("method", method); 
       

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <%
     String ctxPath = request.getContextPath();
@@ -47,15 +46,20 @@
 	  	<label class="form-check-label ml-5" for="Allchecked">
 	    	전체 선택
 	  	</label>
+		<label class="ml-5 my-auto">
+			총 금액 : 
+			<span class="cartTotalprice">${requestScope.totalprice}</span>
+			원
+		</label>
 	</div>
 	
 	<div id="cartview" class="col">
 		<div id="choiceTotalMenu" class="custom-control custom-checkbox">
 			<c:forEach var="cartList" items="${requestScope.cartList}" varStatus="cartStatus">
 				<%-- 하나의 선택 메뉴 --%>
-				<div>
+				<div class="choiceMenu">
 					<%-- 하나의 선택 버튼 --%>
-					<input name="choicemenu" class="custom-control-input" type="checkbox" value="" />
+					<input id="${cartList.cartno}" name="choicemenu" class="custom-control-input test" type="checkbox" value="" />
 					<div class="choiceOneMenu row custom-control-label">
 						<%-- 선택한 메뉴 이미지 --%>
 						<div class="menuclick col-xl-2 col-lg-2 col-md-2">
@@ -67,6 +71,7 @@
 							<%-- 선택한 제품 삭제 --%>
 							<div class="row justify-content-end">
 								<div class="col-2 mt-2">
+									<div id="deleteCartno" style="display:none;">${cartList.cartno}</div>
 									<button class="delete btn pl-0 mr-5">
 										<i class="fa-solid fa-xmark"></i>
 									</button>
@@ -101,7 +106,8 @@
 						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
-								<div id="cartno" style="display:none;">${cartList.cartno}</div>	<%-- 숨길 항목 --%>
+								<div id="cartno" style="display:none;">${cartList.cartno}</div>
+								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
 									<i class="fa-solid fa-minus"></i>
@@ -116,8 +122,8 @@
 						<%-- 금액 --%>
 						<div class="selectOneprice my-auto justify-content-center text-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div>
-								<input type="text" value="${cartList.product.price}" />
-								<span class="resultprice">${cartList.product.price}</span>	<%-- 수량 * 제품가격 --%>
+								<%-- 수량 * 제품가격 --%>
+								<span class="choiceproductprice">${cartList.product.price * cartList.count}</span>
 							</div>
 						</div>
 					</div>
@@ -134,7 +140,7 @@
 		<div class="row justify-content-end">
 			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
 			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">
-				<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
+				<span class="totalPrice">0</span>
 				원
 			</div>
 			<div class="mb-5"></div>
@@ -155,8 +161,8 @@
 	  	</p>
 	  	&nbsp;&nbsp;
 	    <p class="my-auto p-0 col-md-3">
-	    	<fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />
-	    	원
+	    	<span class="navtotalPrice">0</span>
+			원
 	    </p>
 		<button onclick="javascript:continueOrder()" type="button" style="font-weight: bold; font-size:15pt;" class="orderbtn btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
 	</nav>
@@ -164,10 +170,17 @@
 </div>
 <%-- ======================================================================================= --%>
 
-<%-- 넘겨줄 정보 --%>
-<form name="sendinfo">
+<%-- 넘겨줄 정보(ajax) --%>
+<form name="sendinfo"">
 	<input type="text" name="cartno" value=""/>
+	<input type="text" name="prevCount" value=""/>
 	<input type="text" name="count" value=""/>
+	<input type="text" name="delete" value=""/>
+</form>
+
+<%-- 넘겨줄 정보(결제창) --%>
+<form name="continueOrder">
+	<input type="text" name="cartno" value=""/>
 </form>
 
 <jsp:include page="../footer.jsp" />

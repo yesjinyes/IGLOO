@@ -1110,3 +1110,33 @@ JOIN
 ON fk_userid = userid
 where fk_userid = 'jjoung' and ORDERDATE > '2000.05.20'
 order by selectno desc ;
+
+-----------------------------------------------------------------
+select *
+from tbl_cart;
+-- === 장바구니 수량 수정 === --
+update tbl_cart set count = 2
+where fk_userid = 'jjoung' and cartno = 1;
+
+rollback;
+
+-- === 장바구니 추가 === --
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'Q', 'jjoung');
+
+commit;
+
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 8);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 1);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 3);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 20);
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 3, 5);
+
+insert into tbl_order(ordercode, fk_userid, totalprice) values('Q' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 10000);
+
+commit;
+
+insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice)
+values(seq_orderdetailno.nextval,'Q-20240526-000003', 3, 5, 10000);
+
+commit;
