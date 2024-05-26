@@ -246,12 +246,12 @@ select rno, tastename, REVIEW_CNT
      WHERE RNO between 1 and 8; 
      
      ---
-     
-SELECT rno, tastename, REVIEW_CNT, tasteno, tasteimg, ingredients
+    ------▼정보, 8개자르기, 정렬 까지 완성 이지만 cnt가 0인 값은 안나옴▼------ 
+SELECT tasteno ,tastename, tasteimg, ingredients, NVL(REVIEW_CNT, 0) AS REVIEW_CNT
 FROM
 (
-    SELECT row_number() OVER(ORDER BY REVIEW_CNT DESC) AS rno, REVIEW_CNT, tastename, tasteno, tasteimg, ingredients
-    FROM
+    SELECT row_number() OVER(ORDER BY NVL(REVIEW_CNT, 0) desc ) AS rno, NVL(REVIEW_CNT, 0) AS REVIEW_CNT, tastename, tasteno, tasteimg, ingredients
+    FROM --맨첨 정렬!!얘 중심으로 정렬됨
     (
         SELECT TASTENAME, CNT AS REVIEW_CNT, TASTENO, TASTEIMG, INGREDIENTS
         FROM
@@ -270,10 +270,37 @@ FROM
             ) V
             GROUP BY V.TASTENAME, V.TASTENO, V.TASTEIMG, V.INGREDIENTS
         ) T
-        ORDER BY REVIEW_CNT DESC
+        --ORDER BY TASTENO desc --자르기 행 정렬 후의 정렬
     )
 )
 WHERE RNO BETWEEN 1 AND 8;
+
+ ------▲정보, 8개자르기, 정렬 까지 완성이지만 cnt가 0인 값은 안나옴▲----- 
+ SELECT tasteno, tastename, tasteimg, ingredients, NVL(REVIEW_CNT, 0) AS REVIEW_CNT
+FROM
+(
+    SELECT ROW_NUMBER() OVER(ORDER BY NVL(REVIEW_CNT, 0) DESC) AS rno, NVL(REVIEW_CNT, 0) AS REVIEW_CNT, tastename, tasteno, tasteimg, ingredients
+    FROM 
+    (
+        SELECT D.TASTENO, D.TASTENAME, D.TASTEIMG, D.INGREDIENTS, R.CNT AS REVIEW_CNT
+        FROM TBL_TASTE D
+        LEFT JOIN
+        (
+            SELECT V.TASTENO, COUNT(*) AS CNT
+            FROM
+            (
+                SELECT A.ORDERDETAILNO, D.TASTENO
+                FROM TBL_ORDERDETAIL A
+                JOIN TBL_SELECTLIST B ON A.FK_SELECTNO = B.SELECTNO
+                JOIN TBL_TASTESELECT C ON B.SELECTNO = C.FK_SELECTNO
+                JOIN TBL_TASTE D ON C.FK_TASTENO = D.TASTENO
+            ) V
+            GROUP BY V.TASTENO
+        ) R ON D.TASTENO = R.TASTENO
+    ) T
+)
+WHERE rno BETWEEN 1 AND 16;
+     --- ------▲정보, 8개자르기, 정렬 까지 완성▲----- 
 --------------------------------------------------------------------------------------------
 
 SELECT  tasteno, tastename, tasteimg , ingredients , count(*)
@@ -312,7 +339,7 @@ JOIN
 ON fk_selectno = selectno
 group by tasteno, tastename, tasteimg , ingredients;
 --order by tastename;
---order by count(*) asc;
+--order by count(*) desc;
 
 
 
