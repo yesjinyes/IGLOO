@@ -121,7 +121,8 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "    FROM tbl_cart "
 	         		+ " ) "
 	         		+ " ON fk_selectno = selectno "
-	         		+ " WHERE O.fk_userid = ? ";
+	         		+ " WHERE O.fk_userid = ? "
+	         		+ " order by cartno desc ";
 	         		
 
 	         pstmt = conn.prepareStatement(sql); 
@@ -196,7 +197,7 @@ public class CartDAO_imple implements CartDAO {
 					if(start_flag) {
 						start_flag = false;
 						cnt = 4;
-					
+						
 						cdto = new CartVO();
 						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));

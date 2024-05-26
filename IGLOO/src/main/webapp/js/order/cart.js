@@ -66,9 +66,12 @@ $(document).ready(function() {
             check = 1;
         }   
     
+        let cnt = 0;
+
         for(let checkbox of checkboxlist){
-            
-            // alert($(checkbox).prop("checked"));     // 변동하기 전 체크박스 상태
+            cnt = checkboxlist.length;
+            // alert(checkboxlist.length);             // 체크박스 길이
+            alert($(checkbox).prop("checked"));     // 변동하기 전 체크박스 상태
             if(!checkbox.checked){
                 $("div.totalSelect > input#Allchecked").prop("checked",false);
                 falsecheckcnt += 1;
@@ -79,10 +82,10 @@ $(document).ready(function() {
 
         }   // end of for----------
 
-        if(check == 1 && truecheckcnt == 1 && falsecheckcnt == 1){
+        if(check == 1 && truecheckcnt == cnt-1 && falsecheckcnt == 1){
             $("div.totalSelect > input#Allchecked").prop("checked",true);
         }
-        else if(truecheckcnt == 2 || falsecheckcnt == 2){
+        else if(truecheckcnt == cnt){
             $("div.totalSelect > input#Allchecked").prop("checked",false);
         }
 
@@ -276,3 +279,8 @@ function submitfrm(){
     })  // end of $.ajax({----------------
 
 }   // end of function submitfrm(){---------------------
+
+// === 장바구니 내역에서 삭제 === //
+function deletecartlist(){
+
+}   // end of function deletecartlist(){---------------

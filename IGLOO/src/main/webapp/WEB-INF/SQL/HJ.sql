@@ -1110,3 +1110,58 @@ JOIN
 ON fk_userid = userid
 where fk_userid = 'jjoung' and ORDERDATE > '2000.05.20'
 order by selectno desc ;
+
+-----------------------------------------------------------------
+select *
+from tbl_cart;
+-- === 장바구니 수량 수정 === --
+update tbl_cart set count = 2
+where fk_userid = 'jjoung' and cartno = 1;
+
+rollback;
+
+-- === 장바구니 추가 === --
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'Q', 'jjoung');
+
+commit;
+
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 8);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 1);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 3);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 5, 20);
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 3, 5);
+/* 하지 않음
+insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
+*/
+commit;
+
+-- {(제품 - [선택내역) - 맛선택 - 맛] - 회원} - (장바구니)
+-- cartno, userid, count, productname, price, productimg, tastename
+select cartno, userid, count, productname, price, productimg, tastename
+from (SELECT cartno, C.fk_userid, count, productname, price, productimg, tastename
+      FROM (SELECT selectno, fk_userid, productname, price, productimg, tastename
+            FROM (SELECT productcodeno, productname, productimg, price
+                  FROM tbl_product)
+                     JOIN
+                 (SELECT selectno, fk_productcodeno, fk_userid, tastename
+                  FROM (SELECT selectno, fk_productcodeno, fk_userid
+                        FROM tbl_selectlist)
+                           JOIN
+                       (SELECT fk_selectno, tastename
+                        FROM (SELECT fk_selectno, fk_tasteno
+                              FROM tbl_tasteselect)
+                                 JOIN
+                             (SELECT tasteno, tastename
+                              FROM tbl_taste)
+                             ON fk_tasteno = tasteno)
+                       ON selectno = fk_selectno)
+                 ON productcodeno = fk_productcodeno)
+               JOIN
+           (select cartno, fk_userid, count, fk_selectno
+            from tbl_cart) C
+           ON selectno = fk_selectno)
+join
+    (select userid
+         from TBL_MEMBER)
+on FK_USERID = userid;

@@ -170,7 +170,7 @@
 <%-- ======================================================================================= --%>
 
 <%-- 넘겨줄 정보 --%>
-<form name="sendinfo" style="display:none;">
+<form name="sendinfo">
 	<input type="text" name="cartno" value=""/>
 	<input type="text" name="prevCount" value=""/>
 	<input type="text" name="count" value=""/>
