@@ -150,6 +150,9 @@ ALTER TABLE (테이블명) MODIFY (컬럼명) VARCHAR2(20);
 -- 테이블 삭제
 drop table 테이블명;
 
+-- 테이블 데이터타입 조회
+desc 테이블명;
+
 
 ----------------------------------------------------------------------------------------------------
 
@@ -167,10 +170,6 @@ commit;
 drop table TBL_TASTE;
 select * from user_constraints;
 
--- 다시 넣어줘야 하는 제약조건
-ALTER TABLE TBL_TASTESELECT DROP CONSTRAINT FK_FK_TASTENO;
--- 끝
-
 ALTER TABLE TBL_TASTESELECT ADD CONSTRAINT FK_FK_TASTENO FOREIGN KEY(fk_tasteno) REFERENCES tbl_taste(tasteno);
 
 commit;
@@ -179,13 +178,37 @@ ALTER TABLE TBL_TASTE DROP CONSTRAINT PK_TBL_TASTE_TASTENO;
 select *
 from tbl_taste;
 
-
 select productimgBelow
 from tbl_product;
 
 select *
 from tbl_product;
 
-
 select productimg, productimgBelow 
 from tbl_product ;
+
+select *
+from tbl_member;
+
+-------------------------------------------------------------------
+
+select * from user_tables;
+
+select *
+from tbl_order;
+
+select * from user_sequences;
+
+
+desc tbl_order;
+
+select * from tbl_order;
+
+
+insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'yy6037', );
+
+
+
+
+
+
