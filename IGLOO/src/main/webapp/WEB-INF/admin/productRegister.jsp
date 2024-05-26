@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="../header.jsp" />
 
 <style type="text/css">
-   table#tblProdInput {border: solid gray 1px; border-radius:10px;
+   table#tblProdInput {border: solid gray 1px;
                        border-collapse: collapse; }
                        
     table#tblProdInput td {border: solid gray 1px; 
@@ -260,104 +262,103 @@
 	   
 	   
 	   
-	   // 제품등록하기
-	   $("input:button[id='btnRegister']").click(function(){
-		  
-		   $("span.error").hide();
-		   
-		   let is_infoData_OK = true;
-		   
-		   $(".infoData").each(function(index,elmt){
-			  const val = $(elmt).val().trim();
-			  if(val == ""){
-				  $(elmt).next().show();
-				  is_infoData_OK = false;  
-				  return false; // 일반적인 for문의 break와 같은 기능이다.
-			  }
-		   }); // ■■■■■■■ 폼태그의 입력값이 전부 들어와 있는지 확인하는 것 ■■■■■■■■
-		   
-		   if(is_infoData_OK){
+		   // 제품등록하기
+		   $("input:button[id='btnRegister']").click(function(){
+			  
+			   $("span.error").hide();
 			   
-				 var formData = new FormData($("form[name='prodInputFrm']").get(0)); // $("form[name='prodInputFrm']").get(0) 폼 에 작성된 모든 데이터 보내기
+			   let is_infoData_OK = true;
 			   
-			     if(file_arr.length > 0){ // 추가 이미지 파일을 추가했을 경우
+			   $(".infoData").each(function(index,elmt){
+				  const val = $(elmt).val().trim();
+				  if(val == ""){
+					  $(elmt).next().show();
+					  is_infoData_OK = false;  
+					  return false; // 일반적인 for문의 break와 같은 기능이다.
+				  }
+			   }); // ■■■■■■■ 폼태그의 입력값이 전부 들어와 있는지 확인하는 것 ■■■■■■■■
+			   
+			   if(is_infoData_OK){
 				   
-					 // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 전송을 하지 못하게 막는다.
-					 let sum_file_size = 0;
+					 var formData = new FormData($("form[name='prodInputFrm']").get(0)); // $("form[name='prodInputFrm']").get(0) 폼 에 작성된 모든 데이터 보내기
 				   
-				   	 for(let i=0; i<file_arr.length; i++){
-				   		sum_file_size += file_arr[i].size;
-				   	 }// end of for-----------------------
-	
-				  	 ////////////////////////////////////////
-	                 // 첨부한 파일의 총량을 누적하는 용도 
-	                 total_fileSize += sum_file_size;
-		          	 ////////////////////////////////////////
-				   	 
-				   	 
-				   	 if( sum_file_size >= 10*1024*1024 ) { // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 
-		                   alert("첨부한 추가이미지 파일의 총합의 크기가 10MB 이상이라서 제품등록을 할 수 없습니다.!!");
-		                   return; // 종료
-		             }
-				   	 else { // 첨부한 파일의 총합의 크기가 10MB 미만 이라면, formData 속에 첨부파일 넣어주기
-				   		 formData.append("attachCount", file_arr.length); // 추가이미지 파일 개수
-				   		 
-				   		 file_arr.forEach(function(item, index){
-				   			formData.append("attach"+index,item); // 첨부파일 추가하기. item 이 첨부파일이다.
-				   		 });
-				   	 }
-				 
-			     }// end of if(file_arr.length > 0){}-------------------------------------------------------------
-	             // end of 추가이미지파일을 추가했을 경우
-	           
-	           ///////////////////////////////////////
-	           // 첨부한 파일의 총량이 20MB 초과시 //   
-	           if( total_fileSize > 20*1024*1024 ) {
-	                 alert("ㅋㅋㅋ 첨부한 파일의 총합의 크기가 20MB를 넘어서 제품등록을 할 수 없습니다.!!");
-	               return; // 종료
-	           }
-	           ///////////////////////////////////////
-	           
-	           $.ajax({
-	          <%-- url : "<%= ctxPath%>/shop/admin/productRegister.up", --%>
-	               url : "${pageContext.request.contextPath}/admin/productRegister.ice",
-	               type : "post",
-	               data : formData,
-	               processData:false,  // 파일 전송시 설정 
-	               contentType:false,  // 파일 전송시 설정
-	               dataType:"json",
-	               success:function(json){
-	            	   console.log("~~~ 확인용 : " + JSON.stringify(json));
-	                   // ~~~ 확인용 : {"result":1}
-	                   if(json.result == 1) {
-	                     location.href="${pageContext.request.contextPath}/order/order.ice"; 
-	                   }
-	               },
-	               error: function(request, status, error){
-	               // alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-	                  alert("첨부된 파일의 크기의 총합이 20MB 를 초과하여 제품등록이 실패했습니다.ㅜㅜ");
-	              }
-	           });
+				     if(file_arr.length > 0){ // 추가 이미지 파일을 추가했을 경우
+					   
+						 // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 전송을 하지 못하게 막는다.
+						 let sum_file_size = 0;
+					   
+					   	 for(let i=0; i<file_arr.length; i++){
+					   		sum_file_size += file_arr[i].size;
+					   	 }// end of for-----------------------
+		
+					  	 ////////////////////////////////////////
+		                 // 첨부한 파일의 총량을 누적하는 용도 
+		                 total_fileSize += sum_file_size;
+			          	 ////////////////////////////////////////
+					   	 
+					   	 
+					   	 if( sum_file_size >= 10*1024*1024 ) { // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 
+			                   alert("첨부한 추가이미지 파일의 총합의 크기가 10MB 이상이라서 제품등록을 할 수 없습니다.!!");
+			                   return; // 종료
+			             }
+					   	 else { // 첨부한 파일의 총합의 크기가 10MB 미만 이라면, formData 속에 첨부파일 넣어주기
+					   		 formData.append("attachCount", file_arr.length); // 추가이미지 파일 개수
+					   		 
+					   		 file_arr.forEach(function(item, index){
+					   			formData.append("attach"+index,item); // 첨부파일 추가하기. item 이 첨부파일이다.
+					   		 });
+					   	 }
+					 
+				     }// end of if(file_arr.length > 0){}-------------------------------------------------------------
+		             // end of 추가이미지파일을 추가했을 경우
+		           
+		           ///////////////////////////////////////
+		           // 첨부한 파일의 총량이 20MB 초과시 //   
+		           if( total_fileSize > 20*1024*1024 ) {
+		                 alert("ㅋㅋㅋ 첨부한 파일의 총합의 크기가 20MB를 넘어서 제품등록을 할 수 없습니다.!!");
+		               return; // 종료
+		           }
+		           ///////////////////////////////////////
+		           
+		           $.ajax({
+		          <%-- url : "<%= ctxPath%>/shop/admin/productRegister.up", --%>
+		               url : "${pageContext.request.contextPath}/admin/productRegister.ice",
+		               type : "post",
+		               data : formData,
+		               processData:false,  // 파일 전송시 설정 
+		               contentType:false,  // 파일 전송시 설정
+		               dataType:"json",
+		               success:function(json){
+		            	   console.log("~~~ 확인용 : " + JSON.stringify(json));
+		                   // ~~~ 확인용 : {"result":1}
+		                   if(json.result == 1) {
+		                     location.href="${pageContext.request.contextPath}/order/order.ice"; 
+		                   }
+		               },
+		               error: function(request, status, error){
+		               // alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		                  alert("첨부된 파일의 크기의 총합이 20MB 를 초과하여 제품등록이 실패했습니다.ㅜㅜ");
+		              }
+		           });
+				   
+		           /*
+		             processData 관련하여, 일반적으로 서버에 전달되는 데이터는 query string(쿼리 스트링)이라는 형태로 전달된다. 
+		             ex) http://localhost:9090/board/list.action?searchType=subject&searchWord=안녕
+		                 ? 다음에 나오는 searchType=subject&searchWord=안녕 이라는 것이 query string(쿼리 스트링) 이다. 
+		   
+		             data 파라미터로 전달된 데이터를 jQuery에서는 내부적으로 query string 으로 만든다. 
+		             하지만 파일 전송의 경우 내부적으로 query string 으로 만드는 작업을 하지 않아야 한다.
+		             이와 같이 내부적으로 query string 으로 만드는 작업을 하지 않도록 설정하는 것이 processData: false 이다.
+		           */
+		          
+		           /*
+		             contentType 은 default 값이 "application/x-www-form-urlencoded; charset=UTF-8" 인데, 
+		             "multipart/form-data" 로 전송이 되도록 하기 위해서는 false 로 해야 한다. 
+		             만약에 false 대신에 "multipart/form-data" 를 넣어보면 제대로 작동하지 않는다.
+		           */
+			   }// if(is_infoData_OK){}----------------------------------------------------
 			   
-	           /*
-	             processData 관련하여, 일반적으로 서버에 전달되는 데이터는 query string(쿼리 스트링)이라는 형태로 전달된다. 
-	             ex) http://localhost:9090/board/list.action?searchType=subject&searchWord=안녕
-	                 ? 다음에 나오는 searchType=subject&searchWord=안녕 이라는 것이 query string(쿼리 스트링) 이다. 
-	   
-	             data 파라미터로 전달된 데이터를 jQuery에서는 내부적으로 query string 으로 만든다. 
-	             하지만 파일 전송의 경우 내부적으로 query string 으로 만드는 작업을 하지 않아야 한다.
-	             이와 같이 내부적으로 query string 으로 만드는 작업을 하지 않도록 설정하는 것이 processData: false 이다.
-	           */
-	          
-	           /*
-	             contentType 은 default 값이 "application/x-www-form-urlencoded; charset=UTF-8" 인데, 
-	             "multipart/form-data" 로 전송이 되도록 하기 위해서는 false 로 해야 한다. 
-	             만약에 false 대신에 "multipart/form-data" 를 넣어보면 제대로 작동하지 않는다.
-	           */
-		   }// if(is_infoData_OK){}----------------------------------------------------
-		   
-		} // $("input:button[id='btnRegister']").click(function(){})----------------------------------
-		   
+		
 	   });// end of 제품 등록하기 ------------------------------------------------------------------
 	   
 	   // 취소하기
@@ -437,7 +438,6 @@
             <td width="25%" class="prodInputName">제품이미지</td>
             <td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
                <input type="file" name="pimage1" class="infoData img_file" accept='image/*' /><span class="error">필수입력</span>
-               <input type="text" id="imgname" name="productimg" /> <%-- ==== 이미지파일 이름 폼태그로 전송시키려고 해둔 것 ==== --%>
             </td>
          </tr>
          <tr>
@@ -467,7 +467,6 @@
           <tr>
                 <td width="25%" class="prodInputName" style="padding-bottom: 10px;">이미지파일 미리보기</td>
                 <td>
-               	   <input type="text" id="imgdetailname" name="productimgbelow"/> <%-- ==== 이미지파일 이름 폼태그로 전송시키려고 해둔 것 ==== --%>
                    <img id="previewImg" width="300"/>
                 </td>
           </tr>
