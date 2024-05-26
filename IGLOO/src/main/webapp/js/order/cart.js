@@ -144,6 +144,12 @@ $(document).ready(function() {
         let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");
         choiceMenucheckbox.prop("checked", false);
 
+        let cartno = $(this).parent().find("div#deleteCartno").text();
+        $("form[name='sendinfo'] > input[name='cartno']").val(cartno);
+        $("form[name='sendinfo'] > input[name='delete']").val("delete");
+
+        deletefrm();
+
     })  // end of $("div.choiceOneMenu > div.menuclick i").click(function(){---------
 
     // === 수량 마이너스 버튼 클릭했을 때 변경 === //
@@ -224,12 +230,14 @@ function submitfrm(){
     const cartno = $("form[name='sendinfo'] > input[name='cartno']").val();
     const prevCount = $("form[name='sendinfo'] > input[name='prevCount']").val();
     const count = $("form[name='sendinfo'] > input[name='count']").val();
+    const choicedelete = $("form[name='sendinfo'] > input[name='delete']").val();
 
     $.ajax({
         url:"cartJSON.ice"
         , data:{"cartno":cartno
             , "prevCount":prevCount     // 이전 수량
-            , "count":count     // 변동후 count
+            , "count":count             // 변동후 count
+            ,"choicedelete":choicedelete
         }
         , dataType:"json"
         , success:function(json){
@@ -274,15 +282,11 @@ function submitfrm(){
             
         }
         , error: function(request, status, error){
-            // alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-            alert("code: " + request.status);
+            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
         }
         
     })  // end of $.ajax({----------------
 
 }   // end of function submitfrm(){---------------------
 
-// === 장바구니 내역에서 삭제 === //
-function deletecartlist(){
 
-}   // end of function deletecartlist(){---------------

@@ -86,10 +86,6 @@ public class CartJSON extends AbstractController {
 	        	e.printStackTrace();
 	        }
 	        
-	        
-	        
-	        
-	        
 	        jsonArr.put(jsonObj);
 	        
 	        String json = jsonArr.toString(); 

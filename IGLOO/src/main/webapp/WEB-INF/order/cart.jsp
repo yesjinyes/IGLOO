@@ -71,6 +71,7 @@
 							<%-- 선택한 제품 삭제 --%>
 							<div class="row justify-content-end">
 								<div class="col-2 mt-2">
+									<div id="deleteCartno" style="display:none;">${cartList.cartno}</div>
 									<button class="delete btn pl-0 mr-5">
 										<i class="fa-solid fa-xmark"></i>
 									</button>
@@ -169,11 +170,17 @@
 </div>
 <%-- ======================================================================================= --%>
 
-<%-- 넘겨줄 정보 --%>
-<form name="sendinfo">
+<%-- 넘겨줄 정보(ajax) --%>
+<form name="sendinfo"">
 	<input type="text" name="cartno" value=""/>
 	<input type="text" name="prevCount" value=""/>
 	<input type="text" name="count" value=""/>
+	<input type="text" name="delete" value=""/>
+</form>
+
+<%-- 넘겨줄 정보(결제창) --%>
+<form name="continueOrder">
+	<input type="text" name="cartno" value=""/>
 </form>
 
 <jsp:include page="../footer.jsp" />
