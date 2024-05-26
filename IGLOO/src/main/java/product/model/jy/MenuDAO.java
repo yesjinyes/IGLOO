@@ -23,6 +23,25 @@ public interface MenuDAO {
 	//정보
 	List<TasteVO> icejsonList(Map<String, String> paraMap) throws Exception;
 
+
+
+
+	List<TasteVO> select_Member_paging(Map<String, String> paraMap) throws SQLException;
+
+
+
+
+	int getTotalMemberCount(Map<String, String> paraMap) throws SQLException;
+
+
+
+
+	int getTotalPage(Map<String, String> paraMap) throws SQLException;
+
+
+
+
+
 	
 
 

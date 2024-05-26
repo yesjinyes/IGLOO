@@ -1,12 +1,9 @@
 package product.controller.jy;
 
-import java.sql.SQLException;
-import java.util.List;
 
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import product.domain.ProductVO;
 import product.model.jy.MenuDAO;
 import product.model.jy.MenuDAO_imple;
 

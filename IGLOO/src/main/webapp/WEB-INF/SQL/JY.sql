@@ -215,7 +215,8 @@ select row_number() over(order by tastename desc) as rno
         , tasteno , tastename, tasteimg, ingredients 
 from tbl_taste
 )V
-WHERE rno between 1 and 8;
+WHERE rno between 1 and 8
+       and tastename like '%'|| '행복' ||'%' ";
 -------------------------------------------   
 select rno, tastename, REVIEW_CNT 
     from

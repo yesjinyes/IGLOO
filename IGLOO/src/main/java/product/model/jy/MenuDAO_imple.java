@@ -11,8 +11,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import member.domain.MemberVO;
-import order.domain.OrderdetailVO;
 import product.domain.TasteVO;
 public class MenuDAO_imple implements MenuDAO {
 	
@@ -248,6 +246,177 @@ public class MenuDAO_imple implements MenuDAO {
 		return icejsonList;
 	
 
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<TasteVO> select_Member_paging(Map<String, String> paraMap) throws SQLException {
+		
+		
+		List<TasteVO> memberList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " SELECT rno, tasteno, tastename, tasteimg, ingredients "
+					+ " FROM "
+					+ " ( "
+					+ "     select row_number() OVER (ORDER BY tastename DESC) AS rno "
+					+ "				, tasteno , tastename, tasteimg, ingredients "
+					+ "     from  tbl_taste ";
+			
+			String searchWord = paraMap.get("searchWord");
+			
+			if( searchWord != null && !searchWord.trim().isEmpty())  {
+				   sql += " WHERE tastename LIKE '%' || ? || '%' ";
+				   // 컬럼명과 테이블명은 위치홀더(?)로 사용하면 꽝!!! 이다.
+				   // 위치홀더(?)로 들어오는 것은 컬럼명과 테이블명이 아닌 오로지 데이터값만 들어온다.!!!!
+				}
+			
+			sql += 	"     ) V "
+				 +  " WHERE rno BETWEEN ? AND ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+		 /*
+		    === 페이징처리의 공식 ===
+		    where RNO between (조회하고자하는페이지번호 * 한페이지당보여줄행의개수) - (한페이지당보여줄행의개수 - 1) and (조회하고자하는페이지번호 * 한페이지당보여줄행의개수); 
+		 */
+			int currentShowPageNo = Integer.parseInt( paraMap.get("currentShowPageNo") ); 
+			int sizePerPage = Integer.parseInt( paraMap.get("sizePerPage") );
+			
+			if( searchWord != null && !searchWord.trim().isEmpty())  {
+				// 검색이 있는 경우
+				pstmt.setString(1, searchWord);
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1) ); // 공식 
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage) ); // 공식
+			}
+			else {
+				// 검색이 없는 경우
+				pstmt.setInt(1, (currentShowPageNo * sizePerPage) - (sizePerPage - 1) ); // 공식
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) ); // 공식
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				TasteVO tvo = new TasteVO();
+				tvo.setTasteno(rs.getInt(1));
+				tvo.setTastename(rs.getString(2));
+				tvo.setTasteimg(rs.getString(3));
+				tvo.setIngredients(rs.getString(4));	
+				
+				memberList.add(tvo);
+			}// end of while(rs.next())---------------------
+			
+		}finally {
+			close();
+		}
+		
+		return memberList;
+	}
+
+	
+	
+	
+	
+	
+	
+	@Override
+	public int getTotalMemberCount(Map<String, String> paraMap) throws SQLException {
+		
+		int totalMemberCount = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select count(*) "
+						+ " from tbl_taste ";
+			
+			String searchWord = paraMap.get("searchWord");
+			
+			
+			if((searchWord != null && !searchWord.trim().isEmpty()) ) {
+			   sql += " and tastename like '%'|| ? ||'%' ";
+			   // 컬럼명과 테이블명은 위치홀더(?)로 사용하면 꽝!!! 이다.
+			   // 위치홀더(?)로 들어오는 것은 컬럼명과 테이블명이 아닌 오로지 데이터값만 들어온다.!!!!
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			if( (searchWord != null && !searchWord.trim().isEmpty()) ) {
+				// 검색이 있는 경우
+				pstmt.setString(1, searchWord);
+			}
+						
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalMemberCount = rs.getInt(1);
+			
+		} finally {
+			close();
+		}
+		
+		return totalMemberCount;		
+
+	}
+
+	
+	
+	
+	
+	
+	@Override
+	public int getTotalPage(Map<String, String> paraMap) throws SQLException {
+		
+		int totalPage = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql =  " select ceil(count(*)/?) "
+						+ " from tbl_taste ";
+			
+			String searchWord = paraMap.get("searchWord");
+			
+			
+			
+			if( (searchWord != null && !searchWord.trim().isEmpty()) ) {
+			   sql += " and tastename like '%'|| ? ||'%' ";
+			   // 컬럼명과 테이블명은 위치홀더(?)로 사용하면 꽝!!! 이다.
+			   // 위치홀더(?)로 들어오는 것은 컬럼명과 테이블명이 아닌 오로지 데이터값만 들어온다.!!!!
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(paraMap.get("sizePerPage")));
+			
+			if( (searchWord != null && !searchWord.trim().isEmpty()) ) {
+				// 검색이 있는 경우
+				pstmt.setString(2, searchWord);
+			}
+						
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalPage = rs.getInt(1);
+			
+		}  finally {
+			close();
+		}
+		
+		return totalPage;		
 	}
 	
 	
