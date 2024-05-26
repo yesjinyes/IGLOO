@@ -197,15 +197,50 @@ select * from user_tables;
 select *
 from tbl_order;
 
+select *
+from tbl_orderdetail;
+
 select * from user_sequences;
 
+select *
+from tbl_product;
+
+select *
+from tbl_order;
+
+select productcodeno
+from tbl_product;
 
 desc tbl_order;
+desc tbl_orderdetail;
 
 select * from tbl_order;
 
 
+
+
 insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'yy6037', );
+
+
+
+
+
+
+
+
+
+select *
+from tbl_product
+(
+select *
+from tbl_product
+where productcodeno = 'P';
+)P
+JOIN tbl_orderdatail O
+ON P.ordercode = O.fk_ordercode;
+
+
+
 
 
 

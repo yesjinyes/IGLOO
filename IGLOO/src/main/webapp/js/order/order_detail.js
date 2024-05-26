@@ -133,10 +133,10 @@ function goCart(ctxPath) {
 
     location.href = `${ctxPath}/member/cart.ice`;
 
-    // const frm = document.orderDetailFrm;
-    // frm.method = "POST"; 
-    // frm.action = "/member/cart.ice";
-    // frm.submit();
+    const frm = document.orderDetailFrm;
+    frm.method = "POST"; 
+    frm.action = "/member/cart.ice";
+    frm.submit();
 
 }// end of 주문상세 > 장바구니 연결------------------------
 	
