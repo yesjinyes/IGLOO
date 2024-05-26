@@ -3,6 +3,10 @@ package admin.controller.yg;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
 
 import admin.model.yg.ProductRegisterDAO;
 import admin.model.yg.ProductRegisterDAO_imple;
@@ -21,28 +25,28 @@ fileSizeThreshold = 1024)  // 이 크기 값을 넘지 않으면 업로드된 �
                            // 메모리상에 저장된 파일 데이터는 언젠가 제거된다. 하지만 크기가 큰 파일을 메모리상에 올리게 되면 서버에 부하를 줄 수 있으므로 적당한 크기를 지정해주고, 그 이상크기의 파일은 임시파일로 저장하는것이 좋다.    
                            // 만약에 기재 하지 않으면 기본값은 0 이다. 0 을 쓰면 무조건 임시디렉토리에 저장된다. 
 public class ProductRegister extends AbstractController {
-	  
-	   private ProductRegisterDAO prdao = null;
-	   
-	   public ProductRegister() {
-	      prdao = new ProductRegisterDAO_imple();
-	   }
-	   
-	   private String extractFileName(String partHeader) {
-	        for(String cd : partHeader.split("\\;")) {
-	           if(cd.trim().startsWith("filename")) {
-	              String fileName = cd.substring(cd.indexOf("=") + 1).trim().replace("\"", ""); 
-	              int index = fileName.lastIndexOf(File.separator); // File.separator 란? OS가 Windows 이라면 \ 이고, OS가 Mac, Linux, Unix 이라면 / 을 말하는 것이다.
-	              return fileName.substring(index + 1);
-	           }
-	        }
-	        return null;
-	   }// end of private String extractFileName(String partHeader)-------------------
-	   
-	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+     
+      private ProductRegisterDAO prdao = null;
       
-		// == 관리자(admin)로 로그인 했을 때만 제품등록이 가능하도록 한다. == //
+      public ProductRegister() {
+         prdao = new ProductRegisterDAO_imple();
+      }
+      
+      private String extractFileName(String partHeader) {
+           for(String cd : partHeader.split("\\;")) {
+              if(cd.trim().startsWith("filename")) {
+                 String fileName = cd.substring(cd.indexOf("=") + 1).trim().replace("\"", ""); 
+                 int index = fileName.lastIndexOf(File.separator); // File.separator 란? OS가 Windows 이라면 \ 이고, OS가 Mac, Linux, Unix 이라면 / 을 말하는 것이다.
+                 return fileName.substring(index + 1);
+              }
+           }
+           return null;
+      }// end of private String extractFileName(String partHeader)-------------------
+      
+   @Override
+   public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+      
+      // == 관리자(admin)로 로그인 했을 때만 제품등록이 가능하도록 한다. == //
       HttpSession session = request.getSession();
       
       MemberVO loginuser = (MemberVO) session.getAttribute("loginuser"); 
@@ -62,7 +66,7 @@ public class ProductRegister extends AbstractController {
             // 1. 첨부되어진 파일을 디스크의 어느 경로에 업로드 할 것인지 그 경로를 설정해야 한다.  
             ServletContext svlCtx = session.getServletContext();
             String uploadFileDir = svlCtx.getRealPath("/images");
-         // System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
+          System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
          // === 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir 
          // ==> C:\NCS\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MyMVC\images
          
@@ -77,7 +81,7 @@ public class ProductRegister extends AbstractController {
              
              String attachCount = request.getParameter("attachCount");
              // attachCount 가 추가이미지 파일의 개수이다. null "1" ~ "10"
-             // System.out.println("~~~~~~~ attachCount : " + attachCount);
+              System.out.println("~~~~~~~ attachCount : " + attachCount);
              // ~~~~~~~ attachCount : null
              // ~~~~~~~ attachCount : 4
              
@@ -124,8 +128,8 @@ public class ProductRegister extends AbstractController {
              
              
              for(Part part : parts) {
-                //System.out.printf(">> 확인용   파라미터(name)명 : %s, contentType : %s, size : %d bytes \n"
-                    //                , part.getName(), part.getContentType(), part.getSize());
+                System.out.printf(">> 확인용   파라미터(name)명 : %s, contentType : %s, size : %d bytes \n"
+                                    , part.getName(), part.getContentType(), part.getSize());
                 
              /*
                >> 확인용   파라미터(name)명 : fk_cnum, contentType : null, size : 1 bytes 
@@ -159,7 +163,7 @@ public class ProductRegister extends AbstractController {
                    String fileName = extractFileName(part.getHeader("Content-Disposition"));
                    
                    if(part.getSize() > 0) {
-                      // System.out.println("~~~ 확인용  업로드한 파일명 :  " + fileName);
+                       System.out.println("~~~ 확인용  업로드한 파일명 :  " + fileName);
                       /*
                         ~~~ 확인용  업로드한 파일명 :  berkelekle심플라운드01.jpg
                         ~~~ 확인용  업로드한 파일명 :  berkelekle심플V넥02.jpg
@@ -179,7 +183,7 @@ public class ProductRegister extends AbstractController {
                       newFilename += System.nanoTime();
                       newFilename += fileName.substring(fileName.lastIndexOf(".")); // 확장자 붙이기
                       
-                      // System.out.println("==== 확인용 실제 업로드 되어질 newFilename : " + newFilename);
+                       System.out.println("==== 확인용 실제 업로드 되어질 newFilename : " + newFilename);
                       /*
                         ==== 확인용 실제 업로드 되어질 newFilename : berkelekle디스트리뷰트06_202405211028164693264722900.jpg
                         ==== 확인용 실제 업로드 되어질 newFilename : berkelekle심플V넥02_202405211028164693265394400.jpg
@@ -214,10 +218,10 @@ public class ProductRegister extends AbstractController {
                 } // end of if(part.getHeader("Content-Disposition").contains("filename="))----------------------
                 
                 else { 
-            	   // form 태그에서 전송되어온 것이 파일이 아닐 경우
+                  // form 태그에서 전송되어온 것이 파일이 아닐 경우
                       String formValue = request.getParameter(part.getName());
-                   // System.out.printf("파일이 아닌 경우 파라미터(name)명 : %s, value : %s \n"
-                   //                  , part.getName(), formValue);
+                    System.out.printf("파일이 아닌 경우 파라미터(name)명 : %s, value : %s \n"
+                                     , part.getName(), formValue);
                 }
                 // System.out.println("");
                 /*
@@ -257,17 +261,27 @@ public class ProductRegister extends AbstractController {
                   pvo.setProductdetail(productdetail); // 제품설명
                   pvo.setProductimg(pimage);   // 제품이미지
                   
-
-                      String attachFileName = arr_attachFileName[0];
-                      pvo.setProductimgBelow(attachFileName);
-                    		  
-                	  // tbl_product 테이블에 제품정보 insert 하기
-	                  int n = prdao.productInsert(pvo);
-	                  
-	                  if(n == 1) {
-	                	  super.setRedirect(false);
-	                      super.setViewPage("/WEB-INF/order/order.jsp");
-	                  }
+                  String attachFileName = arr_attachFileName[0];
+                  pvo.setProductimgBelow(attachFileName);
+                        
+               // tbl_product 테이블에 제품정보 insert 하기 
+                  int n = prdao.productInsert(pvo);
+                  
+                  int result = 0;
+                  if(n == 1) {
+                     result = 1;
+                  }
+                  
+                  // === 추가이미지파일이 있다라면 tbl_product_imagefile 테이블에 제품의 추가이미지 파일명 insert 해주기 === // 
+                  
+                  JSONObject jsonObj = new JSONObject();  // {}
+                  jsonObj.put("result", result);
+                  
+                  String json = jsonObj.toString(); // 문자열로 변환 
+                  request.setAttribute("json", json);
+                  
+                  super.setRedirect(false);
+                  super.setViewPage("/WEB-INF/jsonview.jsp"); 
          }// else { // "POST" 이라면--------------------------------
 
       } // if( loginuser != null && "admin".equals(loginuser.getUserid()) ) {}----------------------------------------
