@@ -56,8 +56,8 @@ public class ProductRegisterDAO_imple implements ProductRegisterDAO {
 	      try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " insert into tbl_product(productcodeno, productname, productimg, price, productdetail, productimgBelow) "
-	                    + " values(?,?,?,?,?,?) ";
+	         String sql = " INSERT INTO tbl_product(productcodeno, productname, productimg, price, productdetail, productimgbelow) "
+	         		+ " values(?,?,?,?,?,?) ";
 	         
 	         pstmt = conn.prepareStatement(sql);
 	         
@@ -67,7 +67,7 @@ public class ProductRegisterDAO_imple implements ProductRegisterDAO {
 	         pstmt.setInt(4, pvo.getPrice());
 	         pstmt.setString(5, pvo.getProductdetail());
 	         pstmt.setString(6, pvo.getProductimgBelow());
-	         
+
 	         result = pstmt.executeUpdate();
 	         
 	      } finally {

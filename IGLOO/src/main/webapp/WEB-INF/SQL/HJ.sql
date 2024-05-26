@@ -1140,3 +1140,11 @@ insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno
 values(seq_orderdetailno.nextval,'Q-20240526-000003', 3, 5, 10000);
 
 commit;
+
+select productimgbelow
+from tbl_product
+
+INSERT INTO tbl_product(productcodeno, productname, productimg, price, productdetail, productimgbelow)
+values('I','이글루','igloo.png',12000,'이글루특품','igloo_photo_20240527015302868810751999300.png');
+
+rollback;
