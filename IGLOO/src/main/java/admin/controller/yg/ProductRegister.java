@@ -3,12 +3,9 @@ package admin.controller.yg;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.json.JSONObject;
-
+import admin.model.yg.ProductRegisterDAO;
+import admin.model.yg.ProductRegisterDAO_imple;
 import common.controller.AbstractController;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -17,20 +14,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import member.domain.MemberVO;
-import myshop.model.ProductDAO;
-import myshop.model.ProductDAO_imple;
 import product.domain.ProductVO;
 
-@MultipartConfig(location = "C:\\NCS\\workspace_jsp\\MyMVC\\images_temp_upload",
+@MultipartConfig(location = "C:\\git\\IGLOO\\IGLOO\\images_temp_upload",
 fileSizeThreshold = 1024)  // 이 크기 값을 넘지 않으면 업로드된 데이터를 메모리상에 가지고 있지만, 이값을 넘는 경우 위의 location 로 지정된 경로에 임시파일로 저장된다.  
                            // 메모리상에 저장된 파일 데이터는 언젠가 제거된다. 하지만 크기가 큰 파일을 메모리상에 올리게 되면 서버에 부하를 줄 수 있으므로 적당한 크기를 지정해주고, 그 이상크기의 파일은 임시파일로 저장하는것이 좋다.    
                            // 만약에 기재 하지 않으면 기본값은 0 이다. 0 을 쓰면 무조건 임시디렉토리에 저장된다. 
 public class ProductRegister extends AbstractController {
 	  
-	   private ProductDAO pdao = null;
+	   private ProductRegisterDAO prdao = null;
 	   
 	   public ProductRegister() {
-	      pdao = new ProductDAO_imple();
+	      prdao = new ProductRegisterDAO_imple();
 	   }
 	   
 	   private String extractFileName(String partHeader) {
@@ -60,7 +55,7 @@ public class ProductRegister extends AbstractController {
          if(!"POST".equalsIgnoreCase(method)) { // "GET" 이라면    // ■■■■■ 이건 헤더에서 제품등록을 눌렀을 때, get방식으로 보낼경우.  ■■■■■
             
             super.setRedirect(false);
-            super.setViewPage("/WEB-INF/myshop/admin/productRegister.jsp"); 
+            super.setViewPage("/WEB-INF/admin/productRegister.jsp"); 
          }
          else { // "POST" 이라면      // ■■■■■ 이건 제품등록 페이지에 들어가서 전부 입력후 제품등록 버튼을 눌러 POST방식으로 보낼경우.  ■■■■■
             
@@ -213,7 +208,7 @@ public class ProductRegister extends AbstractController {
                          }
                         else if(part.getName().startsWith("attach") ) {
                            arr_attachFileName[idx_attach++] = newFilename;
-                        }
+                        } // ■■■■■■ 드래그 앤 드롭을 이용하여 추가 이미지 파일을 업로드 할 경우 이 else if 문이 실행된다. ■■■■■■
                    }
                     
                 } // end of if(part.getHeader("Content-Disposition").contains("filename="))----------------------
@@ -242,91 +237,40 @@ public class ProductRegister extends AbstractController {
              
              // === 첨부 이미지 파일, 제품설명서 파일을 올렸으니 그 다음으로 제품정보를 (제품명, 정가, 제품수량,...) DB의 tbl_product 테이블에 insert 를 해주어야 한다.  ===
              // ■■■■■■ 여기서 DAO에 넣기 위한 변수를 선언한다. ■■■■■■
-                  String productname = request.getParameter("productname");     // 제품명
-                  String productcodeno = request.getParameter("productcodeno"); // 제품코드
-                  String price = request.getParameter("price");         // 제품가격
+                  String productname = request.getParameter("productname");       // 제품명
+                  String productcodeno = request.getParameter("productcodeno");   // 제품코드
+                  String price = request.getParameter("price");                   // 제품가격
+                  String pimage = request.getParameter(pimage1);                  // 제품이미지
+                  
              
-                  // !!!! 크로스 사이트 스크립트 공격에 대응하는 안전한 코드(시큐어코드) 작성하기 !!!! //  
+                  // !!!! 크로스 사이트 스크립트 공격에 대응하는 안전한 코드(시큐어코드) 작성하기 !!!!  
                   String productdetail = request.getParameter("productdetail");   // 제품설명
                   productdetail =  productdetail.replaceAll("<","&lt;");
                   productdetail = productdetail.replaceAll(">","&gt;");
-                  /*                
-	                  <script type="text/javascript">
-		                  alert("안녕하세요~~ 빨강파랑 ㅋㅋㅋ");
-		                  const body = document.getElementsByTagName("body");
-		                  body[0].style.backgroundColor = "red";
-		                  const arr_div = document.getElementsByTagName("div");
-		                  for(let i=0; i<arr_div.length; i++) {
-		                  arr_div[i].style.backgroundColor = "blue";
-		                  }
-		              </script>   
-                  */                  
-                  // 입력한 내용에서 엔터는 <br>로 변환하기
-                  /*
                   productdetail = productdetail.replaceAll("\r\n","<br>");
+                  // 입력한 내용에서 엔터는 <br>로 변환하기
+                  
                   ProductVO pvo = new ProductVO();
                   pvo.setProductname(productname);   // 제품명
                   pvo.setProductcodeno(productcodeno); // 제품명
                   pvo.setPrice(Integer.parseInt(price)); // 가격
-                  
                   pvo.setProductdetail(productdetail); // 제품설명
+                  pvo.setProductimg(pimage);   // 제품이미지
                   
-                  pvo.setProductimg(pimage1);   // 제품이미지
-                  pvo.setProductimgBelow(pimage1);
-                  
-                  pvo.setPrdmanual_systemFileName(prdmanual_systemFileName); // 파일서버에 업로드되어지는 실제 제품설명서 파일명 (Electrolux냉장고_사용설명서_2024030313470377806221654300.pdf) 
-                  pvo.setPrdmanual_orginFileName(prdmanual_originFileName);  // 웹클라이언트의 웹브라우저에서 파일을 업로드 할때 올리는 제품설명서 파일명(Electrolux냉장고_사용설명서.pdf)
-                  
-                  
-                  // tbl_product 테이블에 제품정보 insert 하기 
-                  int n = pdao.productInsert(pvo);
-                  
-                  int result = 0;
-                  if(n == 1) {
-                     result = 1;
-                  }
-                  
-                  // === 추가이미지파일이 있다라면 tbl_product_imagefile 테이블에 제품의 추가이미지 파일명 insert 해주기 === // 
-                  // 첨부파일의 파일명(파일서버에 업로드 되어진 실제파일명) 알아오기
-                  if(n==1 && n_attachCount>0) {
-                     result = 0;
-                     
-                     Map<String, String> paraMap = new HashMap<>(); // 1개의 행
-                     paraMap.put("pnum", String.valueOf(pnum));
-                     // pnum 은 위에서 채번해온 제품번호이다.
-                     
-                     int cnt = 0;
-                     for(int i=0; i<n_attachCount; i++) {
-                        
-                        String attachFileName = arr_attachFileName[i];
-                        paraMap.put("attachFileName", attachFileName);
-                        // System.out.println("~~~~~~ attachFileName : " + attachFileName);
-                        
-                        // >>> tbl_product_imagefile 테이블에 제품의 추가이미지 파일명 insert 하기 <<<
-                        int attach_insert_result = pdao.product_imagefile_insert(paraMap);
-                        if(attach_insert_result == 1) {
-                           cnt++;
-                        }
-                     }// end of for--------------------------
-                     
-                     if(cnt == n_attachCount) {
-                        result = 1;
-                     }
-                     
-                  }// end of if(n==1 && n_attachCount>0)-------------------
-                  
-                  JSONObject jsonObj = new JSONObject();  // {}
-                  jsonObj.put("result", result);
-                  
-                  String json = jsonObj.toString(); // 문자열로 변환 
-                  request.setAttribute("json", json);
-                  
-                  super.setRedirect(false);
-                  super.setViewPage("/WEB-INF/jsonview.jsp"); */
+
+                      String attachFileName = arr_attachFileName[0];
+                      pvo.setProductimgBelow(attachFileName);
+                    		  
+                	  // tbl_product 테이블에 제품정보 insert 하기
+	                  int n = prdao.productInsert(pvo);
+	                  
+	                  if(n == 1) {
+	                	  super.setRedirect(false);
+	                      super.setViewPage("/WEB-INF/order/order.jsp");
+	                  }
          }// else { // "POST" 이라면--------------------------------
-         
-      }
-      
+
+      } // if( loginuser != null && "admin".equals(loginuser.getUserid()) ) {}----------------------------------------
       else {
          // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우 
          String message = "관리자만 접근이 가능합니다.";

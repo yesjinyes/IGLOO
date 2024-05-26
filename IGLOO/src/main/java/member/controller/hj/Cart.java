@@ -37,7 +37,7 @@ public class Cart extends AbstractController {
 				
 				// === 해당 사용자의 장바구니 리스트 읽기 === //
 				List <CartVO> cartList = cdao.getCartlist(userid);
-				
+
 				request.setAttribute("cartList", cartList);
 				
 				String havecart = "none";
@@ -56,6 +56,7 @@ public class Cart extends AbstractController {
 				
 				for(int i =0; i<cartList.size(); i++) {
 					String tasteResult = "";
+					int count = cartList.get(i).getCount();
 					int price = cartList.get(i).getProduct().getPrice();
 					
 					for(int j=0; j<cartList.get(i).getTastenamelist().size(); j++) {
@@ -65,14 +66,14 @@ public class Cart extends AbstractController {
 						tasteResult += totaltaste;
 					}
 					// System.out.println("확인용 => " + tasteResult);
-					totalprice += price;
+					totalprice += count * price;
+					// System.out.println(totalprice);
 					totaltastelist.add(tasteResult);
 				}	// end of for--------------
 				
 				request.setAttribute("totalprice", totalprice);
 				request.setAttribute("totaltastelist", totaltastelist);
 					
-				
 				/* 확인용
 				System.out.println(cartList.size());
 
