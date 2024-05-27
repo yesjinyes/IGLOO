@@ -227,7 +227,9 @@ insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_
 
 
 
-
+select *
+from tbl_tasteselect
+order by fk_tasteno;
 
 select *
 from tbl_product
@@ -236,13 +238,14 @@ select *
 from tbl_product
 where productcodeno = 'P';
 )P
-JOIN tbl_orderdatail O
+JOIN tbl_orderdetail O
 ON P.ordercode = O.fk_ordercode;
 
+select * from tbl_order;
 
 
-
-
+select productcodeno, productname
+from tbl_product;
 
 
 
