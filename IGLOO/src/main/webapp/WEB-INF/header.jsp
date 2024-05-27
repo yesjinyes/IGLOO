@@ -50,10 +50,25 @@ $(document).ready(function(){
 	  //1) 삼항연산자 사용
 	  navbarHeight < scrollY ? navbar.classList.add("fixed") : navbar.classList.remove("fixed");
 	  
-
+	});
+	
+	$("input[name='search']").keyup(function(e){
+		if(e.keyCode == 13){
+			goSearch();	
+		}
 	});
 	
 });
+
+function goSearch() {
+	
+	const frm = document.searchFrm;
+	
+	frm.action = "<%=ctxPath%>/help/search.ice";
+	frm.method = "get";
+	frm.submit();
+}
+
 
 </script>
 
@@ -91,9 +106,10 @@ $(document).ready(function(){
 		      	</li>
 		    </ul>
 		    
-			<form style="margin-right:8.1%;" name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
-		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
+			<form style="margin-right:8.1%;" name="searchFrm" method="get" class="form-inline my-2 my-lg-0" >
+		      	<input name="search" class="form-control mr-sm-2" type="text" placeholder="Search">
+		      	<input type="text" style="display: none;"/>
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="goSearch()">검색</button>
 		    </form>
 		    
         	<div class="text-end">
@@ -151,9 +167,10 @@ $(document).ready(function(){
 		      	</c:if>
 		    </ul>
 		    
-			<form name="searchFrm" action="<%= ctxPath%>/product/iceSearch.ice" method="get" class="form-inline my-2 my-lg-0" >
-		      	<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
+			<form style="margin-right:8.1%;" name="searchFrm" method="get" class="form-inline my-2 my-lg-0" >
+		      	<input name="search" class="form-control mr-sm-2" type="text" placeholder="Search">
+		      	<input type="text" style="display: none;"/>
+		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="goSearch()">검색</button>
 		    </form>
 		   
 	       <div class="text-end" style="margin-left: 2%;">

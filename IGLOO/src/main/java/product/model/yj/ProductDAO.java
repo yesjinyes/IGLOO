@@ -11,6 +11,9 @@ public interface ProductDAO {
 	// == 맛 목록 조회해오기 == //
 	List<TasteVO> selectTasteList() throws SQLException;
 
+	// 정보 한 개만 불러오기
+	ProductVO getproductList_2(String pcode) throws SQLException;
+
 	
 	
 }

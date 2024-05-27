@@ -6,6 +6,8 @@ import java.util.Map;
 
 import help.domain.nr.FaqVO;
 import help.domain.nr.HelpVO;
+import product.domain.ProductVO;
+import product.domain.TasteVO;
 
 public interface HelpDAO {
 
@@ -23,5 +25,14 @@ public interface HelpDAO {
 
 	// 고객센터 - 자주하는 질문 총 개수
 	int getTotalFaqCount(Map<String, String> paramap) throws SQLException;
+
+	// 맛 검색
+	List<TasteVO> searchTaste(String search) throws SQLException;
+
+	// 제품(컵) 검색
+	List<ProductVO> searchCup(String search) throws SQLException;
+
+	// 자주하는 질문 검색
+	List<HelpVO> searchFaq(String search) throws SQLException;
 
 }

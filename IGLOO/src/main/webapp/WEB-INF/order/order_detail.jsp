@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
     String ctxPath = request.getContextPath();
@@ -25,20 +26,20 @@
 		<div class="row justify-content-center">
 		
 			<div id="imgdiv" style="border: solid 0px red;" class="col-md-4">
-				<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.productimg}" class="img-fluid" style="border: solid 0px blue;" alt="...">
+				<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.pvo.productimg}" class="img-fluid" style="border: solid 0px blue;" alt="...">
 			</div>
 			
 			<div id="item_detail" style="border: solid 1.5px #81BEF7; padding: 4% 5%; margin-left: 5%;" class="col-md-6">
 				
-				<div style="font-size: 30pt;">${requestScope.productname}</div>
+				<div style="font-size: 30pt;">${requestScope.pvo.productname}</div>
 				
 				<h6 style="font-size: 27pt; text-align: right;">
-					<fmt:formatNumber value="${requestScope.productprice}" pattern="###,###" />원
+					<fmt:formatNumber value="${requestScope.pvo.price}" pattern="###,###" />원
 				</h6>
 				<hr style="border: solid 1px #81BEF7;"><br>
 			
 				<%-- 맛 선택 --%>
-				<c:forEach begin="1" end="${requestScope.tastecount}" varStatus="status">
+				<c:forEach begin="1" end="${fn:substring(requestScope.pvo.productdetail, 0, 1)}" varStatus="status">
 			 		<p class="status"></p>
 			 		<select id="taste${status.index}" name="selectbox" class="selectedtaste" style="padding: 0.5% 0;"> 
 						<option value="">맛을 선택하세요</option>
@@ -48,7 +49,7 @@
 			        </select>
 			    </c:forEach>
 			    
-				<input type="hidden" id="tastecount" value="${requestScope.tastecount}"/>
+				<input type="hidden" id="tastecount" value="${fn:substring(requestScope.pvo.productdetail, 0, 1)}"/>
 				<br><hr style="border: solid 1px #81BEF7;">
 			
 				<%-- 선택한 맛, 수량 --%>
@@ -64,7 +65,7 @@
 						<span class="productprice" style="font-weight: bold; font-size: 20pt; border: solid 0px red;">0</span>
 						<span style="font-weight: bold; font-size: 20pt; border: solid 0px blue;">원</span>
 					</div>
-					<input type="hidden" name="productprice" value="${requestScope.productprice}"/>
+					<input type="hidden" name="productprice" value="${requestScope.pvo.price}"/>
 					<br>
 				</div>
 			
@@ -85,7 +86,7 @@
 		<div id="image">
 			<div class="row justify-content-center">
 				<div class="col-md-7" style="font-weight: bold;"> 
-					<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${requestScope.productimgBelow}">
+					<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${requestScope.pvo.productimgBelow}">
 				</div>
 			</div>
 		</div>
