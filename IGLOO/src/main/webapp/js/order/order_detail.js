@@ -15,7 +15,6 @@ $(document).ready(function() {
 		const selecttaste = $("select[class='selectedtaste'] option:selected").text();
 
 		if(!selecttaste.includes('맛을 선택하세요')){
-			//console.log("selecttaste 선택한 맛 => ", selecttaste);
 			
 			for(let i=1; i<=tastecount; i++) {
 				tasteList.push('taste'+ i);
@@ -23,7 +22,7 @@ $(document).ready(function() {
 
 			for(let i=0; i<tastecount; i++) {
 				var str_taste = $("select[id='"+ tasteList[i] +"'] option:selected").text();
-				//console.log(str_taste);
+				console.log(str_taste);
 				
 				if(i == tastecount - 1) {
 					result += str_taste;
@@ -33,7 +32,7 @@ $(document).ready(function() {
 				}
 				
 			}// end of for-------------------
-			//console.log(result);
+			console.log(result);
 			
 			// == option 이 다 선택되면 option 값 초기화 == //
 			$("select[name='selectbox'] option").prop("selected", false);
@@ -53,14 +52,16 @@ $(document).ready(function() {
 									<button type="button" class="minus" style="margin-right: 1%; background-color: white; border: none; font-size: 15pt;">-</button>
 									<span id="result" style="font-size: 14pt;">1</span>
 									<button type="button" class="plus" style="margin-left: 1%; background-color: white; border: none; font-size: 15pt;">+</button>
-								</span> 
+								</span>
 								<button type="button" id="delete" style="background-color: white; font-weight: bold; float: right; font-size: 15pt; border: none;">x</button>
 							</div>  
 						</div>
+						<input type="text" name="result" value="`+result+`" />
 						
 						<hr style="border: solid 1px #81BEF7;">`;
 
 						$("div#resultList").append(html);
+						
 
 			totalcost = Number($("span.productprice").text().replace(",", ""));
 			//console.log("totalcost 확인 :" , totalcost)
@@ -69,6 +70,16 @@ $(document).ready(function() {
 			totalcost = totalcost.toLocaleString('ko-KR');
 			//console.log("price 추가된 totalcost 확인 :" , totalcost);
 			$("span.productprice").text(totalcost);
+			const resulttest = result.split("/");
+			console.log(resulttest);
+			/*
+				0: "이글루요거트 "
+				1: " 스트로베리 "
+				2: " 오레오레오"
+			*/
+			resulttest
+			
+		
 		
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 	
@@ -129,12 +140,12 @@ $(document).ready(function() {
 // == 장바구니 연결하는 함수 == //
 function goCart(ctxPath) {
 
-   location.href = `${ctxPath}/member/cart.ice`;
+    location.href = `${ctxPath}/member/cart.ice`;
 
-   // const frm = document.orderDetailFrm;
-   // frm.method = "POST"; 
-   // frm.action = "/member/cart.ice";
-   // frm.submit();
+    const frm = document.orderDetailFrm;
+    frm.method = "POST"; 
+    frm.action = "/member/cart.ice";
+    frm.submit();
 
 }// end of 주문상세 > 장바구니 연결------------------------
 	
