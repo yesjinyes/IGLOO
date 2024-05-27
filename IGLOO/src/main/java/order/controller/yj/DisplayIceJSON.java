@@ -46,7 +46,7 @@ public class DisplayIceJSON extends AbstractController {
                                       // end    "8"   "16"  "24"  "32"  "40"
 		paraMap.put("menuAlign", menuAlign);
 		
-		List<TasteVO> productList = mdao.selectIceAll(paraMap); 
+		List<TasteVO> productList = mdao.icejsonList(paraMap); 
 		
 		request.setAttribute("menuAlign", productList);
 		System.out.println(menuAlign);
