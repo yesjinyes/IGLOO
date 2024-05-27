@@ -47,7 +47,7 @@
                     <p class="card-text productprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
                     
                      <input type="hidden" name="pcode" value="${productList.productcodeno}" />
-                     <button type="button" class="btnOrder" style="float: right">주문하기</button>
+                     <button type="button" class="btnOrder stretched-link" style="float: right">주문하기</button>
                   </div>
             </div>
    
