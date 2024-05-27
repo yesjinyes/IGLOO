@@ -23,13 +23,13 @@ img.card-img-top {
 	height: 60%;
 }
 
-button#btnOrder {
+button.btnOrder {
 	background-color: rgb(187, 232, 247);
 	border: solid 1px rgb(141, 216, 242);
 	
 }
 
-/* .card:hover {
+.card:hover {
   transform: scale(1.2);
   -webkit-transform: scale(1.2); 
-} */
+}
