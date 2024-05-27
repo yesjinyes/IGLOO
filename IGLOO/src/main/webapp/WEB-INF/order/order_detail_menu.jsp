@@ -14,6 +14,19 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/menu/iceMenuMore.js"></script>   
 
 
-<div class="container" style="margin-top: 1%;">
-     <div class="row" sty id="displayAlign" style="text-align: left;"></div> <%-- 행개수는 따로 설정하지 않고 3줄 기본으로 함. --%>
+<div class="container pt-5" >
+   	 
+     <div class="row" id="displayAlign" style="text-align: left; margin-top: -15%;"></div>
+  
+      <%-- 더보기 버튼 --%>
+      <div>
+         <p class="text-center">
+              <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
+			  <button type="button"  class="btn btn-outline-info btn-lg" id="btnMore" value="">더보기...</button>
+			  <span id="totalCount">${requestScope.totalCount}</span>	
+			  <span id="count">0</span>
+         </p>
+      </div>
+    
 </div>
+  
