@@ -248,5 +248,9 @@ select productcodeno, productname
 from tbl_product;
 
 
+주문하기, 
+장바구니 빡 센 뎅.>... 우짜노 우짜노 우짜노...... 장바구니 담당인데 어카농........
+
+
 
 

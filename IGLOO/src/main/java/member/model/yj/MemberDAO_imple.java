@@ -357,6 +357,8 @@ public class MemberDAO_imple implements MemberDAO {
 			
 			String sql = " update tbl_member set pwd = ?, lastpwdchangedate = sysdate " 
 	                   + " where userid = ? ";
+			// 현재 비밀번호를 select 해온 다음, 그걸 변수로 저장해서 그걸 setString 으로 주기
+			// 이 안에서 새로 입력하는 비번과 원래 비번이 같을 경우 0, 다르면 1 이니까 update 가 되는것임
 			
 			pstmt = conn.prepareStatement(sql);
 			
