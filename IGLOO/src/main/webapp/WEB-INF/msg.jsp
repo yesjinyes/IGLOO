@@ -10,4 +10,9 @@
 		localStorage.removeItem('saveid');
 	}
 	
+	if(${requestScope.selfclose == true}){
+		
+		opener.history.go(0);  // 부모창 새로고침  
+		self.close();
+	}
 </script>    

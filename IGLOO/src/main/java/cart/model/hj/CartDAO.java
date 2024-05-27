@@ -6,6 +6,7 @@ import java.util.Map;
 
 import myshop.domain.CartVO;
 import order.domain.OrderdetailVO;
+import product.domain.TasteVO;
 
 public interface CartDAO {
 
@@ -29,6 +30,12 @@ public interface CartDAO {
 
 	// === 업데이트 된 장바구니리스트부르기 === //
 	List<CartVO> refreshCartlist(Map<String, String> paraMap)throws SQLException;
+
+	// === 장바구니에서 제거 === //
+	int deleteCartno(String cartno) throws SQLException;
+
+	// == 맛 목록을 조회해오기 == //
+	List<TasteVO> selectTasteList() throws SQLException;
 
 	
 

@@ -14,9 +14,21 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/cart.css" />
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/cart.js"></script>
+<script type="text/javascript">
+window.closeModal = function(){
+    $('.modal').modal('hide');
+    javascript:history.go(0);
+};
 
+function changetaste() {
+	closeModal();
+	location.href="<%= ctxPath%>/member/cart.ice";
+}
+
+</script>
 <%-- ======================================================================================= --%>
 <%-- 컴퓨터 화면 --%>
+<div id="ctxPath"><%= ctxPath%></div>
 <div id="cartContainer">
 	<%-- 진행 현황 --%>
 	<div id="orderProcedure" class="row justify-content-end mt-5">
@@ -71,7 +83,7 @@
 							<%-- 선택한 제품 삭제 --%>
 							<div class="row justify-content-end">
 								<div class="col-2 mt-2">
-									<div id="deleteCartno" style="display:none;">${cartList.cartno}</div>
+									<div class="productname " style="display:none;">${cartList.product.productname}</div>
 									<button class="delete btn pl-0 mr-5">
 										<i class="fa-solid fa-xmark"></i>
 									</button>
@@ -98,7 +110,8 @@
 			           			</c:forEach>
 							</ul>
 							<div class="row justify-content-center">
-								<button type="button" class="btn btn-sm btn-outline-info col-10">수정</button>
+								<div id="selectno" style="display:none;">${cartList.fk_selectno}</div>
+								<button type="button" class="updatetaste btn btn-sm btn-outline-info col-10" data-toggle="modal" data-target="#updatetaste" data-dismiss="modal">수정</button>
 							</div>
 						</div>
 						
@@ -106,7 +119,7 @@
 						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
-								<div id="cartno" style="display:none;">${cartList.cartno}</div>
+								<div id="cartno" name="divcartno" style="display:none;">${cartList.cartno}</div>
 								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
@@ -171,16 +184,39 @@
 <%-- ======================================================================================= --%>
 
 <%-- 넘겨줄 정보(ajax) --%>
-<form name="sendinfo"">
+<form name="sendinfo" style="display:none;">
 	<input type="text" name="cartno" value=""/>
 	<input type="text" name="prevCount" value=""/>
 	<input type="text" name="count" value=""/>
-	<input type="text" name="delete" value=""/>
 </form>
 
-<%-- 넘겨줄 정보(결제창) --%>
-<form name="continueOrder">
-	<input type="text" name="cartno" value=""/>
-</form>
-
+<%-- ****** 맛 수정 Modal 시작 ****** --%>
+  <div class="modal fade" id="updatetaste" data-backdrop="static">
+   <div class="modal-dialog">
+   		<div class="modal-content">
+	        <%-- Modal header --%>
+	        <%--
+	        <div class="modal-header">
+	        	<h4 class="modal-title my-auto">쿼터 맛 수정</h4>
+	          	<button type="button" class="close idFindClose" data-dismiss="modal"><%-- X 위치 &times;</button>
+	        </div>
+	        --%>
+	        <%-- Modal body --%>
+	        <div class="modal-body">
+	          	<div id="updatetaste_frame">
+					<iframe id="iframe_updatetaste" style="border: none; width: 100%; height: 300px;">  
+		            </iframe>
+	          	</div>
+	        </div>
+	        <%--
+	        <%-- Modal footer
+	        <div class="modal-footer">
+	          	<button type="button" class="btn btn-danger idFindClose" data-dismiss="modal">닫기</button>
+	        </div>
+	        --%>
+    	</div>
+  	</div>
+</div>
+<%-- ****** 맛 수정 Modal 끝 ****** --%>
 <jsp:include page="../footer.jsp" />
+

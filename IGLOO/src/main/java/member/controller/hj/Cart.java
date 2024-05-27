@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
 import myshop.domain.CartVO;
+import product.domain.TasteVO;
 
 public class Cart extends AbstractController {
 	
@@ -84,6 +85,11 @@ public class Cart extends AbstractController {
 					}
 				}
 				*/
+				
+				// == 맛 목록을 조회해오기 == //
+				List<TasteVO> tasteList = cdao.selectTasteList();
+				request.setAttribute("tasteList", tasteList);
+				
 				// super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/order/cart.jsp");
 			}
