@@ -9,11 +9,11 @@ import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class CartnodelteJSON extends AbstractController {
+public class CartnodeleteJSON extends AbstractController {
 
 	private CartDAO cdao = null;
 	   
-	public CartnodelteJSON() {
+	public CartnodeleteJSON() {
       cdao = new CartDAO_imple();
 	}
 	

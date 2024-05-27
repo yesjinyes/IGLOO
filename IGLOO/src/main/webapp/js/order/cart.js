@@ -152,7 +152,7 @@ $(document).ready(function() {
 
         if(confirm(`${productname}을(를) 장바구니에서 제거하는 것이 맞습니까?`)){
             $.ajax({
-                url:"cartnodelteJSON.ice"
+                url:"cartnodeleteJSON.ice"
                 , type:"post"
                 , data:{"cartno":cartno}
                 , dataType:"json"
