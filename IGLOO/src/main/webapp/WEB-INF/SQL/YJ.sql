@@ -159,33 +159,17 @@ desc 테이블명;
 select *
 from tbl_product;
 
-select * from user_sequences;
-
 select productimgbelow
 from tbl_product
 where productcodeno = 'P';
 
 commit;
 
-drop table TBL_TASTE;
 select * from user_constraints;
 
 ALTER TABLE TBL_TASTESELECT ADD CONSTRAINT FK_FK_TASTENO FOREIGN KEY(fk_tasteno) REFERENCES tbl_taste(tasteno);
 
-commit;
 ALTER TABLE TBL_TASTE DROP CONSTRAINT PK_TBL_TASTE_TASTENO;
-
-select *
-from tbl_taste;
-
-select productimgBelow
-from tbl_product;
-
-select *
-from tbl_product;
-
-select productimg, productimgBelow 
-from tbl_product ;
 
 select *
 from tbl_member;
@@ -195,21 +179,17 @@ from tbl_member;
 select * from user_tables;
 
 select *
-from tbl_order;
-
-select *
 from tbl_orderdetail;
 
 select * from user_sequences;
 
+-- product 테이블
 select *
 from tbl_product;
 
+-- order 테이블
 select *
 from tbl_order;
-
-select productcodeno
-from tbl_product;
 
 desc tbl_order;
 desc tbl_orderdetail;
@@ -225,32 +205,40 @@ insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_
 select * from tbl_member;
 
 
-
+select * from tbl_product;
+select * from tbl_orderdetail;
 
 select *
 from tbl_tasteselect
 order by fk_tasteno;
 
-select *
-from tbl_product
-(
-select *
-from tbl_product
-where productcodeno = 'P';
-)P
-JOIN tbl_orderdetail O
-ON P.ordercode = O.fk_ordercode;
-
-select * from tbl_order;
-
-
 select productcodeno, productname
 from tbl_product;
 
-
-주문하기, 
-장바구니 빡 센 뎅.>... 우짜노 우짜노 우짜노...... 장바구니 담당인데 어카농........
-
+select *
+from tbl_selectlist;
 
 
+-- 주문코드 짜기 (select 한 값 insert 하기)
+insert into tbl_order(ordercode)
+select P.productcodeno
+from 
+(
+select *
+from tbl_product
+) P JOIN tbl_selectlist S
+ON P.productcodeno = S.fk_productcodeno
+JOIN tbl_orderdetail D
+ON S.selectno = D.fk_selectno
+JOIN tbl_order O
+ON O.ordercode = D.fk_ordercode;
+-- unique constraint (SEMI_ORAUSER1.PK_TBL_ORDER_ORDERCODE) violated 나오는디.. 어카노
 
+
+
+-- 비번 3개월 확인용 데이터 수정
+update tbl_member
+set lastpwdchangedate='240125'
+where userid = 'yejin';
+
+select * from tbl_member;
