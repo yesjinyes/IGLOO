@@ -24,14 +24,14 @@
 
 <jsp:include page="../sidebar.jsp"/>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
-    
     $("button.btn-info").click(function(){
-       
-       const pwd = $("input:password[name='pwd']").val();
-       const pwd2 = $("input:password[id='pwd2']").val();
-       
+
+		const pwd = $("input:password[name='pwd']").val();
+	    const pwd2 = $("input:password[id='pwd2']").val();
+    	
        if(pwd != pwd2) {
           alert("암호가 일치하지 않습니다.");
           $("input:password[name='pwd']").val("");
@@ -54,6 +54,7 @@ $(document).ready(function(){
                 return; // 종료
             }
             else {
+            	alert("비밀번호가 변경되었습니다.");
                 // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
                 const frm = document.pwdUpdateEndFrm;
                 frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.ice";
@@ -62,6 +63,7 @@ $(document).ready(function(){
                
             }
        }
+		
     });// end of $("button.btn-success").click(function(){})-------------
     
  }); // end of $(document).ready(function(){})-------------
@@ -105,7 +107,7 @@ $(document).ready(function(){
 
 
 <%-- if 문의 조건에 뭘 넣어야할까.... --%>
-<c:if test="${requestScope.method = 'POST'}" >
+<%-- <c:if test="${requestScope.method = 'POST'}" >
    <div style="text-align: center; font-size: 14pt; color: navy;">
       <c:if test="${requestScope.n == 1}">
          사용자 ID ${requestScope.userid}님의 비밀번호가 새로이 변경되었습니다.
@@ -115,7 +117,7 @@ $(document).ready(function(){
          SQL구문 오류가 발생되어 비밀번호를 변경할 수 없습니다.
       </c:if>
    </div>
-</c:if>
+</c:if> --%>
 
 
 

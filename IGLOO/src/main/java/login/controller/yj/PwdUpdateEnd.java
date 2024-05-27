@@ -23,6 +23,7 @@ public class PwdUpdateEnd extends AbstractController {
    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
       
       String userid = request.getParameter("userid");
+      String ctxPath = request.getContextPath();
       
       String method = request.getMethod();
       
@@ -48,6 +49,10 @@ public class PwdUpdateEnd extends AbstractController {
          
          request.setAttribute("n", n); 
          
+         if(n==1) {
+        	 super.setRedirect(true);
+             super.setViewPage(ctxPath+"/index.ice");
+         }
          System.out.println("n:"+n);
             
       }// end of if("POST".equalsIgnoreCase(method))
