@@ -62,6 +62,7 @@ alter table tbl_taste drop column ingredients;
 
 -----------------
 DESCRIBE tbl_taste;
+DESCRIBE *;
 -----------------
 
 
@@ -374,4 +375,26 @@ SELECT tasteno, tastename, tasteimg , ingredients
 						   from tbl_taste 
 						) V 
 						 WHERE RNO between 1 and 3 ;
-
+                         
+                         
+   select *
+   from tbl_review;
+   
+   select *
+   from tbl_orderdetail;
+   
+   --- 주문된 제품, 아이스크림맛 조회해오기
+   select *
+   from tbl_order A
+   join tbl_orderdetail B
+   on A.ordercode = B.fk_ordercode
+   join tbl_selectlist C 
+   on B.fk_selectno = C.selectno
+   join tbl_tasteselect D
+   on C.selectno = D.fk_selectno
+   join tbl_product E
+   on C.fk_productcodeno = E.productcodeno
+   join tbl_taste F
+   on D.fk_tasteno = F.tasteno
+   where userid = 'jjoung';
+   

@@ -36,15 +36,60 @@
 	<hr>
 	<br>
 	
-    <div class="col-md-12">
+	
+	<c:if test="${not empty requestScope.reviewlist}">
+		<c:forEach var="review" items="${requestScope.reviewlist }">
+		    <div class="col-md-12">
+		      <div class="review">
+		        
+		        
+		        <%-- 해당 날짜 주문시간과 주문코드 --%>
+				<div class="dateorderlist my-3 ml-4">
+					<div>${review.order.orderdate}</div>
+				</div>
+				
+				<%-- 선택한 메뉴 이미지 --%>
+				<div class="img-container">
+					<img class="img-fluid mt-5" src="<%= ctxPath%>/images/img_hj/cup_size/${review.product.productimg}" alt="Responsive image">
+				</div>
+				
+		          
+		          <div class="option-container">
+			        <%-- 선택한 제품 품목 --%>
+					<h3>${review.product.productname}</h3>
+		          	<ul class="list-group list-group-flush">
+		            	<c:forEach var="ordertastelist" items="${requestScope.ordertastelist}" varStatus="jjinStatus">
+		  							<li class="list-group-item">${ordertastelist}</li>
+	  					</c:forEach>
+		            </ul>
+		          </div>
+		          
+		          <h3>${review.product.productname}홍대점</h3>
+		          
+		          <a href="javascript:goWriteReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>')" id="btnWrite" class="btn btn-outline-secondary" role='button' >작성하기</a>
+		          
+		        
+		      </div>
+		  </div>
+		</c:forEach>
+    </c:if>
     
     
-    </div>
-     
+    
+    <c:if test="${empty requestScope.reviewlist}">
+		<div style="text-align: center;" class="mt-5">
+			<div id="noreview">작성가능한 리뷰가 존재하지 않습니다.</div>
+		</div>
+	</c:if>
+    
+    
+    
 </div>
 
 
-
+		</div>
+	</div>
+</div>
 
 
 
