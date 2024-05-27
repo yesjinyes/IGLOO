@@ -131,11 +131,6 @@ $(document).ready(function(){
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
-						<span class="color-first">이벤트</span>
-					</a>
-		      	</li>
-		      	<li class="nav-item active">
 		        	<a class="nav-link" href="<%= ctxPath%>/help/help.ice">
 						<span class="color-first">고객센터</span>
 					</a>
