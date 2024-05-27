@@ -31,7 +31,7 @@ public class Help extends AbstractController {
 		String sizePerPage = "10";
 		String currentShowPageNo = request.getParameter("currentShowPageNo");
 		
-		if(!"6".equals(sizePerPage)) {
+		if(!"10".equals(sizePerPage)) {
 			sizePerPage = "10";
 		}
 		
