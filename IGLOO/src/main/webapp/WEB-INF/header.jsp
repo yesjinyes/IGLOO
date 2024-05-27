@@ -85,11 +85,6 @@ $(document).ready(function(){
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
-						<span class="color-first">이벤트</span>
-					</a>
-		      	</li>
-		      	<li class="nav-item active">
 		        	<a class="nav-link" href="<%= ctxPath%>/help/help.ice">
 						<span class="color-first">고객센터</span>
 					</a>
@@ -133,11 +128,6 @@ $(document).ready(function(){
 		      	<li class="nav-item active">
 		        	<a class="nav-link" href="<%= ctxPath%>/store/searchList.ice">
 						<span class="color-first">지점 찾기</span>
-					</a>
-		      	</li>
-		      	<li class="nav-item active">
-		        	<a class="nav-link" href="#">
-						<span class="color-first">이벤트</span>
 					</a>
 		      	</li>
 		      	<li class="nav-item active">
