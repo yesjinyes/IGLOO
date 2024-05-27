@@ -35,4 +35,15 @@ public interface HelpDAO {
 	// 자주하는 질문 검색
 	List<HelpVO> searchFaq(String search) throws SQLException;
 
+	// 검색결과 더보기 - 페이지 수 구하기
+	int getTotalSearchPage(Map<String, String> paramap) throws SQLException;
+
+	// 검색결과 더보기 - 페이징 처리
+	List<HelpVO> search_help_paging(Map<String, String> paramap) throws SQLException;
+	List<TasteVO> search_taste_paging(Map<String, String> paramap) throws SQLException;
+	List<ProductVO> search_product_paging(Map<String, String> paramap) throws SQLException;
+
+	// 전체 행 개수
+	int getTotalSearchCount(Map<String, String> paramap) throws SQLException;
+	
 }

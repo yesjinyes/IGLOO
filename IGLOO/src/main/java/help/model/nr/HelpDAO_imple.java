@@ -460,6 +460,276 @@ public class HelpDAO_imple implements HelpDAO {
 	
 	
 	
+	
+	
+	// 검색결과 더보기 - 페이지 수 구하기
+	@Override
+	public int getTotalSearchPage(Map<String, String> paramap) throws SQLException {
+
+		int totalPage = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String tagName = paramap.get("tagName");
+	
+			String sql = "";
+			
+			if("taste".equalsIgnoreCase(tagName)) {
+				sql = "select ceil(count(*)/?) "
+					+ "from tbl_taste "
+					+ "where tastename like '%'||?||'%' or tasteexplain like '%'||?||'%' ";
+			}
+			
+			else if("product".equalsIgnoreCase(tagName)) {
+				sql = "select ceil(count(*)/?) "
+				    + "from tbl_product "
+				    + "where productname like '%'||?||'%' or productdetail like '%'||?||'%' ";
+			}
+			
+			else if("faqlist".equalsIgnoreCase(tagName)) {
+				sql = "select ceil(count(*)/?) "
+					+ "from tbl_faqlist "
+				    + "where f_title like '%'||?||'%' or f_content like '%'||?||'%' ";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(paramap.get("sizePerPage")));
+			pstmt.setString(2, paramap.get("searchWord"));
+			pstmt.setString(3, paramap.get("searchWord"));
+						
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalPage = rs.getInt(1);
+			
+		} finally {
+			close();
+		}
+		
+		return totalPage;		
+	}
+
+	
+	
+	
+	
+	
+	
+	// 검색결과 더보기 - 페이징 처리
+	@Override
+	public List<TasteVO> search_taste_paging(Map<String, String> paramap) throws SQLException {
+		
+		List<TasteVO> tasteList = new ArrayList<TasteVO>();
+		
+		try {
+			
+			int currentShowPageNo = Integer.parseInt( paramap.get("currentShowPageNo") ); 
+			int sizePerPage = Integer.parseInt( paramap.get("sizePerPage") );
+			
+			conn = ds.getConnection();
+			
+			String sql = "select rn, tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, "
+					   + "       allergy, ingredients, eng_name "
+					   + "from "
+					   + "(select rownum rn, tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, natrium, allergy, ingredients, eng_name "
+					   + "from tbl_taste "
+					   + "where tastename like '%'||?||'%' or tasteexplain like '%'||?||'%') "
+					   + "where rn between ? and ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paramap.get("searchWord"));
+			pstmt.setString(2, paramap.get("searchWord"));
+			pstmt.setInt(3, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+			pstmt.setInt(4, (currentShowPageNo * sizePerPage));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TasteVO tvo = new TasteVO();
+				
+				tvo.setTasteno(rs.getInt(2));
+				tvo.setTastename(rs.getString(3));
+				tvo.setTasteimg(rs.getString(4));
+				tvo.setTasteexplain(rs.getString(5));
+				tvo.setOncesupply(rs.getString(6));
+				tvo.setCalory(rs.getString(7));
+				tvo.setSugar(rs.getString(8));
+				tvo.setProtein(rs.getString(9));
+				tvo.setFat(rs.getString(10));
+				tvo.setNatrium(rs.getString(11));
+				tvo.setAllergy(rs.getString(12));
+				tvo.setIngredients(rs.getString(13));
+				tvo.setEng_name(rs.getString(14));
+				
+				tasteList.add(tvo);
+			}
+			
+		} finally {
+			close();
+		}
+		return tasteList;
+	}
+
+	
+	
+	
+	@Override
+	public List<HelpVO> search_help_paging(Map<String, String> paramap) throws SQLException {
+
+		List<HelpVO> faqList = new ArrayList<HelpVO>();
+		
+		try {
+			
+			int currentShowPageNo = Integer.parseInt( paramap.get("currentShowPageNo") ); 
+			int sizePerPage = Integer.parseInt( paramap.get("sizePerPage") );
+			
+			conn = ds.getConnection();
+			
+			String sql = "select rn, faqno, f_category, f_title, f_content "
+					   + "from "
+				   	   + "(select rownum rn, faqno, f_category, f_title, f_content "
+					   + "from tbl_faqlist "
+					   + "where f_title like '%'||?||'%' or f_content like '%'||?||'%') "
+					   + "where rn between ? and ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paramap.get("searchWord"));
+			pstmt.setString(2, paramap.get("searchWord"));
+			pstmt.setInt(3, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+			pstmt.setInt(4, (currentShowPageNo * sizePerPage));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HelpVO tvo = new HelpVO();
+				
+				tvo.setFaqno(rs.getInt(2));
+				tvo.setF_category(rs.getString(3));
+				tvo.setF_title(rs.getString(4));
+				tvo.setF_content(rs.getString(5));
+				
+				faqList.add(tvo);
+			}
+			
+		} finally {
+			close();
+		}
+		return faqList;
+	}
+
+	
+	
+	
+	
+	
+	@Override
+	public List<ProductVO> search_product_paging(Map<String, String> paramap) throws SQLException {
+
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		
+		try {
+			
+			int currentShowPageNo = Integer.parseInt( paramap.get("currentShowPageNo") ); 
+			int sizePerPage = Integer.parseInt( paramap.get("sizePerPage") );
+			
+			conn = ds.getConnection();
+			
+			String sql = "select rn, productcodeno, productname, productimg, price, productdetail, productimgbelow "
+					   + "from "
+					   + "(select rownum rn, productcodeno, productname, productimg, price, productdetail, productimgbelow "
+				 	   + "from tbl_product "
+					   + "where productname like '%'||?||'%' or productdetail like '%'||?||'%') "
+					   + "where rn between ? and ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paramap.get("searchWord"));
+			pstmt.setString(2, paramap.get("searchWord"));
+			pstmt.setInt(3, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+			pstmt.setInt(4, (currentShowPageNo * sizePerPage));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductVO tvo = new ProductVO();
+				
+				tvo.setProductcodeno(rs.getString(2));
+				tvo.setProductname(rs.getString(3));
+				tvo.setProductimg(rs.getString(4));
+				tvo.setPrice(rs.getInt(5));
+				tvo.setProductdetail(rs.getString(6));
+				tvo.setProductimgBelow(rs.getString(7));
+				
+				productList.add(tvo);
+			}
+			
+		} finally {
+			close();
+		}
+		return productList;
+		
+	}
+
+	
+	
+	// 전체 행 개수
+	@Override
+	public int getTotalSearchCount(Map<String, String> paramap) throws SQLException {
+		
+		int totalSearchCount = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String tagName = paramap.get("tagName");
+	
+			String sql = "";
+			
+			if("taste".equalsIgnoreCase(tagName)) {
+				sql = "select count(*) "
+					+ "from tbl_taste "
+					+ "where tastename like '%'||?||'%' or tasteexplain like '%'||?||'%' ";
+			}
+			
+			else if("product".equalsIgnoreCase(tagName)) {
+				sql = "select count(*) "
+				    + "from tbl_product "
+				    + "where productname like '%'||?||'%' or productdetail like '%'||?||'%' ";
+			}
+			
+			else if("faqlist".equalsIgnoreCase(tagName)) {
+				sql = "select count(*) "
+					+ "from tbl_faqlist "
+				    + "where f_title like '%'||?||'%' or f_content like '%'||?||'%' ";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paramap.get("searchWord"));
+			pstmt.setString(2, paramap.get("searchWord"));
+						
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalSearchCount = rs.getInt(1);
+			
+		} finally {
+			close();
+		}
+		
+		return totalSearchCount;	
+	}
+
+
+	
+	
+	
 
 	
 	
