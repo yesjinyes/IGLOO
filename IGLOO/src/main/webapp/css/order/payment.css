@@ -6,6 +6,10 @@ div.container.contents {
 	margin-top: 10%;
 }
 
+#orderProcedure > div.col-md-2.col-lg-2.p-0 { /* 주문결제 글자 진하게 하는 것 */
+	font-weight: bold;
+}
+
 div#item_detail { /* 상단 오른쪽 */
 	border: solid 0px grey;
 	width: 49%;
