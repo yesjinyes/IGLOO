@@ -69,7 +69,7 @@ public class CartDAO_imple implements CartDAO {
 		try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " SELECT cartno, O.fk_userid as userid, count, productname, price, productimg, tastename "
+	         String sql = " SELECT cartno, O.fk_userid as userid, selectno, count, productname, price, productimg, tastename "
 	         		+ " FROM "
 	         		+ " ( "
 	         		+ "    SELECT fk_userid, selectno, productname, tastename, price, productimg "
@@ -151,6 +151,7 @@ public class CartDAO_imple implements CartDAO {
 						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
+						cdto.setFk_selectno(rs.getInt("selectno"));
 						
 						pdto = new ProductVO();
 						pdto.setProductname(rs.getString("productname"));
@@ -202,6 +203,7 @@ public class CartDAO_imple implements CartDAO {
 						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
+						cdto.setFk_selectno(rs.getInt("selectno"));
 						
 						pdto = new ProductVO();
 						pdto.setProductname(rs.getString("productname"));
@@ -253,6 +255,7 @@ public class CartDAO_imple implements CartDAO {
 						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
+						cdto.setFk_selectno(rs.getInt("selectno"));
 						
 						pdto = new ProductVO();
 						pdto.setProductname(rs.getString("productname"));
@@ -304,6 +307,7 @@ public class CartDAO_imple implements CartDAO {
 						cdto.setCartno(rs.getInt("cartno"));
 						cdto.setFk_userid(rs.getString("userid"));
 						cdto.setCount(rs.getInt("count"));
+						cdto.setFk_selectno(rs.getInt("selectno"));
 						
 						pdto = new ProductVO();
 						pdto.setProductname(rs.getString("productname"));
@@ -1750,6 +1754,69 @@ public class CartDAO_imple implements CartDAO {
 		return cartList;
 		
 	}	// end of public List<CartVO> refreshCartlist(Map<String, String> paraMap) throws SQLException {-------
+
+//////////////////////////////////////////////////////////////////////////
+	
+	// === 장바구니에서 제거 === //
+	@Override
+	public int deleteCartno(String cartno) throws SQLException {
+		
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " delete TBL_CART "
+					+ " where cartno = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cartno);
+			
+			n = pstmt.executeUpdate();
+			
+		}finally {
+			close();
+		}	// end of try~finally----------------
+		
+		return n;
+		
+	}	// end of public int deleteCartno(String cartno) throws SQLException {--------
+
+//////////////////////////////////////////////////////////////////	
+	
+	// == 맛 목록을 조회해오기 == //
+	@Override
+	public List<TasteVO> selectTasteList() throws SQLException {
+		
+		List<TasteVO> tasteList = new ArrayList<>();
+
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select tasteno, tastename "
+		         		+ " from tbl_taste "
+		         		+ " order by tasteno ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 TasteVO tvo = new TasteVO();
+	             tvo.setTasteno(rs.getInt(1));
+	             tvo.setTastename(rs.getString(2));
+	             tasteList.add(tvo);
+	         }// end of while-----------------
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return tasteList;
+		
+	}	// end of public List<TasteVO> selectTasteList() throws SQLException {----
 
 	
 

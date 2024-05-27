@@ -22,6 +22,7 @@ public class TasteVO {
 	
 	// === Select 용 === //
 	private OrderdetailVO odvo; // 주문상세VO 
+	private int tasteselectno;
 	
 	private int rno;
 	private int cnt;
@@ -125,5 +126,11 @@ public class TasteVO {
 	}
 	public void setTasteimg(String tasteimg) {
 		this.tasteimg = tasteimg;
+	}
+	public int getTasteselectno() {
+		return tasteselectno;
+	}
+	public void setTasteselectno(int tasteselectno) {
+		this.tasteselectno = tasteselectno;
 	}
 }

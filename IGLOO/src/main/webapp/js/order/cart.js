@@ -144,11 +144,34 @@ $(document).ready(function() {
         let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");
         choiceMenucheckbox.prop("checked", false);
 
-        let cartno = $(this).parent().find("div#deleteCartno").text();
-        $("form[name='sendinfo'] > input[name='cartno']").val(cartno);
-        $("form[name='sendinfo'] > input[name='delete']").val("delete");
+        let cartno = $(this).parent().parent().parent().parent().find("div#cartno").text();
+        // alert("삭제하는 장바구니 번호 : " + cartno);
+        
+        const productname = $(this).parent().find("div.productname").text();
+        // alert("삭제하는 제품명 : " + productname);
 
-        deletefrm();
+        if(confirm(`${productname}을(를) 장바구니에서 제거하는 것이 맞습니까?`)){
+            $.ajax({
+                url:"cartnodeleteJSON.ice"
+                , type:"post"
+                , data:{"cartno":cartno}
+                , dataType:"json"
+                , success:function(json){
+                    console.log("~~~ 확인용", JSON.stringify(json));
+                    if(json.n == 1){
+                        alert(`장바구니에서 제거되었습니다.`);
+                        location.href="cart.ice";    // IGLOO/member/cart.ice
+                    }
+                }
+                , error: function(request, status, error){
+                    alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                }
+                
+            })  // end of $.ajax({----------------
+        }
+        else{
+            alert(`${productname} 제품 삭제를 취소하셨습니다.`);
+        }
 
     })  // end of $("div.choiceOneMenu > div.menuclick i").click(function(){---------
 
@@ -203,6 +226,16 @@ $(document).ready(function() {
         continueOrder();
     })  // end of $("button.orderbtn").click(function(){--------
 
+    $("button.updatetaste").click(function(){
+
+        const ctxPath = $("div#ctxPath").text();
+        let selectno = $(this).parent().find("div#selectno").text();
+        // alert(selectno);
+
+        $('#iframe_updatetaste').attr('src', `${ctxPath}/member/cart/updatetaste.ice?selectno=${selectno}`);
+
+    })  // end of $("button.updatetaste").click(function(){--------
+
 })  // end of $(document).ready(function() {--------------
 
 ///////////////////////////////////////////////////////////////////////
@@ -220,7 +253,56 @@ function continueShopping(ctxPath){
 
 // === 주문하기 창 이동 === //
 function continueOrder(){
-    location.href = `order/payment.ice`;
+    const checkCnt = $("input:checkbox[name='choicemenu']:checked").length;
+
+    if(checkCnt < 1){
+        alert("주문하실 제품을 선택해주세요.");
+        return;
+    }
+    else{
+        const allcheckcnt = $("input:checkbox[name='choicemenu']").length;
+
+        const cartnoArr = new Array();  // 장바구니 번호
+
+        for(let i=0; i<allcheckcnt; i++){
+            // alert($("div#cartno").eq(i).text());
+            if($("input:checkbox[name='choicemenu']").eq(i).prop("checked")){   // 체크된 상태
+                cartnoArr.push($("div#cartno").eq(i).text());
+                alert(cartnoArr);
+                
+            }
+        }   // end of for-------------------
+
+        const str_cartno = cartnoArr.join();
+
+        // alert("확인용 str_cartno : " +  str_cartno);
+
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
+        /*
+        $.ajax({
+            url:"orderAddJSON.ice"
+            , type:"post"
+            , data:{"str_cartno":str_cartno}
+            , success:function(json){
+
+            }
+            , error: function(request,status,error){
+                alert("code : " + request.status);
+            }
+        })
+        */
+        // location.href = `order/payment.ice`;
+
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
+    }
+    
 }   // end of function continueOrder(){--------
 
 /////////////////////////////////////////////////////////////////////////
@@ -230,14 +312,13 @@ function submitfrm(){
     const cartno = $("form[name='sendinfo'] > input[name='cartno']").val();
     const prevCount = $("form[name='sendinfo'] > input[name='prevCount']").val();
     const count = $("form[name='sendinfo'] > input[name='count']").val();
-    const choicedelete = $("form[name='sendinfo'] > input[name='delete']").val();
 
     $.ajax({
         url:"cartJSON.ice"
+        , type:"post"
         , data:{"cartno":cartno
             , "prevCount":prevCount     // 이전 수량
             , "count":count             // 변동후 count
-            ,"choicedelete":choicedelete
         }
         , dataType:"json"
         , success:function(json){
@@ -288,5 +369,3 @@ function submitfrm(){
     })  // end of $.ajax({----------------
 
 }   // end of function submitfrm(){---------------------
-
-

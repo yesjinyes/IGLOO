@@ -777,39 +777,40 @@ nocache;
 -- === 정보1 === --
 insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'jjoung');
 
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 1, 5);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 1, 6);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 1, 13);
-
-insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 1);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 7, 5);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 7, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 7, 13);
+commit;
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 7);
 
 insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
 
 commit;
 
 insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice)
-values(seq_orderdetailno.nextval,'P-20240523-000001', 1, 1, 8000);
+values(seq_orderdetailno.nextval,'P-20240527-000005', 1, 7, 8000);
 
 commit;
 
 ---------------------------------------------
 -- === 정보2 === --
-insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'jjoung');
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'Q', 'jjoung');
 
 commit;
 
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 2, 10);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 2, 6);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 2, 15);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 8, 10);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 8, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 8, 15);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 8, 20);
 
-insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 2);
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 8);
 
-insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
+insert into tbl_order(ordercode, fk_userid, totalprice) values('Q' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 10000);
 
 commit;
 
 insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice)
-values(seq_orderdetailno.nextval,'P-20240523-000002', 1, 2, 8000);
+values(seq_orderdetailno.nextval,'Q-20240527-000006', 1, 8, 8000);
 
 commit;
 
@@ -1148,3 +1149,35 @@ INSERT INTO tbl_product(productcodeno, productname, productimg, price, productde
 values('I','이글루','igloo.png',12000,'이글루특품','igloo_photo_20240527015302868810751999300.png');
 
 rollback;
+
+-- === 장바구니 제거 === --
+delete TBL_CART
+where cartno = 3
+
+rollback;
+
+--------------------------------------
+-- === 선택한 맛의 이름 === --
+SELECT tastename, tasteno
+FROM
+(
+    select tasteno, tastename
+    from tbl_taste
+)
+JOIN
+(
+    select fk_tasteno
+    from tbl_tasteselect
+    where fk_selectno = '8'
+)
+ON tasteno = fk_tasteno;
+
+-- === 기존 맛에 대한 선택내역번호 가져오기 === --
+select tasteselectno
+from tbl_tasteselect
+where fk_selectno = '5'
+order by tasteselectno;
+
+-- === 맛수정 === --
+update tbl_tasteselect set fk_tasteno = ? 
+where fk_selectno = ? 
