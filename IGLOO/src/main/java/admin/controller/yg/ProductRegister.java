@@ -3,8 +3,6 @@ package admin.controller.yg;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -66,11 +64,11 @@ public class ProductRegister extends AbstractController {
             // 1. 첨부되어진 파일을 디스크의 어느 경로에 업로드 할 것인지 그 경로를 설정해야 한다.  
             ServletContext svlCtx = session.getServletContext();
             String uploadFileDir = svlCtx.getRealPath("/images");
-          // System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
+           System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
          // === 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir 
-         // ==> C:\NCS\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MyMVC\images
-         
-         // String uploadFileDir = "C:\\NCS\\workspace_jsp\\MyMVC\\src\\main\\webapp\\images";
+         //  C:\NCS\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\IGLOO\images
+
+           // String uploadFileDir = "C:\\NCS\\workspace_jsp\\MyMVC\\src\\main\\webapp\\images";
          // 위와 같이 하면 파일 업로드 후에 어떤분들은 이클립스에서 새로고침을 해주어야 된다.
             
          // ==== >>> 파일을 업로드 해준다. <<< ==== //
@@ -255,16 +253,15 @@ public class ProductRegister extends AbstractController {
                   // 입력한 내용에서 엔터는 <br>로 변환하기
                   
                   ProductVO pvo = new ProductVO();
-                  pvo.setProductname(productname);   // 제품명
-                  pvo.setProductcodeno(productcodeno); // 제품명
-                  pvo.setPrice(Integer.parseInt(price)); // 가격
-                  pvo.setProductdetail(productdetail); // 제품설명
-                  pvo.setProductimg(pimage1);   // 제품이미지
+                  pvo.setProductname(productname);        // 제품명
+                  pvo.setProductcodeno(productcodeno);    // 제품명
+                  pvo.setPrice(Integer.parseInt(price));  // 가격
+                  pvo.setProductdetail(productdetail);    // 제품설명
+                  pvo.setProductimg(pimage1);             // 제품이미지
                   
                   String attachFileName = arr_attachFileName[0];
                   pvo.setProductimgBelow(attachFileName);
                   
-               // tbl_product 테이블에 제품정보 insert 하기 
                   int n = prdao.productInsert(pvo);
                   
                   int result = 0;
@@ -273,12 +270,12 @@ public class ProductRegister extends AbstractController {
                   }
                   
                   // === 추가이미지파일이 있다라면 tbl_product_imagefile 테이블에 제품의 추가이미지 파일명 insert 해주기 === // 
-                  
                   JSONObject jsonObj = new JSONObject();  // {}
                   jsonObj.put("result", result);
                   
                   String json = jsonObj.toString(); // 문자열로 변환 
                   request.setAttribute("json", json);
+                  // System.out.println(json);
                   
                   super.setRedirect(false);
                   super.setViewPage("/WEB-INF/jsonview.jsp"); 

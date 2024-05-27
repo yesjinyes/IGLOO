@@ -16,6 +16,7 @@ public class OrderVO {
 	private String fk_userid;						// 회원아이디
 	private int totalprice;							// 주문총액
 	private String orderdate = sdft.format(now);	// 주문일자
+	private int reviewstatus;						// 리뷰작성상태
 	//////////////////////////////////////////////////////////////
 	
 	// === select 용 === //
@@ -24,6 +25,12 @@ public class OrderVO {
 	
 	//////////////////////////////////////////////////////////////
 	
+	public int getReviewstatus() {
+		return reviewstatus;
+	}
+	public void setReviewstatus(int reviewstatus) {
+		this.reviewstatus = reviewstatus;
+	}
 	public MemberVO getMember() {
 		return member;
 	}
