@@ -2,14 +2,12 @@
 $(document).ready(function(){
 
 
-  
-  
-    let menuAlign = $('#menuAlign').val();
-    
-    if (menuAlign && menuAlign !== "") {
-        $("select[name='menuAlign']").val(menuAlign);
+
+
+
+    if( "${requestScope.menuAlign}" != "" ) {
+        $("select[name='menuAlign']").val("${requestScope.menuAlign}");
     }
-   
     
     
     

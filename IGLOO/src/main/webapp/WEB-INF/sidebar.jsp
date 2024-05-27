@@ -65,7 +65,7 @@ function goMemberUpdate() {
 					<br>
 					
 					<div class="mypageTopmanage">게시물 관리</div>
-					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/showReview.ice">
+					<a class="mypagelink mb-2 mt-2" href="<%= ctxPath %>/member/ableReview.ice">
 						<i class="fa-solid fa-pencil fa-xl"></i>&nbsp;마이 리뷰
 					</a>
 					<a class="mypagelink mb-2" href="<%= ctxPath %>/help/myFaqlist.ice">

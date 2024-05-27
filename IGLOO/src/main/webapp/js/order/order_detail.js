@@ -56,11 +56,12 @@ $(document).ready(function() {
 								<button type="button" id="delete" style="background-color: white; font-weight: bold; float: right; font-size: 15pt; border: none;">x</button>
 							</div>  
 						</div>
-						<input type="text" value="선택한 맛이 들어올 자리" />
+						<input type="text" name="result" value="`+result+`" />
 						
 						<hr style="border: solid 1px #81BEF7;">`;
 
 						$("div#resultList").append(html);
+						
 
 			totalcost = Number($("span.productprice").text().replace(",", ""));
 			//console.log("totalcost 확인 :" , totalcost)
@@ -69,6 +70,16 @@ $(document).ready(function() {
 			totalcost = totalcost.toLocaleString('ko-KR');
 			//console.log("price 추가된 totalcost 확인 :" , totalcost);
 			$("span.productprice").text(totalcost);
+			const resulttest = result.split("/");
+			console.log(resulttest);
+			/*
+				0: "이글루요거트 "
+				1: " 스트로베리 "
+				2: " 오레오레오"
+			*/
+			resulttest
+			
+		
 		
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 	
@@ -128,8 +139,6 @@ $(document).ready(function() {
 	
 // == 장바구니 연결하는 함수 == //
 function goCart(ctxPath) {
-	
-
 
     location.href = `${ctxPath}/member/cart.ice`;
 

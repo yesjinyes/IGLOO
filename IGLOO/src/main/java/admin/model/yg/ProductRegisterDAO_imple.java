@@ -4,16 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import common.controller.AbstractController;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import product.domain.ProductVO;
 
 public class ProductRegisterDAO_imple implements ProductRegisterDAO {
@@ -28,11 +23,12 @@ public class ProductRegisterDAO_imple implements ProductRegisterDAO {
 	public ProductRegisterDAO_imple() {
 		try {
 			Context initContext = new InitialContext();
-			Context envContext  = (Context)initContext.lookup("java:/comp/env");
-			ds = (DataSource)envContext.lookup("jdbc/myoracle");
-		} catch(NamingException e){
+		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
+		    ds = (DataSource)envContext.lookup("jdbc/semioracle");
+		    
+		}catch(NamingException e) {
 			e.printStackTrace();
-		}
+		} 
 		
 	}
 	
@@ -55,18 +51,19 @@ public class ProductRegisterDAO_imple implements ProductRegisterDAO {
 	      
 	      try {
 	         conn = ds.getConnection();
-	         
-	         String sql = " insert into tbl_product(productcodeno, productname, productimg, price, productdetail) "
-	                    + " values(?,?,?,?,?) ";
+	          
+	         String sql = " INSERT INTO tbl_product(PRODUCTCODENO, PRODUCTNAME, PRODUCTIMG, PRICE, PRODUCTDETAIL, PRODUCTIMGBELOW) "
+	         		    + " values(?,?,?,?,?,?) ";
 	         
 	         pstmt = conn.prepareStatement(sql);
-	         
+	           
 	         pstmt.setString(1, pvo.getProductcodeno());
 	         pstmt.setString(2, pvo.getProductname());
 	         pstmt.setString(3, pvo.getProductimg());
 	         pstmt.setInt(4, pvo.getPrice());
 	         pstmt.setString(5, pvo.getProductdetail());
-	         
+	         pstmt.setString(6, pvo.getProductimgBelow());
+
 	         result = pstmt.executeUpdate();
 	         
 	      } finally {

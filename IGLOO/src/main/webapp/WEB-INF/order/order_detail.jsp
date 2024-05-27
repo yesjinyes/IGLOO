@@ -72,8 +72,8 @@
 			
 				<%-- 장바구니, 구매하기 버튼 --%>
 				<div id="button" class="mx-auto" align="center">
-					<input type="button" class="btn btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
-			        <input type="button"  class="btn btn-lg" value="주문하기" onclick="goOrder()" />
+					<input type="button" class="btnclick btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
+			        <input type="button"  class="btnclick btn-lg" value="주문하기" onclick="goOrder()" />
 				</div>
 					
 			</div>
@@ -90,19 +90,17 @@
 					<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${requestScope.productimgBelow}">
 				</div>
 			</div>
+			
+			
 		</div>
-		
-		<hr style="border: solid 2px #4198e8;">
-		
-		<div id="image">
-			<div class="row">
-				<div class="col-md-3" style="font-weight: bold;">아이스크림 메뉴 들어갈 자리</div>
-			</div>
-		</div>
-	
 	</form>
+	 
+	<br><br><hr style="border: solid 1px #a4cdf4; width: 70%;">
 	
 </div>
 
-<jsp:include page="../footer.jsp" />
 
+
+<div style="margin-bottom: 10%;"></div>
+<hr style="border: solid 2px #4198e8; width: 70%;"><br><br>
+<jsp:include page="../footer.jsp" />

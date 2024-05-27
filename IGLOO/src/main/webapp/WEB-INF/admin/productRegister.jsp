@@ -283,12 +283,16 @@
 					 var formData = new FormData($("form[name='prodInputFrm']").get(0)); // $("form[name='prodInputFrm']").get(0) 폼 에 작성된 모든 데이터 보내기
 				   
 				     if(file_arr.length > 0){ // 추가 이미지 파일을 추가했을 경우
-					   
+						
+				    	 // alert(file_arr.length);
+						 // 1			     
+				     
 						 // 첨부한 파일의 총합의 크기가 10MB 이상 이라면 전송을 하지 못하게 막는다.
 						 let sum_file_size = 0;
 					   
 					   	 for(let i=0; i<file_arr.length; i++){
 					   		sum_file_size += file_arr[i].size;
+			          	 // alert("확인용" + sum_file_size);
 					   	 }// end of for-----------------------
 		
 					  	 ////////////////////////////////////////
@@ -303,9 +307,10 @@
 			             }
 					   	 else { // 첨부한 파일의 총합의 크기가 10MB 미만 이라면, formData 속에 첨부파일 넣어주기
 					   		 formData.append("attachCount", file_arr.length); // 추가이미지 파일 개수
+						     // alert(file_arr.length);
 					   		 
 					   		 file_arr.forEach(function(item, index){
-					   			formData.append("attach"+index,item); // 첨부파일 추가하기. item 이 첨부파일이다.
+					   		 formData.append("attach"+index,item); // 첨부파일 추가하기. item 이 첨부파일이다.
 					   		 });
 					   	 }
 					 
@@ -402,7 +407,6 @@
 	}) // end of $(document).ready(function(){})---------------------------------
 
 </script>
-
 
 
 

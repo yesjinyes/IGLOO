@@ -39,7 +39,9 @@
 	         <option value="name">가나다순</option>
 	         <option value="order">인기순</option>      
 	      </select>
-	    </form>
+	    
+	    <input type="text" id="menuAlign" value="${requestScope.menuAlign}">
+  	</form>
   	</div>
   	
  		 

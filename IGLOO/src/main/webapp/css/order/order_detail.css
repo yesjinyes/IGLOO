@@ -11,7 +11,7 @@ div.container.contents {
 	font-size: 20pt;
 }
 
-.btn { /* 구매하기, 장바구니 버튼 */
+.btnclick { /* 구매하기, 장바구니 버튼 */
 	text-align: center;
 	border: solid 1px #4198e8;
 	background-color: #81BEF7;
