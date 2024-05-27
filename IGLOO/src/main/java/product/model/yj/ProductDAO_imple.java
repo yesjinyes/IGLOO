@@ -120,12 +120,9 @@ public class ProductDAO_imple implements ProductDAO {
 
 	}// end of public List<TasteVO> selectTasteList() throws SQLException
 
+	///////////////////////////////////////////////////////////////
 	
-	
-	
-	
-	
-	// 제품 한 개만 불러오기
+	// == 제품 한 개만 불러오기 == //
 	@Override
 	public ProductVO getproductList_2(String pcode) throws SQLException {
 		
@@ -144,7 +141,6 @@ public class ProductDAO_imple implements ProductDAO {
 	         rs = pstmt.executeQuery();
 	         
 	         if(rs.next()) {
-	        	 
 	        	 pvo.setProductcodeno(rs.getString(1));
 	        	 pvo.setProductimg(rs.getString(2));
 	        	 pvo.setProductimgBelow(rs.getString(3));
@@ -152,16 +148,15 @@ public class ProductDAO_imple implements ProductDAO {
 	        	 pvo.setProductdetail(rs.getString(5));
 	        	 pvo.setPrice(rs.getInt(6));
 	        	 
-	         }// end of while-----------------
+	         }// end of  if(rs.next())-----------------
 	         
 	      } finally {
 	         close();
 	      }
 	      
-	      //System.out.println("확인용 이미지 : "+ productList);
-	      
 	      return pvo;
-	}
+	      
+	}// end of public ProductVO getproductList_2(String pcode) throws SQLException-------------
 
 
 
