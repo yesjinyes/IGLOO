@@ -26,26 +26,28 @@ public class PwdUpdateEnd extends AbstractController {
       
       String method = request.getMethod();
       
-      System.out.println("method"+method);
-      System.out.println("method"+method);
+      System.out.println("method : "+method);
       
       if("POST".equalsIgnoreCase(method)) {
          // "비밀번호변경" 버튼을 클릭했을 때
          String new_pwd = request.getParameter("pwd"); 
+         
          System.out.println("new_pwd:"+new_pwd);
+         
          Map<String, String> paraMap = new HashMap<>(); 
          paraMap.put("userid", userid);
          paraMap.put("new_pwd", new_pwd);
          
          int n = 0;
-         try {
          
+         try {
             n = mdao.pwdUpdateEnd(paraMap);
          } catch(SQLException e) {
             e.printStackTrace();
          }
          
          request.setAttribute("n", n); 
+         
          System.out.println("n:"+n);
             
       }// end of if("POST".equalsIgnoreCase(method))

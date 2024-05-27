@@ -185,10 +185,114 @@ rollback;
 
 select storeno, storename, storepage, storeimg, storeaddress, storetel, latitude, longitude
 from tbl_store
-where storename like '%부평%' or storeaddress like '%부평%';
+where storename like '%%' or storeaddress like '%%';
 
 
 select *
 from tab;
 
 desc TBL_INGREDIENT;
+
+
+select *
+from tbl_faq_q;
+
+delete from tbl_faq_q where q_no = 4;
+
+commit;
+
+"select rn, q_no, fk_userid, fk_categoryno, q_title, q_content, q_writeday, answerstatus, name "
++ "from "
++ "(select rownum rn, q_no, fk_userid, fk_categoryno, q_title, q_content, q_writeday, answerstatus, name "
++ "from tbl_faq_q A join tbl_member B "
++ "on A.fk_userid = B.userid "
++ "order by q_writeday desc, answerstatus asc) "
++ "where rn between ? and ? "
+
+select q_no, fk_userid, fk_categoryno, q_title, q_content, to_char(q_writeday, 'yyyy-mm-dd hh24:mi:ss'), name, answerstatus, a_no, fk_q_no, a_content, a_writeday
+from tbl_faq_q A join tbl_member B 
+on A.fk_userid = B.userid
+left join tbl_faq_a C
+on A.q_no = C.fk_q_no
+where q_no = 3;
+
+select *
+from tbl_faq_q;
+
+select *
+from tbl_faq_a;
+
+delete from tbl_faq_a where a_no = 7;
+insert into tbl_faq_a(a_no, fk_q_no, a_content) values(seq_tbl_faq_a.nextval, 5, '예 없어요 ㅋ');
+
+commit;
+
+
+----------------------------------------------------------------
+select *
+from tbl_faq_q;
+
+---------------------------------------------------------------
+
+
+update tbl_faq_q set answerstatus = 1
+where q_no = ?;
+
+select * from tab;
+
+
+desc tbl_tasteselect;
+
+select * from TBL_selectlist;
+select * from TBL_ORDER;
+select * from TBL_ORDERDETAIL;
+select * from TBL_PRODUCT;
+select * from TBL_TASTE;
+select * from TBL_TASTESELECT;
+select * from tbl_member;
+
+select A.orderdetailno, B.ordercode, A.ordercount, C.selectno, A.orderprice, A.pickupstatus, A.pickuptime, B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd hh24:mi:ss'),
+       D.productcodeno, D.productname, D.productimg, D.price, D.productdetail, E.tasteselectno, E.fk_selectno, E.fk_tasteno, F.tastename
+from tbl_orderdetail A join tbl_order B
+on A.fk_ordercode = B.ordercode
+join tbl_selectlist C
+on A.fk_selectno = C.selectno
+join tbl_product D
+on C.fk_productcodeno = D.productcodeno
+join tbl_tasteselect E
+on E.fk_selectno = C.selectno
+join tbl_taste F
+on E.fk_tasteno = F.tasteno;
+
+
+select A.orderdetailno, B.ordercode
+from tbl_orderdetail A join tbl_order B
+on A.fk_ordercode = B.ordercode
+join tbl_selectlist C
+on A.fk_selectno = C.selectno
+join tbl_product D
+on C.fk_productcodeno = D.productcodeno
+join tbl_member E
+on B.fk_userid = E.userid;
+
+
+select A.orderdetailno, B.ordercode
+from tbl_orderdetail A join tbl_order B
+on A.fk_ordercode = B.ordercode;
+
+select count(*)
+from tbl_order;
+
+select *
+from tbl_faqlist;
+
+ select *
+ from tbl_orderdetail;
+ 
+ desc tbl_orderdetail;
+ 
+ update tbl_orderdetail set pickuptime = ''
+ where orderdetailno = 2;
+ 
+ commit;
+ rollback;

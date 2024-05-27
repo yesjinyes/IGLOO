@@ -350,7 +350,7 @@ public class MemberDAO_imple implements MemberDAO {
 	@Override
 	public int pwdUpdateEnd(Map<String, String> paraMap) throws SQLException {
 		
-		int result = 0;
+		int n = 0;
 		
 		try {
 			conn = ds.getConnection();
@@ -363,13 +363,13 @@ public class MemberDAO_imple implements MemberDAO {
 			pstmt.setString(1, Sha256.encrypt(paraMap.get("new_pwd")) ); // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다.
 			pstmt.setString(2, paraMap.get("userid"));
 			
-	        result = pstmt.executeUpdate();
+	        n = pstmt.executeUpdate();
 			
 		} finally {
 			close();
 		}
 		
-		return result;
+		return n;
 		
 	}// end of public int pwdUpdateEnd(Map<String, String> paraMap) throws SQLException -------------------------
 
