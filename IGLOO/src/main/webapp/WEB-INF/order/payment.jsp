@@ -63,7 +63,7 @@
 				<div style="margin: 2%;">
 					<!-- <input id="male" type="radio" name="gender" checked/> --> <!-- checked 지정하면 디폴트값으로 선택됨. 복수개 지정가능 -->
 					<input id="realmoney" type="radio" name="paymentmethod" />
-					<label style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;" for="realmoney">현금 결제</label>
+					<label style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;" for="realmoney">만나서 결제</label>
 					<br>
 					<input id="mobilemoney" type="radio" name="paymentmethod" /> <!-- 같은 name 을 지정한 라벨들끼리는 그 중 하나만 선택할 수 있다. -->
 					<label style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;" for="mobilemoney">모바일 결제</label>
