@@ -94,14 +94,13 @@
 			
 		</div>
 	</form>
-	
+	 
 	<br><br><hr style="border: solid 1px #a4cdf4; width: 70%;">
 	
 </div>
 
 
 
-<jsp:include page="../order/order_detail_menu.jsp" />
 <div style="margin-bottom: 10%;"></div>
 <hr style="border: solid 2px #4198e8; width: 70%;"><br><br>
 <jsp:include page="../footer.jsp" />
