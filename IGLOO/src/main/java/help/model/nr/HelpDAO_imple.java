@@ -1,7 +1,6 @@
 package help.model.nr;
 
 import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+ 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,6 +16,8 @@ import javax.sql.DataSource;
 
 import help.domain.nr.FaqVO;
 import help.domain.nr.HelpVO;
+import product.domain.ProductVO;
+import product.domain.TasteVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
 
@@ -319,6 +320,141 @@ public class HelpDAO_imple implements HelpDAO {
 		}
 		
 		return totalFaqCount;
+	}
+
+	
+	
+	
+	// 맛 검색
+	@Override
+	public List<TasteVO> searchTaste(String search) throws SQLException {
+
+		List<TasteVO> tasteList = new ArrayList<TasteVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, fat, "
+					   + "natrium, allergy, ingredients, eng_name "
+					   + "from tbl_taste "
+					   + "where tastename like '%'||?||'%' or tasteexplain like '%'||?||'%' ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TasteVO tvo = new TasteVO();
+				tvo.setTasteno(rs.getInt(1));
+				tvo.setTastename(rs.getString(2));
+				tvo.setTasteimg(rs.getString(3));
+				tvo.setTasteexplain(rs.getString(4));
+				tvo.setOncesupply(rs.getString(5));
+				tvo.setCalory(rs.getString(6));
+				tvo.setSugar(rs.getString(7));
+				tvo.setProtein(rs.getString(8));
+				tvo.setFat(rs.getString(9));
+				tvo.setNatrium(rs.getString(10));
+				tvo.setAllergy(rs.getString(11));
+				tvo.setIngredients(rs.getString(12));
+				tvo.setEng_name(rs.getString(13));
+				
+				tasteList.add(tvo);
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return tasteList;
+	}
+
+	
+	// 제품 검색
+	@Override
+	public List<ProductVO> searchCup(String search) throws SQLException {
+
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select productcodeno, productname, productimg, price, productdetail, productimgbelow "
+					   + "from tbl_product "
+					   + "where productname like '%'||?||'%' or productdetail like '%'||?||'%' ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				ProductVO pvo = new ProductVO();
+				
+				pvo.setProductcodeno(rs.getString(1));
+				pvo.setProductname(rs.getString(2));
+				pvo.setProductimg(rs.getString(3));
+				pvo.setPrice(rs.getInt(4));
+				pvo.setProductdetail(rs.getString(5));
+				pvo.setProductimgBelow(rs.getString(6));
+				
+				productList.add(pvo);
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return productList;
+	}
+
+	
+	// 자주하는 질문 검색
+	@Override
+	public List<HelpVO> searchFaq(String search) throws SQLException {
+
+		List<HelpVO> faqList = new ArrayList<HelpVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select faqno, f_category, f_title, f_content "
+					   + "from tbl_faqlist "
+					   + "where f_title like '%'||?||'%' or f_content like '%'||?||'%' ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				HelpVO hvo = new HelpVO();
+				
+				hvo.setFaqno(rs.getInt(1));
+				hvo.setF_category(rs.getString(2));
+				hvo.setF_title(rs.getString(3));
+				hvo.setF_content(rs.getString(4));
+				
+				faqList.add(hvo);				
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return faqList;
 	}
 
 	

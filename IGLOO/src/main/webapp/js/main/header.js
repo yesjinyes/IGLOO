@@ -1,12 +1,5 @@
 $(document).ready(function(){
 
-    $("button#btnSearch").click(function(){
-        search();
-    })  // end of $("button#btnSearch").click(function(){}------------------
-
-    $("input#search").click(function(){
-        search();
-    })  // end of $("input#search").click(function(){})-------------------------
 
 })  // end of $(document).ready(function(){}---------------------------
 
@@ -24,9 +17,3 @@ function login(ctxPath){
 
 }   // end of function sign(ctxPath){})-----------
 
-function search(){
-
-    const frm = document.searchFrm;
-    frm.submit();
-
-}   // end of function sign(ctxPath){})-----------
