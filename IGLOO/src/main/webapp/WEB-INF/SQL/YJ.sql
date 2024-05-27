@@ -222,7 +222,7 @@ select * from tbl_order;
 insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'yy6037', );
 
 
-
+select * from tbl_member;
 
 
 
