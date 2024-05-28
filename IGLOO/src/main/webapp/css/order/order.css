@@ -15,7 +15,8 @@ div.container {
 div.card {
 	/* cursor: pointer; */
 	width: 20%;
-	border: solid 0px red;
+	border: solid 3px gray;
+	border-radius: 10px;
 }
 
 img.card-img-top {
