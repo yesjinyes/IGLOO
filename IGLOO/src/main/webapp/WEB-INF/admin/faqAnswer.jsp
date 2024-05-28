@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <% String ctxPath = request.getContextPath(); %>
 
+<jsp:include page="../header.jsp" />
 <script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -32,7 +33,6 @@
 	
 </script>
 
-<jsp:include page="../header.jsp" />
 
 <style type="text/css">
 

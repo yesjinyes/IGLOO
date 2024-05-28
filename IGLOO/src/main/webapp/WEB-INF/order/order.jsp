@@ -34,10 +34,9 @@
    
    <h4>주문 메뉴</h4>
    <br><br>
-      <div class="card-deck mb-5">
+      <div class="row mb-5">
           <c:forEach var="productList" items="${requestScope.productList}" varStatus="status">
-    
-            <div class="card">
+            <div class="card col-md-3">
             	<img name="productimg" src="${pageContext.request.contextPath}/images/registerimage/${productList.productimg}" class="card-img-top productimg" style="height: 50%;" alt="...">
                 <div class="card-body">
                 	<h5 class="card-title productname">${productList.productname}</h5>
@@ -48,6 +47,9 @@
                   	<button type="button" class="btnOrder stretched-link" style="float: right">주문하기</button>
                 </div>
             </div>
+            <c:if test="${status.index % 4 == 3}">
+     			</div><div class="row mb-5">
+ 		 	</c:if>
           </c:forEach>
       </div>
      
