@@ -36,9 +36,9 @@
 				<h6 style="font-size: 27pt; text-align: right;">
 					<fmt:formatNumber value="${requestScope.pvo.price}" pattern="###,###" />원
 				</h6>
-				<input type="text" value="${requestScope.productprice}" />
+				<input type="hidden" id="productprice" value="${requestScope.pvo.price}"/>
 				<hr style="border: solid 1px #81BEF7;"><br>
-			
+				
 				<%-- 맛 선택 --%>
 				<c:forEach begin="1" end="${fn:substring(requestScope.pvo.productdetail, 0, 1)}" varStatus="status">
 			 		<p class="status"></p>
