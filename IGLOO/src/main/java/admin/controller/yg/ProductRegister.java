@@ -65,7 +65,7 @@ public class ProductRegister extends AbstractController {
             // 1. 첨부되어진 파일을 디스크의 어느 경로에 업로드 할 것인지 그 경로를 설정해야 한다.  
             ServletContext svlCtx = session.getServletContext();
             String uploadFileDir = svlCtx.getRealPath("/images");
-           System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
+         // System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
          // === 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir 
          //  C:\NCS\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\IGLOO\images
 
