@@ -384,8 +384,10 @@ SELECT tasteno, tastename, tasteimg , ingredients
    from tbl_orderdetail;
    
    --- 주문된 제품, 아이스크림맛 조회해오기
-   select *
-   from tbl_order A
+   select userid, ordercode, orderdetailno, orderdate, totalprice, reviewstatus, selectno, productcodeno, tasteselectno, tastename, productimg
+   from tbl_member I
+   join tbl_order A
+   on I.userid = A.fk_userid 
    join tbl_orderdetail B
    on A.ordercode = B.fk_ordercode
    join tbl_selectlist C 
@@ -396,5 +398,10 @@ SELECT tasteno, tastename, tasteimg , ingredients
    on C.fk_productcodeno = E.productcodeno
    join tbl_taste F
    on D.fk_tasteno = F.tasteno
+   group by ordercode
    where userid = 'jjoung';
+   
+   
+   
+   
    
