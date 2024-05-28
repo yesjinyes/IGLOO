@@ -28,7 +28,7 @@ function changetaste() {
 </script>
 <%-- ======================================================================================= --%>
 <%-- 컴퓨터 화면 --%>
-<div id="ctxPath"><%= ctxPath%></div>
+<div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <div id="cartContainer">
 	<%-- 진행 현황 --%>
 	<div id="orderProcedure" class="row justify-content-end mt-5">
@@ -198,26 +198,15 @@ function changetaste() {
 </form>
 
 <%-- ****** 맛 수정 Modal 시작 ****** --%>
-  <div class="modal fade" id="updatetaste" data-backdrop="static">
+  <div class="modal fade" id="updatetaste">
    <div class="modal-dialog">
    		<div class="modal-content">
-	        <%-- Modal header --%>
-	        <%--
-	        <div class="modal-header">
-	        	<h4 class="modal-title my-auto">쿼터 맛 수정</h4>
-	          	<button type="button" class="close idFindClose" data-dismiss="modal"><%-- X 위치 &times;</button>
-	        </div>
-	        --%>
 	        <%-- Modal body --%>
 	        <div class="modal-body">
 	          	<div id="updatetaste_frame">
 					<iframe id="iframe_updatetaste" style="border: none; width: 100%; height: 300px;">  
 		            </iframe>
 	          	</div>
-	        </div>
-	        <%-- Modal footer --%>
-	        <div class="modal-footer">
-	          	<button type="button" class="btn btn-danger closemodal" data-dismiss="modal">닫기</button>
 	        </div>
     	</div>
   	</div>

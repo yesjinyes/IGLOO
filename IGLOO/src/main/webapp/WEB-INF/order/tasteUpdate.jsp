@@ -25,11 +25,14 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/tasteUpdate.js" ></script> 
 
-<div id="ctxPath"><%= ctxPath%></div>
+<div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <form name="tasteUpdateFrm">
-	<%-- <c:forEach begin="1" end="${requestScope.tasteselectcnt}" varStatus="status"> --%>
-	   	<c:forEach var="selecttvo" items="${requestScope.selectTasteList}" varStatus="status">	
-	   		<select name="selectbox" class="selectedtaste" style="padding: 0.5% 0;">
+	<div class="m-3 text-center" style="border:solid 1px black;">
+	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:150px;" class="my-1"/>
+	<c:forEach var="selecttvo" items="${requestScope.selectTasteList}" varStatus="status">	
+		<div class="my-2">
+		<span>선택한 맛${status.count} : </span>
+		<select name="selectbox" class="selectedtaste" style="padding: 0.5% 0;">
 	   		<option value="${selecttvo.tasteno}">${selecttvo.tastename}</option>
 	   		<c:forEach var="tvo" items="${requestScope.tasteList}">	
 	        	<c:if test="${selecttvo.tastename != tvo.tastename}">
@@ -37,8 +40,10 @@
 	        	</c:if>
 	        </c:forEach>
 	   		</select>
+	   		</div>
 	   	</c:forEach>
-	   	<button type="button" class="btn btnupdate">수정</button>
-	   	<input id="updateTasteno" name="updateTasteno" />
-	   	<input name="selectno" value="${requestScope.selectno}"/>
+	   	<button type="button" class="btn btnupdate btn-outline-info mb-3">수정</button>
+	   	</div>
+	   	<input id="updateTasteno" name="updateTasteno" style="display:none;"/>
+	   	<input name="selectno" value="${requestScope.selectno}" style="display:none;"/>
 </form>
