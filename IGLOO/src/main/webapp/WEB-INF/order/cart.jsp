@@ -110,7 +110,7 @@ function changetaste() {
 			           			</c:forEach>
 							</ul>
 							<div class="row justify-content-center">
-								<div id="selectno"">${cartList.fk_selectno}</div>
+								<div id="selectno" style="display:none;">${cartList.fk_selectno}</div>
 								<button type="button" class="updatetaste btn btn-sm btn-outline-info col-10" data-toggle="modal" data-target="#updatetaste" data-dismiss="modal">수정</button>
 							</div>
 						</div>
@@ -119,7 +119,7 @@ function changetaste() {
 						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
-								<div id="divcartno" name="divcartno">${cartList.cartno}</div>
+								<div id="divcartno" name="divcartno" style="display:none;">${cartList.cartno}</div>
 								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
@@ -191,10 +191,10 @@ function changetaste() {
 </form>
 
 <%-- 넘겨줄 정보(주문결제) --%>
-<form name="orderinfo">
+<form name="orderinfo" style="display:none;">
 	<input type="text" name="str_cartno" value=""/>
-	<input type="text" name="prevCount" value=""/>
-	<input type="text" name="count" value=""/>
+	<input type="text" name="str_selectno" value=""/>
+	<input type="text" name="totalprice" value=""/>
 </form>
 
 <%-- ****** 맛 수정 Modal 시작 ****** --%>

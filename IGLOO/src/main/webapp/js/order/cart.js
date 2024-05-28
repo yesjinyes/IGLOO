@@ -266,41 +266,34 @@ function continueOrder(){
         const selectnoArr = new Array();    // 선택일련번호
         let totalprice = $("span#totalPriceinfo").text();     // 주문총액
         totalprice = totalprice.replaceAll(",","");
-        alert("확인용 totalprice : " + totalprice);
+        // alert("확인용 totalprice : " + totalprice);
 
         for(let i=0; i<allcheckcnt; i++){
             // alert($("div#divcartno").eq(i).text());
             if($("input:checkbox[name='choicemenu']").eq(i).prop("checked")){   // 체크된 상태
                 cartnoArr.push($("div#divcartno").eq(i).text());
                 selectnoArr.push($("div#selectno").eq(i).text());
-                alert("확인용 cartnoArr : " + cartnoArr);   // [5]  [5,6]
-                alert("확인용 selectnoArr : " + selectnoArr);
+                // alert("확인용 cartnoArr : " + cartnoArr);
+                // alert("확인용 selectnoArr : " + selectnoArr);
                 
             }
         }   // end of for-------------------
 
-        const str_cartno = cartnoArr.join();    // 5,6
+        const str_cartno = cartnoArr.join();
         const str_selectno = selectnoArr.join();
 
-        alert("확인용 str_cartno : " +  str_cartno);
-        alert("확인용 str_selectno : " +  str_selectno);
-/*
-        $.ajax({
-            url:"order/payment.ice"
-            , type:"post"
-            , data:{"str_cartno":str_cartno
-                , "selectnoArr":selectnoArr
-                , "totalprice":totalprice
-            }
-            , success:function(json){
-                
-            }
-            , error: function(request,status,error){
-                alert("code : " + request.status);
-            }
-        })
-    */  
-        // location.href = `order/payment.ice`;
+        // alert("확인용 str_cartno : " +  str_cartno);
+        // alert("확인용 str_selectno : " +  str_selectno);
+
+        $("form[name='orderinfo'] > input[name='cartno']").val(str_cartno);
+        $("form[name='orderinfo'] > input[name='cartno']").val(str_selectno);
+        $("form[name='orderinfo'] > input[name='cartno']").val(totalprice);
+
+        const frm = document.orderinfo;
+        frm.action = "order/payment.ice";
+        frm.method = "post";
+        frm.submit();
+
     }
     
 }   // end of function continueOrder(){--------
