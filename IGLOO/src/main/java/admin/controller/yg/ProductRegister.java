@@ -57,18 +57,19 @@ public class ProductRegister extends AbstractController {
          if(!"POST".equalsIgnoreCase(method)) { // "GET" 이라면    // ■■■■■ 이건 헤더에서 제품등록을 눌렀을 때, get방식으로 보낼경우.  ■■■■■
             
             super.setRedirect(false);
-            super.setViewPage("/WEB-INF/admin/productRegister.jsp"); 
+            super.setViewPage("/WEB-INF/admin/productRegister.jsp");
+            
          }
          else { // "POST" 이라면      // ■■■■■ 이건 제품등록 페이지에 들어가서 전부 입력후 제품등록 버튼을 눌러 POST방식으로 보낼경우.  ■■■■■
             
             // 1. 첨부되어진 파일을 디스크의 어느 경로에 업로드 할 것인지 그 경로를 설정해야 한다.  
             ServletContext svlCtx = session.getServletContext();
             String uploadFileDir = svlCtx.getRealPath("/images");
-           System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
+         // System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir ==> " + uploadFileDir); 
          // === 첨부되어지는 이미지 파일이 올라가는 절대경로 uploadFileDir 
          //  C:\NCS\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\IGLOO\images
 
-           // String uploadFileDir = "C:\\NCS\\workspace_jsp\\MyMVC\\src\\main\\webapp\\images";
+         // String uploadFileDir = "C:\\NCS\\workspace_jsp\\MyMVC\\src\\main\\webapp\\images";
          // 위와 같이 하면 파일 업로드 후에 어떤분들은 이클립스에서 새로고침을 해주어야 된다.
             
          // ==== >>> 파일을 업로드 해준다. <<< ==== //

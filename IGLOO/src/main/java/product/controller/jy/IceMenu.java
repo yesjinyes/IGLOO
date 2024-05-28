@@ -26,7 +26,7 @@ public class IceMenu extends AbstractController {
 		// === Ajax(JSON)를 사용하여 HIT 상품목록 "더보기" 방식으로 페이징 처리해서 보여주겠다. === // 
 			int totalCount = mdao.totalCount(); // HIT 상품의 전체개수를 알아온다.
 				
-			System.out.println("~~~~ 확인용 totalHITCount : " + totalCount);
+			// System.out.println("~~~~ 확인용 totalHITCount : " + totalCount);
 			// ~~~~ 확인용 totalHITCount : 36
 			
 			request.setAttribute("totalCount", totalCount);
