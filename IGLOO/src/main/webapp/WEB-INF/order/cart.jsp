@@ -110,7 +110,7 @@ function changetaste() {
 			           			</c:forEach>
 							</ul>
 							<div class="row justify-content-center">
-								<div id="selectno" style="display:none;">${cartList.fk_selectno}</div>
+								<div id="selectno"">${cartList.fk_selectno}</div>
 								<button type="button" class="updatetaste btn btn-sm btn-outline-info col-10" data-toggle="modal" data-target="#updatetaste" data-dismiss="modal">수정</button>
 							</div>
 						</div>
@@ -119,7 +119,7 @@ function changetaste() {
 						<div class="selectMenucnt justify-content-center col-xl-2 col-lg-2 col-md-2 p-0">
 							<div class="d-inline-block"></div>
 							<div class="mb-5">
-								<div id="cartno" name="divcartno" style="display:none;">${cartList.cartno}</div>
+								<div id="divcartno" name="divcartno">${cartList.cartno}</div>
 								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
 								<div>수량</div>
 								<button type="button" class="btn btnminus">
@@ -153,7 +153,7 @@ function changetaste() {
 		<div class="row justify-content-end">
 			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
 			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">
-				<span class="totalPrice">0</span>
+				<span id="totalPriceinfo" class="totalPrice">0</span>
 				원
 			</div>
 			<div class="mb-5"></div>
@@ -190,6 +190,13 @@ function changetaste() {
 	<input type="text" name="count" value=""/>
 </form>
 
+<%-- 넘겨줄 정보(주문결제) --%>
+<form name="orderinfo">
+	<input type="text" name="str_cartno" value=""/>
+	<input type="text" name="prevCount" value=""/>
+	<input type="text" name="count" value=""/>
+</form>
+
 <%-- ****** 맛 수정 Modal 시작 ****** --%>
   <div class="modal fade" id="updatetaste" data-backdrop="static">
    <div class="modal-dialog">
@@ -208,12 +215,10 @@ function changetaste() {
 		            </iframe>
 	          	</div>
 	        </div>
-	        <%--
-	        <%-- Modal footer
+	        <%-- Modal footer --%>
 	        <div class="modal-footer">
-	          	<button type="button" class="btn btn-danger idFindClose" data-dismiss="modal">닫기</button>
+	          	<button type="button" class="btn btn-danger closemodal" data-dismiss="modal">닫기</button>
 	        </div>
-	        --%>
     	</div>
   	</div>
 </div>
