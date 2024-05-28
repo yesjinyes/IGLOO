@@ -24,6 +24,7 @@
 			}
 		});
 		
+		
 	});// end of $(document).ready(function(){})-----------
 	
 	function goInquiry() {
@@ -45,13 +46,12 @@
 	        $("textarea#content").val("").focus();
 	        return;
 	    }
-		
-	 //	const frm = document.member_search_frm; 
+	
+		const frm = document.faqRegisterFrm;
+		frm.action = "inquiryRegister.ice";
+		frm.method = "post";
+		frm.submit();
 	 
-	 //	frm.action = ""; 
-	 //	frm.method = "get";
-	 //	frm.submit(); 
-		
 	}// end of function goInquiry()---------------
 	
 </script>
@@ -59,36 +59,38 @@
 
 <div class="container mt-2" >
 	
+	<form name="faqRegisterFrm">
 	<h2 class="mt-5" style="margin-left: 3%;">1:1 문의하기</h2>
 	<hr style="border: solid 2px #6190BC; width: 96%; margin: 4% auto 6% auto;">
 	
 	<%-- 카테고리 --%>
 	<p style="display: inline-block; margin: 0 2% 2% 3%; font-weight: bold; font-size: 13pt">카테고리</p>
-	<select name="categoryType" style="font-size: 11pt;">
+	<select name="q_category" style="font-size: 11pt;">
       <option value="">문의유형선택</option>
-      <option value="product">제품문의</option>
-      <option value="pickup">픽업문의</option>
-      <option value="spot">지점문의</option> 
-      <option value="payment">결제문의</option>
-      <option value="etc">기타문의</option>     
+      <option value="1">제품문의</option>
+      <option value="2">픽업문의</option>
+      <option value="3">지점문의</option> 
+      <option value="4">결제문의</option>
+      <option value="5">기타문의</option>     
     </select>
 	
 	<%-- 아이디 --%>
 	<div class="form-group">
 	  <label for="title">아이디</label>
 	  <div style="display: inline-block; margin: 1% 3% 3% 3%;">${requestScope.userid}</div>
+	  <input type="text" name="userid" value="${requestScope.userid}" style="display: none;"/>
 	</div>
 	
 	<%-- 제목 --%>
 	<div class="form-group">
 	  <label for="title">제목</label>
-	  <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요.">
+	  <input type="text" name="q_title" class="form-control" id="title" placeholder="제목을 입력해주세요.">
 	</div>
 	
 	<%-- 내용 --%>
 	<div class="form-group">
 	  <label for="content">내용</label>
-	  <textarea class="form-control" id="content" rows="3"></textarea>
+	  <textarea class="form-control" name="q_content" id="content" rows="3"></textarea>
 	</div>
 	
 	<%-- 사진파일 첨부 --%>
@@ -104,9 +106,10 @@
 	<%-- 문의등록, 취소 버튼 --%>
     <div id="btnInquiry" class="float-right">
       <input id="reset" type="reset" class="btn btn-light btn-xs mr-3" value="취소" />
-      <input id="inquiry" type="button" class="btn btn-xs mr-5" value="문의하기" onclick="goInquiry()"/>
+      <input id="inquiry" type="button" class="btn btn-primary btn-xs mr-5" value="문의하기" onclick="goInquiry()"/>
     </div>
 
+	</form>
 </div>
 <%-- 사이드바 오른쪽 내용 삽입 끝  --%>
 
