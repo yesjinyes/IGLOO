@@ -6,6 +6,22 @@
 
 <jsp:include page="../header.jsp" />
 
+<script type="text/javascript">
+
+function goTasteDetail(tasteno){
+	location.href = "<%=ctxPath%>/product/menuDetail.ice?tasteno="+tasteno;
+}
+
+function goProductDetail(productno){
+	location.href = "<%=ctxPath%>/order/order_detail.ice?pcode="+productno;
+}
+
+function goFaqDetail(f_category){
+	location.href = "<%=ctxPath%>/help/help.ice?category="+f_category;
+}
+
+</script>
+
 <style type="text/css">
 
 div.contentWrap {
@@ -59,11 +75,11 @@ div.resultDiv {
 
 <div class="container" style="margin-top: 7%;">
 	<img style="width: 30%; margin-left: 37%;" src="<%=ctxPath%>/images/igloo_logo.png"/>
-	<div id="topDiv" style="margin: 3%; font-size: 20pt; font-style: italic; font-weight: bold; color: #6c8da3; ">
+	<div id="topDiv" style="margin: 3% 3% 0% 3%; font-size: 20pt; font-style: italic; font-weight: bold; color: #6c8da3; ">
 	"${requestScope.search}"에 대한 검색 결과&nbsp;<span id="hideSpan" style="text-decoration: underline;">더보기</span>
 	</div>
 
-	<div style="padding: 3%;">
+	<div style="padding: 0% 3% 3% 3%;">
 		<c:if test="${requestScope.tagName == 'taste'}">
 			<div id="tasteWrap" class="contentWrap">
 			<div class="searchTitle" style="color: #FD8A69;">&lt;메뉴&gt; <span class="searchResultCnt">검색 결과 <span id="n">${requestScope.totalSearchCount}</span>건</span></div>

@@ -8,17 +8,16 @@
 <jsp:include page="../header.jsp" />
 
 <script type="text/javascript">
+
 $(document).ready(function(){
 	
 	$("div#forHide").hide();
 	
 	// 모달 열었을 때
 	$("span.orderstatus").click(function(e){
-		
+
 		// 라디오 원상복구
 		const radio = $(e.target).parent().find(".radio");
-		
-		const idx = $(e.target).index();
 		
 		const orderstatus = $(e.target).parent().find("#hidden_orderstatus").val();
 		
@@ -29,7 +28,8 @@ $(document).ready(function(){
 		
 		// 준비 중 내 시간 원상복구
 		
-		$("span#time").html("20");
+		$(e.target).parent().find("#time").html("");
+		$(e.target).parent().find("#time").html("20");
 		
 		const orderdate = $(e.target).parent().find("#orderdate").html();
 		let date = new Date(orderdate);
@@ -41,12 +41,15 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	
+	
+	
 	$("input:radio").change(function(e){
-		
+
 		const radioId = $(e.target).parent().parent().parent().parent().find("#hidden_statusindex").val();
 		
 		// console.log(radioId);
-		
 		if($("input:radio[id="+radioId+"]").prop("checked")){ // 준비 중 클릭 시
 			
 			$("div#forHide").show();
@@ -64,9 +67,10 @@ $(document).ready(function(){
 			$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 			
 			// 2. + 버튼 눌렀을 때
-			$(e.target).parent().parent().find("#timePlus").click(function(){
+			$(e.target).parent().parent().find("#timePlus").off("click").on('click', function(e){
 				
 				const currentTime = Number($(e.target).parent().parent().find("#time").html());
+				// console.log("currentTime: "+currentTime);
 				$(e.target).parent().parent().find("#time").html(currentTime+20);
 				
 				date.setMinutes(date.getMinutes() + 20);
@@ -83,10 +87,12 @@ $(document).ready(function(){
 					$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 				}
 				
+				return false;
+				
 			});
 			
 			// 3. - 버튼 눌렀을 때
-			$(e.target).parent().parent().find("#timeMinus").click(function(){
+			$(e.target).parent().parent().find("#timeMinus").off("click").on('click', function(e){
 				
 				const currentTime = Number($(e.target).parent().parent().find("#time").html());
 				$(e.target).parent().parent().find("#time").html(currentTime-20);
@@ -103,9 +109,11 @@ $(document).ready(function(){
 					date.setMinutes(date.getMinutes() + 20);
 					
 					let pickuptime = dateToString(date);
-					$("span#pickuptime").html(pickuptime);
+					$(e.target).parent().parent().find("#pickuptime").html(pickuptime);
 					
 				}
+				
+				return false;
 				
 			});
 			
@@ -121,15 +129,15 @@ $(document).ready(function(){
 	$("button#cancelBtn").click(function(){
 		
 		// 20분으로 초기화
-		$("span#time").html("20");
+		$(event.target).parent().parent().find("#time").html("20");
 		
 		// 픽업 시각 초기화
-		const orderdate = $("span#orderdate").html();
+		const orderdate = $(event.target).parent().parent().find("#orderdate").html();
 		
 		let date = new Date(orderdate);
 		date.setMinutes(date.getMinutes() + 20);
 		let pickuptime = dateToString(date);
-		$("span#pickuptime").html(pickuptime);
+		$(event.target).parent().parent().find("#pickuptime").html(pickuptime);
 		
 		// 라디오버튼 원상복구 및 히든 div 숨기기
 		const radio = $("input:radio");
@@ -137,11 +145,17 @@ $(document).ready(function(){
 			item.checked = false;
 		});
 		
+		$(event.target).parent().parent().find("#time").html("");
+		$(event.target).parent().parent().find("#time").html("20");
+		
 		$("div#forHide").hide();
 		
 	});
+
+
 	
 }); // document.ready
+
 
 function goUpdate(e) {
 	
@@ -416,7 +430,7 @@ div#forHide > div {
 									  	<div class="m-3">
 									  		<div><input type="radio" class="radio ready" name="pickupStatus_${status.index}" id="2_${status.index}" value="2"/> <label for="2_${status.index}">준비 중</label></div>
 									  		<div id="forHide" style="background-color: #e6f3ff;">
-									  			<div><span style="margin-right: 10%;">고객 주문 시각</span><span id="orderdate">${odvo.order.orderdate}</span></div>									  		
+									  			<div><span style="margin-right: 10%;">고객 주문 시각</span><span id="orderdate" class="orderdate">${odvo.order.orderdate}</span></div>									  		
 									  			<div><span style="margin-right: 10%;">픽업 시각</span><span id="pickuptime" style="color: red;"></span></div>
 									  			
 									  			<div>
@@ -439,6 +453,7 @@ div#forHide > div {
 									  	<input type="hidden" name="status"/>
 									  	<input type="hidden" name="pickupTime"/>
 									  </form>
+									  
 							      </div>
 							      
 							      <!-- Modal footer -->
