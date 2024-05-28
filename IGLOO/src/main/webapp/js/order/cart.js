@@ -285,9 +285,9 @@ function continueOrder(){
         // alert("확인용 str_cartno : " +  str_cartno);
         // alert("확인용 str_selectno : " +  str_selectno);
 
-        $("form[name='orderinfo'] > input[name='cartno']").val(str_cartno);
-        $("form[name='orderinfo'] > input[name='cartno']").val(str_selectno);
-        $("form[name='orderinfo'] > input[name='cartno']").val(totalprice);
+        $("form[name='orderinfo'] > input[name='str_cartno']").val(str_cartno);
+        $("form[name='orderinfo'] > input[name='str_selectno']").val(str_selectno);
+        $("form[name='orderinfo'] > input[name='totalprice']").val(totalprice);
 
         const frm = document.orderinfo;
         frm.action = "order/payment.ice";
