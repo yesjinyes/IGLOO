@@ -241,4 +241,6 @@ update tbl_member
 set lastpwdchangedate='240125'
 where userid = 'yejin';
 
+commit;
+
 select * from tbl_member;
