@@ -50,25 +50,41 @@ div#detail_ingredient > div {
 }
 
 div#Nutrition {
-	border: solid 0px grey;
+	border: solid 0px red;
 	height: 80px;
 }
+
 
 div.col-md-1.nu {
 	border: solid 0px grey;
 	height: 80px;
 	text-align: center;
-	font-size: 10pt;
+	font-size: 13pt;
 	padding: 1% 0 0 0;
+	margin-left: 0.5%;
 }
 
+div.bold {
+	font-weight: bold;
+}
+
+div.col-md-2 {
+	text-align: center;
+	padding-top: 1%;
+	font-size: 15pt;
+	margin-right: 3%;
+}
+/* 
 div.col-md-3 {
 	text-align: center;
 	padding-top: 1%;
-}
+	font-size: 15pt;
+} */
 
 div#allergy {
-	font-size: 10pt;
+	font-size: 12pt;
+	border: solid 0px orange;
+	margin-left: 4%;
 }
 
 div.col-md-1.nu > div:last-child {

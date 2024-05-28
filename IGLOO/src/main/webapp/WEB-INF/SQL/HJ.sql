@@ -541,15 +541,14 @@ where fk_userid = 'jjoung' and ORDERDATE > '2024.05.10';
 
 ------------------------------------------------------------------------------------
 insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'jjoung');
-
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 3, 15);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 3, 6);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 3, 10);
-
-insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 3);
-
+commit;
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 10, 15);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 10, 6);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 10, 10);
+commit;
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'jjoung', 1, 10);
+commit;
 insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
-
 commit;
 
 -----------------------------------------------------------------------------------------------

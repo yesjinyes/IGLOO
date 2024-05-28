@@ -144,7 +144,7 @@ $(document).ready(function() {
         let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");
         choiceMenucheckbox.prop("checked", false);
 
-        let cartno = $(this).parent().parent().parent().parent().find("div#cartno").text();
+        let cartno = $(this).parent().parent().parent().parent().find("div#divcartno").text();
         // alert("삭제하는 장바구니 번호 : " + cartno);
         
         const productname = $(this).parent().find("div.productname").text();
@@ -190,7 +190,7 @@ $(document).ready(function() {
             $("form[name='sendinfo'] > input[name='prevCount']").val(Number(count));
             $("form[name='sendinfo'] > input[name='count']").val(Number(count) - 1);
             
-            let cartno = $(this).parent().find("div#cartno").text();
+            let cartno = $(this).parent().find("div#divcartno").text();
             $("form[name='sendinfo'] > input[name='cartno']").val(cartno);
             // alert("확인용 : cartno" + cartno);
 
@@ -214,7 +214,7 @@ $(document).ready(function() {
         $("form[name='sendinfo'] > input[name='prevCount']").val(Number(count));
         $("form[name='sendinfo'] > input[name='count']").val(Number(count) + 1);
         
-        let cartno = $(this).parent().find("div#cartno").text();
+        let cartno = $(this).parent().find("div#divcartno").text();
         $("form[name='sendinfo'] > input[name='cartno']").val(cartno);
         // alert("확인용 : cartno" + cartno);
 
@@ -262,45 +262,45 @@ function continueOrder(){
     else{
         const allcheckcnt = $("input:checkbox[name='choicemenu']").length;
 
-        const cartnoArr = new Array();  // 장바구니 번호
+        const cartnoArr = new Array();      // 장바구니 번호
+        const selectnoArr = new Array();    // 선택일련번호
+        let totalprice = $("span#totalPriceinfo").text();     // 주문총액
+        totalprice = totalprice.replaceAll(",","");
+        alert("확인용 totalprice : " + totalprice);
 
         for(let i=0; i<allcheckcnt; i++){
-            // alert($("div#cartno").eq(i).text());
+            // alert($("div#divcartno").eq(i).text());
             if($("input:checkbox[name='choicemenu']").eq(i).prop("checked")){   // 체크된 상태
-                cartnoArr.push($("div#cartno").eq(i).text());
-                alert(cartnoArr);
+                cartnoArr.push($("div#divcartno").eq(i).text());
+                selectnoArr.push($("div#selectno").eq(i).text());
+                alert("확인용 cartnoArr : " + cartnoArr);   // [5]  [5,6]
+                alert("확인용 selectnoArr : " + selectnoArr);
                 
             }
         }   // end of for-------------------
 
-        const str_cartno = cartnoArr.join();
+        const str_cartno = cartnoArr.join();    // 5,6
+        const str_selectno = selectnoArr.join();
 
-        // alert("확인용 str_cartno : " +  str_cartno);
-
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //         
-        /*
+        alert("확인용 str_cartno : " +  str_cartno);
+        alert("확인용 str_selectno : " +  str_selectno);
+/*
         $.ajax({
-            url:"orderAddJSON.ice"
+            url:"order/payment.ice"
             , type:"post"
-            , data:{"str_cartno":str_cartno}
+            , data:{"str_cartno":str_cartno
+                , "selectnoArr":selectnoArr
+                , "totalprice":totalprice
+            }
             , success:function(json){
-
+                
             }
             , error: function(request,status,error){
                 alert("code : " + request.status);
             }
         })
-        */
+    */  
         // location.href = `order/payment.ice`;
-
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ //  
     }
     
 }   // end of function continueOrder(){--------
@@ -335,7 +335,7 @@ function submitfrm(){
                 let totalprice = 0;
                 // alert("확인용 ${item.cartno} : "`${item.cartno}`);
                 $("div.choiceOneMenu").each(function() {
-                    let cartno = $(this).find("div#cartno").text();
+                    let cartno = $(this).find("div#divcartno").text();
                     // alert("확인용 cartno : " + cartno);
                     if(`${item.cartno}` == cartno){
                         // alert("${item.cartno} == cartno");
