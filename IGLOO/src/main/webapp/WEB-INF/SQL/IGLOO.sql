@@ -166,4 +166,17 @@ latitude nvarchar2(100),
 longitude nvarchar2(100),
 constraint PK_tbl_store_storeno primary key(storeno));
 
+/*
+select *
+from tbl_product;
 
+insert into tbl_product(productcodeno, productname, productimg, price, productdetail, productimgbelow)
+values('U', '테스트', 'pint.png', 8000,'3가지 맛 선택', 'pint_detail.png');
+
+delete from tbl_product
+where productcodeno in ('T','G','Y','U');
+
+commit;
+
+desc tbl_product;
+*/
