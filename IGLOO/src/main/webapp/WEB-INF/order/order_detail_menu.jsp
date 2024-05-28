@@ -11,7 +11,7 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/iceMenu.css" />
-<script type="text/javascript" src="<%= ctxPath%>/js/menu/iceMenuMore.js"></script>   
+<script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail_menu.js"></script>   
 
 
 <div class="container pt-5" >

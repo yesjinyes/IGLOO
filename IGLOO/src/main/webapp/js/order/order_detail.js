@@ -39,27 +39,30 @@ $(document).ready(function() {
 			count = 1;
 			
 			// == 선택한 맛 리스트 쌓아주기 == //
-			let html = `<div id="resultEach" style="border: solid 1px orange; display: flex; ">
-							<div style="border: solid 0px blue; width: 63%; margin-right: 3%;">
-								<div id="selecttasteList">
-									<p id="tasteresult">` + result + `</p>
-									<input type="hidden" name="selecttasteList"/>
-								</div>
+			let html = `<div style="border: solid 0px orange;">
+							<div class="resultEach" style="display: inline-block; width: 100%; ">
+								<div style="display: flex;">
+									<div style="border: solid 0px blue; width: 63%; margin: 0 3%;">
+										<div id="selecttasteList">
+											<p id="tasteresult">` + result + `</p>
+											<input type="hidden" name="selecttasteList"/>
+										</div>
+									</div>
+
+									<div class="num" style="border: solid 0px red; width:37%; float: right; text-align: center; vertical-align: center;" >
+										<span class="count" style="vertical-align: center;">
+											<button type="button" class="minus" style="margin-right: 1%; background-color: #f6fafe; border: none; font-size: 15pt;">-</button>
+											<span id="result" style="font-size: 14pt;">1</span>
+											<button type="button" class="plus" style="margin-left: 1%; background-color: #f6fafe; border: none; font-size: 15pt;">+</button>
+										</span>
+										<button type="button" id="delete" style="background-color: #f6fafe; font-weight: bold; float: right; font-size: 15pt; border: none;">x</button>
+									</div> 
+								</div> 
+								<hr id="line" style="border: solid 1px #81BEF7; width: 100%;">
+								<input type="hidden" name="result" value="`+result+`" />
 							</div>
-
-							<div class="num" style="border: solid 0px red; width:37%; float: right; text-align: center; vertical-align: center;" >
-								<span class="count" style="vertical-align: center;">
-									<button type="button" class="minus" style="margin-right: 1%; background-color: white; border: none; font-size: 15pt;">-</button>
-									<span id="result" style="font-size: 14pt;">1</span>
-									<button type="button" class="plus" style="margin-left: 1%; background-color: white; border: none; font-size: 15pt;">+</button>
-								</span>
-								<button type="button" id="delete" style="background-color: white; font-weight: bold; float: right; font-size: 15pt; border: none;">x</button>
-							</div>  
-						</div>
-						<input type="text" name="result" value="`+result+`" />
+						</div>`;
 						
-						<hr style="border: solid 1px #81BEF7;">`;
-
 						$("div#resultList").append(html);
 						
 
@@ -77,7 +80,7 @@ $(document).ready(function() {
 				1: " 스트로베리 "
 				2: " 오레오레오"
 			*/
-			resulttest
+			
 			
 		
 		
@@ -111,7 +114,7 @@ $(document).ready(function() {
 		var minus = Number($(e.target).parent().find("span#result").text());
 		
 		if(minus > 1){
-			console.log("totalcost",totalcost-price);
+			//console.log("totalcost",totalcost-price);
 			totalcost -= price;
 
 			totalcost = totalcost.toLocaleString('ko-KR');
@@ -126,10 +129,23 @@ $(document).ready(function() {
 	
 	
 	// == 삭제버튼 클릭 시 리스트에서 삭제 == //
-	$(document).on('click', '#delete', function() {
-		alert("삭제버튼");
-		$().remove();
-	});
+	$(document).on('click', '#delete', function(e) {
+
+		// 선택한 맛 리스트 하나씩 지우기
+		$(e.target).parent().parent().parent().parent().find(".resultEach").remove();
+		$(e.target).parent().parent().parent().find("#line").remove();
+
+		// 삭제한 리스트는 합계에서 제하기
+		var totalcost_sum = Number($("span.productprice").text().split(",").join(""));
+		var productprice = Number($("input#productprice").val());
+		var cnt = $(e.target).parent().find("#result").text();
+
+		var totalcost_del = totalcost_sum - productprice * cnt;
+		//console.log("리스트 삭제 후 합계: ",totalcost_del);
+			
+		$("span.productprice").text(totalcost_del.toLocaleString('ko-KR'));
+
+	});// end of $(document).on('click', '#delete', function()---------------
 
 
 
@@ -148,6 +164,9 @@ function goCart(ctxPath) {
     frm.submit();
 
 }// end of 주문상세 > 장바구니 연결------------------------
+
+
+
 	
 
 	

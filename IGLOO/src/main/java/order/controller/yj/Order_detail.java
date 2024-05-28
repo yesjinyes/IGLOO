@@ -22,7 +22,7 @@ public class Order_detail extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String pcode = request.getParameter("pcode");
-		System.out.println(pcode);
+		// System.out.println(pcode);
 		
 		ProductVO pvo = pdao.getproductList_2(pcode);
 		
