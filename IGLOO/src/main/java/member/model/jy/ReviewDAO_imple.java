@@ -14,7 +14,11 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import help.domain.nr.FaqVO;
-import member.domain.ReviewVO;
+import myshop.domain.CartVO;
+import order.domain.OrderVO;
+import order.domain.OrderdetailVO;
+import product.domain.ProductVO;
+import product.domain.TasteVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
 
@@ -54,45 +58,138 @@ public class ReviewDAO_imple implements ReviewDAO {
 			e.printStackTrace();
 		}
 	}
+
+	
 	
 	
 	
 	
 	//회원의 주문내역 조회해오기
-	@Override
-	public List<ReviewVO> reviewlist(String userid) throws Exception {
-		
-		List<ReviewVO> reviewlist = null;
-		
-		try {
-			
-			conn = ds.getConnection();
-			
-			String sql = "   select ordercode, fk_userid, orderdate, reviewstatus "
-						+"   from tbl_order "
-						+" where fk_userid = ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userid);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				ReviewVO rvo = new ReviewVO();
-				rvo.setFk_ordercode(rs.getString(1));
-				rvo.setFk_userid(userid);
-				rvo.setFk_ordercode(rs.getString(1));
-				rvo.setFk_ordercode(rs.getString(1));
-				
-				reviewlist.add(rvo);
-			}
-			
-		} finally {
-			close();
-		}
-		
-		
-		return reviewlist;
-	}
+//	@Override
+//	public List<ReviewVO> reviewlist(String userid) throws SQLException {
+//		
+//		List<ReviewVO> reviewlist = null;
+//		
+//		try {
+//			
+//			conn = ds.getConnection();
+//			
+//			String sql = "   select ordercode, fk_userid, orderdate, reviewstatus "
+//						+"   from tbl_order "
+//						+" where fk_userid = ? ";
+//			
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, userid);
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				ReviewVO rvo = new ReviewVO();
+//				rvo.setFk_ordercode(rs.getString(1));
+//				rvo.setFk_userid(userid);
+//				rvo.setFk_ordercode(rs.getString(1));
+//				rvo.setFk_ordercode(rs.getString(1));
+//				
+//				reviewlist.add(rvo);
+//			}
+//			
+//		} finally {
+//			close();
+//		}
+//		
+//		
+//		return reviewlist;
+//	}
 
+	
+	
+	
+	
+	//로그인한 사용자의 주문상세목록 조회해기 
+	@Override
+	public List<OrderdetailVO> selectOdetailByuserid(String userid) throws SQLException {
+		
+		List<OrderdetailVO> odList = null;
+		
+	      try {
+	          conn = ds.getConnection();
+	          
+	          String sql = " select userid, orderdetailno, orderdate, productname, productimg, tastename, reviewstatus "
+	          		+ "   from tbl_member I "
+	          		+ "   join tbl_order A "
+	          		+ "   on I.userid = A.fk_userid  "
+	          		+ "   join tbl_orderdetail B "
+	          		+ "   on A.ordercode = B.fk_ordercode "
+	          		+ "   join tbl_selectlist C  "
+	          		+ "   on B.fk_selectno = C.selectno "
+	          		+ "   join tbl_tasteselect D "
+	          		+ "   on C.selectno = D.fk_selectno "
+	          		+ "   join tbl_product E "
+	          		+ "   on C.fk_productcodeno = E.productcodeno "
+	          		+ "   join tbl_taste F "
+	          		+ "   on D.fk_tasteno = F.tasteno "
+	          		+ "   where userid = ? "
+	          		+ "   order by orderdetailno ";
+	          
+	          pstmt = conn.prepareStatement(sql);
+	          pstmt.setString(1, userid);
+	          
+	          rs = pstmt.executeQuery();
+	          
+	          
+	          int cnt = 0;
+	          while(rs.next()) {
+	             cnt++;
+	             
+	             if(cnt == 1) {
+	            	 odList = new ArrayList<>();
+	             }
+	             
+	             
+	             OrderdetailVO odvo = new OrderdetailVO();
+	             odvo.setOrderdetailno(rs.getInt("orderdetailno"));
+	             
+	             OrderVO order = new OrderVO();
+	             order.setOrderdate(rs.getString("orderdate"));
+	             
+	             ProductVO product = new ProductVO();
+	             product.setProductname(rs.getString("productname"));
+	             product.setProductimg(rs.getString("productimg"));
+	             
+	             
+	             TasteVO taste =  new TasteVO();
+	             taste.setTastename(rs.getString("tastename"));
+	             
+	             
+	             
+	             
+	             odList.add(odvo);
+	          }// end of while(rs.next())---------------------------
+	  
+	          
+	          
+	      } finally {
+	          close();
+	       }
+	       
+		
+		return odList;
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

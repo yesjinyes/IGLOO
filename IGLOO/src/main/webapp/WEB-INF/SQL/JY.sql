@@ -298,7 +298,7 @@ FROM
                 JOIN TBL_TASTE D ON C.FK_TASTENO = D.TASTENO
             ) V
             GROUP BY V.TASTENO
-        ) R ON D.TASTENO = R.TASTENO
+         ) R ON D.TASTENO = R.TASTENO
     ) T
 )
 WHERE rno BETWEEN 1 AND 16;
@@ -384,8 +384,13 @@ SELECT tasteno, tastename, tasteimg , ingredients
    from tbl_orderdetail;
    
    --- 주문된 제품, 아이스크림맛 조회해오기
-   select *
-   from tbl_order A
+
+
+----- 주문내역에 따른 제품, 맛 정보 조회하기
+   select userid, orderdetailno, orderdate, productname, productimg, tastename, reviewstatus
+   from tbl_member I
+   join tbl_order A
+   on I.userid = A.fk_userid 
    join tbl_orderdetail B
    on A.ordercode = B.fk_ordercode
    join tbl_selectlist C 
@@ -396,5 +401,8 @@ SELECT tasteno, tastename, tasteimg , ingredients
    on C.fk_productcodeno = E.productcodeno
    join tbl_taste F
    on D.fk_tasteno = F.tasteno
-   where userid = 'jjoung';
+   where userid = 'jjoung'
+   order by orderdetailno ;
+   
+   
    
