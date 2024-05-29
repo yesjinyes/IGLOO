@@ -46,17 +46,27 @@ function goSearch(){
                         <div class="card-columns m-5 row">
                             <div class="card text-white col-lg-4 p-0">
                                 <div class="card-body text-center ">
-                                    <img src="${ctxPath}/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
+                                    <img src="${ctxPath}/images/img_hj/store/${item.storeimg}.jpg" class="img-fluid" alt="Responsive image" >
                                 </div>
                             </div>
-                            <div class="ml-5 pt-5 col-lg-5 col-md-4">
-                                <h1 class="card-text">${item.storeno}호점
+                            <div class="ml-5 pt-3 col-lg-5 col-md-4">
+                                <h1 class="card-text">
+                                    <span style="color:#6190BC; font-weight:bold;">${item.storeno}호점</span>
                                     <br>
-                                    ${item.storename}
+                                    <span style="font-weight:bold;">${item.storename}</span>
                                 </h1>
-                                <p class="card-text storeinfoDetails">주소 : ${item.storeaddress}</p>
-                                <p class="card-text storeinfoDetails">전화번호 : ${item.storetel}</p>
-                                <p class="card-text storeinfoDetails">홈페이지 : ${item.storepage}</p>
+                                <p class="card-text storeinfoDetails">
+                                    <span style="font-weight:bold;">주소 : </span>
+                                    ${item.storeaddress}
+                                </p>
+                                <p class="card-text storeinfoDetails">
+                                    <span style="font-weight:bold;">전화번호 : </span>
+                                    ${item.storetel}
+                                </p>
+                                <p class="card-text storeinfoDetails">
+                                    <span style="font-weight:bold;">홈페이지 : </span>
+                                    ${item.storepage}
+                                </p>
                             </div>
                           </div>
                     </div>

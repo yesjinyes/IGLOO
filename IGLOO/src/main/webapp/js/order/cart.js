@@ -138,7 +138,7 @@ $(document).ready(function() {
 
     // === 제품삭제 버튼 클릭되게 하기 === //
     $("div.choiceOneMenu > div.menuclick button.delete").click(function(){
-        alert("삭제버튼 클릭");
+        // alert("삭제버튼 클릭");
         
         // === 다른 체크박스 선택의 영향을 주지 않게하기(확인용) === //
         let choiceMenucheckbox = $(this).parent().parent().parent().parent().find("input[type='checkbox']");

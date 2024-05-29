@@ -54,26 +54,41 @@ function goSearch(){
         			html += `<div class="card">
         		   		<div class="card-header" id="heading\${index}">
     	     			<h2 class="mb-0">
-    	       			<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse\${index}" aria-expanded="false" aria-controls="collapse\${index}">
-    	         				<h3>\${item.storename}</h3>
-    	         				<p>\${item.storeaddress}</p>
+    	       			<button style="text-decoration-line:none;" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse\${index}" aria-expanded="false" aria-controls="collapse\${index}">
+    	       				<h3>
+     							<span style="color:#6190BC;">\${item.storeno}호점</span>
+     							&nbsp;
+                        		<span style="font-size: 15pt; color:black; font-weight:bold;">\${item.storename}</span>
+                    		</h3>
+    	         				<p style="color:black;">\${item.storeaddress}</p>
     	       			</button>
     	     			</h2>
     	   		</div>
     			<%-- 아코디언 내부 --%>
     	   		<div id="collapse\${index}" class="collapse" aria-labelledby="heading\${index}" data-parent="#accordionExample">
     	     			<div class="card-body">
-    	       			<div class="card-columns m-5 row">
-    	       			<div class="card text-white col-lg-3 p-0">
+    	       			<div class="card-columns m-3 row">
+    	       			<div class="card text-white col-lg-4 p-0">
     						    <div class="card-body text-center">
-    						      	<img src="<%= ctxPath%>/images/img_narae/2022_135415.jpg" class="img-fluid" alt="Responsive image" >
+    						      	<img src="<%= ctxPath%>/images/img_hj/store/\${item.storeimg}.jpg" class="img-fluid" alt="Responsive image" >
     						    </div>
     						</div>
-    						<div class="ml-5 pt-5 col-lg-5 col-md-4">
-    						    <h1 class="card-text">\${item.storename}</h1>
-    						    <p class="card-text storeinfoDetails">\${item.storeaddress}</p>
-    						    <p class="card-text storeinfoDetails">홈페이지: \${item.storepage}</p>
-    						    <p class="card-text storeinfoDetails">전화번호: \${item.storetel}</p>
+    						<div class="ml-5 pt-3 col-lg-6 col-md-4">
+    						<h1 class="card-text">
+                            <span style="font-size: 20pt; font-weight:bold;">\${item.storename}</span>
+                        </h1>
+                        <p class="card-text storeinfoDetails">
+                            <span style="font-weight:bold;">주소 : </span>
+                            \${item.storeaddress}
+                        </p>
+                        <p class="card-text storeinfoDetails">
+                            <span style="font-weight:bold;">전화번호 : </span>
+                            \${item.storetel}
+                        </p>
+                        <p class="card-text storeinfoDetails">
+                            <span style="font-weight:bold;">홈페이지 : </span>
+                            \${item.storepage}
+                        </p>
     						</div>
     	       			</div>
     	     			</div>
@@ -141,26 +156,40 @@ function goSearch(){
 	  	<div class="card">
 	   		<div class="card-header" id="heading${status.index}">
 	     			<h2 class="mb-0">
-	       			<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse${status.index }" aria-expanded="false" aria-controls="collapse${status.index }">
-	         				<h3>${store.storename}</h3>
-	         				<p>${store.storeaddress}</p>
+	       			<button style="text-decoration-line:none;" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse${status.index }" aria-expanded="false" aria-controls="collapse${status.index }">
+	         				<h3>
+	         					<span style="color:#6190BC;">${store.storeno}호점</span>
+	         					&nbsp;
+                                <span style="font-size: 15pt; color:black; font-weight:bold;">${store.storename}</span>
+                            </h3>
 	       			</button>
 	     			</h2>
 	   		</div>
 			<%-- 아코디언 내부 --%>
-	   		<div id="collapse${status.index }" class="collapse" aria-labelledby="heading${status.index }" data-parent="#accordionExample">
+	   		<div id="collapse${status.index }" class="collapse" aria-labelledby="heading${status.index}" data-parent="#accordionExample">
 	     			<div class="card-body">
-	       			<div class="card-columns my-5 row justify-content-center">
+	       			<div class="card-columns my-2 row justify-content-center">
 						<div class="card text-white text-center col-lg-5 p-0">
 						    <%-- <div class="card-body text-center "> --%>
-						      	<img src="<%= ctxPath%>/images/img_hj/map.png" class="img-fluid" alt="Responsive image" >
+						      	<img src="<%= ctxPath%>/images/img_hj/store/${store.storeimg}.jpg" class="img-fluid" alt="Responsive image" >
 						    <%-- </div> --%>
 						</div>
-						<div class="col-lg-6">
-						    <h1 class="card-text">${store.storename }</h1>
-						    <p class="card-text storeinfoDetails">${store.storeaddress }</p>
-						    <p class="card-text storeinfoDetails">홈페이지: ${store.storepage }</p>
-						    <p class="card-text storeinfoDetails">전화번호: ${store.storetel }</p>
+						<div class="col-lg-6 pt-5">
+						    <h1 class="card-text">
+						    	<span style="font-weight:bold;">${store.storename}</span>
+						    </h1>
+						    <p class="card-text storeinfoDetails">
+                                    <span style="font-weight:bold;">주소 : </span>
+                                    ${store.storeaddress}
+                                </p>
+                                <p class="card-text storeinfoDetails">
+                                    <span style="font-weight:bold;">전화번호 : </span>
+                                    ${store.storetel}
+                                </p>
+                                <p class="card-text storeinfoDetails">
+                                    <span style="font-weight:bold;">홈페이지 : </span>
+                                    ${store.storepage}
+                                </p>
 						</div>
 	       			</div>
 	     			</div>
