@@ -151,42 +151,87 @@ public class ReviewDAO_imple implements ReviewDAO {
 	             
 	             OrderVO order = new OrderVO();
 	             order.setOrderdate(rs.getString("orderdate"));
+	             order.setFk_userid(rs.getString("userid"));
+	             odvo.setOrder(order);
 	             
 	             ProductVO product = new ProductVO();
 	             product.setProductname(rs.getString("productname"));
 	             product.setProductimg(rs.getString("productimg"));
-	             
+	             odvo.setProduct(product);
 	             
 	             TasteVO taste =  new TasteVO();
 	             taste.setTastename(rs.getString("tastename"));
-	             
-	             
+	             odvo.setTaste(taste);
 	             
 	             
 	             odList.add(odvo);
 	          }// end of while(rs.next())---------------------------
 	  
 	          
-	          
 	      } finally {
 	          close();
-	       }
+	      }
 	       
 		
 		return odList;
 	}
-	
-	
 
 	
 	
+	//로그인한 사용자의 주문한 맛 목록 조회하기
+	@Override
+	public List<OrderdetailVO> selectOtasteByuserid(String userid) throws SQLException {
+		
+		List<OrderdetailVO> otasteList = null;
+
+		try {
+	          conn = ds.getConnection();
+	          
+	          String sql = " select tastename "
+	          		+ "   from tbl_member I "
+	          		+ "   join tbl_order A "
+	          		+ "   on I.userid = A.fk_userid  "
+	          		+ "   join tbl_orderdetail B "
+	          		+ "   on A.ordercode = B.fk_ordercode "
+	          		+ "   join tbl_selectlist C  "
+	          		+ "   on B.fk_selectno = C.selectno "
+	          		+ "   join tbl_tasteselect D "
+	          		+ "   on C.selectno = D.fk_selectno "
+	          		+ "   join tbl_product E "
+	          		+ "   on C.fk_productcodeno = E.productcodeno "
+	          		+ "   join tbl_taste F "
+	          		+ "   on D.fk_tasteno = F.tasteno "
+	          		+ "   where userid = ? "
+	          		+ "   order by orderdetailno ";
+	          
+	          pstmt = conn.prepareStatement(sql);
+	          pstmt.setString(1, userid);
+	          
+	          rs = pstmt.executeQuery();
+	          
+	          while(rs.next()) {
+	        	  
+	        	  otasteList = new ArrayList<>();
+	        	  
+	        	  OrderdetailVO odvo =  new OrderdetailVO();
+		          
+		          TasteVO taste =  new TasteVO();
+	              taste.setTastename(rs.getString("tastename"));
+	              odvo.setTaste(taste);
+	              
+	              otasteList.add(odvo);
+	          }
+	          
+	             
+	      } finally {
+	          close();
+	      }     
+	          
+		return otasteList;
+	}
 	
 	
-	
-	
-	
-	
-	
+
 	
 	
 	

@@ -89,16 +89,37 @@
 				<div class="col-md-7" style="font-weight: bold;"> 
 					<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${requestScope.pvo.productimgBelow}">
 				</div>
+				
+				
+				<hr style="border: solid 1px #bad9f7; width: 80%; margin: 5% 0;">
+				
+				<div>
+				<p id="menutitle">맛 상세정보</p>
+					<c:forEach begin="1" end="28" varStatus="status">
+						<img id="order_detail_menuimg" class="img-fluid" src="<%= ctxPath%>/images/img_yejin/order_detail_menuimg/${status.index}.png" /> 			
+					</c:forEach>
+				</div>
 			</div>
-			
-			
+		
 		</div>
+		
 	</form>
 	 
-	<br><br><hr style="border: solid 1px #a4cdf4; width: 70%;">
+	<br><br><hr style="border: solid 2px red; width: 70%;">
+	
+	<jsp:include page="../footer.jsp" />
 	
 </div>
 
+
+<%-- 넘겨줄 정보(맛번호) --%>
+<form name="tasteinfo">
+   <input type="text" name="tasteno" value=""/>
+   <input type="text" name="pcode" value="${requestScope.pvo.productcodeno}"/>
+</form>
+
+
 <div style="margin-bottom: 10%;"></div>
-<hr style="border: solid 2px #4198e8; width: 70%;"><br><br>
-<jsp:include page="../footer.jsp" />
+
+<!-- <hr style="border: solid 2px #4198e8; width: 70%;"><br><br> -->
+<%-- <jsp:include page="../footer.jsp" /> --%>

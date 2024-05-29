@@ -15,7 +15,14 @@ public class FaqVO {
 	private String a_content;
 	private String a_writeday;
 	private int answerstatus;
+	private String faq_img;
 	
+	public String getFaq_img() {
+		return faq_img;
+	}
+	public void setFaq_img(String faq_img) {
+		this.faq_img = faq_img;
+	}
 	public MemberVO getMvo() {
 		return mvo;
 	}

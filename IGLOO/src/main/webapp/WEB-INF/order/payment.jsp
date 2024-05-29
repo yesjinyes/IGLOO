@@ -11,6 +11,17 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/payment.css" />
 
+<script type="text/javascript">
+
+function goPayment(){
+	
+	location.href = "payment.ice";
+	
+}// end of function goPayment(){}------------------------------------------------------------
+
+</script>
+
+
 <jsp:include page="../header.jsp" />
 
 <div class="container contents">
@@ -93,8 +104,8 @@
 				</div>	
 			</div>
 			<div id="button" class="mx-auto">
-				<input type="button" class="btn btn-lg mr-5" value="취소하기" onclick="go...()" />
-	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="go...()" />
+				<input type="reset" class="btn btn-lg mr-5" value="취소하기" onclick="goReset()" />
+	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="goPayment()" />
 			</div>
 		</div>
 	</div>

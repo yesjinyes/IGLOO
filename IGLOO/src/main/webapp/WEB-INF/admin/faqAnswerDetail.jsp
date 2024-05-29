@@ -158,6 +158,7 @@ top: -113px;
 																 <c:otherwise>기타문의</c:otherwise></c:choose></span></div>
 			<div><span class="span">제목</span><span id="q_title">${requestScope.fvo.q_title }</span></div>
 			<div><span class="span" id="q_content_title">내용</span><span id="q_content">${requestScope.fvo.q_content }</span></div>
+			<c:if test="${not empty requestScope.fvo.faq_img}"><span class="span">이미지</span><img style="width: 30%;" src="<%=ctxPath%>/images/img_narae/faq_img/${requestScope.fvo.faq_img}"/></c:if>
 		</div>
 	
 	</div>

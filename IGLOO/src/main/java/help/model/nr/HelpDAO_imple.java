@@ -76,7 +76,7 @@ public class HelpDAO_imple implements HelpDAO {
 			conn = ds.getConnection();
 			
 			String sql = "select q_no, q_title, fk_categoryno, q_content, to_char(q_writeday, 'yyyy-mm-dd HH24:mi:ss'), "
-					   + "a_content, to_char(a_writeday, 'yyyy-mm-dd HH24:mi:ss') "
+					   + "a_content, to_char(a_writeday, 'yyyy-mm-dd HH24:mi:ss'), faq_img "
 					   + "from tbl_faq_q A left join tbl_faq_a B "
 					   + "on A.q_no = B.fk_q_no "
 					   + "where fk_userid = ? "
@@ -96,6 +96,7 @@ public class HelpDAO_imple implements HelpDAO {
 				fvo.setQ_writeday(rs.getString(5));
 				fvo.setA_content(rs.getString(6));
 				fvo.setA_writeday(rs.getString(7));
+				fvo.setFaq_img(rs.getString(8));
 				
 				faqlist.add(fvo);
 			}
@@ -724,6 +725,58 @@ public class HelpDAO_imple implements HelpDAO {
 		}
 		
 		return totalSearchCount;	
+	}
+
+	
+	
+	
+	
+	
+	// 사용자 - 1:1 문의 등록하기
+	@Override
+	public int registerFaq(Map<String, String> paramap) throws SQLException {
+
+		int n = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			if(paramap.get("faq_img") != null) {
+				
+				String sql = "insert into tbl_faq_q(q_no, fk_userid, q_title, fk_categoryno, q_content, faq_img) values"
+						   + "(SEQ_FAQ_Q.nextval, ?, ?, ?, ?, ?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, paramap.get("userid"));
+				pstmt.setString(2, paramap.get("q_title"));
+				pstmt.setString(3, paramap.get("q_category"));
+				pstmt.setString(4, paramap.get("q_content"));
+				pstmt.setString(5, paramap.get("faq_img"));
+				
+				n = pstmt.executeUpdate();
+				
+			}
+			
+			else {
+				
+				String sql = "insert into tbl_faq_q(q_no, fk_userid, q_title, fk_categoryno, q_content) values"
+						   + "(SEQ_FAQ_Q.nextval, ?, ?, ?, ?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, paramap.get("userid"));
+				pstmt.setString(2, paramap.get("q_title"));
+				pstmt.setString(3, paramap.get("q_category"));
+				pstmt.setString(4, paramap.get("q_content"));
+				
+				n = pstmt.executeUpdate();
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return n;
 	}
 
 

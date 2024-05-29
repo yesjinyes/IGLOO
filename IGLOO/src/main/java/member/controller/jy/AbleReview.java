@@ -61,9 +61,11 @@ public class AbleReview extends AbstractController {
 			
 		//로그인한 사용자의 주문상세목록 조회해기 
 		List<OrderdetailVO> odList = rdao.selectOdetailByuserid(loginuser.getUserid());
-			
-			
-			
+		request.setAttribute("odList", odList);	
+		
+		//로그인한 사용자의 주문한 맛 목록 조회하기
+		List<OrderdetailVO> otasteList = rdao.selectOtasteByuserid(loginuser.getUserid());
+		request.setAttribute("otasteList", otasteList);	
 			
 			//List<ReviewVO> reviewlist = rdao.reviewlist(userid);
 			
