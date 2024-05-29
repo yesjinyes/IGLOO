@@ -86,7 +86,9 @@ public class Payment extends AbstractController {
 		*/
 		String method = request.getMethod();
 		
-	    if("POST".equalsIgnoreCase(method)) {	// POST 방식이라면
+		String orderplay = request.getParameter("orderplay");
+		
+	    if("POST".equalsIgnoreCase(method) && orderplay != null) {	// POST 방식이라면
 				
 				HttpSession session = request.getSession();
 				MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
