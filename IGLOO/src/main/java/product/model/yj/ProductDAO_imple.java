@@ -166,7 +166,7 @@ public class ProductDAO_imple implements ProductDAO {
 	public int insertTaste(Map<String, Object> paraMap) throws SQLException {
 		
 		int isInsert = 0;
-		int n1=0, n2=0;
+		int n1 = 0, n2 = 0;
 		
 		
 		try {
