@@ -2,6 +2,7 @@ package common.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,6 +22,10 @@ public class IndexController extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		List<Map<String, String>> mainImgList = pdao.getMainImg();
+		
+		request.setAttribute("mainImgList", mainImgList);
+		
 		List<ProductVO> productList = pdao.getMainProduct();
 	
 		request.setAttribute("productList", productList);

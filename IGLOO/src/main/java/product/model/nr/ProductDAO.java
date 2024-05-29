@@ -2,6 +2,7 @@ package product.model.nr;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import product.domain.ProductVO;
 import product.domain.TasteVO;
@@ -16,6 +17,9 @@ public interface ProductDAO {
 
 	// 메인페이지 맛 정보 가져오기
 	List<TasteVO> getMainTaste() throws SQLException;
+
+	// 메인페이지 메인이미지 가져오기
+	List<Map<String, String>> getMainImg() throws SQLException;
 
 
 
