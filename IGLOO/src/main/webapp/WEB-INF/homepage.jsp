@@ -51,25 +51,81 @@ height: 320px;
 text-align: center;
 }
 
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
- /* display: flex;*/
-}
+@media (min-width: 768px) {
 
-.carousel-inner .carousel-item-right.active,
-.carousel-inner .carousel-item-next {
-  transform: translateX(25%);
-}
+    /* show 4 items */
+    .carousel-inner .active,
+    .carousel-inner .active + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item  {
+        display: block;
+    }
+    
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+        transition: none;
+    }
+    
+    .carousel-inner .carousel-item-next,
+    .carousel-inner .carousel-item-prev {
+      position: relative;
+      transform: translate3d(0, 0, 0);
+    }
+    
+    /* last visible item + 1 */
+    .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: absolute;
+        top: 0;
+        right: -25%;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    /* left or forward direction */
+    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carousel-item-next.carousel-item-left + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    
+    /* farthest right hidden item must be abso position for animations */
+    .carousel-inner .carousel-item-next.carousel-item-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: -25%;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    /* right or prev direction */
+    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carousel-item-prev.carousel-item-right + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        display: block;
+        visibility: visible;
+    }
 
-.carousel-inner .carousel-item-left.active, 
-.carousel-inner .carousel-item-prev {
-  transform: translateX(-25%);
-}
-  
-.carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left{ 
-  transform: translateX(0);
 }
 
 
@@ -78,30 +134,28 @@ text-align: center;
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
-        $(document).ready(function(){
-        	
-        	$('#recipeCarousel').carousel({
-          	  interval :1500
-          	});
 
-          	$('.carousel .carousel-item').each(function(){
-          	    var next = $(this).next();
-          	    if (!next.length) {
-          	        next = $(this).siblings(':first');
-          	    }
-          	next.children(':first-child').clone().appendTo($(this));
-          	    
-          	for (var i=0;i<2;i++) {
-          	    next=next.next();
-          	    if (!next.length) {
-          	     	next = $(this).siblings(':first');
-          	   	}
-          	        
-          	 next.children(':first-child').clone().appendTo($(this));
-          	}
-        });
+        	$('#carouselExample').on('slide.bs.carousel', function (e) {
+
+        	    var $e = $(e.relatedTarget);
+        	    var idx = $e.index();
+        	    var itemsPerSlide = 4;
+        	    var totalItems = $('.carousel-item').length;
+        	    
+        	    if (idx >= totalItems-(itemsPerSlide-1)) {
+        	        var it = itemsPerSlide - (totalItems - idx);
+        	        for (var i=0; i<it; i++) {
+        	            // append slides to end
+        	            if (e.direction=="left") {
+        	                $('.carousel-item').eq(i).appendTo('.carousel-inner');
+        	            }
+        	            else {
+        	                $('.carousel-item').eq(0).appendTo('.carousel-inner');
+        	            }
+        	        }
+        	    }
+        	});
           	
-    });
   </script>
 
 <div id="main">
@@ -138,32 +192,7 @@ text-align: center;
 	
 	<%-- 캐러셀 --%>
 	
-	<div class="row mx-auto my-auto">
-	        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-	            <div class="carousel-inner w-100" role="listbox">
-	                <c:forEach var="taste" items="${requestScope.tasteList}" varStatus="status">
-		                <c:if test="${status.index == 0}">
-			                <div class="carousel-item active">
-			                    <img class="col-3 img-fluid" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" />
-			                </div>
-		                </c:if>
-		                <c:if test="${status.index != 0}">
-			                <div class="carousel-item">
-		                    	<img class="col-3 img-fluid" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" />
-		                	</div>
-		                </c:if>
-	                </c:forEach>
-	            </div>
-	            <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
-	                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                <span class="sr-only">Previous</span>
-	            </a>
-	            <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
-	                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                <span class="sr-only">Next</span>
-	            </a>
-	        </div>
-	    </div>
+	
 	
 	
 	
@@ -174,6 +203,48 @@ text-align: center;
 	
 	</div>
 </div>
+
+
+<div class="container-fluid">
+    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="12000">
+        <div class="carousel-inner row w-100 mx-auto flex-nowrap" role="listbox">
+            <div class="carousel-item col-md-3 active">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400/000/fff?text=1" alt="slide 1">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=2" alt="slide 2">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=3" alt="slide 3">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=4" alt="slide 4">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=5" alt="slide 5">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=6" alt="slide 6">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=7" alt="slide 7">
+            </div>
+            <div class="carousel-item col-md-3">
+                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=8" alt="slide 7">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left fa-lg text-muted"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
+            <i class="fa fa-chevron-right fa-lg text-muted"></i>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
 
 <div id="shortCut"></div>
 
