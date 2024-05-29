@@ -17,7 +17,10 @@
 
 function goPayment(){
 	
-	location.href = "payment.ice";
+	const frm = document.order;
+    frm.action = "payment.ice";
+    frm.method = "post";
+    frm.submit();
 	
 }// end of function goPayment(){}------------------------------------------------------------
 
@@ -50,7 +53,7 @@ function goPayment(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게주소</div>
 			<div style="background-color: white; border: solid 0px gray; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">${requestScope.address}<br>${requestScope.extraaddress}</div>
+					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">여기에 select로 가게 주소를 띄워야하는데</div>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -66,7 +69,7 @@ function goPayment(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게 사장님께</div>
 			<div style="background-color: white; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">제가 먹어본 아이스크림중에는 이글루가 최고에요! 집 앞 3분거리에 베스킨라빈스 있는데 이제 거기로 가는 대신 이글루 옵니다. 오늘도 갈게요. 곧 뵈어요.</div>
+					<textarea placeholder="사장님께 전할 말" name="message" rows="5" cols="60"></textarea>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">

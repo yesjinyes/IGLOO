@@ -113,8 +113,7 @@ public class Payment extends AbstractController {
 			// @@@@확인용@@@@ ==>  [쿼터, 파인트]
 			
 			// payment.jsp 에 띄워줄 정보를 set 하는 부분
-			request.setAttribute("address", loginuser.getAddress() + loginuser.getDetailaddress());
-			request.setAttribute("extraaddress", loginuser.getExtraaddress());
+			
 			request.setAttribute("mobile", loginuser.getMobile());
 			request.setAttribute("str_cartno", str_cartno);
 	        request.setAttribute("str_selectno", str_selectno);
@@ -126,41 +125,39 @@ public class Payment extends AbstractController {
 	    }
 	    else if("POST".equalsIgnoreCase(method) && "play".equals(orderplay)) {
 	    	
+	    	System.out.println("여기는 오냐"); // 여기까지도 안옴...
+	    	
 				String userid = loginuser.getUserid();
 				String totalPrice = request.getParameter("totalPrice");
 				String cartno = request.getParameter("str_cartno");
-				String odrcode =  getOrdercode();
+				String odrcode =  getOrdercode(); // getOdrcode() 메소드는 위에서 정의한 전표(주문코드)를 생성해주는 것이다.
 				String str_selectno = request.getParameter("str_selectno");
+				String[] selectno_arr = str_selectno.split(",");
+				String[] cartno_arr = cartno.split(",");
 				
 				Map<String, Object> paraMap = new HashMap<>();
-		        
+
 		        paraMap.put("odrcode", odrcode);	// 주문코드(명세서번호) s+날짜+sequence
-		        // getOdrcode() 메소드는 위에서 정의한 전표(주문코드)를 생성해주는 것이다. 
-		        
 		        paraMap.put("userid", userid);  	// 회원아이디
 		        paraMap.put("totalPrice", totalPrice);  // 주문총액
-		        
-		        String[] selectno_arr = str_selectno.split(",");
-		        String[] cartno_arr = cartno.split(",");
-		        
 		        paraMap.put("selectno_arr", selectno_arr); // 맛선택에 따라 발생한 선택일련번호
 		        paraMap.put("cartno_arr", cartno_arr); // 장바구니 번호 
 		        
+		        
+/*		        
 		        // === 장바구니테이블(tbl_cart)에 delete 할 데이터 ===
 		        if(cartno != null) {
 		        	// 특정제품을 바로주문하기를 한 경우라면 str_cartno_join 의 값은 null 이 된다.
-		        	
 		        	paraMap.put("cartno_arr", cartno_arr);
 		        }
+*/		        
 		        
 		        
 		        
-		        
-		        
-		        
-		        
+
 		        // *** Transaction 처리를 해주는 메소드 호출하기 *** //
 		        int isSuccess = pdao.productOrder(paraMap); // ■■■■■■■■■■ order와 ,orderdetail 테이블에 insert 해주는 메소드 ■■■■■■■■■■■
+		        
 		        
 		        // **** 주문이 완료되었을시 세션에 저장되어져 있는 loginuser 정보를 갱신하고
 		        //      이어서 주문이 완료되었다라는 email 보내주기  **** //
@@ -173,7 +170,6 @@ public class Payment extends AbstractController {
 		        	// === 주문이 완료되었다는 email 보내기 끝 === //
 		        	//////////////////////////////////////////////////////////////////////////////////
 		        }
-	         
 	    }
 	    else {	// GET 방식이라면
 	    	

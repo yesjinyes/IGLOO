@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import help.domain.nr.FaqVO;
+import myshop.domain.CartVO;
 import product.domain.TasteVO;
 
 public class ProductDAO_imple implements ProductDAO {
@@ -229,6 +231,7 @@ public class ProductDAO_imple implements ProductDAO {
 	@Override
 	public int productOrder(Map<String, Object> paraMap) throws SQLException {
 		int isSuccess = 0;
+		
 		int n1=0, n2=0, n3=0, n4=0, n5=0;
 		
 		try {
@@ -254,22 +257,39 @@ public class ProductDAO_imple implements ProductDAO {
 				String[] selectno_arr = (String[]) paraMap.get("selectno_arr");
 				String[] cartno_arr = (String[]) paraMap.get("cartno_arr"); 
 				
-				/* List<CartVO> ordercount = pdao. */
+				List<CartVO> cvoList = new ArrayList<CartVO>();
+				
+				for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
+					
+					sql = " select count "
+						+ " from tbl_cart "
+						+ " where fk_selectno = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, selectno_arr[i]);
+					
+			        rs = pstmt.executeQuery();
+			    	 
+		        	rs.next();
+		        	
+		        	CartVO cvo = new CartVO();
+		        	cvo.setCartno(rs.getInt(1));
+		        	
+		        	cvoList.add(cvo);
+		        	
+		        	System.out.println("$#@$#@$!$@!"+cvoList.get(i));
+				} // end of for -------------------------------------------------------
+				
 				
 				int cnt = 0;
 				for(int i=0; i<selectno_arr.length; i++) {
-					sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice ) "
+					sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice) "
 						 + " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
 					//  ■■■■■■■■■■■■■■■■■■ 여기서 이제 ordercount(cart테이블에 있을 듯), orderprice(메모에 적힌대로 조인해서 가져올것)를 가져오기 위한 dao를 짜야함  ■■■■■■■■■■■■■■■■■■
+			
+					pstmt = conn.prepareStatement(sql);
 					
-					
-					
-					/*
-							pstmt.setString(1, (String)paraMap.get("odrcode")); // 이건 중복이 되어도 되는 주문 전표
-							pstmt.setString(2, );
-							pstmt.setString(3, selectno_arr[i]);
-							pstmt.setInt(4, paraMap.get());
-					 */	
+					 	
 					pstmt.executeUpdate();
 					cnt++;
 					
