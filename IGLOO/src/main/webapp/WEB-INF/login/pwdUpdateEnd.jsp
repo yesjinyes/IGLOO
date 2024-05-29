@@ -22,12 +22,14 @@
 
 <jsp:include page="../header.jsp"/>
 
+<%-- 비밀번호 찾기에서 비밀번호 변경하는 경우에만 사이드바 넣기 --%>
 <c:if test="${not empty requestScope.mypage}">
 	<jsp:include page="../sidebar.jsp"/>
 </c:if>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
     $("button.btn-info").click(function(){
 
 		const pwd = $("input:password[name='pwd']").val();
@@ -61,7 +63,6 @@ $(document).ready(function(){
                 frm.action = "<%= ctxPath%>/login/pwdUpdateEnd.ice";
                 frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
                 frm.submit();
-               
             }
        }
 		
@@ -72,13 +73,15 @@ $(document).ready(function(){
 
 
 <%-- userid 가 넘어온 경우에 비밀번호 변경 뷰단 띄움 --%>
-<c:if test="${not empty requestScope.userid}" >
+<c:if test="${not empty requestScope.userid}" > --%>
  	<form name="pwdUpdateEndFrm">
- 	
+ 		<p>왜 margin 이 안먹냐...</p>
   		<div id="containerPwd" class="mt-5">
-			<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 11%; padding: 0 3% 3% 0; border: solid 0px red;"/>
-			<h2 style="font-weight: bold; display: inline-block;">비밀번호 변경</h2>
-			<p style="margin: 3% 0 10% 0; color: gray;">새롭게 지정할 비밀번호를 입력해주세요.</p>
+  			<div id="pwdUpdate">
+				<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 11%; padding: 0 3% 3% 0;"/>
+				<h2 style="font-weight: bold; display: inline-block;">비밀번호 변경</h2>
+				<p style="margin: 3% 0 10% 0; color: gray;">새롭게 지정할 비밀번호를 입력해주세요.</p>
+			</div>
 			
 			<div id="inputBox">
 			  	
@@ -97,8 +100,10 @@ $(document).ready(function(){
 				<input type="hidden" name="userid" value="${requestScope.userid}"/>  
 				
 				<div class="button-box" style="margin-top: 15%;" >
-					<button type="button" class="btn btn-light btn-xs" style="width: 20%;">초기화</button>
-					<button type="button" class="btn btn-info btn-xs" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
+					<button type="button" class="btn btn-light btn-xs " style="width: 20%;">취소</button>
+					<button type="button" class="btn btn-info btn-xs btnclick" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
+					<!-- <input type="button" id="btnExit" class="btnclick btn-md" value="취소"/>
+					<input type="button" id="btnUpdate" class="btnclick btn-md" value="비밀번호 변경"/> -->
 				</div>
 			</div>
 	    </div>
@@ -107,7 +112,7 @@ $(document).ready(function(){
 </c:if>
 
 
-
+<%-- 비밀번호 찾기에서 비밀번호 변경하는 경우에만 사이드바 넣은것. 닫기 --%>
 <c:if test="${not empty requestScope.mypage}">
 			</div>
 		</div>
