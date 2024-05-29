@@ -1,7 +1,5 @@
 package product.model.hj;
 
-import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +13,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import product.domain.ProductVO;
 import product.domain.TasteVO;
 
 public class ProductDAO_imple implements ProductDAO {
@@ -257,18 +254,25 @@ public class ProductDAO_imple implements ProductDAO {
 				String[] selectno_arr = (String[]) paraMap.get("selectno_arr");
 				String[] cartno_arr = (String[]) paraMap.get("cartno_arr"); 
 				
+				/* List<CartVO> ordercount = pdao. */
+				
 				int cnt = 0;
 				for(int i=0; i<selectno_arr.length; i++) {
 					sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice ) "
 						 + " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
-/*
-							pstmt.setString(1, (String)paraMap.get("odrcode"));
+					//  ■■■■■■■■■■■■■■■■■■ 여기서 이제 ordercount(cart테이블에 있을 듯), orderprice(메모에 적힌대로 조인해서 가져올것)를 가져오기 위한 dao를 짜야함  ■■■■■■■■■■■■■■■■■■
+					
+					
+					
+					/*
+							pstmt.setString(1, (String)paraMap.get("odrcode")); // 이건 중복이 되어도 되는 주문 전표
 							pstmt.setString(2, );
 							pstmt.setString(3, selectno_arr[i]);
-							pstmt.setInt(4, paraMap.get("totalPrice"));
-	*/						
+							pstmt.setInt(4, paraMap.get());
+					 */	
 					pstmt.executeUpdate();
 					cnt++;
+					
 				}// end of for---------------------------
 				
 				if(cnt == selectno_arr.length) {
@@ -406,6 +410,38 @@ public class ProductDAO_imple implements ProductDAO {
 		
 		return isSuccess;
 	}
+
+	// === 제품명 가져오는 메소드 생성하기 === //
+	@Override
+	public List<String> get_productname_tbl_product(String[] cartno_arr) throws SQLException {
+		
+		String sql = "";
+		List<String> cartno_list = new ArrayList<>();
+		try {
+	         conn = ds.getConnection();
+	         for(int i=0; i<cartno_arr.length; i++) {
+	        	 sql = " select P.productname "
+	        			 + "from tbl_cart C JOIN tbl_selectlist S "
+	        			 + "ON C.fk_selectno = S.selectno "
+	        			 + "JOIN tbl_product P ON S.fk_productcodeno = P.productcodeno "
+	        			 + "where C.cartno = ? ";
+	        	 
+	        	 pstmt = conn.prepareStatement(sql);
+	        	 pstmt.setString(1, cartno_arr[i]);
+	        	 
+	        	 rs = pstmt.executeQuery();
+	        	 
+	        	 rs.next();
+	        	 
+	        	 cartno_list.add(rs.getString(1));
+	         }
+	      } finally {
+	         close();
+	      }
+	      return cartno_list;
+	}
+
+	
 
 }
 
