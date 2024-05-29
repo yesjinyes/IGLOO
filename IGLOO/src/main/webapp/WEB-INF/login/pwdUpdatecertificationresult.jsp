@@ -8,7 +8,7 @@
 window.onload = function(){
 	   
    if( ${requestScope.userid != null} ) {
-	   alert("인증 성공되었습니다.");
+	   //alert("인증 성공되었습니다.");
    }
 	   
    $("button#btnSubmit").click(function(){

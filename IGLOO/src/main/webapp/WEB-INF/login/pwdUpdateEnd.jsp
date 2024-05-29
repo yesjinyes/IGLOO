@@ -22,9 +22,6 @@
 
 <jsp:include page="../header.jsp"/>
 
-<jsp:include page="../sidebar.jsp"/>
-
-
 <script type="text/javascript">
 $(document).ready(function(){
     $("button.btn-info").click(function(){
@@ -105,26 +102,5 @@ $(document).ready(function(){
 	</form>
 </c:if>
 
-
-<%-- if 문의 조건에 뭘 넣어야할까.... --%>
-<%-- <c:if test="${requestScope.method = 'POST'}" >
-   <div style="text-align: center; font-size: 14pt; color: navy;">
-      <c:if test="${requestScope.n == 1}">
-         사용자 ID ${requestScope.userid}님의 비밀번호가 새로이 변경되었습니다.
-      </c:if>
-      
-      <c:if test="${requestScope.n == 0}">
-         SQL구문 오류가 발생되어 비밀번호를 변경할 수 없습니다.
-      </c:if>
-   </div>
-</c:if> --%>
-
-
-
-<%-- 사이드바 닫기 --%>
-		</div>
-	</div>
-</div>
-<%-- 사이드바 끝 --%>
 
 <jsp:include page="../footer.jsp"></jsp:include>
