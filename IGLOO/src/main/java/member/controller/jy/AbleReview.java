@@ -59,19 +59,14 @@ public class AbleReview extends AbstractController {
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 			
-		//로그인한 사용자의 주문상세목록 조회해기 
-		List<OrderdetailVO> odList = rdao.selectOdetailByuserid(loginuser.getUserid());
-		request.setAttribute("odList", odList);	
+		// 전체 주문내역 불러오기(선택 맛 제외)
+		List<OrderdetailVO> odvoList = rdao.selectOrderListAll(loginuser.getUserid());
 		
-		//로그인한 사용자의 주문한 맛 목록 조회하기
-		List<OrderdetailVO> otasteList = rdao.selectOtasteByuserid(loginuser.getUserid());
-		request.setAttribute("otasteList", otasteList);	
-			
-			//List<ReviewVO> reviewlist = rdao.reviewlist(userid);
-			
-//			if(reviewlist.size() > 0) {
-//				request.setAttribute("reviewlist", reviewlist);
-//			}
+		// System.out.println(odvoList.get(0).getTastenamelist().get(0).getTastename()); 
+		
+		request.setAttribute("odvoList", odvoList);	
+		
+		
 
 		
 		

@@ -12,12 +12,16 @@ public interface ReviewDAO {
 	
 	
 	//로그인한 사용자의 주문상세목록 조회해기 
-	List<OrderdetailVO> selectOdetailByuserid(String userid) throws SQLException;
+	//List<OrderdetailVO> selectOdetailByuserid(String userid) throws SQLException;
 
 	//로그인한 사용자의 주문한 맛 목록 조회하기
-	List<OrderdetailVO> selectOtasteByuserid(String userid) throws SQLException;
+	//List<OrderdetailVO> selectOtasteByuserid(String userid) throws SQLException;
 
 	
+	
+	
+	// 전체 주문내역 불러오기(선택 맛 제외)
+	List<OrderdetailVO> selectOrderListAll(String userid) throws SQLException;
 	
 	
 

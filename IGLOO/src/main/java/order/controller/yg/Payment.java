@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
+import product.domain.ProductVO;
 import product.domain.SelectlistVO;
 import product.model.hj.ProductDAO;
 import product.model.hj.ProductDAO_imple;
@@ -86,16 +88,47 @@ public class Payment extends AbstractController {
 		*/
 		String method = request.getMethod();
 		
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
+		
 		String orderplay = request.getParameter("orderplay");
 		
-	    if("POST".equalsIgnoreCase(method) && orderplay != null) {	// POST 방식이라면
-				
-				HttpSession session = request.getSession();
-				MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
-				
+		
+		
+		
+	    if("POST".equalsIgnoreCase(method)) { // POST 방식이라면
+			String str_cartno = request.getParameter("str_cartno");
+			String str_selectno = request.getParameter("str_selectno");
+			String totalprice = request.getParameter("totalprice");
+			
+			// System.out.println("확인용#@!$#@#@%$# ==> " + str_cartno);
+			// 확인용#@!$#@#@%$# ==> 6,5
+			
+			String[] cartno_arr = str_cartno.split("\\,");
+			
+			// === 제품명 가져오는 메소드 생성하기 === //
+			List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
+			
+			// System.out.println("@@@@확인용@@@@ ==>  "+productname);
+			// @@@@확인용@@@@ ==>  [쿼터, 파인트]
+			
+			// payment.jsp 에 띄워줄 정보를 set 하는 부분
+			request.setAttribute("address", loginuser.getAddress() + loginuser.getDetailaddress());
+			request.setAttribute("extraaddress", loginuser.getExtraaddress());
+			request.setAttribute("mobile", loginuser.getMobile());
+			request.setAttribute("str_cartno", str_cartno);
+	        request.setAttribute("str_selectno", str_selectno);
+	        request.setAttribute("totalprice", totalprice);
+	        request.setAttribute("productname", productname);
+	        
+	        super.setRedirect(false);
+			super.setViewPage("/WEB-INF/order/payment.jsp");
+	    }
+	    else if("POST".equalsIgnoreCase(method) && "play".equals(orderplay)) {
+	    	
 				String userid = loginuser.getUserid();
 				String totalPrice = request.getParameter("totalPrice");
-				String cartno = request.getParameter("cartno");
+				String cartno = request.getParameter("str_cartno");
 				String odrcode =  getOrdercode();
 				String str_selectno = request.getParameter("str_selectno");
 				
@@ -119,6 +152,12 @@ public class Payment extends AbstractController {
 		        	
 		        	paraMap.put("cartno_arr", cartno_arr);
 		        }
+		        
+		        
+		        
+		        
+		        
+		        
 		        
 		        // *** Transaction 처리를 해주는 메소드 호출하기 *** //
 		        int isSuccess = pdao.productOrder(paraMap); // ■■■■■■■■■■ order와 ,orderdetail 테이블에 insert 해주는 메소드 ■■■■■■■■■■■
@@ -156,8 +195,7 @@ public class Payment extends AbstractController {
 		
 		
 		
-		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/order/payment.jsp");
+		
 
 	}
 

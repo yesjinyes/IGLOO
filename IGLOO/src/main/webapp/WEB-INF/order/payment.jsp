@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String ctxPath = request.getContextPath();
     //    /IGLOO
@@ -10,6 +10,8 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/payment.css" />
+
+
 
 <script type="text/javascript">
 
@@ -48,7 +50,7 @@ function goPayment(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게주소</div>
 			<div style="background-color: white; border: solid 0px gray; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">서울특별시 마포구 월드컵북로 21 풍성빌딩 2층 GCLASS 25명의 사람들 안녕하세요 두줄로 만들어보려고 이렇게 늘려보느라 아무말이나 적는중</div>
+					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">${requestScope.address}<br>${requestScope.extraaddress}</div>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -56,7 +58,7 @@ function goPayment(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">내 연락처</div>
 			<div style="background-color: white; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">010-1234-1234</div>
+					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">${requestScope.mobile.substring(0,3)}-${requestScope.mobile.substring(3,7)}-${requestScope.mobile.substring(7)}</div>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -89,7 +91,7 @@ function goPayment(){
 					<div class="row justify-content-between mb-3">
 						<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
 						<div class="col-4"></div>
-						<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;">8,000원</div>
+						<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />원</div> 
 						<br>
 					</div>
 					
@@ -98,7 +100,7 @@ function goPayment(){
 					<div class="row justify-content-between mb-3">
 						<div class="col-4 text-left" style=" font-size: 10pt;">주문상품</div>
 						<div class="col-4"></div>
-						<div class="col-4 text-right" style="font-size: 10pt;">파인트</div>
+						<div class="col-4 text-right" style="font-size: 10pt;">${requestScope.productname}</div>
 						<br>
 					</div>
 				</div>	
@@ -110,7 +112,12 @@ function goPayment(){
 		</div>
 	</div>
 	
-
+<form name="order">
+	<input type="text" name="orderplay" value="play" />
+	<input type="text" name="str_cartno" value="${requestScope.str_cartno}" />
+	<input type="text" name="str_selectno" value="${requestScope.str_selectno}"/>
+	<input type="text" name="totalprice" value="${requestScope.totalprice}"/>
+</form>
 	
 </div>
 
