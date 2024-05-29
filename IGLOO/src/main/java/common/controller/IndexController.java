@@ -1,13 +1,14 @@
 package common.controller;
 
-import java.sql.SQLException;
+
 import java.util.List;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import myshop.domain.ImageVO;
-import myshop.model.ProductDAO;
-import myshop.model.ProductDAO_imple;
+import product.domain.ProductVO;
+import product.domain.TasteVO;
+import product.model.nr.ProductDAO;
+import product.model.nr.ProductDAO_imple;
 
 public class IndexController extends AbstractController {
 
@@ -19,22 +20,18 @@ public class IndexController extends AbstractController {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		/*
-		try {
-			
-			List<ImageVO> imgList = pdao.imageSelectAll();
-			request.setAttribute("imgList", imgList);
-			*/
-			super.setRedirect(false);	// 값을 담아서 이동하므로 false
-			super.setViewPage("/WEB-INF/homepage.jsp");
-			/*
-		}catch(SQLException e) {
-			e.printStackTrace();
-			super.setRedirect(true);	// 주소이동이므로
-			super.setViewPage(request.getContextPath() + "/error.ice");
-			
-		}	// end of try~catch-------------------
-		*/
+
+		List<ProductVO> productList = pdao.getMainProduct();
+	
+		request.setAttribute("productList", productList);
+		
+		List<TasteVO> tasteList = pdao.getMainTaste();
+	
+		request.setAttribute("tasteList", tasteList);
+		
+		super.setRedirect(false);	// 값을 담아서 이동하므로 false
+		super.setViewPage("/WEB-INF/homepage.jsp");
+
 		
 	}
 
