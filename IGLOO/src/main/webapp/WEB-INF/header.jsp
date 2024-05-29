@@ -32,6 +32,11 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
 <script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
 
+<%-- font 감자꽃 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/header.css" />
 <%-- 직접 만든 JS --%>
@@ -105,8 +110,7 @@ function goSearch() {
 					</a>
 		      	</li>
 		    </ul>
-		    
-			<form style="margin-right:8.1%;" name="searchFrm" method="get" class="form-inline my-2 my-lg-0" >
+			<form name="searchFrm" method="get" class="form-inline my-1 my-lg-0" >
 		      	<input name="search" class="form-control mr-sm-2" type="text" placeholder="Search">
 		      	<input type="text" style="display: none;"/>
 		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="goSearch()">검색</button>
@@ -151,43 +155,55 @@ function goSearch() {
 						<span class="color-first">고객센터</span>
 					</a>
 		      	</li>
-		      	<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid == 'admin'}">
-			      	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-			          		관리
-			        	</a>
-			        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          		<a class="dropdown-item" href="<%= ctxPath%>/admin/memberList.ice">회원 목록</a>
-			          		<a class="dropdown-item" href="<%= ctxPath%>/admin/orderListAll.ice">전체 주문 내역</a>
-			          		<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<%= ctxPath%>/admin/productRegister.ice">제품 등록</a>
-			          		<a class="dropdown-item" href="<%= ctxPath%>/admin/faqAnswer.ice">문의 답변 등록</a>
-		        		</div>
-			      	</li>
-		      	</c:if>
 		    </ul>
 		    
-			<form style="margin-right:8.1%;" name="searchFrm" method="get" class="form-inline my-2 my-lg-0" >
+			<form name="searchFrm" method="get" class="form-inline my-2 my-lg-0" >
 		      	<input name="search" class="form-control mr-sm-2" type="text" placeholder="Search">
 		      	<input type="text" style="display: none;"/>
 		      	<button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="goSearch()">검색</button>
 		    </form>
 		   
 	       <div class="text-end" style="margin-left: 2%;">
-           		<a href="<%= ctxPath %>/member/mypage.ice">
-	              	<i class="fa-solid fa-user fa-xl"></i>
-	              	&nbsp;&nbsp;
-	              	<span>
-	              		${sessionScope.loginuser.name}님 로그인 중
-	              	</span>
-              	</a>&nbsp;&nbsp;&nbsp;&nbsp;
-              	<a href="<%= ctxPath %>/member/cart.ice">
-              		<i class="fa-solid fa-cart-arrow-down fa-xl"></i>
-              		&nbsp;&nbsp;
+	       		<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid == 'admin'}">
+		       			<div class="row" style="boredr: solid 1px red;">
+		       			<div class="nav-item dropdown col-7">
+				        	<a style="color:black;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
+				          		<i class="fa-solid fa-user fa-xl"></i>
+				          		${sessionScope.loginuser.name}님 로그인 중
+				        	</a>
+				        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          		<a class="dropdown-item" href="<%= ctxPath%>/admin/memberList.ice">회원 목록</a>
+				          		<a class="dropdown-item" href="<%= ctxPath%>/admin/orderListAll.ice">전체 주문 내역</a>
+				          		<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="<%= ctxPath%>/admin/productRegister.ice">제품 등록</a>
+				          		<a class="dropdown-item" href="<%= ctxPath%>/admin/faqAnswer.ice">문의 답변 등록</a>
+			        		</div>
+				      	</div>
+				      	<div class="col-5 mt-2" style="boredr: solid 1px blue;">
+				      	<a style="color:black; text-decoration:none; " href="<%= ctxPath %>/login/logout.ice">
+              		<i class="fa-solid fa-right-from-bracket fa-xl"></i>
               		<span>
-              			장바구니
+              			로그아웃
               		</span>
-              	</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              	</a> 
+              	</div>
+              	</div>
+	       		</c:if>
+	       		<c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.userid != 'admin'}">
+	           		<a href="<%= ctxPath %>/member/mypage.ice">
+		              	<i class="fa-solid fa-user fa-xl"></i>
+		              	&nbsp;&nbsp;
+		              	<span>
+		              		${sessionScope.loginuser.name}님 로그인 중
+		              	</span>
+	              	</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	              	<a href="<%= ctxPath %>/member/cart.ice">
+	              		<i class="fa-solid fa-cart-arrow-down fa-xl"></i>
+	              		&nbsp;&nbsp;
+	              		<span>
+	              			장바구니
+	              		</span>
+	              	</a>&nbsp;&nbsp;&nbsp;&nbsp;
               	<a href="<%= ctxPath %>/login/logout.ice">
               		<i class="fa-solid fa-right-from-bracket fa-xl"></i>
               		&nbsp;&nbsp;
@@ -195,6 +211,7 @@ function goSearch() {
               			로그아웃
               		</span>
               	</a> 
+              	</c:if>
           </div>
 		</div>
 	</nav>

@@ -22,9 +22,45 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js" ></script> 
 
+<%-- font 감자꽃 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+
+<%-- 직접 만든 CSS --%>
+<style>
+*{
+	font-family: "Gamja Flower", sans-serif;
+}
+</style>
+
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/tasteUpdate.js" ></script> 
+<script type="text/javascript">
 
+window.onload = function(){
+	   
+   $("button#btnSubmit").click(function(){
+
+       const iframe_updatetaste = document.getElementById("iframe_updatetaste");     
+       
+       const iframe_window = iframe_updatetaste.contentWindow;                  
+       
+       iframe_window.func_form_reset_empty();
+
+   })  // end of $("button#btnSubmit").click(function(){})-------------
+   
+   $("button#btnCancel").click(function(){
+
+       const iframe_updatetaste = document.getElementById("iframe_updatetaste");     
+       
+       const iframe_window = iframe_updatetaste.contentWindow;                  
+       
+       iframe_window.func_form_reset_empty();
+
+   })  // end of $("button#btnSubmit").click(function(){})-------------
+}	// end of window.onload = function()-------
+</script>
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <form name="tasteUpdateFrm">
 	<div class="m-3 text-center" style="border:solid 1px black;">
@@ -43,6 +79,7 @@
 	   		</div>
 	   	</c:forEach>
 	   	<button type="button" class="btn btnupdate btn-outline-info mb-3">수정</button>
+	   	<button type="button" class="btn btn-outline-info mb-3" id="btnCancel" onclick="window.parent.changetaste()">취소</button>
 	   	</div>
 	   	<input id="updateTasteno" name="updateTasteno" style="display:none;"/>
 	   	<input name="selectno" value="${requestScope.selectno}" style="display:none;"/>
