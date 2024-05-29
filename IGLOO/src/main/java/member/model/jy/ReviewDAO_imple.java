@@ -250,7 +250,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 			conn = ds.getConnection();
 			
 			String sql = "select A.orderdetailno, B.ordercode, A.ordercount, C.selectno, A.orderprice, A.pickupstatus, A.pickuptime, "
-					   + "       B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd hh24:mi:ss'), "
+					   + "       B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd'), "
 					   + "       D.productcodeno, D.productname, D.productimg, D.price, "
 					   + "       E.name, E.email, E.mobile, E.postcode, E.address, E.detailAddress, E.extraaddress, E.gender, E.birthday "
 					   + "from tbl_orderdetail A join tbl_order B "
@@ -359,6 +359,9 @@ public class ReviewDAO_imple implements ReviewDAO {
 		
 		return odvoList;
 	}
+
+	
+	
 
 
 	

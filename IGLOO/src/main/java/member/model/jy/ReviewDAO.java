@@ -22,6 +22,9 @@ public interface ReviewDAO {
 	
 	// 전체 주문내역 불러오기(선택 맛 제외)
 	List<OrderdetailVO> selectOrderListAll(String userid) throws SQLException;
+
+	// 주문내역에서 맛 이미지 불러오기
+	//List<OrderdetailVO> selectOrderTasteList(String userid) throws SQLException;
 	
 	
 
