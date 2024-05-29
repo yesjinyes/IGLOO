@@ -80,7 +80,7 @@ function goMemberUpdate() {
 						<i class="fa-solid fa-person fa-xl"></i>&nbsp;회원정보 변경
 					</a>
 					
-					<a class="mypagelink mb-2" href="<%= ctxPath %>.ice">
+					<a class="mypagelink mb-2" href="<%= ctxPath %>/login/pwdUpdateEnd.ice">
 						<i class="fa-solid fa-lock fa-xl"></i>&nbsp;비밀번호 변경
 					</a>
 					
