@@ -23,7 +23,6 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order_list.css" />
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_list.js"></script>
-<script type="text/javascript" src="<%= ctxPath%>/js/order/Moreorder_list.js"></script>
 
 <%-- 주문내역 --%>
 <div id="orderlistContents" class="mt-5">
