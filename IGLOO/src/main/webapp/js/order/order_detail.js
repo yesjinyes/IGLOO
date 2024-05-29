@@ -20,9 +20,11 @@ $(document).ready(function() {
 				tasteList.push('taste'+ i);
 			}// end of for------------------
 
+			const tastenoArr = new Array();
+
 			for(let i=0; i<tastecount; i++) {
 				var str_taste = $("select[id='"+ tasteList[i] +"'] option:selected").text();
-				console.log(str_taste);
+				//console.log(str_taste);		// 맛이름
 				
 				if(i == tastecount - 1) {
 					result += str_taste;
@@ -30,9 +32,16 @@ $(document).ready(function() {
 				else {
 					result += str_taste + " / ";
 				}
+
+				var tasteval = $("select[id='"+ tasteList[i] +"'] option:selected").val();
+				// console.log(tasteval);		// 맛번호
+
+				tastenoArr.push(tasteval);
 				
 			}// end of for-------------------
-			console.log(result);
+			//console.log(result);
+			
+			
 			
 			// == option 이 다 선택되면 option 값 초기화 == //
 			$("select[name='selectbox'] option").prop("selected", false);
@@ -74,15 +83,17 @@ $(document).ready(function() {
 			//console.log("price 추가된 totalcost 확인 :" , totalcost);
 			$("span.productprice").text(totalcost);
 			const resulttest = result.split("/");
-			console.log(resulttest);
+			//console.log(resulttest);
 			/*
 				0: "이글루요거트 "
 				1: " 스트로베리 "
 				2: " 오레오레오"
 			*/
 			
+			const str_tasteno = tastenoArr.join();
+			//console.log(str_tasteno);
 			
-		
+			$("form[name='tasteinfo'] > input[name='tasteno']").val(str_tasteno);
 		
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 	
@@ -148,8 +159,6 @@ $(document).ready(function() {
 	});// end of $(document).on('click', '#delete', function()---------------
 
 
-
-
 });// end of $(document).ready(function() {})----------------------------------------------
 	
 	
@@ -166,7 +175,86 @@ function goCart(ctxPath) {
 }// end of 주문상세 > 장바구니 연결------------------------
 
 
+// === 주문하기 창 이동 === //
+function goOrder(){
 
+	insertTasteselect();
+
+        // const selectnoArr = new Array();    // 선택일련번호
+        // let totalprice = $("span.productprice").text();   // 주문총액
+        // totalprice = totalprice.replaceAll(",","");
+        // // alert("확인용 totalprice : " + totalprice);
+
+        // for(let i=0; i<allcheckcnt; i++){
+        //     // alert($("div#divcartno").eq(i).text());
+        //     if($("input:checkbox[name='choicemenu']").eq(i).prop("checked")){   // 체크된 상태
+        //         cartnoArr.push($("div#divcartno").eq(i).text());
+        //         selectnoArr.push($("div#selectno").eq(i).text());
+        //         // alert("확인용 cartnoArr : " + cartnoArr);   // [5]  [5,6]
+        //         // alert("확인용 selectnoArr : " + selectnoArr);
+                
+        //     }
+        // }   // end of for-------------------
+
+        // const str_cartno = cartnoArr.join();    // 5,6
+        // const str_selectno = selectnoArr.join();
+
+        // alert("확인용 str_cartno : " +  str_cartno);
+        // alert("확인용 str_selectno : " +  str_selectno);
+
+        // const cartno = $("form[name='orderinfo'] > input[name='cartno']").val();
+
+/*
+        $.ajax({
+            url:"order/payment.ice"
+            , type:"post"
+            , data:{"str_cartno":str_cartno
+                , "selectnoArr":selectnoArr
+                , "totalprice":totalprice
+            }
+            , success:function(json){
+                
+            }
+            , error: function(request,status,error){
+                alert("code : " + request.status);
+            }
+        })
+    */  
+        // location.href = `order/payment.ice`;
+    
+/*
+	
+		const frm = document.orderDetailFrm;
+		frm.action = "/IGLOO/member/order/payment.ice";
+		frm.method = "post";
+		frm.submit();
+*/
+
+}   // end of function goOrder(){--------
+
+
+function insertTasteselect(){
+
+	const tasteno = $("form[name='tasteinfo'] > input[name='tasteno']").val();
+	const pcode = $("form[name='tasteinfo'] > input[name='pcode']").val();
+
+	$.ajax({
+        url:"insertTaste.ice"
+        , type:"post"
+        , data:{"tasteno":tasteno,
+				"pcode":pcode}
+        , dataType:"json"
+        , success:function(json){
+            
+                
+        }
+        , error: function(request, status, error){
+            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+        }
+        
+    })  // end of $.ajax({----------------
+
+}	// end of function insertTasteselect(){-----------------------
 	
 
 	

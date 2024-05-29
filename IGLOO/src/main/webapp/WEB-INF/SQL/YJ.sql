@@ -244,3 +244,25 @@ where userid = 'yejin';
 commit;
 
 select * from tbl_member;
+
+select *
+from tbl_taste
+order by tasteno;
+
+
+select * from tbl_tasteselect;
+select * from tbl_selectlist;
+
+insert into tbl_tasteselect(
+
+
+
+-> n1 활용
+insert into tbl_selectlist(tasteno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, ?, ?);
+
+-> n1 이 1일때, 실행, n2 활용 for 문 써서 해야하는 것
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, ?, ?);
+
+
+
+

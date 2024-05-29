@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -157,6 +158,57 @@ public class ProductDAO_imple implements ProductDAO {
 	      return pvo;
 	      
 	}// end of public ProductVO getproductList_2(String pcode) throws SQLException-------------
+
+	///////////////////////////////////////////////////////////////
+	
+	// == 결제창 이동 시 맛번호 넘기기 == //
+	@Override
+	public int insertTaste(Map<String, Object> paraMap) throws SQLException {
+		
+		int isInsert = 0;
+		int n1=0, n2=0;
+		
+		
+		try {
+			conn = ds.getConnection();
+			
+			conn.setAutoCommit(false); // 수동커밋으로 전환
+
+			
+			String[] tasteno_arr = (String[])paraMap.get("tasteno_arr"); // 맛번호
+			
+			int cnt = 0;
+			for(int i=0; i<tasteno_arr.length; i++) {
+				
+				String sql =  " insert into tbl_selectlist(tasteno, fk_productcodeno, fk_userid) "
+							+ " values(?, ?, ?); ";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, tasteno_arr[i]);
+				pstmt.setString(2, (String)paraMap.get("pcode"));
+				pstmt.setString(3, (String)paraMap.get("userid"));
+				
+				pstmt.executeUpdate();
+				cnt++;
+			}// end of for--------------------
+			
+			if(cnt == tasteno_arr.length) {
+				n1 = 1; 
+			}
+			System.out.println("확인용 n1 : " + n1);
+			
+		
+		} catch(SQLException e) {
+			conn.rollback();
+			conn.setAutoCommit(true); // 자동커밋으로 전환
+			isInsert = 0;
+		} finally {
+			close();
+		}
+		
+		return isInsert;
+		
+	}// end of public int insertTaste(Map<String, Object> paraMap) throws SQLException--------------
 
 
 
