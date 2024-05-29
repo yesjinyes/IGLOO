@@ -19,4 +19,10 @@ public interface ProductDAO {
 	// === 맛 수정 === //
 	boolean updateTasteno(Map<String, String> paraMap) throws SQLException;
 
+	// === 주문코드를 위한 시퀀스 번호 select 해오기 === //
+	int get_seq_tbl_order() throws SQLException;
+
+	// order와 ,orderdetail 테이블에 insert 해주는 메소드
+	int productOrder(Map<String, Object> paraMap) throws SQLException;
+
 }

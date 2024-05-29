@@ -5,12 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import product.domain.ProductVO;
 import product.domain.TasteVO;
 import util.security.hj.AES256;
 import util.security.hj.SecretMyKey;
@@ -102,6 +105,86 @@ public class ProductDAO_imple implements ProductDAO {
 		}
 		
 		return tvo;
+	}
+
+	@Override
+	public List<ProductVO> getMainProduct() throws SQLException {
+
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select productname, productimg, productdetail, productcodeno "
+					   + "from tbl_product";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				ProductVO pvo = new ProductVO();
+				
+				pvo.setProductname(rs.getString(1));
+				pvo.setProductimg(rs.getString(2));
+				pvo.setProductdetail(rs.getString(3));
+				pvo.setProductcodeno(rs.getString(4));
+				
+				productList.add(pvo);
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		
+		return productList;
+	}
+
+	
+	
+	
+	
+	
+	
+	// 메인페이지 맛 정보 가져오기
+	@Override
+	public List<TasteVO> getMainTaste() throws SQLException {
+
+		List<TasteVO> tasteList = new ArrayList<TasteVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select tasteno, tastename, tasteimg "
+					   + "from tbl_taste";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				TasteVO tvo = new TasteVO();
+				
+				tvo.setTasteno(rs.getInt(1));
+				tvo.setTastename(rs.getString(2));
+				tvo.setTasteimg(rs.getString(3));
+				
+				tasteList.add(tvo);
+				
+			}
+			
+		} finally {
+			close();
+		}
+		
+		
+		return tasteList;
 	}
 
 

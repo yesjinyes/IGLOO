@@ -45,5 +45,8 @@ public interface HelpDAO {
 
 	// 전체 행 개수
 	int getTotalSearchCount(Map<String, String> paramap) throws SQLException;
+
+	// 사용자 - 1:1 문의 등록하기
+	int registerFaq(Map<String, String> paramap) throws SQLException;
 	
 }

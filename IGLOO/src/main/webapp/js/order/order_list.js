@@ -49,9 +49,9 @@ $(document).ready(function(){
         $(this).css("background-color", "#AFD485");
         $("span#selectdate").text(func_lastmonthDate(3));
 
-        let date1 = func_lastmonthDate(1).substring(0,4);
-        let date2 = func_lastmonthDate(1).substring(5,7);
-        let date3 = func_lastmonthDate(1).substring(8,10);
+        let date1 = func_lastmonthDate(3).substring(0,4);
+        let date2 = func_lastmonthDate(3).substring(5,7);
+        let date3 = func_lastmonthDate(3).substring(8,10);
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
@@ -66,9 +66,9 @@ $(document).ready(function(){
         $(this).css("background-color", "#82CBC4");
         $("span#selectdate").text(func_lastmonthDate(6));
 
-        let date1 = func_lastmonthDate(1).substring(0,4);
-        let date2 = func_lastmonthDate(1).substring(5,7);
-        let date3 = func_lastmonthDate(1).substring(8,10);
+        let date1 = func_lastmonthDate(6).substring(0,4);
+        let date2 = func_lastmonthDate(6).substring(5,7);
+        let date3 = func_lastmonthDate(6).substring(8,10);
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
@@ -83,9 +83,9 @@ $(document).ready(function(){
         $(this).css("background-color", "#58CCFF");
         $("span#selectdate").text(func_lastmonthDate(12));
 
-        let date1 = func_lastmonthDate(1).substring(0,4);
-        let date2 = func_lastmonthDate(1).substring(5,7);
-        let date3 = func_lastmonthDate(1).substring(8,10);
+        let date1 = func_lastmonthDate(12).substring(0,4);
+        let date2 = func_lastmonthDate(12).substring(5,7);
+        let date3 = func_lastmonthDate(12).substring(8,10);
 
         $("form[name='sendinfo'] > input[name='orderListPeriod']").val(date1+"/"+date2+"/"+date3);
     
