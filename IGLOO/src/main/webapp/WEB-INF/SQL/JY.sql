@@ -386,8 +386,8 @@ SELECT tasteno, tastename, tasteimg , ingredients
    --- 주문된 제품, 아이스크림맛 조회해오기
 
 
------ 주문내역에 따른 제품, 맛 정보 조회하기
-   select userid, orderdetailno, orderdate, productname, productimg, tastename, reviewstatus
+----- 주문내역에 따른 제품, 맛 정보 조회하기xxxx
+   select userid, orderdetailno, tasteimg, tastename, reviewstatus
    from tbl_member I
    join tbl_order A
    on I.userid = A.fk_userid 
@@ -401,12 +401,26 @@ SELECT tasteno, tastename, tasteimg , ingredients
    on C.fk_productcodeno = E.productcodeno
    join tbl_taste F
    on D.fk_tasteno = F.tasteno
-   where userid = 'jjoung'
+   where userid = 'jjoung' and orderdetailno = 1
    order by orderdetailno ;
    
    
    
-   ----주문내역에따른 
+    ----주문내역에따른 
+    select A.orderdetailno,B.fk_userid,  B.ordercode, E.tasteselectno, F.tastename , F.tasteimg 
+    from tbl_orderdetail A join tbl_order B 
+    on A.fk_ordercode = B.ordercode 
+	join tbl_selectlist C 
+	on A.fk_selectno = C.selectno 
+	join tbl_product D 
+	on C.fk_productcodeno = D.productcodeno 
+	join tbl_tasteselect E 
+	on E.fk_selectno = C.selectno 
+	join tbl_taste F 
+	on E.fk_tasteno = F.tasteno 
+    where fk_userid = 'jjoung'
+   
+   
    
    ---리뷰 update
 

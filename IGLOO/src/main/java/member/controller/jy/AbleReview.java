@@ -61,10 +61,9 @@ public class AbleReview extends AbstractController {
 			
 		// 전체 주문내역 불러오기(선택 맛 제외)
 		List<OrderdetailVO> odvoList = rdao.selectOrderListAll(loginuser.getUserid());
-		
 		// System.out.println(odvoList.get(0).getTastenamelist().get(0).getTastename()); 
-		
 		request.setAttribute("odvoList", odvoList);	
+		
 		
 		
 

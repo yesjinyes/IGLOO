@@ -28,12 +28,12 @@ public class WriteReview extends AbstractController {
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 			
-		// 주문내역에서 맛 이미지 불러오기
-		List<OrderdetailVO> odvoList = rdao.selectOrderListAll(loginuser.getUserid());
+		// 리뷰쓰기를 위해 주문목록에서 해당 주문상세 불러오기
+		List<OrderdetailVO> odvoOne = rdao.selectOrderDetailOne(loginuser.getUserid());
 		
 		// System.out.println(odvoList.get(0).getTastenamelist().get(0).getTastename()); 
 
-		request.setAttribute("odvoList", odvoList);	
+		request.setAttribute("odvoOne", odvoOne);	
 		
 		super.setViewPage("/WEB-INF/member/writeReview.jsp");
 
