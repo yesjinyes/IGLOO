@@ -1,15 +1,14 @@
-package login.controller.hj;
+package login.controller.yj;
 
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class PwdChange extends AbstractController {
+public class PwdChange_3months extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		HttpSession session = request.getSession();
 		
 		String userid = (String) session.getAttribute("userid");
@@ -19,7 +18,7 @@ public class PwdChange extends AbstractController {
 		session.removeAttribute("userid");
 		
 		super.setRedirect(false);	// forward
-		super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
+		super.setViewPage("/WEB-INF/login/pwdUpdate_3months.jsp");
 
 	}
 

@@ -49,7 +49,7 @@ public class InsertTaste extends AbstractController {
 		else {
 			HttpSession session = request.getSession();
 			
-			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 			
 		    if(loginuser != null) {
 		    	
@@ -67,12 +67,15 @@ public class InsertTaste extends AbstractController {
 		    	try {
 		    		n = pdao.insertTaste(paraMap);
 		    		
-		    		
-		    		
-		    		
+		    		if(n == 1) {
+		    			super.setRedirect(true);
+		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
+		    		}
 		    		
 		    	} catch(SQLException e) {
-		    		e.printStackTrace();
+		    		request.setAttribute("message", "장바구니 담기 실패!!");
+
+		    		
 		    	}
 		    	
 		    	super.setRedirect(false);

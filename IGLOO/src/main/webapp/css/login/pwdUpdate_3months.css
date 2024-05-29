@@ -1,17 +1,18 @@
 
-div#container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5% 0 10% 0;
+div#container_pwd {
+	border: solid 0px red;
+	display: flex;
+	/* justify-content: center; */
+	margin: 0 0 10% 0;
 }
 
 div#loginBox {
-  border: solid 0px gray;
-  width: 39%;
-  height: 800px;
-  text-align: center;
-  padding-top: 3.5%;
+	border: solid 0px gray;
+	width: 65%;
+	/* height: 800px; */
+	text-align: center;
+	padding-top: 3.5%;
+	margin-left: 3%;
 }
 
 div#loginBox > h2 {
@@ -37,7 +38,6 @@ div#inputBox {
 	border-radius: 3%;
 	margin: auto;
 	width: 80%;
-	height: 58%;
 	padding: 2% 0;
 }
 
@@ -62,5 +62,9 @@ input.form-control {
 	border: solid 1px gray;
 	font-size: 10pt;
 	padding: 3.5%;
+}
+
+div.button-box {
+	margin-bottom: 4%;
 }
 

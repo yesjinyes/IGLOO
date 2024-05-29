@@ -5,7 +5,6 @@ import java.util.List;
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
 import product.domain.ProductVO;

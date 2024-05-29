@@ -22,8 +22,9 @@
 
 <jsp:include page="../header.jsp"/>
 
-<jsp:include page="../sidebar.jsp"/>
-
+<c:if test="${not empty requestScope.mypage}">
+	<jsp:include page="../sidebar.jsp"/>
+</c:if>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -41,8 +42,8 @@ $(document).ready(function(){
        }
        
        else {
-          const regExp_pwd = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g); 
-              // 숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규표현식 객체 생성 
+            const regExp_pwd = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g); 
+            // 숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규표현식 객체 생성 
               
             const bool = regExp_pwd.test(pwd);   
              
@@ -106,25 +107,12 @@ $(document).ready(function(){
 </c:if>
 
 
-<%-- if 문의 조건에 뭘 넣어야할까.... --%>
-<%-- <c:if test="${requestScope.method = 'POST'}" >
-   <div style="text-align: center; font-size: 14pt; color: navy;">
-      <c:if test="${requestScope.n == 1}">
-         사용자 ID ${requestScope.userid}님의 비밀번호가 새로이 변경되었습니다.
-      </c:if>
-      
-      <c:if test="${requestScope.n == 0}">
-         SQL구문 오류가 발생되어 비밀번호를 변경할 수 없습니다.
-      </c:if>
-   </div>
-</c:if> --%>
 
-
-
-<%-- 사이드바 닫기 --%>
+<c:if test="${not empty requestScope.mypage}">
+			</div>
 		</div>
 	</div>
-</div>
-<%-- 사이드바 끝 --%>
+</c:if>
+
 
 <jsp:include page="../footer.jsp"></jsp:include>
