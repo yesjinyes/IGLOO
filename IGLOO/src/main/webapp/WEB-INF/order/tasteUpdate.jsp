@@ -58,7 +58,8 @@ window.onload = function(){
        
        iframe_window.func_form_reset_empty();
 
-   })  // end of $("button#btnSubmit").click(function(){})-------------
+   })  // end of $("button#btnCancel").click(function(){})-------------
+   
 }	// end of window.onload = function()-------
 </script>
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>

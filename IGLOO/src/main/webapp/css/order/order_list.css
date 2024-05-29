@@ -1,9 +1,14 @@
 @charset "UTF-8";
 
+div#orderlistContents *{
+	font-family: "Jua";
+}
+
 div#orderlistContents > span#input_searchlist
 ,div#orderlistContents > div > div#setDuration{
 	font-weight: bold;
 	font-size: 20pt;
+	font-family: "Jua";
 }
 
 div#orderlistContents > div.input_text{

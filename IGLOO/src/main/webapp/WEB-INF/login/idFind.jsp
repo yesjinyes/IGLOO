@@ -21,6 +21,17 @@
 <script type="text/javascript" src="<%= ctxPath%>/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js" ></script> 
 
+<%-- font 감자꽃 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+
+<%-- 직접 만든 CSS --%>
+<style>
+*{
+	font-family: "Gamja Flower", sans-serif;
+}
+</style>
 
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">

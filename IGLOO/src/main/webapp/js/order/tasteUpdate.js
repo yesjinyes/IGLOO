@@ -12,6 +12,17 @@ $(function() {
 	    frm.submit();
 	})	// end of $("button.btn-success").click(function(){})-------------
 	
+	// === 수정 취소 버튼 클릭하였을 경우 === //
+	$("button.btnCancel").click(function(){
+		
+		const ctxPath = $("div#ctxPath").text();
+
+		const frm = document.tasteUpdateFrm;
+	    frm.action = `${ctxPath}/member/cart/updatetaste.ice`;
+	    frm.method = "post";
+	    frm.submit();
+	})	// end of $("button.btn-success").click(function(){})-------------
+
 })
 
 // === 선택한 맛번호 정보 === //
