@@ -84,11 +84,6 @@ $(document).ready(function() {
 			$("span.productprice").text(totalcost);
 			const resulttest = result.split("/");
 			//console.log(resulttest);
-			/*
-				0: "이글루요거트 "
-				1: " 스트로베리 "
-				2: " 오레오레오"
-			*/
 			
 			const str_tasteno = tastenoArr.join();
 			//console.log(str_tasteno);
@@ -117,6 +112,7 @@ $(document).ready(function() {
 		$(e.target).parent().find("span#result").text(plus);
 
 	});// end of $(document).on('click', '.plus', function() {})------------ 
+
 
 	// == 마이너스 버튼 클릭 이벤트 == // 
 	$(document).on('click', '.minus', function(e) {
@@ -172,7 +168,7 @@ function goCart(ctxPath) {
     frm.action = "/member/cart.ice";
     frm.submit();
 
-}// end of 주문상세 > 장바구니 연결------------------------
+}// end of function goCart(ctxPath) ------------------------
 
 
 // === 주문하기 창 이동 === //
@@ -229,8 +225,7 @@ function goOrder(){
 		frm.method = "post";
 		frm.submit();
 */
-
-}   // end of function goOrder(){--------
+}   // end of function goOrder()------------
 
 
 function insertTasteselect(){

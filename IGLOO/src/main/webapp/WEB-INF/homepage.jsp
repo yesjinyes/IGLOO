@@ -19,25 +19,26 @@
 	background-color: #9beafd;
 	height:700px;
 	padding-top: 4%;
+	opacity: 0.8;
+	background-image:  radial-gradient(#ffffff 1px, transparent 0.5px), radial-gradient(#ffffff 1px, #9beafd 0.5px);
+	background-size: 20px 20px;
+	background-position: 0 0,10px 10px;
 }
 #ourProduct {
 	background-color: #f7fde7;
-	border: solid 1px red;
 	height:700px;
 	display: flex;
 	align-items: center;
 	text-align: center;
 }
 #ourTaste {
-	border: solid 1px red;
-	height:700px;
+	height:550px;
 	display: flex;
 	align-items: center;
 	text-align: center;
 }
-#shortCut {
-	border: solid 1px red;
-	height:700px;
+#shortcut {
+	height:450px;
 }
 
 img#mainImg {
@@ -51,61 +52,123 @@ height: 320px;
 text-align: center;
 }
 
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
- /* display: flex;*/
+#forCenter > div:nth-child(2) > span:nth-child(1) > span.cupBackground {
+	background-color: #fff9e1;
 }
 
-.carousel-inner .carousel-item-right.active,
-.carousel-inner .carousel-item-next {
-  transform: translateX(25%);
+#forCenter > div:nth-child(2) > span:nth-child(2) > span.cupBackground {
+	background-color: #ffffff;
 }
 
-.carousel-inner .carousel-item-left.active, 
-.carousel-inner .carousel-item-prev {
-  transform: translateX(-25%);
-}
-  
-.carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left{ 
-  transform: translateX(0);
+#forCenter > div:nth-child(2) > span:nth-child(3) > span.cupBackground {
+	background-color: #e4d09c;
 }
 
+#forCenter > div:nth-child(2) > span:nth-child(4) > span.cupBackground {
+	background-color: #f4df87;
+}
+
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'seolleimcool-SemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/seolleimcool-SemiBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.title {
+	font-family: 'Cafe24Oneprettynight';
+	font-size: 30pt;
+}
+
+.productname {
+	font-family: 'SUITE-Regular';
+}
+
+.productdetail {
+	font-family: 'SUITE-Regular';
+	font-size: 15pt;
+}
+
+div#helpDesk > div:nth-child(2),
+div#map > div:nth-child(2) {
+    font-family: 'Cafe24Oneprettynight';
+    font-weight: bolder;
+    font-size: 40pt;
+}
+
+.tasteimg:hover {
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
 
 </style>
 
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
-        $(document).ready(function(){
-        	
-        	$('#recipeCarousel').carousel({
-          	  interval :1500
-          	});
 
-          	$('.carousel .carousel-item').each(function(){
-          	    var next = $(this).next();
-          	    if (!next.length) {
-          	        next = $(this).siblings(':first');
-          	    }
-          	next.children(':first-child').clone().appendTo($(this));
-          	    
-          	for (var i=0;i<2;i++) {
-          	    next=next.next();
-          	    if (!next.length) {
-          	     	next = $(this).siblings(':first');
-          	   	}
-          	        
-          	 next.children(':first-child').clone().appendTo($(this));
-          	}
-        });
-          	
-    });
-  </script>
+$(document).ready(function(){
+	$('#carouselExampleIndicators').carousel({
+    	  interval :2000
+   	});
+});
+
+function goProduct(codeno){
+	location.href = "<%=ctxPath%>/order/order_detail.ice?pcode="+codeno;
+}
+
+function goTaste(tasteno){
+	location.href = "<%=ctxPath%>/product/menuDetail.ice?tasteno="+tasteno;
+}
+
+function goStore(){
+	location.href = "<%=ctxPath%>/store/searchList.ice" ;
+}
+
+function goFaq(){
+	location.href = "<%=ctxPath%>/help/help.ice" ;
+}
+</script>
 
 <div id="main">
-<div style="width: 100%;" align="center"><img id="mainImg" src="<%=ctxPath%>/images/img_narae/mainImg.png"/></div>
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	    <div class="carousel-inner" align="center" >
+		<c:forEach var="mainImg" items="${requestScope.mainImgList}" varStatus="status">
+			<c:if test="${status.index == 0}">
+			    <div class="carousel-item active">
+			      <img style="width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block" alt="...">
+			    </div>
+			</c:if>
+			<c:if test="${status.index != 0 }">
+				<div class="carousel-item">
+			      <img style="width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block alt="...">
+			    </div>
+			</c:if>	    
+		</c:forEach>
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
 </div>
 
 <div id="video" align="center">
@@ -116,16 +179,16 @@ text-align: center;
 
 <div id="ourProduct">
 	<div id="forCenter" style="width: 100%;">
-		<div style="width: 100%; margin: 3% 0%;"><span>Our Products</span></div>
+		<div class="title" style="width: 100%; margin: 0% 0% 3% 0%;"><span>Our Products</span></div>
 		<div>
 			<c:forEach var="product" items="${requestScope.productList}">
-				<span class="cup" style="width: 15%; margin-right: 2%;">
-					<span style="display: block; background-color: #f7c87c; width: 100%; height: 270px; border-top-left-radius: 150px; border-top-right-radius: 150px;">
+				<span class="cup" style="width: 15%; margin-right: 2%; cursor: pointer;" onclick="goProduct('${product.productcodeno}')">
+					<span class="cupBackground" style="display: block; width: 100%; height: 270px; border-top-left-radius: 150px; border-top-right-radius: 150px;">
 						<img style="width: 50%; margin-top: 18%;" src="<%=ctxPath%>/images/img_narae/cup_size/${product.productimg}"/>
 					</span>
-					<span style="display: block; padding-top: 5%; font-size: 15pt;">${product.productname}</span>
+					<span class="productname" style="display: block; padding-top: 5%; font-size: 20pt;">${product.productname}</span>
 					<hr style="border: solid 1px #e3e3e3;">
-					<span style="display: block;">${product.productdetail }</span>
+					<span class="productdetail" style="display: block;">${product.productdetail }</span>
 				</span>
 			</c:forEach>
 		</div>
@@ -134,47 +197,36 @@ text-align: center;
 
 <div id="ourTaste">
 	<div id="forCenter" style="width: 100%;">
-		<div style="width: 100%; margin: 3% 0%;"><span>Our Tastes</span></div>
+		<div class="title" style="width: 100%; margin: 3% 0% 5% 0%;"><span>Our Tastes</span></div>
 	
 	<%-- 캐러셀 --%>
-	
-	<div class="row mx-auto my-auto">
-	        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-	            <div class="carousel-inner w-100" role="listbox">
-	                <c:forEach var="taste" items="${requestScope.tasteList}" varStatus="status">
-		                <c:if test="${status.index == 0}">
-			                <div class="carousel-item active">
-			                    <img class="col-3 img-fluid" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" />
-			                </div>
-		                </c:if>
-		                <c:if test="${status.index != 0}">
-			                <div class="carousel-item">
-		                    	<img class="col-3 img-fluid" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" />
-		                	</div>
-		                </c:if>
-	                </c:forEach>
-	            </div>
-	            <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
-	                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                <span class="sr-only">Previous</span>
-	            </a>
-	            <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
-	                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                <span class="sr-only">Next</span>
-	            </a>
-	        </div>
-	    </div>
-	
-	
-	
-	
-	
-	
-	
+		<div style="display: flex; margin-bottom: 8%;">
+		<c:forEach var="taste" items="${requestScope.tasteList}">
+		<div><img class="tasteimg" style="width: 100%; cursor: pointer;" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" onclick="goTaste('${taste.tasteno}')"/></div>
+		</c:forEach>
+		</div>
 	
 	</div>
 </div>
 
-<div id="shortCut"></div>
 
+
+
+
+<div id="shortcut">
+	<div style="display: flex;">
+		<div id="map" align="center" style="width: 45%; margin: 0% 3%; cursor: pointer;" onclick="goStore()">
+			<div style="position: relative; top: -10px; background-color: #ffe7e5; width: 80%; height: 300px; border-radius: 150px; margin-top: 10%;"></div>
+			<div style="position: relative; top: -340px; left: -100px;">찾아오는 길</div>
+			<img style="position: relative; top: -350px; width: 60%;" src="<%=ctxPath%>/images/img_narae/3d-casual-life-trail-map.png"/>
+		</div>
+		
+		<div id="helpDesk" style="width: 45%; padding-left: 5%; overflow: hidden; height: 450px; cursor: pointer;" onclick="goFaq()">
+			<div style="position: relative; top: -10px; background-color: #ffe7e5; width: 80%; height: 300px; border-radius: 150px; margin-top: 10%;"></div>
+			<div style="position: relative; top: -340px;">C/S CENTER</div>
+			<img style="width: 65%; position: relative; top: -430px; margin-left: 7%;" src="<%=ctxPath%>/images/img_narae/coworking-customer-service-person-answering-question.gif"/>
+		</div>
+	
+	</div>
+</div>			
 <jsp:include page="footer.jsp" />

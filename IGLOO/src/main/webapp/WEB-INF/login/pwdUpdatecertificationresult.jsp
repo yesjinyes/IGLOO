@@ -3,12 +3,24 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
+<%-- font 감자꽃 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+
+<%-- 직접 만든 CSS --%>
+<style>
+*{
+	font-family: "Gamja Flower", sans-serif;
+}
+</style>
+
 <script type="text/javascript">
 
 window.onload = function(){
 	   
    if( ${requestScope.userid != null} ) {
-	   alert("인증 성공되었습니다.");
+	   //alert("인증 성공되었습니다.");
    }
 	   
    $("button#btnSubmit").click(function(){

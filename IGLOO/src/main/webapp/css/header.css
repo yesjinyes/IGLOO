@@ -37,3 +37,11 @@ div#navbarSupportedContent > div.text-end > a{
 div#navbarSupportedContent > div.text-end > a > span{
 	font-size: 10pt;
 }
+
+form[name='searchFrm']{
+	flex-flow: nowrap !important;
+}
+
+*{
+	font-family: "Gamja Flower", sans-serif;
+}

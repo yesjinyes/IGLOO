@@ -19,41 +19,99 @@
 
 <jsp:include page="../header.jsp"/>
 
+<jsp:include page="../sidebar.jsp"/>
 
-<div id="container">
-  <div id="loginBox">
-  
-  	<img src="<%= ctxPath%>/images/lock.png" style="width: 12%; margin-top: -10%;"/>
-    <h2>개인정보 보호를 위해<br><span style="color: red;">비밀번호를 변경</span>해주세요</h2>
-    <p>회원님은 <span style="color: #4d94ff;">3개월 이상 동일한 비밀번호</span>를 사용하고 계십니다.<br>소중한 개인정보 보호를 위해 비밀번호를 주기적으로 변경해주세요.</p>
-  
-    <div id="inputBox">
-      	
-      <div class="input-form-box">
-      	<span style="font-size: 13pt;">현재 비밀번호</span>
-      	<input type="password" name="pwd" class="form-control"  placeholder="현재 비밀번호 입력" />
-      </div>	
-      	
-      <div class="input-form-box">
-      	<span style="font-size: 13pt;">새 비밀번호</span>
-      	<input type="password" name="pwd" class="form-control"  placeholder="8~16자 영문, 숫자, 특수문자 중 2개 조합" />
-      </div>
-      
-      <div class="input-form-box">
-      	<span style="font-size: 13pt;">새 비밀번호 확인</span>
-      	<input type="password" name="pwd_check" class="form-control" placeholder="비밀번호 재입력"/>
-      </div>
-      
-      <div class="button-box" style="margin-top: 13%;" >
-        <button type="button" class="btn btn-light btn-xs" style="width: 25%;">초기화</button>
-        <button type="button" class="btn btn-primary btn-xs" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
-      </div>
-      
-    </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("button.btn-info").click(function(){
+		
+		const pwd = $("input:password[name='pwd']").val();
+	    const pwd2 = $("input:password[id='pwd2']").val();
+	    const pwd3 = $("input:password[id='pwd3']").val();
+
+	    
+	    
+	    
+		if(pwd2 != pwd3) {
+			alert("새로 입력한 암호가 일치하지 않습니다.");
+			$("input:password[name='pwd2']").val("");
+			$("input:password[id='pwd3']").val("");
+			$("input:password[name='pwd2']").focus();
+			return;
+		}
+       
+        else {
+			const regExp_pwd = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g); 
+              // 숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규표현식 객체 생성 
+              
+            const bool = regExp_pwd.test(pwd);   
+             
+            if(!bool) {
+                // 암호가 정규표현식에 위배된 경우
+                alert("암호는 8글자 이상 15글자 이하에 영문자,숫자,특수기호가 혼합되어야만 합니다.");
+                $("input:password[name='pwd']").val("");
+                $("input:password[id='pwd2']").val("");
+                return; // 종료
+            }
+            else {
+            	alert("비밀번호가 변경되었습니다.");
+                // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
+                const frm = document.pwdUpdateEndFrm;
+                frm.action = "<%= ctxPath%>/login/pwdUpdate_3months.ice";
+                frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
+                frm.submit();
+            }
+        }
+		
+    });// end of $("button.btn-success").click(function(){})-------------
     
-  </div>
+ }); // end of $(document).ready(function(){})-------------
+</script>
+
+<div id="container_pwd" class="mt-5">
+
+	<div id="loginBox">
+		
+		<div style="display: flex; justify-content: center;">
+			<div style="width: 12%; margin-right: 3.5%;">
+	 			<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 100%;"/>
+	    	</div>
+	    	<h2 style="text-align: left;">개인정보 보호를 위해<br>비밀번호를 변경해주세요</h2>
+		</div> 
+
+		<p>회원님은 <span style="color: #fc6136;">3개월 이상 동일한 비밀번호</span>를 사용하고 있습니다.<br>소중한 개인정보 보호를 위해 비밀번호를 주기적으로 변경해주세요.</p>
+	
+  		<div id="inputBox">
+    	
+			<div class="input-form-box">
+				<span style="font-size: 13pt;">현재 비밀번호</span>
+				<input type="password" name="pwd" class="form-control"  placeholder="현재 비밀번호 입력" />
+			</div>	
+    	
+			<div class="input-form-box">
+				<span style="font-size: 13pt;">새 비밀번호</span>
+				<input type="password" name="pwd2" class="form-control"  placeholder="8~16자 영문, 숫자, 특수문자 중 2개 조합" />
+			</div>
+    
+			<div class="input-form-box">
+				<span style="font-size: 13pt;">새 비밀번호 확인</span>
+				<input type="password" name="pwd3" class="form-control" placeholder="비밀번호 재입력"/>
+			</div>
+    
+			<div class="button-box" style="margin-top: 13%;" >
+				<button type="button" class="btn btn-light btn-xs btnclick" style="width: 25%;">초기화</button>
+				<button type="button" class="btn btn-info btn-xs btnclick" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
+			</div>
+		</div>
+  
+	</div>
 </div>
 
     
+<%-- 사이드바 닫기 --%>
+		</div>
+	</div>
+</div>    
+<%--------------%>
 
 <jsp:include page="../footer.jsp"></jsp:include>

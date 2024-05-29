@@ -12,6 +12,10 @@ div#cartContainer{
 	margin-top: 100px;
 	margin-bottom: 20px;
 }
+div#cartContainer > div#orderProcedure *
+, nav.footbar *{
+	font-family: "Jua";
+}
 
 div#cartContainer > div#orderProcedure > div:first-child{
 	font-weight: bold;
@@ -28,7 +32,7 @@ div#cartContainer > div.totalSelect > label{
 }
 
 div#cartContainer label{
-	font-size: 2rem;
+	font-size: 3rem;
 	font-weight: bold;
 }
 

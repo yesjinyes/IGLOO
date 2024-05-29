@@ -115,12 +115,13 @@ function goSearch(){
 
 
 
-<div id="storeSearch">
+<div id="storeSearch" style="text-align:center;">
 	<nav id="searchList" class="navbar navbar-expand-sm justify-content-center">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-		    	<a class="nav-link" href="<%= ctxPath%>/store/searchList.ice">리스트로 검색</a>
+		    	<a class="nav-link" href="<%= ctxPath%>/store/searchList.ice">리스트로 검색 │</a>
 		    </li>
+		    
 		    <li class="nav-item">
 		      	<a class="nav-link" href="<%= ctxPath%>/store/searchMap.ice">지도로 검색</a>
 		    </li>
