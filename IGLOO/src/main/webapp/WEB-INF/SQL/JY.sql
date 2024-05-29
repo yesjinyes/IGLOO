@@ -406,3 +406,8 @@ SELECT tasteno, tastename, tasteimg , ingredients
    
    
    
+   ---리뷰 update
+
+   
+   
+   

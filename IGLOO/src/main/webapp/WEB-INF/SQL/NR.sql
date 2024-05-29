@@ -191,4 +191,16 @@ where storename like '%부평%' or storeaddress like '%부평%';
 select *
 from tab;
 
-desc TBL_INGREDIENT;
+desc tbl_faq_q;
+
+select *
+from tbl_faq_q;
+
+delete from tbl_faq_q where q_no = 11;
+
+commit;
+
+select * from user_sequences;
+
+
+

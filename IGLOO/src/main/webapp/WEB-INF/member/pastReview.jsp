@@ -29,8 +29,8 @@
 	<div id="content" class="col-9">
 
 	<div id="btnReview">
-		<a class="menufont_size" href="<%= ctxPath %>/member/ableReview.ice">작성가능한 리뷰</a>
-		<a class="menufont_size" href="<%= ctxPath %>/member/pastReview.ice">적성한 리뷰</a>
+		<a class="btn menufont_size" href="<%= ctxPath %>/member/ableReview.ice" >작성가능한 리뷰</a>
+		<a class="btn menufont_size" href="<%= ctxPath %>/member/pastReview.ice" >작성한 리뷰</a>
 	</div>
 	
 	<hr>

@@ -9,104 +9,172 @@
 %>
 
 <%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/main/homepage.css" />
+<style type="text/css">
+
+#main {
+	margin-top: 5%;
+	height:700px;
+}
+#video {
+	background-color: #9beafd;
+	height:700px;
+	padding-top: 4%;
+}
+#ourProduct {
+	background-color: #f7fde7;
+	border: solid 1px red;
+	height:700px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+#ourTaste {
+	border: solid 1px red;
+	height:700px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+#shortCut {
+	border: solid 1px red;
+	height:700px;
+}
+
+img#mainImg {
+	width: 50%;
+}
+
+.cup {
+display: inline-block;
+width: 20%;
+height: 320px;
+text-align: center;
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+ /* display: flex;*/
+}
+
+.carousel-inner .carousel-item-right.active,
+.carousel-inner .carousel-item-next {
+  transform: translateX(25%);
+}
+
+.carousel-inner .carousel-item-left.active, 
+.carousel-inner .carousel-item-prev {
+  transform: translateX(-25%);
+}
+  
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}
+
+
+</style>
 
 <jsp:include page="header.jsp" />
 
-<div id="main_logo">
-	<img id="logo_img" src="<%= ctxPath%>/images/igloo_logo.png"/>
+<script type="text/javascript">
+        $(document).ready(function(){
+        	
+        	$('#recipeCarousel').carousel({
+          	  interval :1500
+          	});
+
+          	$('.carousel .carousel-item').each(function(){
+          	    var next = $(this).next();
+          	    if (!next.length) {
+          	        next = $(this).siblings(':first');
+          	    }
+          	next.children(':first-child').clone().appendTo($(this));
+          	    
+          	for (var i=0;i<2;i++) {
+          	    next=next.next();
+          	    if (!next.length) {
+          	     	next = $(this).siblings(':first');
+          	   	}
+          	        
+          	 next.children(':first-child').clone().appendTo($(this));
+          	}
+        });
+          	
+    });
+  </script>
+
+<div id="main">
+<div style="width: 100%;" align="center"><img id="mainImg" src="<%=ctxPath%>/images/img_narae/mainImg.png"/></div>
 </div>
-<div class="container mt-3">
-	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-		<ol class="carousel-indicators">
-		<%-- 테이블 넣은 이후
-			<c:if test="${not empty requestScope.imgList}">
-				<c:forEach items="${requestScope.imgList}" varStatus="status">
-			  		<c:if test="${status.index == 0}">
-			  			<li data-target="#carouselExampleIndicators" data-slide-to="${status.index}" class="active"></li>
-			  		</c:if>
-			  		<c:if test="${status.index > 0}">
-			  			<li data-target="#carouselExampleIndicators" data-slide-to="${status.index}" ></li>
-			  		</c:if>
-			  	</c:forEach>
-			</c:if>
-		--%> 
-			<%-- 테이블 넣기 이전 시작 --%>
-			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> 
-			<%-- 테이블 넣기 이전 끝 --%>
-		</ol>
-		<div class="carousel-inner">
-			<%-- 테이블 넣은 이후
-			<c:if test="${not empty requestScope.imgList}">
-				<c:forEach var="imgvo" items="${requestScope.imgList}" varStatus="status">
-			  		<c:if test="${status.index == 0}">
-			  			<div class="carousel-item active">
-							<img src="<%= ctxPath %>/images/${imgvo.imgfilename}" class="d-block w-100" alt="..."> 
-						</div>
-			  		</c:if>
-			  		<c:if test="${status.index > 0}">
-			  			<div class="carousel-item">
-						    <img src="<%= ctxPath %>/images/${imgvo.imgfilename}" class="d-block w-100" alt="...">	      
-						</div>
-			  		</c:if>
-			  	</c:forEach>
-			</c:if>
-			--%>
-			<%-- 테이블 넣기 이전 시작 --%>
-			<div class="carousel-item active">
-                <img src="<%= ctxPath%>/images/igloo_photo.png" class="d-block w-100 main_img" alt="..."> <!-- d-block 은 display: block; 이고  w-100 은 width 의 크기는 <div class="carousel-item active">의 width 100% 로 잡으라는 것이다. -->
-                <div class="carousel-caption d-none d-md-block"> <!-- d-none 은 display : none; 이므로 화면에 보이지 않다가, d-md-block 이므로 d-md-block 은 width 가 768px이상인 것에서만 display: block; 으로 보여라는 말이다.  --> 
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="<%= ctxPath%>/images/main_photo1.png" class="d-block w-100 main_img " alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                </div>		      
-            </div>
-            <div class="carousel-item">
-                <img src="<%= ctxPath%>/images/main_photo2.png" class="d-block w-100 main_img " alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                </div>		      
-            </div>
-			<%-- 테이블 넣기 이전 끝 --%>
-		</div>
-		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	    	<span class="sr-only">Previous</span>
-	    </a>
-	    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	        <span class="sr-only">Next</span>
-	    </a>
-	</div>
-	<%--
-		이미지 변경 상 아이스크림스푼 위치 변동 이미지
-	--%>
+
+<div id="video" align="center">
+	<div class="embed-responsive embed-responsive-16by9" style="width: 50%;">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/o6fmlY9cGcw?si=-0YSRt1kRhl88J-D&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
 </div>
-<div class="card-columns">
-	<div class="card bg-primary text-white">
-		<div class="card-body text-center">
-			<p class="card-text">Some text inside the first card</p>
-		</div>
-	</div>
-	<div class="card bg-warning text-white">
-		<div class="card-body text-center">
-			<p class="card-text">Some text inside the second card</p>
-		</div>
-	</div>
-	<div class="card bg-success text-white">
-		<div class="card-body text-center">
-		    <p class="card-text">Some text inside the third card</p>
-		</div>
-	</div>
-	<div class="card bg-danger text-white">
-		<div class="card-body text-center">
-		    <p class="card-text">Some text inside the fourth card</p>
+
+<div id="ourProduct">
+	<div id="forCenter" style="width: 100%;">
+		<div style="width: 100%; margin: 3% 0%;"><span>Our Products</span></div>
+		<div>
+			<c:forEach var="product" items="${requestScope.productList}">
+				<span class="cup" style="width: 15%; margin-right: 2%;">
+					<span style="display: block; background-color: #f7c87c; width: 100%; height: 270px; border-top-left-radius: 150px; border-top-right-radius: 150px;">
+						<img style="width: 50%; margin-top: 18%;" src="<%=ctxPath%>/images/img_narae/cup_size/${product.productimg}"/>
+					</span>
+					<span style="display: block; padding-top: 5%; font-size: 15pt;">${product.productname}</span>
+					<hr style="border: solid 1px #e3e3e3;">
+					<span style="display: block;">${product.productdetail }</span>
+				</span>
+			</c:forEach>
 		</div>
 	</div>
 </div>
 
-<%-- Header 마무리에 따라 div 추가 닫기 --%>
+<div id="ourTaste">
+	<div id="forCenter" style="width: 100%;">
+		<div style="width: 100%; margin: 3% 0%;"><span>Our Tastes</span></div>
+	
+	<%-- 캐러셀 --%>
+	
+	<div class="row mx-auto my-auto">
+	        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+	            <div class="carousel-inner w-100" role="listbox">
+	                <c:forEach var="taste" items="${requestScope.tasteList}" varStatus="status">
+		                <c:if test="${status.index == 0}">
+			                <div class="carousel-item active">
+			                    <img class="col-3 img-fluid" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" />
+			                </div>
+		                </c:if>
+		                <c:if test="${status.index != 0}">
+			                <div class="carousel-item">
+		                    	<img class="col-3 img-fluid" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" />
+		                	</div>
+		                </c:if>
+	                </c:forEach>
+	            </div>
+	            <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+	                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	                <span class="sr-only">Previous</span>
+	            </a>
+	            <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+	                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	                <span class="sr-only">Next</span>
+	            </a>
+	        </div>
+	    </div>
+	
+	
+	
+	
+	
+	
+	
+	
+	</div>
+</div>
+
+<div id="shortCut"></div>
+
 <jsp:include page="footer.jsp" />
