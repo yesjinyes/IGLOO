@@ -198,7 +198,7 @@ function changetaste() {
 </form>
 
 <%-- ****** 맛 수정 Modal 시작 ****** --%>
-  <div class="modal fade" id="updatetaste">
+  <div class="modal fade" id="updatetaste" data-backdrop="static">
    <div class="modal-dialog">
    		<div class="modal-content">
 	        <%-- Modal body --%>

@@ -13,7 +13,7 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/main/storeSearchMap.js"></script>
 
-<div id="storeSearch">
+<div id="storeSearch" style="text-align:center;">
 	<nav id="searchList" class="navbar navbar-expand-sm justify-content-center">
 		<ul class="navbar-nav">
 			<li class="nav-item">
@@ -32,9 +32,9 @@
 	<label class="my-auto">
 		<input class="my-sm-0" type="text" name="store_search" id="store_search" size="50" placeholder='지점명 또는 주소를 입력하세요' required="required">
 	</label>
-	<button id="btnSearch" class="btn my-sm-0" type="submit">
+	 <span id="btnSearch" onclick="goSearch()" style="cursor: pointer;">
 		<img src="<%= ctxPath%>/images/img_hj/search.png" class="img-fluid" alt="Responsive image">
-	</button>
+	 </span>
 </div>
 
 <%-- 구분선 --%>

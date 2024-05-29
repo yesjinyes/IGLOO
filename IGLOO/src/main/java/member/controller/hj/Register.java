@@ -44,6 +44,15 @@ public class Register extends AbstractController {
 			
 			String mobile = hp1+hp2+hp3;
 			
+			// === input 장난 막기 === //
+			name = name.replaceAll("<", "&lt;");
+			name = name.replaceAll(">", "&gt;");
+			name = name.replaceAll("\r\n", "<br>");
+			
+			detailaddress = detailaddress.replaceAll("<", "&lt;");
+			detailaddress = detailaddress.replaceAll(">", "&gt;");
+			detailaddress = detailaddress.replaceAll("\r\n", "<br>");
+			
 			MemberVO member = new MemberVO();
 			member.setName(name);
 			member.setUserid(userid);

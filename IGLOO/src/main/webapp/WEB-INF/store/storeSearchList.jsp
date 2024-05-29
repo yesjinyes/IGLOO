@@ -115,7 +115,7 @@ function goSearch(){
 
 
 
-<div id="storeSearch">
+<div id="storeSearch" style="text-align:center;">
 	<nav id="searchList" class="navbar navbar-expand-sm justify-content-center">
 		<ul class="navbar-nav">
 			<li class="nav-item">
