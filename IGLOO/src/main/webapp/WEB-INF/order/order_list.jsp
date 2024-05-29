@@ -141,6 +141,11 @@
 								</c:if>
 								<c:if test="${orderdetailList.pickupstatus == 2}">
 									준비중
+									<br>
+									<span style="font-size:10pt;">예상 준비시간
+										<br>
+										${orderdetailList.pickuptime}
+									</span>
 								</c:if>
 								<c:if test="${orderdetailList.pickupstatus == 3}">
 									픽업대기
