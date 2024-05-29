@@ -201,7 +201,7 @@ public class AdminDAO_imple implements AdminDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = "select q_no, fk_userid, fk_categoryno, q_title, q_content, to_char(q_writeday, 'yyyy-mm-dd hh24:mi:ss'), name, answerstatus, a_no, fk_q_no, a_content, to_char(a_writeday, 'yyyy-mm-dd hh24:mi:ss') "
+			String sql = "select q_no, fk_userid, fk_categoryno, q_title, q_content, to_char(q_writeday, 'yyyy-mm-dd hh24:mi:ss'), name, answerstatus, a_no, fk_q_no, a_content, to_char(a_writeday, 'yyyy-mm-dd hh24:mi:ss'), faq_img "
 					   + "from tbl_faq_q A join tbl_member B "
 					   + "on A.fk_userid = B.userid "
 					   + "left join tbl_faq_a C "
@@ -225,6 +225,7 @@ public class AdminDAO_imple implements AdminDAO {
 			fvo.setFk_q_no(rs.getInt(10));
 			fvo.setA_content(rs.getString(11));
 			fvo.setA_writeday(rs.getString(12));
+			fvo.setFaq_img(rs.getString(13));
 			
 			MemberVO mvo = new MemberVO();
 			mvo.setName(rs.getString(7));

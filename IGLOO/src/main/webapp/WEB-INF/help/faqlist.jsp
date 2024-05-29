@@ -67,7 +67,10 @@
 				<div id="q_title" class="my-3" style="display: flex; justify-content: space-between;">
 					<div>${faq.q_title}</div><div id="togglebtn" class="mx-3">▼</div><div id="hidebtn" class="mx-3">▲</div>
 				</div>
-				<div id="q_content">${faq.q_content }</div>
+				<div id="q_content">
+					<div>${faq.q_content}</div>
+					<c:if test="${not empty faq.faq_img}"><div style="text-align: center; margin-top: 3%;"><img style="width: 50%;" src="<%=ctxPath %>/images/img_narae/faq_img/${faq.faq_img}"/></div></c:if>
+				</div>
 			</div>
 			
 			<c:if test="${faq.a_content != null}">

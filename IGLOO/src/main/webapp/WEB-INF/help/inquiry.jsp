@@ -15,6 +15,7 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
 
+
 	$(document).ready(function(){
 		
 		$("input#reset").click(()=>{
@@ -24,12 +25,20 @@
 			}
 		});
 		
+		// 취소하기
+		$("input:reset").click(function(){
+			$("span.error").hide();
+			file_arr = []; // 첨부파일 담아둔 배열 초기화
+			$("div#fileDrop").empty();
+			$("img#previewImg").hide();
+		});
+		
 		
 	});// end of $(document).ready(function(){})-----------
 	
 	function goInquiry() {
 		
-		const categoryType = $("select[name='categoryType']").val();
+		const categoryType = $("select[name='q_category']").val();
 	 	if(categoryType == "") { 
 	 		alert("카테고리를 선택하세요.");
 	 		return;
@@ -46,11 +55,31 @@
 	        $("textarea#content").val("").focus();
 	        return;
 	    }
-	
-		const frm = document.faqRegisterFrm;
-		frm.action = "inquiryRegister.ice";
-		frm.method = "post";
-		frm.submit();
+		
+		var formData = new FormData($("form[name='faqRegisterFrm']")[0]);
+
+		const input_file = $("input[name='fileUpload']").get(0);
+		let fileSize = input_file.files[0].size;
+		
+		// 첨부한 파일의 총량이 20MB 초과시 //   
+        if( fileSize > 20*1024*1024 ) {
+            alert("첨부한 파일의 크기가 20MB를 넘어 1:1 문의를 등록할 수 없습니다.");
+            return; // 종료
+        } 
+		
+        else{
+
+			const frm = document.faqRegisterFrm;
+			frm.action = "inquiryRegister.ice";
+			frm.method = "post";
+			frm.submit();
+
+        }
+		
+		
+		/*
+     	///////////////////////////////////////
+		*/
 	 
 	}// end of function goInquiry()---------------
 	
@@ -59,7 +88,7 @@
 
 <div class="container mt-2" >
 	
-	<form name="faqRegisterFrm">
+	<form name="faqRegisterFrm" enctype="multipart/form-data">
 	<h2 class="mt-5" style="margin-left: 3%;">1:1 문의하기</h2>
 	<hr style="border: solid 2px #6190BC; width: 96%; margin: 4% auto 6% auto;">
 	
@@ -96,7 +125,7 @@
 	<%-- 사진파일 첨부 --%>
 	<div class="form-group" style="width: 35%;">
 	  <label for="fileUpload" style="margin-bottom: 2%;">파일첨부</label>
-	  <input type="file" class="form-control-file" id="fileUpload" style="margin-right: 5%;">
+	  <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" accept='image/*' style="margin-right: 5%;">
 	</div>
 		
 	<p style="text-align: right; margin: 7% 5% 4% 0; font-size: 10.5pt;"> 
