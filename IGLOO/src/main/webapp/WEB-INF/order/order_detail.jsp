@@ -107,7 +107,6 @@
 	 
 	<br><br><hr style="border: solid 2px red; width: 70%;">
 	
-	<jsp:include page="../footer.jsp" />
 	
 </div>
 
@@ -119,7 +118,6 @@
 </form>
 
 
-<div style="margin-bottom: 10%;"></div>
-
-<!-- <hr style="border: solid 2px #4198e8; width: 70%;"><br><br> -->
+<%-- footer 넣어야 함 --%>
 <%-- <jsp:include page="../footer.jsp" /> --%>
+
