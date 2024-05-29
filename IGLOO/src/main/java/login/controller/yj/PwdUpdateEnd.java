@@ -77,6 +77,9 @@ public class PwdUpdateEnd extends AbstractController {
     	  
     	  request.setAttribute("userid", userid);
     	  
+    	  request.setAttribute("mypage", "mypage"); // 
+    	  
+    	  
     	  super.setRedirect(false);
           super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
     	  

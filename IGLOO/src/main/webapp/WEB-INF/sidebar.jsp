@@ -42,7 +42,6 @@ function goMemberUpdate() {
    location.href="<%= ctxPath%>/member/memberUpdate.ice";
 }
 
-
 </script>
 
 

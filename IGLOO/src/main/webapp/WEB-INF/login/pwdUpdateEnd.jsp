@@ -22,6 +22,10 @@
 
 <jsp:include page="../header.jsp"/>
 
+<c:if test="${not empty requestScope.mypage}">
+	<jsp:include page="../sidebar.jsp"/>
+</c:if>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $("button.btn-info").click(function(){
@@ -100,6 +104,14 @@ $(document).ready(function(){
 	    </div>
 	    
 	</form>
+</c:if>
+
+
+
+<c:if test="${not empty requestScope.mypage}">
+			</div>
+		</div>
+	</div>
 </c:if>
 
 
