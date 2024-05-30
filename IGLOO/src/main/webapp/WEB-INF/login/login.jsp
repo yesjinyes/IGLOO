@@ -60,6 +60,7 @@ function changePwd() {
 
 <%-- === 로그인을 하기 위한 폼을 생성 === --%>
 	<form name="loginFrm" action="<%= ctxPath%>/login/login.ice" method="post">
+      <div style="height:500px;">
     	<table id="loginTbl" class="my-2">
         	<thead>
             	<tr>
@@ -95,6 +96,7 @@ function changePwd() {
               	</tr>
           	</tbody>
       	</table>
+      	
    </form>
    <%-- === 아이디 찾기, 비밀번호 찾기 === --%>
    <div class="text-center mt-2 mb-5">
@@ -102,6 +104,7 @@ function changePwd() {
    		&nbsp;&nbsp;|&nbsp;
         <a style="cursor: pointer;" data-toggle="modal" data-target="#passwdFind" data-dismiss="modal" data-backdrop="static">비밀번호찾기</a>
    </div>
+     </div>
 <%-- ****** 아이디 찾기 Modal 시작 ****** --%>
    <%-- <div class="modal fade" id="userIdfind"> --%> 
    <%-- 만약에 모달이 안보이거나 뒤로 가버릴 경우에는 모달의 class 에서 fade 를 뺀 class="modal" 로 하고서 해당 모달의 css 에서 zindex 값을 1050; 으로 주면 된다. --%> 

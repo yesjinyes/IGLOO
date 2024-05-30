@@ -75,7 +75,7 @@ public class Login extends AbstractController {
 				if(loginuser.isRequirePwdChange()) {	// 비밀번호를 변경한지 3개월 이상된 경우 
 	                
 		            String message = "비밀번호를 변경하신지 3개월이 지났습니다.\\n암호를 변경하는 페이지로 이동합니다!!";
-		            String loc = request.getContextPath()+"/login/pwdChange_3months.ice";
+		            String loc = request.getContextPath()+"/login/pwdUpdate_3months.ice";
 		            
 		            request.setAttribute("message", message);
 		            request.setAttribute("loc", loc);
