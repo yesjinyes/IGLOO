@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import javax.sql.DataSource;
 
 import help.domain.nr.FaqVO;
 import myshop.domain.CartVO;
+import product.domain.ProductVO;
 import product.domain.TasteVO;
 
 public class ProductDAO_imple implements ProductDAO {
@@ -205,29 +208,7 @@ public class ProductDAO_imple implements ProductDAO {
 	}	// end of public List<TasteVO> selectTastenoList(String selectno) throws SQLException {---
 
 	
-	// === 주문코드를 위한 시퀀스 번호 select 해오기 === //
-	@Override
-	public int get_seq_tbl_order() throws SQLException {
-		
-		String sql = "";
-		try {
-	         conn = ds.getConnection();
-	         
-	         sql = " select lpad(seq_ordercode.nextval,6'0') as seq "
-	         	 + " from dual ";
-	         
-	         pstmt = conn.prepareStatement(sql);
-	         
-	         rs = pstmt.executeQuery();
-	         
-	      } finally {
-	         close();
-	      }
-	      
-	      return Integer.parseInt(sql);
-	}
-
-	// order와 ,orderdetail 테이블에 insert 해주는 메소드
+	// order와 ,orderdetail 테이블에 insert 해주는 메소드 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	@Override
 	public int productOrder(Map<String, Object> paraMap) throws SQLException {
 		int isSuccess = 0;
@@ -242,42 +223,56 @@ public class ProductDAO_imple implements ProductDAO {
 			// 2. 주문 테이블에 insert 하기(수동커밋처리)
 			String sql = " insert into tbl_order(ordercode, fk_userid, totalprice) values(?, ?, ?) ";
 
-			pstmt.setString(1, (String)paraMap.get("ordercode"));
+			// System.out.println((String)paraMap.get("odrcode")); // P-20240530-15
+			// System.out.println((String)paraMap.get("userid"));  // jjoung
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, (String)paraMap.get("odrcode"));
 			pstmt.setString(2, (String)paraMap.get("userid"));
-			pstmt.setInt(3, Integer.parseInt((String)paraMap.get("totalPrice")));
+			pstmt.setInt(3, Integer.parseInt((String)paraMap.get("totalprice")));
 			
 			n1 = pstmt.executeUpdate();
 			
-            //	System.out.println("~~~~~ 확인용 n1 : " + n1);
-		    //  ~~~~~ 확인용 n1 : 1	
+			// System.out.println(" n1 확인용 ===>   " + n1); // n1 확인용 ===>   1
+            
+		    
 			
 			// 3. 주문상세 테이블에 insert 하기(수동커밋처리)
 			if(n1 == 1) {
+				
 				// 주문코드(명세서번호) --> (String)paraMap.get("odrcode")
 				String[] selectno_arr = (String[]) paraMap.get("selectno_arr");
 				String[] cartno_arr = (String[]) paraMap.get("cartno_arr"); 
 				
 				List<CartVO> cvoList = new ArrayList<CartVO>();
+				List<ProductVO> pvoList = new ArrayList<ProductVO>();
 				
 				for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
 					
-					sql = " select count "
-						+ " from tbl_cart "
-						+ " where fk_selectno = ? ";
+					sql = " select count, price "
+						+ " from tbl_cart C join tbl_selectlist S"
+						+ " on c.fk_selectno = s.selectno"
+						+ " join tbl_product P on s.fk_productcodeno = productcodeno "
+						+ " where cartno = ? ";
 					
 					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, selectno_arr[i]);
+					pstmt.setString(1, cartno_arr[i]);
 					
 			        rs = pstmt.executeQuery();
 			    	 
 		        	rs.next();
 		        	
 		        	CartVO cvo = new CartVO();
-		        	cvo.setCartno(rs.getInt(1));
+		        	cvo.setCount(rs.getInt(1));
+		        	
+		        	ProductVO pvo = new ProductVO();
+		        	pvo.setPrice(rs.getInt(2));
 		        	
 		        	cvoList.add(cvo);
+		        	pvoList.add(pvo);
 		        	
-		        	System.out.println("$#@$#@$!$@!"+cvoList.get(i));
+		        	// System.out.println("cvoList.get(i)  ===>> "+cvoList.get(i).getCount()); // cvoList.get(i)  ===>> 3
 				} // end of for -------------------------------------------------------
 				
 				
@@ -286,10 +281,14 @@ public class ProductDAO_imple implements ProductDAO {
 					sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice) "
 						 + " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
 					//  ■■■■■■■■■■■■■■■■■■ 여기서 이제 ordercount(cart테이블에 있을 듯), orderprice(메모에 적힌대로 조인해서 가져올것)를 가져오기 위한 dao를 짜야함  ■■■■■■■■■■■■■■■■■■
-			
+					
 					pstmt = conn.prepareStatement(sql);
 					
-					 	
+					pstmt.setString(1, (String)paraMap.get("odrcode"));
+					pstmt.setInt(2, cvoList.get(i).getCount());
+					pstmt.setString(3, selectno_arr[i]);
+					pstmt.setInt(4, pvoList.get(i).getPrice());
+					
 					pstmt.executeUpdate();
 					cnt++;
 					
@@ -304,36 +303,9 @@ public class ProductDAO_imple implements ProductDAO {
 			}// end of if(n1 == 1)-----------------------
 			
 			
-			// 4. 제품 테이블에서 제품번호에 해당하는 잔고량을 주문량 만큼 감하기(수동커밋처리)
-			if(n2 == 1) {
-				String[] pnum_arr = (String[]) paraMap.get("pnum_arr"); // 제품번호 
-				String[] oqty_arr = (String[]) paraMap.get("oqty_arr"); // 주문량 
-				
-				int cnt = 0;
-				for(int i=0; i<pnum_arr.length; i++) {
-					sql = " update tbl_product set pqty = pqty - ? "
-						+ " where pnum = ? ";
-					
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setInt(1, Integer.parseInt(oqty_arr[i]));
-					pstmt.setString(2, pnum_arr[i]);
-					
-					pstmt.executeUpdate();
-					cnt++;
-				}// end of for----------------------
-				
-				if(cnt == pnum_arr.length) {
-					n3 = 1;
-				}
-				// System.out.println("~~~~~ 확인용 n3 : " + n3);
-				//  ~~~~~ 확인용 n3 : 1
-				
-			}// end of if(n2 == 1)-----------------------
-			
-			
 			// 5. 장바구니 테이블에서 str_cartno_join 값에 해당하는 행들을 삭제(delete)하기(수동커밋처리)
 			// >> 장바구니에서 주문을 한 것이 아니라 특정제품을 바로주문하기를 한 경우에는 장바구니 테이블에서 행들을 삭제할 작업은 없다. << 
-			if(n3==1 && paraMap.get("cartno_arr") != null) {
+			if(n2==1 && paraMap.get("cartno_arr") != null) {
 			/*
 		    	sql = " delete from tbl_cart "
 		    		+ " where cartno in (?) ";
@@ -461,7 +433,85 @@ public class ProductDAO_imple implements ProductDAO {
 	      return cartno_list;
 	}
 
-	
+	// === 주문코드를 위한 제품코드 select 해오기 === //
+	@Override
+	public String getProductcodeno(String userid) throws SQLException {
+		
+		String productcodeno = "";
+		try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select productcodeno "
+	             + " from tbl_cart C join tbl_selectlist S "
+	             + " on C.fk_selectno = S.selectno "
+	             + " join tbl_product P "
+	             + " on S.fk_productcodeno = P.productcodeno "
+	             + " where c.fk_userid = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, userid);
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	        	 productcodeno = rs.getString(1);
+	         };
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return productcodeno;
+	}
+/*
+	// === 주문전표를 생성하기 위한 메소드 === //
+	@Override
+	public String getOrdcode(String productcode) throws SQLException {
+		// 날짜 생성
+		Date now = new Date();
+		SimpleDateFormat smdatefm = new SimpleDateFormat("yyyyMMdd"); 
+		String today = smdatefm.format(now);
+		
+		int seq = 0;
+			
+			// 주문코드를 위한 시퀀스 번호 select 해오기
+			seq = get_seq_tbl_order();
+
+		
+		return productcode +"-" +  today + "-" + seq;
+		// P-20240528-10
+	}
+*/
+
+	@Override
+	public String getOrdcode(String productcode) throws SQLException {
+		// 날짜 생성
+		Date now = new Date();
+		SimpleDateFormat smdatefm = new SimpleDateFormat("yyyyMMdd"); 
+		String today = smdatefm.format(now);
+		
+		// 주문코드를 위한 시퀀스 번호 select 해오기
+		int seq = 0;
+		try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select lpad(seq_ordercode.nextval,6,'0') as seq "
+	         	 + " from dual ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         rs.next();
+	         
+	         seq = rs.getInt(1);
+	         
+	      } finally {
+	         close();
+	      }
+	      
+		return productcode +"-" +  today + "-" +  seq;
+	}
+
 
 }
 
