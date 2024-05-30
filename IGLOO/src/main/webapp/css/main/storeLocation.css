@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+div#map{
+	border-radius: 20px;
+}
+
+div#title {
+   font-size: 20pt;
+ /* border: solid 1px red; */
+   padding: 12px 0;
+}
+
+div.mycontent {
+     width: 300px;
+     padding: 5px 3px;
+}
+
+div.mycontent>.title {
+   font-size: 20pt;
+   font-weight: bold;
+   background-color: #99ccff;
+   color: #fff;
+}
+
+div.mycontent>.title>a {
+   text-decoration: none;
+   color: #fff;
+}
+
+div.mycontent>.desc {
+ /* border: solid 1px red; */
+   padding: 10px 0 0 0;
+   color: #000;
+   font-weight: normal;
+   font-size: 15pt;
+}
+
+div.mycontent>.desc>img {
+   width: 50px;
+   height: 50px;
+}

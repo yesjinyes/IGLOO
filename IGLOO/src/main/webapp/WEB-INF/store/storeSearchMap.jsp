@@ -10,6 +10,11 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/main/storeSearchMap.css" />
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/main/storeLocation.css" />
+
+<%-- map --%>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=16695e6ff612a1dbaa353fda89e2424d"></script>
+
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/main/storeSearchMap.js"></script>
 
@@ -43,10 +48,7 @@
 <%-- 지점 표시 --%>
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <div id="searchDIV"></div>
-<div id="nostoresearch" class="mx-auto text-center">
-	<h3 class="mt-5 font-weight-bolder">지점명 또는 주소를 검색해주세요.</h3>
-	<div class="h-50 p-5 m-3"></div>
-</div>
+<div id="map" class="mx-auto text-center mb-5" style="width:70%; height:300px;"></div>
 
 <%-- Header 마무리에 따라 div 추가 닫기 --%>
 <jsp:include page="../footer.jsp" />
