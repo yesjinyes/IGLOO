@@ -83,9 +83,9 @@ public class PwdUpdateEnd extends AbstractController {
     	  request.setAttribute("mypage", "mypage"); 
     	  
     	  ///////////////////////////////////////////////////////////////////
-    	  String checkpwd = mdao.checkPwd_mypage(paraMap);
-     	  //System.out.println(checkpwd); // 이전과 같은 비밀번호를 입력했을 때는 fail, 새로운 비밀번호를 입력했을 때는 통과
-     	  if("fail".equals(checkpwd)) {
+    	  String checkPwd_mypage = mdao.checkPwd_mypage(paraMap);
+     	  System.out.println(checkPwd_mypage); // 이전과 같은 비밀번호를 입력했을 때는 fail, 새로운 비밀번호를 입력했을 때는 통과
+     	  if("fail".equals(checkPwd_mypage)) {
      		 
      		 String message = "비밀번호가 이전과 같습니다. 새로운 비밀번호를 입력해주세요.";	// 메시지
      		 String loc = request.getContextPath()+"/login/pwdUpdateEnd.ice";	// 다시 비밀번호 변경창으로 이동

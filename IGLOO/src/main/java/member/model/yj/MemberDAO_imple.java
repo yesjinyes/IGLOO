@@ -452,7 +452,7 @@ public class MemberDAO_imple implements MemberDAO {
 						+ " where pwd = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Sha256.encrypt(paraMap.get("pwd")) );
+			pstmt.setString(1, Sha256.encrypt(paraMap.get("new_pwd")) );
 			
 			rs = pstmt.executeQuery();
 			

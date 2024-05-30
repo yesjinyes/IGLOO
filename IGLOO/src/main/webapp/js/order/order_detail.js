@@ -159,7 +159,7 @@ $(document).ready(function() {
 	
 	
 // == 장바구니 연결하는 함수 == //
-function goCart() {
+function goCart(ctxPath) {
 
     location.href = `${ctxPath}/member/cart.ice`;
 
