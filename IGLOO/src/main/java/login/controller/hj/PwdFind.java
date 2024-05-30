@@ -85,7 +85,7 @@ public class PwdFind extends AbstractController {
 	            
 	            try {
 	            	
-	            	mail.send_certification_code(email, certification_code);
+	            	mail.send_certification_code(userid, email, certification_code);
 	            	sendMailSuccess = true;		// 메일 전송 성공
 	            	
 	            	// === 세션 불러오기 === //
