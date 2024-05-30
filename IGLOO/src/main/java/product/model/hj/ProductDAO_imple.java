@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -446,6 +447,48 @@ public class ProductDAO_imple implements ProductDAO {
 		return productcode +"-" +  today + "-" +  seq;
 	} // end of public String getOrdcode(String productcode) throws SQLException {}--------------------------------------------------------------
 
-
+/////////////////////////////////////////////////////////////////////////
+	
+	// === tbl_map(위,경도) 테이블에 있는 정보를 가져오기(select) === //
+	@Override
+	public List<Map<String, String>> selectStoreMap() throws SQLException {
+		
+		List<Map<String, String>> storeMapList = new ArrayList<>();
+	      
+	    try {
+	    	conn = ds.getConnection();
+	         
+	        String sql = " select storeno, storename, storepage, storeimg "
+	        		+ " , storeaddress, storetel, latitude, longitude, zindex "
+	        		+ " from tbl_store "
+	        		+ " order by zindex asc ";
+	         
+	        pstmt = conn.prepareStatement(sql);
+	         
+	        rs = pstmt.executeQuery();
+	         
+	        while(rs.next()) {
+	        	Map<String, String> map = new HashMap<>();
+	            map.put("STORENO", rs.getString("storeno"));
+	            map.put("STORENAME", rs.getString("storename"));
+	            map.put("STOREPAGE", rs.getString("storepage"));
+	            map.put("STOREIMG", rs.getString("storeimg"));
+	            map.put("STOREADDRESS", rs.getString("storeaddress"));
+	            map.put("STORETEL", rs.getString("storetel"));
+	            map.put("LAT", rs.getString("latitude"));
+	            map.put("LNG", rs.getString("longitude"));
+	            map.put("ZINDEX", rs.getString("zindex"));
+	                        
+	            storeMapList.add(map); 
+	        }
+	         
+	    } finally {
+	        close();
+	    }
+	      
+	    return storeMapList;   
+		
+	}	// end of public List<Map<String, String>> selectStoreMap() throws SQLException---
+	
 }
 

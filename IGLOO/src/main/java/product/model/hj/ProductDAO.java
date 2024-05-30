@@ -30,6 +30,7 @@ public interface ProductDAO {
 	// === 제품명 가져오는 메소드 생성하기 === //
 	List<String> get_productname_tbl_product(String[] cartno_arr) throws SQLException;
 
-
+	// === tbl_map(위,경도) 테이블에 있는 정보를 가져오기(select) === //
+	List<Map<String, String>> selectStoreMap() throws SQLException;
 
 }
