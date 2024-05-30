@@ -33,4 +33,10 @@ public interface ProductDAO {
 	// === tbl_map(위,경도) 테이블에 있는 정보를 가져오기(select) === //
 	List<Map<String, String>> selectStoreMap() throws SQLException;
 
+	// === 지점명을 가져오는 메소드 생성하기 === //
+	List<String> get_storename() throws SQLException;
+
+	// === 지점명에 따른 주소를 가져오는 메소드 === //
+	Map<String, String> getStaddress(String stname) throws SQLException;
+
 }
