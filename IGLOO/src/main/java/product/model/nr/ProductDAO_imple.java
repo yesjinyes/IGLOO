@@ -225,6 +225,48 @@ public class ProductDAO_imple implements ProductDAO {
 		return mainImgList;
 	}
 
+	
+	
+	
+	
+	
+	// 관리자 - 맛등록
+	@Override
+	public int registerTaste(TasteVO tvo) throws SQLException {
+
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "insert into tbl_taste(tasteno, tastename, tasteimg, tasteexplain, oncesupply, calory, sugar, protein, "
+					   + "fat, natrium, allergy, ingredients, eng_name) "
+					   + "values (SEQ_TASTENO.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tvo.getTastename());
+			pstmt.setString(2, tvo.getTasteimg());
+			pstmt.setString(3, tvo.getTasteexplain());
+			pstmt.setString(4, tvo.getOncesupply());
+			pstmt.setString(5, tvo.getCalory());
+			pstmt.setString(6, tvo.getSugar());
+			pstmt.setString(7, tvo.getProtein());
+			pstmt.setString(8, tvo.getFat());
+			pstmt.setString(9, tvo.getNatrium());
+			pstmt.setString(10, tvo.getAllergy());
+			pstmt.setString(11, tvo.getIngredients());
+			pstmt.setString(12, tvo.getEng_name());
+			
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
+
 
 	
 	
