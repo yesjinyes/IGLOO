@@ -30,5 +30,11 @@ public interface MemberDAO {
 	// === 비밀번호 변경 === //
 	int pwdUpdateEnd(Map<String, String> paraMap) throws SQLException;
 
+	// === 비밀번호 변결 - 3개월 == //
+	int pwdUpdate_3months(Map<String, String> paraMap) throws SQLException;
+
+	// == 비밀번호 변경 시 동일여부 확인 === //
+	String checkPwd(Map<String, String> paraMap) throws SQLException ;
+
 	
 }
