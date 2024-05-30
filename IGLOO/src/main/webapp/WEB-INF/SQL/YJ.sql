@@ -308,7 +308,7 @@ select * from user_tables;
 select * from user_sequences;
 
 
-select * from tbl_cart;
+select * from tbl_cart order by cartno desc;
 
 desc tbl_cart;
     
@@ -321,5 +321,6 @@ from tbl_tasteselect
 where fk_selectno = 13;
 
 
+select * from tbl_order;
 
 
