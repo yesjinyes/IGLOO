@@ -126,7 +126,7 @@ public class ProductDAO_imple implements ProductDAO {
 	
 	// == 제품 한 개만 불러오기 == //
 	@Override
-	public ProductVO getproductList_2(String pcode) throws SQLException {
+	public ProductVO getproductEach(String pcode) throws SQLException {
 		
 		ProductVO pvo = new ProductVO();
 		
@@ -158,7 +158,7 @@ public class ProductDAO_imple implements ProductDAO {
 	      
 	      return pvo;
 	      
-	}// end of public ProductVO getproductList_2(String pcode) throws SQLException-------------
+	}// end of public ProductVO getproductEach(String pcode) throws SQLException-------------
 
 	///////////////////////////////////////////////////////////////
 	
@@ -198,7 +198,6 @@ public class ProductDAO_imple implements ProductDAO {
 			}
 			// System.out.println("selectno : " + selectno); // selectno : 12
 			
-			
 			map.put("selectListResult", selectListResult);
 			map.put("selectno", selectno);
 			
@@ -210,7 +209,7 @@ public class ProductDAO_imple implements ProductDAO {
 		
 		return map;
 		
-	}// end of public int insertTaste(Map<String, Object> paraMap) throws SQLException--------------
+	}// end of public Map<String, Integer> insertSelectList(Map<String, Object> paraMap) throws SQLException--------------
 
 	///////////////////////////////////////////////////////////////
 	
@@ -275,7 +274,7 @@ public class ProductDAO_imple implements ProductDAO {
 		
 		return cartListResult;
 		
-	}// end of public int insertCartList(Map<String, Object> paraMap) throws SQLException
+	}// public int insertCartList(Map<String, Object> paraMap) throws SQLException-----------------
 
 
 

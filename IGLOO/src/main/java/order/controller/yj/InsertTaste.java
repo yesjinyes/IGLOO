@@ -88,9 +88,11 @@ public class InsertTaste extends AbstractController {
 		    				// System.out.println("tbl_cart 에 insert 성공 ~~^^");
 		    			}
 		    			
+		    			super.setRedirect(false);
+		    			super.setViewPage("/WEB-INF/order/payment.jsp");
 		    			
-		    			super.setRedirect(true);
-		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
+//		    			super.setRedirect(true);
+//		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
 		    		}
 		    		
 		    	} catch(SQLException e) {

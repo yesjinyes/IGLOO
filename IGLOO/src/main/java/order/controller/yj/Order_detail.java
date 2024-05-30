@@ -26,7 +26,7 @@ public class Order_detail extends AbstractController {
 		if("GET".equalsIgnoreCase(method)) {
 			String pcode = request.getParameter("pcode");
 			
-			ProductVO pvo = pdao.getproductList_2(pcode);
+			ProductVO pvo = pdao.getproductEach(pcode);
 			
 			request.setAttribute("pvo", pvo);
 			
