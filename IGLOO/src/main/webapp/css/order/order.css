@@ -10,11 +10,11 @@ div.container > h4 {
 
 div.container {
 	margin: 10% auto;
+	border: solid 3px gray;
 }
 
 div.card {
 	/* cursor: pointer; */
-	/* width: 20%; */
 	border: solid 3px gray;
 	border-radius: 10px;
 }

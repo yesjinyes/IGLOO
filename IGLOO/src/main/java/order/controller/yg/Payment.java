@@ -1,9 +1,5 @@
 package order.controller.yg;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,69 +19,6 @@ public class Payment extends AbstractController {
 	public Payment() {
 		pdao = new ProductDAO_imple();
 	}
-
-/*	
-	// === 전표(주문코드)를 생성해주는 메소드 생성하기 === //
-	private String getOrdercode() {	// 컬럼명
-			
-			// 날짜 생성
-			Date now = new Date();
-			SimpleDateFormat smdatefm = new SimpleDateFormat("yyyyMMdd"); 
-			String today = smdatefm.format(now);
-			
-			int seq = 0;
-			String productcodeno = "";
-			try {
-				// === 제품코드 얻어오기 === //
-				productcodeno = pdao.getProductcodeno();
-
-				// 주문코드를 위한 시퀀스 번호 select 해오기
-				seq = pdao.get_seq_tbl_order();
-
-				
-				 tbl_cart 의 fk_selectno 와 
-				 tbl_selectlist의 selectno 가 일치하는 것을 찾고
-				 productcodeno 를 가져오기
-				 
-				
-			} catch(SQLException e) {
-				
-				super.setRedirect(false);
-				super.setViewPage("javascript:history.back()");
-			}
-			
-			return productcodeno +"-" +  today + "-" + seq;
-			// P-20240528-10
-		} //  end of private String getOrdercode() {}-----------------------------------------------
-*/		
-	
-	
-	
-	
-	
-		
-		// === price와 count 컬럼을 가져와서 곱해주고 set 해주는 메소드 생성하기 === //
-		/*
-		private String getordercount() { // 컬럼명
-			
-			String orderCount = ""; // 이걸로 메소드 리턴값 저장해줄거임!!
-			try {
-				SelectlistVO selectlist = new SelectlistVO();
-				
-				productcodeno = selectlist.getFk_productcodeno();
-				
-				// 주문코드를 위한 시퀀스 번호 select 해오기
-				orderCount = pdao.get_seq_tbl_order();
-				
-			} catch(SQLException e) {
-				
-				super.setRedirect(false);
-				super.setViewPage("javascript:history.back()");
-			}
-			return productcodeno +"-" +  today + "-" + seq;
-			// P-20240528-10
-		} //  end of private String getOrdercode() {}-----------------------------------------------
-		 */
 		
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -108,19 +41,12 @@ public class Payment extends AbstractController {
 			String str_selectno = request.getParameter("str_selectno");
 			String totalprice = request.getParameter("totalprice");
 			
-			// System.out.println("확인용#@!$#@#@%$# ==> " + str_cartno);
-			// 확인용#@!$#@#@%$# ==> 6,5
-			
 			String[] cartno_arr = str_cartno.split("\\,");
 			
 			// === 제품명 가져오는 메소드 생성하기 === //
 			List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
 			
-			// System.out.println("@@@@확인용@@@@ ==>  "+productname);
-			// @@@@확인용@@@@ ==>  [쿼터, 파인트]
-			
 			// payment.jsp 에 띄워줄 정보를 set 하는 부분
-			
 			request.setAttribute("mobile", loginuser.getMobile());
 			request.setAttribute("str_cartno", str_cartno);
 	        request.setAttribute("str_selectno", str_selectno);
@@ -140,8 +66,6 @@ public class Payment extends AbstractController {
 	    	
 			loginuser = (MemberVO)session.getAttribute("loginuser");
 			
-	    	// System.out.println("여기는 오냐");
-	    	
 			String userid = loginuser.getUserid();
 			System.out.println("확인용  ==>  " + userid);				// 확인용  ==>  jjoung
 			String totalprice = request.getParameter("totalprice");	// 확인용  ==>  8000
@@ -188,7 +112,7 @@ public class Payment extends AbstractController {
 	        //      이어서 주문이 완료되었다라는 email 보내주기  **** //
 	        if(isSuccess==1) {
 	        	// 세션에 저장되어져 있는 loginuser 정보를 갱신... 수업때는 이거 했는데 실제로 이거 해야하는지는 생각해보자
-	        	
+	        	System.out.println("■■■■■■■■■■■■■■여기서부터 이제 들어왔다면 결제하는 페이지로 이동시켜야한다■■■■■■■■■■■■■■■");
 	        	//////////////////////////////////////////////////////////////////////////////////
 	        	// === 주문이 완료되었다는 email 보내기 시작 === //
 	        	

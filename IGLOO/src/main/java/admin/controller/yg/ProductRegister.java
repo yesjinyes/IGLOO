@@ -17,6 +17,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import member.domain.MemberVO;
 import product.domain.ProductVO;
+import product.domain.TasteVO;
+import product.model.nr.ProductDAO;
+import product.model.nr.ProductDAO_imple;
 
 @MultipartConfig(location = "C:\\git\\IGLOO\\IGLOO\\images_temp_upload",
 fileSizeThreshold = 1024)  // 이 크기 값을 넘지 않으면 업로드된 데이터를 메모리상에 가지고 있지만, 이값을 넘는 경우 위의 location 로 지정된 경로에 임시파일로 저장된다.  
@@ -25,9 +28,11 @@ fileSizeThreshold = 1024)  // 이 크기 값을 넘지 않으면 업로드된 �
 public class ProductRegister extends AbstractController {
      
       private ProductRegisterDAO prdao = null;
+      private ProductDAO pdao = null;
       
       public ProductRegister() {
          prdao = new ProductRegisterDAO_imple();
+         pdao = new ProductDAO_imple();
       }
       
       private String extractFileName(String partHeader) {
@@ -75,8 +80,7 @@ public class ProductRegister extends AbstractController {
          // ==== >>> 파일을 업로드 해준다. <<< ==== //
             
              String pimage1 = null;
-             String prdmanual_systemFileName = null;
-             String prdmanual_originFileName = null;
+             String tasteimg = null;
              
              String attachCount = request.getParameter("attachCount");
              // attachCount 가 추가이미지 파일의 개수이다. null "1" ~ "10"
@@ -205,9 +209,8 @@ public class ProductRegister extends AbstractController {
                         if("pimage1".equals(part.getName())) {
                            pimage1 = newFilename;
                         }
-                        else if("prdmanualFile".equals(part.getName())) {
-                            prdmanual_systemFileName = newFilename;
-                            prdmanual_originFileName = fileName;
+                        else if("tasteimg".equals(part.getName())) {
+                        	tasteimg = newFilename;
                          }
                         else if(part.getName().startsWith("attach") ) {
                            arr_attachFileName[idx_attach++] = newFilename;
@@ -240,7 +243,13 @@ public class ProductRegister extends AbstractController {
              
              // === 첨부 이미지 파일, 제품설명서 파일을 올렸으니 그 다음으로 제품정보를 (제품명, 정가, 제품수량,...) DB의 tbl_product 테이블에 insert 를 해주어야 한다.  ===
              // ■■■■■■ 여기서 DAO에 넣기 위한 변수를 선언한다. ■■■■■■
-                  String productname = request.getParameter("productname");       // 제품명
+                  
+             JSONObject jsonObj = new JSONObject();  // {}
+             
+             // 컵 등록일 경우
+             if("1".equals(request.getParameter("searchType"))) {
+             
+             	  String productname = request.getParameter("productname");       // 제품명
                   String productcodeno = request.getParameter("productcodeno");   // 제품코드
                   String price = request.getParameter("price");                   // 제품가격
                   // String pimage = request.getParameter(pimage1);                  // 제품이미지
@@ -270,13 +279,55 @@ public class ProductRegister extends AbstractController {
                      result = 1;
                   }
                   
+                  
+                  
                   // === 추가이미지파일이 있다라면 tbl_product_imagefile 테이블에 제품의 추가이미지 파일명 insert 해주기 === // 
-                  JSONObject jsonObj = new JSONObject();  // {}
+                  
                   jsonObj.put("result", result);
+                  
+             }
+             
+             
+             // 맛 등록일 경우
+             else {
+            	 String tastename = request.getParameter("tastename");
+            	 String tasteexplain = request.getParameter("tasteexplain");
+            	 String oncesupply = request.getParameter("oncesupply");
+            	 String calory = request.getParameter("calory");
+            	 String sugar = request.getParameter("sugar");
+            	 String protein = request.getParameter("protein");
+            	 String fat = request.getParameter("fat");
+            	 String natrium = request.getParameter("natrium");
+            	 String allergy = request.getParameter("allergy");
+            	 String ingredients = request.getParameter("ingredients");
+            	 String eng_name = request.getParameter("eng_name");
+            	 
+            	 TasteVO tvo = new TasteVO();
+            	 
+            	 tvo.setTastename(tastename);
+            	 tvo.setTasteimg(tasteimg);
+            	 tvo.setTasteexplain(tasteexplain);
+            	 tvo.setOncesupply(oncesupply);
+            	 tvo.setCalory(calory);
+            	 tvo.setSugar(sugar);
+            	 tvo.setProtein(protein);
+            	 tvo.setFat(fat);
+            	 tvo.setNatrium(natrium);
+            	 tvo.setAllergy(allergy);
+            	 tvo.setIngredients(ingredients);
+            	 tvo.setEng_name(eng_name);
+            	 
+            	 int result = pdao.registerTaste(tvo);
+            	 
+            	 jsonObj.put("result", result);
+            	 
+             }
+             
                   
                   String json = jsonObj.toString(); // 문자열로 변환 
                   request.setAttribute("json", json);
                   // System.out.println(json);
+               
                   
                   super.setRedirect(false);
                   super.setViewPage("/WEB-INF/jsonview.jsp"); 

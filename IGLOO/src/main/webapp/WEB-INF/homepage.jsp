@@ -131,7 +131,8 @@ div#todayTaste {
 
 div#todayTaste span,
 div#tastename {
-    font-family: 'HSSanTokki20-Regular';
+    font-family: 'SUITE-Regular';
+    font-size: 18pt;
 }
 
 </style>
@@ -179,7 +180,7 @@ function goRandom() {
 			
 			let html = "<div onclick='goRandom()' style='cursor: pointer;'>"+
 					   		"<img style='width: 200px; margin: 5% 0% 0% 20%;' src='<%=ctxPath%>/images/img_narae/icecream_image/"+json.tasteimg+"' />"+
-							"<div id='tastename' style='text-align: center; font-size: 20pt; position: relative; top: -20px;'>"+json.tastename+"</div>"+	
+							"<div id='tastename' style='text-align: center; font-size: 20pt; position: relative; top: -20px; left: -10px;'>"+json.tastename+"</div>"+	
 					   "</div>";
 			
 			$("div#todayTasteImg").html(html);
