@@ -88,9 +88,11 @@ public class InsertTaste extends AbstractController {
 		    				// System.out.println("tbl_cart 에 insert 성공 ~~^^");
 		    			}
 		    			
+		    			super.setRedirect(false);
+		    			super.setViewPage("/WEB-INF/order/payment.jsp");
 		    			
-		    			super.setRedirect(true);
-		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
+//		    			super.setRedirect(true);
+//		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
 		    		}
 		    		
 		    	} catch(SQLException e) {
@@ -113,7 +115,16 @@ public class InsertTaste extends AbstractController {
 		    }// end of if(loginuser != null)--------------------
 		    
 		    else {
-		    	System.out.println("로그인이 되지않았음.");
+		    	String message = "주문하시려면 먼저 로그인을 해주세요.";
+		        String loc = request.getContextPath() + "/login/login.ice";
+		        // 테이블 적용 후 이동 이전페이지(get 타입 변경)할 지 메인페이지 갈지 선정해야할 것
+		         
+		        request.setAttribute("message", message);
+		        request.setAttribute("loc", loc);
+		        
+				super.setRedirect(false);
+		        super.setViewPage("/WEB-INF/msg.jsp");
+		    	
 		    }
 		    
 		}// end of else --------------------------------------

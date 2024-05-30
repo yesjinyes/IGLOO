@@ -14,7 +14,7 @@ public interface ProductDAO {
 	List<TasteVO> selectTasteList() throws SQLException;
 
 	// == 정보 한 개만 불러오기 == //
-	ProductVO getproductList_2(String pcode) throws SQLException;
+	ProductVO getproductEach(String pcode) throws SQLException;
 
 	// == TBL_SELECTLIST 에 insert 하는 메소드 생성 == //
 	Map<String, Integer> insertSelectList(Map<String, Object> paraMap) throws SQLException;
