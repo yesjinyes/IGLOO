@@ -45,7 +45,7 @@ public class InsertTaste extends AbstractController {
 		}
 		
 		else {
-			System.out.println("확인");
+			// System.out.println("확인");
 			HttpSession session = request.getSession();
 			
 			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
@@ -54,6 +54,10 @@ public class InsertTaste extends AbstractController {
 		    	
 		    	String userid = loginuser.getUserid();
 		    	String tasteno = request.getParameter("tasteno");
+		    	pcode = request.getParameter("pcode");
+		    	
+		    	// System.out.println("확인용 tasteno : " + tasteno);
+		    	// 확인용 tasteno : 18,18,15
 		    	
 		    	String[] tasteno_arr = tasteno.split(",");
 		    	
@@ -62,9 +66,10 @@ public class InsertTaste extends AbstractController {
 		    	paraMap.put("tasteno_arr", tasteno_arr);
 		    	paraMap.put("pcode", pcode);
 		    	
-		    	System.out.println("tasteno_arr" + tasteno_arr);
-		    	System.out.println("pcode" + pcode);
-		    
+		    	// System.out.println("tasteno_arr" + tasteno_arr);
+		    	// System.out.println("확인용 pcode : " + pcode);
+		    	// 확인용 pcode : P
+
 		    	int selectListResult = 0;
 		    	try {
 		    		// == TBL_SELECTLIST 에 insert 하는 메소드 생성 == //
@@ -74,8 +79,14 @@ public class InsertTaste extends AbstractController {
 		    		if(selectListResult == 1) {
 		    			//System.out.println("selectList 띄우기 성공 ^^~~");
 		    			
-		    			paraMap.put("str_selectno", map.get("str_selectno")); // selectList 에서 알아낸 selectno를 paraMap 에 넣어주기
+		    			// System.out.println("확인용 str_selectno : " + paraMap.get("str_selectno"));
+		    			// 확인용 str_selectno : 24
 		    			
+		    			int selectno = map.get("str_selectno");
+		    			// System.out.println("확인용 selectno : " + selectno);
+		    			// 확인용 selectno : 26
+		    			
+		    			paraMap.put("selectno", selectno);
 		    			
 		    			// == TBL_TASTESELECT 에 insert 하는 메소드 생성 == //
 		    			int tasteListResult = pdao.insertTasteList(paraMap);
@@ -126,15 +137,15 @@ public class InsertTaste extends AbstractController {
 		    else {
 		    	System.out.println("로그인이 되지 않았음.");
 		    	
-//		    	String message = "주문하시려면 먼저 로그인을 해주세요.";
-//		        String loc = request.getContextPath() + "/login/login.ice";
+		    	String message = "주문하시려면 먼저 로그인을 해주세요.";
+		        String loc = request.getContextPath() + "/login/login.ice";
 //		        // 테이블 적용 후 이동 이전페이지(get 타입 변경)할 지 메인페이지 갈지 선정해야할 것
 //		         
-//		        request.setAttribute("message", message);
-//		        request.setAttribute("loc", loc);
+		        request.setAttribute("message", message);
+		        request.setAttribute("loc", loc);
 //		        
-//				super.setRedirect(false);
-//		        super.setViewPage("/WEB-INF/msg.jsp");
+				super.setRedirect(false);
+		        super.setViewPage("/WEB-INF/msg.jsp");
 		    	
 		    }
 		    

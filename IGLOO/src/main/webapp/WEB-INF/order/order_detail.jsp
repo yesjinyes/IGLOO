@@ -17,7 +17,7 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail.js"></script>
 
-
+<div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <div class="container contents justify-content-arround">
 
 	<form name="orderDetailFrm">

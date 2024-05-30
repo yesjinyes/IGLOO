@@ -89,7 +89,7 @@ $(document).ready(function() {
 			//console.log(str_tasteno);
 			
 			$("form[name='tasteinfo'] > input[name='tasteno']").val(str_tasteno);
-		
+			// alert(str_tasteno);
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 	
 	});// end of $("select[id='taste']").change(function()----------------------
@@ -163,9 +163,11 @@ function goCart() {
 
     //location.href = `${ctxPath}/member/cart.ice`;
 
-    const frm = document.orderDetailFrm;
-    frm.method = "POST"; 
-    frm.action = "/order/insertTaste.ice";
+	const ctxPath = $("div#ctxPath").text();
+
+    const frm = document.tasteinfo;
+    frm.action = ctxPath + "/order/insertTaste.ice";
+	frm.method = "POST"; 
     frm.submit();
 
 }// end of function goCart(ctxPath) ------------------------

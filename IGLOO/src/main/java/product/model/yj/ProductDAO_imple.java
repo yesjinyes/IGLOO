@@ -229,7 +229,7 @@ public class ProductDAO_imple implements ProductDAO {
 			
 			for(String tasteno : tasteno_arr) {
 				pstmt = conn.prepareStatement(sqlInsert);
-				pstmt.setInt(1, (Integer)paraMap.get("selectno"));
+				pstmt.setInt(1, (int) paraMap.get("selectno"));
 				pstmt.setInt(2, Integer.parseInt(tasteno));
 				
 				tasteListResult += pstmt.executeUpdate();
@@ -262,7 +262,7 @@ public class ProductDAO_imple implements ProductDAO {
 			pstmt = conn.prepareStatement(sqlInsert);
 			pstmt.setString(1, (String)paraMap.get("userid"));
 			//pstmt.setInt(2, ); // 수량(count)이 들어올 자리... 어떻게 넘길까
-			pstmt.setInt(2, (Integer)paraMap.get("str_selectno"));
+			pstmt.setInt(2, (int) paraMap.get("selectno"));
 				
 			cartListResult = pstmt.executeUpdate();
 			
