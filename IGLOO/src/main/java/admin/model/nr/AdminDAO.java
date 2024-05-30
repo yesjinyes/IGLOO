@@ -6,6 +6,7 @@ import java.util.Map;
 
 import help.domain.nr.FaqVO;
 import order.domain.OrderdetailVO;
+import product.domain.TasteVO;
 
 public interface AdminDAO {
 
@@ -29,6 +30,9 @@ public interface AdminDAO {
 
 	// 관리자 - 주문 상태(픽업시간, 주문 상태 등) 변경
 	int updateOrder(Map<String, String> paramap) throws SQLException;
+
+	// 메인페이지 - 랜덤 맛 불러오기
+	TasteVO getRandomTaste(int random) throws SQLException;
 
 	
 

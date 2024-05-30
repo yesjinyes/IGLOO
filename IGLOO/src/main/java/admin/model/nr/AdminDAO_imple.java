@@ -431,6 +431,42 @@ public class AdminDAO_imple implements AdminDAO {
 		return n;
 	}
 
+	
+	
+	
+	
+	// 메인페이지 - 랜덤 맛 불러오기
+	@Override
+	public TasteVO getRandomTaste(int random) throws SQLException {
+
+		TasteVO taste = new TasteVO();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select tasteno, tastename, tasteimg "
+					   + "from tbl_taste "
+					   + "where tasteno = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, random);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			taste.setTasteno(rs.getInt(1));
+			taste.setTastename(rs.getString(2));
+			taste.setTasteimg(rs.getString(3));
+			
+		} finally {
+			close();
+		}
+		
+		
+		return taste;
+	}
+
 
 
 
