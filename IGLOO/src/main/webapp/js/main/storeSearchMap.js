@@ -5,7 +5,7 @@ $(document).ready(function(){
 			goSearch();
 		}
 	});
-	
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // 지도를 담을 영역의 DOM 레퍼런스
@@ -263,17 +263,25 @@ $(document).ready(function(){
 
 // === 매장 검색 === //
 function goSearch(){
-	
-    $("div#map").hide();
 
 	const searchInput = $("input[name='store_search']").val();
+    const headsearch = $("input[name='search']").val();
+    // alert(headsearch);
 
     const ctxPath = $("div#ctxPath").text();
 
-	if(searchInput == ""){
+	if(searchInput == "" && headsearch == ""){
 		alert("검색어를 입력하세요.");
 		return;
 	}
+    else if(headsearch != ""){
+        const frm = document.searchFrm;
+	
+        frm.action = ctxPath + "/help/search.ice";
+        frm.method = "get";
+        frm.submit();
+        return;
+    }
 	
 	$.ajax({
 		url: "searchMapJSON.ice",

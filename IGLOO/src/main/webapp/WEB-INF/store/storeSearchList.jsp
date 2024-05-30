@@ -27,11 +27,20 @@ $(document).ready(function(){
 function goSearch(){
 		
 	const searchInput = $("input[name='store_search']").val();
-
-	if(searchInput == ""){
+	const headsearch = $("input[name='search']").val();
+	
+	if(searchInput == "" && headsearch == ""){
 		alert("검색어를 입력하세요.");
 		return;
 	}
+	else if(headsearch != ""){
+        const frm = document.searchFrm;
+	
+        frm.action = "<%= ctxPath%>/help/search.ice";
+        frm.method = "get";
+        frm.submit();
+        return;
+    }
 	
 	$.ajax({
 		url: "searchListJSON.ice",
