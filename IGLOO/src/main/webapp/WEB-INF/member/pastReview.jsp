@@ -55,71 +55,39 @@
         </div>
         <div class="content collapse" id="hiddenContent1">
           <div class="bind">
-            <h3>이글루 홍대점</h3>
+          
+          	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
+            <h3>${requestScope.shopname}</h3>
+            
+            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
             <div class="btns">
               <a href="javascript:goEditReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>')" id="btnEdit" class="btn btn-outline-secondary" role='button' >수정</a>
               <button id="btnDel" class="btn btn-outline-secondary">삭제</button>
             </div>
           </div>
+          
+          <%-- 첨부된 리뷰사진 --%>
           <div class="reviewImgs">
-			<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없을때 --%>
+			<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없다면 --%>
+			<%-- 리뷰사진 있다면 포문. ${requestScope.첨부사진} --%>
           </div>
-          <div class="star">☆☆☆☆☆&nbsp;&nbsp;
-            <span class="date">2024.05.14</span>
+          
+          <%-- 별점 --%>
+          <div class="star"><%-- ${requestScope.star} --%>☆☆☆☆☆&nbsp;&nbsp; 
+            <span class="date">${requestScope.writedate}</span>
           </div>
+          
+          <%-- 내용 --%>
           <div class="text">
-            맛도리
+            ${requestScope.reviewcontent}
           </div>
         </div>
       </div>
   </div>
 
 
-    <div class="col-md-12">
-      <div class="review">
-        <div class="sumarry">
-          <div class="img-container">
-            <img src="<%= ctxPath%>/images/img_hj/cup_size/halfgallon.png"/>
-          </div>
-          <div class="option-container">
-            <h3>하프갤런</h3>
-            <ul>
-              <li>블루베리</li>
-              <li>블루베리</li>
-              <li>블루베리</li>
-              <li>블루베리</li>
-              <li>블루베리</li>
-              <li>블루베리</li>
-            </ul>
-          </div>
-          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#hiddenContent2" aria-expanded="false" aria-controls="hiddenContent2">▼</button>
-        </div>
-        <div class="content collapse" id="hiddenContent2">
-          <div class="bind">
-            <h3>이글루 부평점</h3>
-            <div class="btns"> 
-              <a href="javascript:goEditReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>')" id="btnEdit" class="btn btn-outline-secondary" role='button' >수정</a>
-              <button id="btnDel" class="btn btn-outline-secondary">삭제</button>
-            </div>
-          </div>
-          <div class="reviewImgs">
-            <i class="fa-solid fa-image fa-10x"></i><i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없을때 --%>
-          </div>
-          <div class="star">☆☆☆☆☆&nbsp;&nbsp;
-            <span class="date">2024.05.10</span>
-          </div>
-          <div class="text">
-            아이스크림이 착하고 사장님이 맛있어요
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="more col-md-12 ">
-    	 <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
-         <button type="button" class="btn btn-outline-secondary" id="btnMoreReview" value="">더보기</button>
-         <span id="totalReview"></span>   
-         <span id="countReview">0</span>
-    </div>
+   
+    
   </div>
 
 </div>

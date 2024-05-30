@@ -21,6 +21,9 @@ public interface ProductDAO {
 	// 메인페이지 메인이미지 가져오기
 	List<Map<String, String>> getMainImg() throws SQLException;
 
+	// 관리자 - 맛등록
+	int registerTaste(TasteVO tvo) throws SQLException;
+
 
 
 
