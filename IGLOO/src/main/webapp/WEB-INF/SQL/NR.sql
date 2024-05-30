@@ -193,14 +193,16 @@ from tab;
 
 desc tbl_faq_q;
 
-select *
-from tbl_faq_q;
+select productcodeno, productname, productimg, productdetail
+from tbl_product;
 
-delete from tbl_faq_q where q_no = 11;
+delete from tbl_product where productname = '박예진';
 
 commit;
 
 select * from user_sequences;
 
+select tasteno, tastename, tasteimg
+from tbl_taste;
 
 

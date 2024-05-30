@@ -69,8 +69,8 @@ text-align: center;
 }
 
 @font-face {
-    font-family: 'Cafe24Oneprettynight';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-family: 'TAEBAEKmilkyway';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/TAEBAEKmilkyway.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
@@ -89,8 +89,15 @@ text-align: center;
     font-style: normal;
 }
 
-.title {
-	font-family: 'Cafe24Oneprettynight';
+@font-face {
+    font-family: 'HSSanTokki20-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#forCenter > div.title > span {
+	font-family: 'TAEBAEKmilkyway';
 	font-size: 30pt;
 }
 
@@ -105,7 +112,7 @@ text-align: center;
 
 div#helpDesk > div:nth-child(2),
 div#map > div:nth-child(2) {
-    font-family: 'Cafe24Oneprettynight';
+    font-family: 'TAEBAEKmilkyway';
     font-weight: bolder;
     font-size: 40pt;
 }
@@ -113,6 +120,18 @@ div#map > div:nth-child(2) {
 .tasteimg:hover {
 	-webkit-transform: scale(1.3);
 	transform: scale(1.3);
+}
+
+div#todayTaste {
+	position: fixed;
+	right: 50px;
+	top: 480px;
+	cursor: context-menu;
+}
+
+div#todayTaste span,
+div#tastename {
+    font-family: 'HSSanTokki20-Regular';
 }
 
 </style>
@@ -142,7 +161,39 @@ function goStore(){
 function goFaq(){
 	location.href = "<%=ctxPath%>/help/help.ice" ;
 }
+
+function goClose(){
+	$("div#todayTaste").css("display", "none");
+}
+
+function goRandom() {
+	
+	$("div#first").empty();
+	
+	$.ajax({
+		url: "<%=ctxPath%>/admin/todaysRandom.ice",
+		type: "post",
+		dataType: "json",
+		success: function(json){
+			// console.log("json: "+JSON.stringify(json));
+			
+			let html = "<div onclick='goRandom()' style='cursor: pointer;'>"+
+					   		"<img style='width: 200px; margin: 5% 0% 0% 20%;' src='<%=ctxPath%>/images/img_narae/icecream_image/"+json.tasteimg+"' />"+
+							"<div id='tastename' style='text-align: center; font-size: 20pt; position: relative; top: -20px;'>"+json.tastename+"</div>"+	
+					   "</div>";
+			
+			$("div#todayTasteImg").html(html);
+		},
+		error: function(request, status, error){
+             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+        }
+		
+	});
+	
+}
 </script>
+
+
 
 <div id="main">
 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -150,21 +201,21 @@ function goFaq(){
 		<c:forEach var="mainImg" items="${requestScope.mainImgList}" varStatus="status">
 			<c:if test="${status.index == 0}">
 			    <div class="carousel-item active">
-			      <img style="width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block" alt="...">
+			      <img style="border: solid 10px #ccf2ff; width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block" alt="...">
 			    </div>
 			</c:if>
 			<c:if test="${status.index != 0 }">
 				<div class="carousel-item">
-			      <img style="width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block alt="...">
+			      <img style="border: solid 10px #ccf2ff; width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block alt="...">
 			    </div>
 			</c:if>	    
 		</c:forEach>
 		</div>
-		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		<a style="margin:15% 0% 0% 15%; display: inline-block; height: 100px;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			<span class="sr-only">Previous</span>
 		</a>
-		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		<a style="margin:15% 15% 0% 0%; display: inline-block; height: 100px;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
 			<span class="sr-only">Next</span>
 		</a>
@@ -213,9 +264,9 @@ function goFaq(){
 
 
 
-<div id="shortcut">
-	<div style="display: flex;">
-		<div id="map" align="center" style="width: 45%; margin: 0% 3%; cursor: pointer;" onclick="goStore()">
+<div id="shortcut" class="mb-5">
+	<div style="display: flex; height: 450px; overflow: hidden; ">
+		<div id="map" align="center" style="width: 45%; margin: 0% 1% 0% 6%; cursor: pointer;" onclick="goStore()">
 			<div style="position: relative; top: -10px; background-color: #ffe7e5; width: 80%; height: 300px; border-radius: 150px; margin-top: 10%;"></div>
 			<div style="position: relative; top: -340px; left: -100px;">찾아오는 길</div>
 			<img style="position: relative; top: -350px; width: 60%;" src="<%=ctxPath%>/images/img_narae/3d-casual-life-trail-map.png"/>
@@ -228,5 +279,15 @@ function goFaq(){
 		</div>
 	
 	</div>
-</div>			
+</div>
+
+<div id="todayTaste">
+	<img style="width: 50px; position: relative; left: 400px; top: -200px; cursor: pointer;" src="<%=ctxPath%>/images/img_narae/close.png" onclick="goClose()"/>
+	<img style="width: 400px;" src="<%=ctxPath%>/images/img_narae/오늘의맛추천.png"/>
+	<div id="todayTasteImg" style="width: 80%; height: 270px; position: relative; left: 80px; top: -300px;">
+		<div id="first" style="font-size: 20pt; text-align: center; margin-top: 100px; cursor: pointer;" onclick="goRandom()"><span>무슨 맛을 고를지 고민된다면?<br>이곳을 눌러 보세요!</span></div>
+	</div>
+</div>
+
+			
 <jsp:include page="footer.jsp" />

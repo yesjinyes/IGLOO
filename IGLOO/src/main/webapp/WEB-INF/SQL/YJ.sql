@@ -240,10 +240,18 @@ ON O.ordercode = D.fk_ordercode;
 update tbl_member
 set lastpwdchangedate='240125'
 where userid = 'yejin';
-
 commit;
 
 select * from tbl_member;
+
+
+
+
+select userid 
+from tbl_member
+where pwd = ?
+
+
 
 select *
 from tbl_taste
@@ -262,6 +270,25 @@ insert into tbl_selectlist(tasteno, fk_productcodeno, fk_userid) values(seq_sele
 
 -> n1 이 1일때, 실행, n2 활용 for 문 써서 해야하는 것
 insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, ?, ?);
+
+
+
+
+----------------------------------------------------------------
+
+select userid, pwd
+from tbl_member
+where pwd = '9695b88a59a1610320897fa84cb7e144cc51f2984520efb77111d94b402a8382';
+
+
+
+select * from tbl_member;
+where userid = 'yejin';
+
+
+
+
+
 
 
 

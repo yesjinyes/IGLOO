@@ -357,8 +357,6 @@ public class MemberDAO_imple implements MemberDAO {
 			
 			String sql = " update tbl_member set pwd = ?, lastpwdchangedate = sysdate " 
 	                   + " where userid = ? ";
-			// 현재 비밀번호를 select 해온 다음, 그걸 변수로 저장해서 그걸 setString 으로 주기
-			// 이 안에서 새로 입력하는 비번과 원래 비번이 같을 경우 0, 다르면 1 이니까 update 가 되는것임
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -374,6 +372,69 @@ public class MemberDAO_imple implements MemberDAO {
 		return n;
 		
 	}// end of public int pwdUpdateEnd(Map<String, String> paraMap) throws SQLException -------------------------
+
+	//////////////////////////////////////////////////////////////////////////
+	
+	// === 비밀번호 변경 - 3개월 == //
+	@Override
+	public int pwdUpdate_3months(Map<String, String> paraMap) throws SQLException {
+
+		int n = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_member set pwd = ?, lastpwdchangedate = sysdate " 
+	                   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, Sha256.encrypt(paraMap.get("pwd2")) ); // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다.
+			pstmt.setString(2, paraMap.get("userid"));
+			
+	        n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return n;
+		
+	}// end of public int pwdUpdate_3months(Map<String, String> paraMap) throws SQLException---------------------- 
+	
+	//////////////////////////////////////////////////////////////////////////
+
+	// == 비밀번호 변경 시 동일여부 확인 === //
+	@Override
+	public String checkPwd(Map<String, String> paraMap) throws SQLException  {
+
+		String checkpwd = "";		// 로그인이 성공되어져야만 new 데이터를 넣어줄것!
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid "
+						+ " from tbl_member "
+						+ " where pwd = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Sha256.encrypt(paraMap.get("pwd2")) );
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				checkpwd = "fail";
+
+			}	// end of if(rs.next())---------------
+			
+		} finally {
+			close();
+		}
+		
+		return checkpwd;
+		
+	}// end of public MemberVO checkPwd(Map<String, String> paraMap) throws SQLException--------------
 
 //////////////////////////////////////////////////////////////////////////
 	
