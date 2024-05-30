@@ -19,7 +19,17 @@
       font-weight: bold;
       text-align: right;
   }
+  
+  @font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+	}
 
+	.container *{
+	font-family: 'SUITE-Regular';
+	}
 </style>
 
 <script type="text/javascript">
