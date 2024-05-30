@@ -1,12 +1,13 @@
 @charset "UTF-8";
 
 div#containerPwd {
-	border: solid 1px red;
-	width: 30%;
+	border: solid 0px green;
+	width: 70%;
 	display: inline-block;
 	text-align: center;
-	margin: 10% auto;
-	padding: 0 0 15% 0;
+	margin: 5% auto;
+	margin-bottom: 15%;
+	/* padding: 0 0 15% 0; */
 }
 
 div#pwdUpdate {
@@ -17,9 +18,9 @@ div#pwdUpdate {
 div#inputBox {
 	border: solid 1px gray;
 	border-radius: 3%;
-	width: 100%;
+	width: 70%;
 	padding: 3% 0 5% 0;
-	margin:  0;
+	margin: 0 auto;
 }
 
 div.input-form-box {
@@ -45,11 +46,6 @@ input.form-control {
 	padding: 3.5%;
 }
 
-div.button-box {
-	margin-bottom: 3%;
-}
-
-.mypageinputbox {
-	
-	sfsffddfd
-}
+/* div.button-box {
+	margin-bottom: 2%;
+} */

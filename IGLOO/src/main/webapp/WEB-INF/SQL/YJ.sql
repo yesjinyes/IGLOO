@@ -244,6 +244,15 @@ commit;
 
 select * from tbl_member;
 
+
+
+
+select userid 
+from tbl_member
+where pwd = ?
+
+
+
 select *
 from tbl_taste
 order by tasteno;
