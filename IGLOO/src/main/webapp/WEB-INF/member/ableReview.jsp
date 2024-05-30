@@ -23,12 +23,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-    $("input:button").click(function(){
-        alert("리뷰를 작성합니다.");
-
-        goWriteReview(); 
-
-    });
 
     
 });// end of $(document).ready(function(){})----------------------
@@ -36,9 +30,20 @@ $(document).ready(function(){
 
 function goWriteReview(){
 	
-		
-    //리뷰 작성 팝업창 띄우기
-    const url = `<%= ctxPath%>/member/writeReview.ice`;
+	let ordercode = $(event.target).parent().parent().find("#ordercodeDiv").text();
+	
+//	alert(ordercode);  
+//	$("input:text[name='odrcode']").val();
+	/*
+	const frm = document.ordercodeFrm;
+	frm.odrcode.value = ordercode;
+	frm.action = "<%= ctxPath%>/member/writeReview.ice";
+	frm.method = "get";
+	frm.submit();
+*/
+	
+	//리뷰 작성 팝업창 띄우기
+    const url = "<%= ctxPath%>/member/writeReview.ice?odrcode="+ordercode;
 
     // 너비 750, 높이 670 인 팝업창을 화면 가운데 위치시키기
     const width = 850;
@@ -54,6 +59,7 @@ function goWriteReview(){
 		  
     window.open(url, "ableReview",
                 `left=${left}, top=${top}, width=${width}, height=${height}`); //팝업띄우기
+
 
 }//end of function goEditReview(userid, ctxPath)---------------------------------
 </script>
@@ -86,9 +92,7 @@ function goWriteReview(){
 		        
 		        <%-- 해당 날짜 주문시간과 주문코드 --%>
 				<div class="dateorderlist my-3 ml-4">
-					<div style="display:inline-block; color: #a6a6a6; border-radius:5px; padding:0 5px 0 5px; margin-bottom: 3px;">
-						${odvo.order.ordercode} 
-					</div>
+					<div style="display:inline-block; color: #a6a6a6; border-radius:5px; padding:0 5px 0 5px; margin-bottom: 3px;" id="ordercodeDiv">${odvo.order.ordercode}</div>
 					<br>
 					<div style="display:inline-block; border: solid 1px lightgray; background-color:lightgray; border-radius:5px; padding:0 5px 0 5px;">
 						${odvo.order.orderdate} 구매
@@ -146,6 +150,11 @@ function goWriteReview(){
     </form>
     
 </div>
+
+<form name="ordercodeFrm">
+	<input type="text" name="odrcode" />
+	<input type="text" style="display: none;"/>
+</form>
 
 
 		</div>

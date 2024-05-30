@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -188,12 +189,8 @@ public class ReviewDAO_imple implements ReviewDAO {
 		}
 		
 		return odvoList;
-	}
+	}//end of-----------------------------------------------------
 
-	
-	
-	
-	
 	
 	
 	
@@ -220,7 +217,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 			pstmt.setString(3, paraMap.get("reviewcontent") );
 			
 			n = pstmt.executeUpdate();
-         	System.out.println("~~~~~ 확인용 n1 : " + n);
+         //	System.out.println("~~~~~ 확인용 n1 : " + n);
 		 //  ~~~~~ 확인용 n1 : 1	
 		
          	
@@ -229,6 +226,136 @@ public class ReviewDAO_imple implements ReviewDAO {
 		}
 		return n;
 	}
+
+	
+	
+	
+	
+	
+	// 해당주문내역(1개)에 대한 상세(리스트) 메소드
+	@Override
+	public OrderdetailVO odvoOne(String ordercode) throws SQLException {
+		
+		OrderdetailVO odvoOne = new OrderdetailVO();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select A.orderdetailno, B.ordercode, A.ordercount, C.selectno, A.orderprice, A.pickupstatus, A.pickuptime, "
+					   + "       B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd') orderdate, "
+					   + "       D.productcodeno, D.productname, D.productimg, D.price, "
+					   + "       E.name, E.email, E.mobile, E.postcode, E.address, E.detailAddress, E.extraaddress, E.gender, E.birthday "
+					   + "from tbl_orderdetail A join tbl_order B "
+					   + "on A.fk_ordercode = B.ordercode "
+					   + "join tbl_selectlist C "
+					   + "on A.fk_selectno = C.selectno "
+					   + "join tbl_product D "
+					   + "on C.fk_productcodeno = D.productcodeno "
+					   + "join tbl_member E "
+					   + "on B.fk_userid = E.userid "
+					   + " where ordercode = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ordercode);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				
+				OrderdetailVO odvo = new OrderdetailVO();
+				
+				int orderdetailno = rs.getInt(1);
+				odvo.setOrderdetailno(orderdetailno);
+				
+				OrderVO ovo = new OrderVO();
+				ovo.setOrdercode(rs.getString(2));
+				
+				odvo.setOrdercount(rs.getInt(3));
+				
+				SelectlistVO slvo = new SelectlistVO();
+				slvo.setSelectno(rs.getInt(4));
+				
+				odvo.setOrderprice(rs.getInt(5));
+				odvo.setPickupstatus(rs.getInt(6));
+				odvo.setPickuptime(rs.getString(7));
+				
+				ovo.setFk_userid(rs.getString(8));
+				ovo.setTotalprice(rs.getInt(9));
+				ovo.setOrderdate(rs.getString(10));
+				
+				ProductVO pvo = new ProductVO();
+				pvo.setProductcodeno(rs.getString(11));
+				pvo.setProductname(rs.getString(12));
+				pvo.setProductimg(rs.getString(13));
+				pvo.setPrice(rs.getInt(14));
+
+				MemberVO mvo = new MemberVO();
+				mvo.setName(rs.getString(15));
+				mvo.setEmail(aes.decrypt(rs.getString(16)));
+				mvo.setMobile(aes.decrypt(rs.getString(17)));
+				mvo.setPostcode(rs.getString(18));
+				mvo.setAddress(rs.getString(19));
+				mvo.setDetailaddress(rs.getString(20));
+				mvo.setExtraaddress(rs.getString(21));
+				mvo.setGender(rs.getString(22));
+				mvo.setBirthday(rs.getString(23));
+				
+				ovo.setMember(mvo);
+				odvo.setOrder(ovo);
+				odvo.setSelectlist(slvo);
+				odvo.setProduct(pvo);
+				
+					
+				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename, F.tasteimg "
+					+ "from tbl_orderdetail A join tbl_order B "
+					+ "on A.fk_ordercode = B.ordercode "
+					+ "join tbl_selectlist C "
+					+ "on A.fk_selectno = C.selectno "
+					+ "join tbl_product D "
+					+ "on C.fk_productcodeno = D.productcodeno "
+					+ "join tbl_tasteselect E "
+					+ "on E.fk_selectno = C.selectno "
+					+ "join tbl_taste F "
+					+ "on E.fk_tasteno = F.tasteno "
+					+ "where orderdetailno = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, orderdetailno);
+				
+				rs2 = pstmt.executeQuery();
+				
+				List<TasteVO> tasteList = new ArrayList<TasteVO>();
+				List<TasteVO> tasteimgList = new ArrayList<TasteVO>();
+				
+				while(rs2.next()) {
+					TasteVO tvo = new TasteVO();
+					tvo.setTastename(rs2.getString(4));
+					tasteList.add(tvo);
+					
+					tvo.setTasteimg(rs2.getString(5));
+					tasteimgList.add(tvo);
+				}
+
+				odvoOne.setTastenamelist(tasteList);
+				odvoOne.setTasteimglist(tasteimgList);
+			}
+			
+		} catch (GeneralSecurityException | UnsupportedEncodingException e ) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		
+		return odvoOne;
+	}//end of-----------------------------------------------------
+
+	
+	
+	
 
 	
 	

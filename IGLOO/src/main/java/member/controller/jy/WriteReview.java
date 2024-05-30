@@ -27,19 +27,21 @@ public class WriteReview extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String method = request.getMethod();
+		String ordercode = request.getParameter("odrcode");
+		
+		System.out.println("ordercode: "+ordercode);
 		
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
 		if("get".equalsIgnoreCase(method)) {
 			
-			// 전체 주문내역 불러오기(선택 맛 제외)
-			//List<OrderdetailVO> odvoList = rdao.selectOrderListAll(loginuser.getUserid());
 			
+			// 해당주문내역(1개)에 대한 상세(리스트) 메소드
+			OrderdetailVO odvoOne = rdao.odvoOne(ordercode);
 			
-			// 해당주문내역(1개)에 대한 상세(리스트) 메소드 만들어야?
-			Map<String,List<String>> odvoOne = new HashMap<>();
-			
+			System.out.println("첫 번째 맛: "+odvoOne.getTastenamelist().get(0).getTastename());
+			System.out.println("첫 번째 맛 사진: "+ odvoOne.getTasteimglist().get(0).getTasteimg());
 			
 			//System.out.println(odvoList.get(0).getOrder().getOrdercode());
 			request.setAttribute("odvoOne", odvoOne);	
@@ -61,8 +63,6 @@ public class WriteReview extends AbstractController {
 			String userid = loginuser.getUserid(); // 사용자ID
 			String reviewcontent = request.getParameter("reviewcontent");
 			String writeday = request.getParameter("writeday");
-			String ordercode = request.getParameter("ordercode");
-			
 			
 			
 			// 작성한 리뷰 insert
