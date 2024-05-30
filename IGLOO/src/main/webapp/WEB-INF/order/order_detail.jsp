@@ -111,10 +111,11 @@
 </div>
 
 
-<%-- 넘겨줄 정보(맛번호) --%>
+<%-- 넘겨줄 정보(장바구니) --%>
 <form name="tasteinfo">
    <input type="text" name="tasteno" value=""/>
    <input type="text" name="pcode" value="${requestScope.pvo.productcodeno}"/>
+   <input type="text" name="str_count" value=""/>
 </form>
 
 
