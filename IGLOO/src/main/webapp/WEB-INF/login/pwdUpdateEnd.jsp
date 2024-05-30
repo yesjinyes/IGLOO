@@ -3,21 +3,27 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<%
-	String ctxPath = request.getContextPath();
-	//     IGLOO
-%>
+<% String ctxPath = request.getContextPath(); %>
+
 
 <%-- Required meta tags --%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+
 <%-- Bootstrap CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/bootstrap-4.6.2-dist/css/bootstrap.min.css" > 
 
-<%-- 직접 만든 CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/pwdUpdateEnd.css" />
+<%-- 마이페이지에서 변경하는 경우의 CSS (사이드바O) --%>
+<c:if test="${not empty requestScope.mypage}"> 
+	<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/mypage_pwdUpdateEnd.css" />
+</c:if>
+
+<%-- 비밀번호 찾기에서 변경하는 경우의 CSS (사이드바X) --%>
+<c:if test="${empty requestScope.mypage}"> 
+	<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/login/pwdUpdateEnd.css" />
+</c:if>
 
 
 <jsp:include page="../header.jsp"/>
@@ -26,6 +32,7 @@
 <c:if test="${not empty requestScope.mypage}">
 	<jsp:include page="../sidebar.jsp"/>
 </c:if>
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -64,7 +71,8 @@ $(document).ready(function(){
                 frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
                 frm.submit();
             }
-       }
+            
+       }// end of if~else----------------
 		
     });// end of $("button.btn-success").click(function(){})-------------
     
@@ -73,10 +81,11 @@ $(document).ready(function(){
 
 
 <%-- userid 가 넘어온 경우에 비밀번호 변경 뷰단 띄움 --%>
-<c:if test="${not empty requestScope.userid}" > --%>
+<%-- <c:if test="${not empty requestScope.userid}" > --%>
  	<form name="pwdUpdateEndFrm">
- 		<p>왜 margin 이 안먹냐...</p>
+ 	
   		<div id="containerPwd">
+  		
   			<div id="pwdUpdate">
 				<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 11%; padding: 0 3% 3% 0;"/>
 				<h2 style="font-weight: bold; display: inline-block;">비밀번호 변경</h2>
@@ -109,15 +118,16 @@ $(document).ready(function(){
 	    </div>
 	    
 	</form>
-</c:if>
+	
+<%-- </c:if> --%>
 
 
 <%-- 비밀번호 찾기에서 비밀번호 변경하는 경우에만 사이드바 넣은것. 닫기 --%>
-<c:if test="${not empty requestScope.mypage}">
+<%-- <c:if test="${not empty requestScope.mypage}">
 			</div>
 		</div>
 	</div>
 </c:if>
-
+ --%>
 
 <jsp:include page="../footer.jsp"></jsp:include>
