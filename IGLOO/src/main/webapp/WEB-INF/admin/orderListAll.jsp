@@ -285,7 +285,7 @@ span#timeCss {
 	font-size: 20pt;
 }
 
-div#info {
+div#infoDiv {
 	font-size: 10pt;
 	margin-top: 3%;
 	margin-left: 18%;
@@ -321,6 +321,18 @@ div#forHide > div > span:nth-child(1) {
 div#forHide > div {
 	margin-bottom: 2%;
 }
+
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container *{
+	font-family: 'SUITE-Regular';
+}
+
 
 </style>
 
@@ -421,7 +433,7 @@ div#forHide > div {
 							      	  <input type="hidden" id="hidden_orderstatus" value="${odvo.pickupstatus-1}" />
 							      	  <input type="hidden" id="hidden_statusindex" value="2_${status.index}" />
 									  <img src="<%=ctxPath%>/images/img_narae/주문상태설정.png" style="width: 40%;"/>
-									  <div align="left" id="info">
+									  <div align="left" id="infoDiv">
 									  	※ 주문 직후 기본 설정은 '주문완료' 입니다.<br>
 										※ '준비 중' 선택 시 픽업 시간을 설정할 수 있습니다.
 									  </div>

@@ -4,23 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <% String ctxPath = request.getContextPath(); %>
 
-<%-- Required meta tags --%>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<%-- Bootstrap CSS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/bootstrap-4.6.2-dist/css/bootstrap.min.css" > 
-
-<%-- Font Awesome 6 Icons --%>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<%-- Optional JavaScript --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js" ></script>
-
-<%-- J Query UI CSS 및 JS --%>
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
-<script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -54,12 +37,6 @@ function goBack(url) {
 
 </script>
 
-<head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-</head>
 
 <jsp:include page="../header.jsp" />
 
@@ -140,6 +117,18 @@ span#a_content_title {
 position: relative;
 top: -113px;
 }
+
+  @font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+	}
+
+	.container *{
+	font-family: 'SUITE-Regular';
+	}
+
 </style>
 
 <div class="container" style="margin-top: 5%;">
@@ -168,7 +157,7 @@ top: -113px;
 		<div id="AnswerWrap">
 			<div class="mb-3" style="width: 93%; margin-left: 3%; font-size: 10pt; font-weight: bold;">작성자: 관리자(admin)</div>
 			<div class="mb-3" id="answerInput" style="text-align: center;">
-				<form name="answer"><textarea name="answerText" rows="10" cols="120"></textarea><input type="hidden" name="q_no" value="${requestScope.fvo.q_no }" /></form>
+				<form name="answer"><textarea name="answerText" rows="10" cols="80"></textarea><input type="hidden" name="q_no" value="${requestScope.fvo.q_no }" /></form>
 			</div>
 			<div id="buttons" style="text-align: right;"><span class="btn btn-primary mr-3" id="submit">등록</span><span class="btn btn-light mr-5" id="reset">취소</span></div>
 		</div>

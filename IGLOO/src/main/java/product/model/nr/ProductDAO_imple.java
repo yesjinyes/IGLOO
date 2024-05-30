@@ -267,6 +267,35 @@ public class ProductDAO_imple implements ProductDAO {
 		return n;
 	}
 
+	
+	
+	// 마지막 맛 번호 가져오기
+	@Override
+	public String getLastTasteSeq() throws SQLException {
+		
+		String LastTasteSeq = "";
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select max(tasteno) "
+					   + "from tbl_taste";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			LastTasteSeq = rs.getString(1);
+			
+		} finally {
+			close();
+		}
+		
+		return LastTasteSeq;
+	}
+
 
 	
 	
