@@ -19,25 +19,26 @@
 	background-color: #9beafd;
 	height:700px;
 	padding-top: 4%;
+	opacity: 0.8;
+	background-image:  radial-gradient(#ffffff 1px, transparent 0.5px), radial-gradient(#ffffff 1px, #9beafd 0.5px);
+	background-size: 20px 20px;
+	background-position: 0 0,10px 10px;
 }
 #ourProduct {
 	background-color: #f7fde7;
-	border: solid 1px red;
 	height:700px;
 	display: flex;
 	align-items: center;
 	text-align: center;
 }
 #ourTaste {
-	border: solid 1px red;
-	height:700px;
+	height:550px;
 	display: flex;
 	align-items: center;
 	text-align: center;
 }
-#shortCut {
-	border: solid 1px red;
-	height:700px;
+#shortcut {
+	height:450px;
 }
 
 img#mainImg {
@@ -51,83 +52,68 @@ height: 320px;
 text-align: center;
 }
 
-@media (min-width: 768px) {
-
-    /* show 4 items */
-    .carousel-inner .active,
-    .carousel-inner .active + .carousel-item,
-    .carousel-inner .active + .carousel-item + .carousel-item,
-    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item  {
-        display: block;
-    }
-    
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
-        transition: none;
-    }
-    
-    .carousel-inner .carousel-item-next,
-    .carousel-inner .carousel-item-prev {
-      position: relative;
-      transform: translate3d(0, 0, 0);
-    }
-    
-    /* last visible item + 1 */
-    .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: absolute;
-        top: 0;
-        right: -25%;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-    
-    /* left or forward direction */
-    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
-    .carousel-item-next.carousel-item-left + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-    
-    /* farthest right hidden item must be abso position for animations */
-    .carousel-inner .carousel-item-next.carousel-item-left {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-    
-    .carousel-inner .carousel-item-prev.carousel-item-right {
-        position: absolute;
-        top: 0;
-        left: -25%;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-    
-    /* right or prev direction */
-    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
-    .carousel-item-prev.carousel-item-right + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(100%, 0, 0);
-        display: block;
-        visibility: visible;
-    }
-
+#forCenter > div:nth-child(2) > span:nth-child(1) > span.cupBackground {
+	background-color: #fff9e1;
 }
 
+#forCenter > div:nth-child(2) > span:nth-child(2) > span.cupBackground {
+	background-color: #ffffff;
+}
+
+#forCenter > div:nth-child(2) > span:nth-child(3) > span.cupBackground {
+	background-color: #e4d09c;
+}
+
+#forCenter > div:nth-child(2) > span:nth-child(4) > span.cupBackground {
+	background-color: #f4df87;
+}
+
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'seolleimcool-SemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/seolleimcool-SemiBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.title {
+	font-family: 'Cafe24Oneprettynight';
+	font-size: 30pt;
+}
+
+.productname {
+	font-family: 'SUITE-Regular';
+}
+
+.productdetail {
+	font-family: 'SUITE-Regular';
+	font-size: 15pt;
+}
+
+div#helpDesk > div:nth-child(2),
+div#map > div:nth-child(2) {
+    font-family: 'Cafe24Oneprettynight';
+    font-weight: bolder;
+    font-size: 40pt;
+}
+
+.tasteimg:hover {
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
 
 </style>
 
@@ -135,31 +121,54 @@ text-align: center;
 
 <script type="text/javascript">
 
-        	$('#carouselExample').on('slide.bs.carousel', function (e) {
+$(document).ready(function(){
+	$('#carouselExampleIndicators').carousel({
+    	  interval :2000
+   	});
+});
 
-        	    var $e = $(e.relatedTarget);
-        	    var idx = $e.index();
-        	    var itemsPerSlide = 4;
-        	    var totalItems = $('.carousel-item').length;
-        	    
-        	    if (idx >= totalItems-(itemsPerSlide-1)) {
-        	        var it = itemsPerSlide - (totalItems - idx);
-        	        for (var i=0; i<it; i++) {
-        	            // append slides to end
-        	            if (e.direction=="left") {
-        	                $('.carousel-item').eq(i).appendTo('.carousel-inner');
-        	            }
-        	            else {
-        	                $('.carousel-item').eq(0).appendTo('.carousel-inner');
-        	            }
-        	        }
-        	    }
-        	});
-          	
-  </script>
+function goProduct(codeno){
+	location.href = "<%=ctxPath%>/order/order_detail.ice?pcode="+codeno;
+}
+
+function goTaste(tasteno){
+	location.href = "<%=ctxPath%>/product/menuDetail.ice?tasteno="+tasteno;
+}
+
+function goStore(){
+	location.href = "<%=ctxPath%>/store/searchList.ice" ;
+}
+
+function goFaq(){
+	location.href = "<%=ctxPath%>/help/help.ice" ;
+}
+</script>
 
 <div id="main">
-<div style="width: 100%;" align="center"><img id="mainImg" src="<%=ctxPath%>/images/img_narae/mainImg.png"/></div>
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	    <div class="carousel-inner" align="center" >
+		<c:forEach var="mainImg" items="${requestScope.mainImgList}" varStatus="status">
+			<c:if test="${status.index == 0}">
+			    <div class="carousel-item active">
+			      <img style="width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block" alt="...">
+			    </div>
+			</c:if>
+			<c:if test="${status.index != 0 }">
+				<div class="carousel-item">
+			      <img style="width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_narae/${mainImg.imgfilename}" class="d-block alt="...">
+			    </div>
+			</c:if>	    
+		</c:forEach>
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
 </div>
 
 <div id="video" align="center">
@@ -170,16 +179,16 @@ text-align: center;
 
 <div id="ourProduct">
 	<div id="forCenter" style="width: 100%;">
-		<div style="width: 100%; margin: 3% 0%;"><span>Our Products</span></div>
+		<div class="title" style="width: 100%; margin: 0% 0% 3% 0%;"><span>Our Products</span></div>
 		<div>
 			<c:forEach var="product" items="${requestScope.productList}">
-				<span class="cup" style="width: 15%; margin-right: 2%;">
-					<span style="display: block; background-color: #f7c87c; width: 100%; height: 270px; border-top-left-radius: 150px; border-top-right-radius: 150px;">
+				<span class="cup" style="width: 15%; margin-right: 2%; cursor: pointer;" onclick="goProduct('${product.productcodeno}')">
+					<span class="cupBackground" style="display: block; width: 100%; height: 270px; border-top-left-radius: 150px; border-top-right-radius: 150px;">
 						<img style="width: 50%; margin-top: 18%;" src="<%=ctxPath%>/images/img_narae/cup_size/${product.productimg}"/>
 					</span>
-					<span style="display: block; padding-top: 5%; font-size: 15pt;">${product.productname}</span>
+					<span class="productname" style="display: block; padding-top: 5%; font-size: 20pt;">${product.productname}</span>
 					<hr style="border: solid 1px #e3e3e3;">
-					<span style="display: block;">${product.productdetail }</span>
+					<span class="productdetail" style="display: block;">${product.productdetail }</span>
 				</span>
 			</c:forEach>
 		</div>
@@ -188,64 +197,36 @@ text-align: center;
 
 <div id="ourTaste">
 	<div id="forCenter" style="width: 100%;">
-		<div style="width: 100%; margin: 3% 0%;"><span>Our Tastes</span></div>
+		<div class="title" style="width: 100%; margin: 3% 0% 5% 0%;"><span>Our Tastes</span></div>
 	
 	<%-- 캐러셀 --%>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		<div style="display: flex; margin-bottom: 8%;">
+		<c:forEach var="taste" items="${requestScope.tasteList}">
+		<div><img class="tasteimg" style="width: 100%; cursor: pointer;" src="<%=ctxPath%>/images/img_narae/icecream_image/${taste.tasteimg}" onclick="goTaste('${taste.tasteno}')"/></div>
+		</c:forEach>
+		</div>
 	
 	</div>
 </div>
 
 
-<div class="container-fluid">
-    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="12000">
-        <div class="carousel-inner row w-100 mx-auto flex-nowrap" role="listbox">
-            <div class="carousel-item col-md-3 active">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400/000/fff?text=1" alt="slide 1">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=2" alt="slide 2">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=3" alt="slide 3">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=4" alt="slide 4">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=5" alt="slide 5">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=6" alt="slide 6">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=7" alt="slide 7">
-            </div>
-            <div class="carousel-item col-md-3">
-                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=8" alt="slide 7">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-            <i class="fa fa-chevron-left fa-lg text-muted"></i>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
-            <i class="fa fa-chevron-right fa-lg text-muted"></i>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</div>
 
 
 
-<div id="shortCut"></div>
-
+<div id="shortcut">
+	<div style="display: flex;">
+		<div id="map" align="center" style="width: 45%; margin: 0% 3%; cursor: pointer;" onclick="goStore()">
+			<div style="position: relative; top: -10px; background-color: #ffe7e5; width: 80%; height: 300px; border-radius: 150px; margin-top: 10%;"></div>
+			<div style="position: relative; top: -340px; left: -100px;">찾아오는 길</div>
+			<img style="position: relative; top: -350px; width: 60%;" src="<%=ctxPath%>/images/img_narae/3d-casual-life-trail-map.png"/>
+		</div>
+		
+		<div id="helpDesk" style="width: 45%; padding-left: 5%; overflow: hidden; height: 450px; cursor: pointer;" onclick="goFaq()">
+			<div style="position: relative; top: -10px; background-color: #ffe7e5; width: 80%; height: 300px; border-radius: 150px; margin-top: 10%;"></div>
+			<div style="position: relative; top: -340px;">C/S CENTER</div>
+			<img style="width: 65%; position: relative; top: -430px; margin-left: 7%;" src="<%=ctxPath%>/images/img_narae/coworking-customer-service-person-answering-question.gif"/>
+		</div>
+	
+	</div>
+</div>			
 <jsp:include page="footer.jsp" />

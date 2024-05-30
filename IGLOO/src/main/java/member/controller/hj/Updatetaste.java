@@ -53,26 +53,14 @@ public class Updatetaste extends AbstractController {
 					
 					// === 맛 수정 === //
 					if(!pdao.updateTasteno(paraMap)) {
-						System.out.println("오류남");
+						// System.out.println("오류남");
 					}
 					
 				}	// end of for------------
 			}catch(Exception e) {
 				e.printStackTrace();
 			}	// end of try~catch-------------
-			/*
-			String message = "수정완료되었습니다.";
-	        String loc = request.getContextPath() + "/member/cart.ice";
-	        boolean selfclose = true;
-	        
-	        request.setAttribute("message", message);
-	        request.setAttribute("loc", loc);
-	        request.setAttribute("selfclose", selfclose);
-	        
-			super.setRedirect(false);
-	        super.setViewPage("/WEB-INF/msg.jsp");
-	        */
-			
+
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/tasteUpdateEnd.jsp");
 		}

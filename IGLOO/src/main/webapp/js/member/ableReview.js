@@ -19,10 +19,10 @@ $(document).ready(function(){
 });// end of $(document).ready(function(){})----------------------
 
 
-function goWriteReview(userid, ctxPath){
+function goWriteReview(userid, ctxPath, orderdetailno){
 
     //리뷰 수정 팝업창 띄우기
-    const url = `${ctxPath}/member/writeReview.ice?userid=${userid}`;
+    const url = `${ctxPath}/member/writeReview.ice?userid=${userid}&orderdetailno=${orderdetailno}`;
 
     // 너비 750, 높이 670 인 팝업창을 화면 가운데 위치시키기
     const width = 850;

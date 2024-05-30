@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%-- font 감자꽃 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+
+<%-- 직접 만든 CSS --%>
+<style>
+*{
+	font-family: "Gamja Flower", sans-serif;
+}
+</style>
+
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">
 

@@ -63,182 +63,6 @@ public class ReviewDAO_imple implements ReviewDAO {
 
 	
 	
-	
-	
-	
-	//회원의 주문내역 조회해오기
-//	@Override
-//	public List<ReviewVO> reviewlist(String userid) throws SQLException {
-//		
-//		List<ReviewVO> reviewlist = null;
-//		
-//		try {
-//			
-//			conn = ds.getConnection();
-//			
-//			String sql = "   select ordercode, fk_userid, orderdate, reviewstatus "
-//						+"   from tbl_order "
-//						+" where fk_userid = ? ";
-//			
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, userid);
-//			
-//			rs = pstmt.executeQuery();
-//			
-//			if(rs.next()) {
-//				ReviewVO rvo = new ReviewVO();
-//				rvo.setFk_ordercode(rs.getString(1));
-//				rvo.setFk_userid(userid);
-//				rvo.setFk_ordercode(rs.getString(1));
-//				rvo.setFk_ordercode(rs.getString(1));
-//				
-//				reviewlist.add(rvo);
-//			}
-//			
-//		} finally {
-//			close();
-//		}
-//		
-//		
-//		return reviewlist;
-//	}
-
-	
-	
-	
-	
-	//로그인한 사용자의 주문상세목록 조회해기 
-//	@Override
-//	public List<OrderdetailVO> selectOdetailByuserid(String userid) throws SQLException {
-//		
-//		List<OrderdetailVO> odList = null;
-//		
-//	      try {
-//	          conn = ds.getConnection();
-//	          
-//	          String sql = " select userid, orderdetailno, orderdate, productname, productimg, tastename, reviewstatus "
-//	          		+ "   from tbl_member I "
-//	          		+ "   join tbl_order A "
-//	          		+ "   on I.userid = A.fk_userid  "
-//	          		+ "   join tbl_orderdetail B "
-//	          		+ "   on A.ordercode = B.fk_ordercode "
-//	          		+ "   join tbl_selectlist C  "
-//	          		+ "   on B.fk_selectno = C.selectno "
-//	          		+ "   join tbl_tasteselect D "
-//	          		+ "   on C.selectno = D.fk_selectno "
-//	          		+ "   join tbl_product E "
-//	          		+ "   on C.fk_productcodeno = E.productcodeno "
-//	          		+ "   join tbl_taste F "
-//	          		+ "   on D.fk_tasteno = F.tasteno "
-//	          		+ "   where userid = ? "
-//	          		+ "   order by orderdetailno ";
-//	          
-//	          pstmt = conn.prepareStatement(sql);
-//	          pstmt.setString(1, userid);
-//	          
-//	          rs = pstmt.executeQuery();
-//	          
-//	          
-//	          int cnt = 0;
-//	          while(rs.next()) {
-//	             cnt++;
-//	             
-//	             if(cnt == 1) {
-//	            	 odList = new ArrayList<>();
-//	             }
-//	             
-//	             
-//	             OrderdetailVO odvo = new OrderdetailVO();
-//	             odvo.setOrderdetailno(rs.getInt("orderdetailno"));
-//	             
-//	             OrderVO order = new OrderVO();
-//	             order.setOrderdate(rs.getString("orderdate"));
-//	             order.setFk_userid(rs.getString("userid"));
-//	             odvo.setOrder(order);
-//	             
-//	             ProductVO product = new ProductVO();
-//	             product.setProductname(rs.getString("productname"));
-//	             product.setProductimg(rs.getString("productimg"));
-//	             odvo.setProduct(product);
-//	             
-//	             TasteVO taste =  new TasteVO();
-//	             taste.setTastename(rs.getString("tastename"));
-//	             odvo.setTaste(taste);
-//	             
-//	             
-//	             odList.add(odvo);
-//	          }// end of while(rs.next())---------------------------
-//	  
-//	          
-//	      } finally {
-//	          close();
-//	      }
-//	       
-//		
-//		return odList;
-//	}
-
-	
-	
-	//로그인한 사용자의 주문한 맛 목록 조회하기
-//	@Override
-//	public List<OrderdetailVO> selectOtasteByuserid(String userid) throws SQLException {
-//		
-//		List<OrderdetailVO> otasteList = null;
-//
-//		try {
-//	          conn = ds.getConnection();
-//	          
-//	          String sql = " select tastename "
-//	          		+ "   from tbl_member I "
-//	          		+ "   join tbl_order A "
-//	          		+ "   on I.userid = A.fk_userid  "
-//	          		+ "   join tbl_orderdetail B "
-//	          		+ "   on A.ordercode = B.fk_ordercode "
-//	          		+ "   join tbl_selectlist C  "
-//	          		+ "   on B.fk_selectno = C.selectno "
-//	          		+ "   join tbl_tasteselect D "
-//	          		+ "   on C.selectno = D.fk_selectno "
-//	          		+ "   join tbl_product E "
-//	          		+ "   on C.fk_productcodeno = E.productcodeno "
-//	          		+ "   join tbl_taste F "
-//	          		+ "   on D.fk_tasteno = F.tasteno "
-//	          		+ "   where userid = ? "
-//	          		+ "   order by orderdetailno ";
-//	          
-//	          pstmt = conn.prepareStatement(sql);
-//	          pstmt.setString(1, userid);
-//	          
-//	          rs = pstmt.executeQuery();
-//	          
-//	          while(rs.next()) {
-//	        	  
-//	        	  otasteList = new ArrayList<>();
-//	        	  
-//	        	  OrderdetailVO odvo =  new OrderdetailVO();
-//		          
-//		          TasteVO taste =  new TasteVO();
-//	              taste.setTastename(rs.getString("tastename"));
-//	              odvo.setTaste(taste);
-//	              
-//	              otasteList.add(odvo);
-//	          }
-//	          
-//	             
-//	      } finally {
-//	          close();
-//	      }     
-//	          
-//		return otasteList;
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
 	// 전체 주문내역 불러오기(선택 맛 제외)
 	@Override
 	public List<OrderdetailVO> selectOrderListAll(String userid) throws SQLException {
@@ -250,7 +74,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 			conn = ds.getConnection();
 			
 			String sql = "select A.orderdetailno, B.ordercode, A.ordercount, C.selectno, A.orderprice, A.pickupstatus, A.pickuptime, "
-					   + "       B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd hh24:mi:ss'), "
+					   + "       B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd'), "
 					   + "       D.productcodeno, D.productname, D.productimg, D.price, "
 					   + "       E.name, E.email, E.mobile, E.postcode, E.address, E.detailAddress, E.extraaddress, E.gender, E.birthday "
 					   + "from tbl_orderdetail A join tbl_order B "
@@ -359,6 +183,74 @@ public class ReviewDAO_imple implements ReviewDAO {
 		
 		return odvoList;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 리뷰쓰기를 위해 주문목록에서 해당 주문상세 불러오기
+	@Override
+	public List<OrderdetailVO> selectOrderDetailOne(String userid) throws SQLException {
+		
+		List<OrderdetailVO> odvoOne = new ArrayList<OrderdetailVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " select userid, orderdetailno, tasteimg, tastename, reviewstatus "
+					+ "   from tbl_member I "
+					+ "   join tbl_order A "
+					+ "   on I.userid = A.fk_userid "
+					+ "   join tbl_orderdetail B "
+					+ "   on A.ordercode = B.fk_ordercode "
+					+ "   join tbl_selectlist C "
+					+ "   on B.fk_selectno = C.selectno "
+					+ "   join tbl_tasteselect D "
+					+ "   on C.selectno = D.fk_selectno "
+					+ "   join tbl_product E "
+					+ "   on C.fk_productcodeno = E.productcodeno "
+					+ "   join tbl_taste F "
+					+ "   on D.fk_tasteno = F.tasteno "
+					+ "   where userid = ? and orderdetailno = ? "
+					+ "   order by orderdetailno ";
+		
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			//pstmt.setInt(2, orderdetailno);
+			
+			while(rs.next()) {
+				
+				OrderVO ovo = new OrderVO();
+				ovo.setFk_userid(rs.getString(1));
+				
+				OrderdetailVO odvo = new OrderdetailVO();
+				int orderdetailno = rs.getInt(2);
+				odvo.setOrderdetailno(orderdetailno);
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+		} finally {
+			close();
+		}	
+			
+			
+		return odvoOne;
+	}
+
+	
+	
 
 
 	

@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -185,6 +187,42 @@ public class ProductDAO_imple implements ProductDAO {
 		
 		
 		return tasteList;
+	}
+
+	
+	
+	
+	
+	// 메인페이지 메인이미지 가져오기
+	@Override
+	public List<Map<String, String>> getMainImg() throws SQLException {
+		
+		List<Map<String, String>> mainImgList = new ArrayList<Map<String,String>>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select imgno, imgfilename "
+						+ "from tbl_main_image ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, String> imgMap = new HashMap<String, String>();
+				
+				imgMap.put("imgno", rs.getString(1));
+				imgMap.put("imgfilename", rs.getString(2));
+				
+				mainImgList.add(imgMap);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return mainImgList;
 	}
 
 

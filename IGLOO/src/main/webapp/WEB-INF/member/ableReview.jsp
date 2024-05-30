@@ -43,9 +43,11 @@
 		        
 		        <%-- 해당 날짜 주문시간과 주문코드 --%>
 				<div class="dateorderlist my-3 ml-4">
-					<div>${odvo.order.orderdate}</div>
+					<div style="display:inline-block; border: solid 1px lightgray; background-color:lightgray; border-radius:5px; padding:0 5px 0 5px;">
+					${odvo.order.orderdate} 구매
+					</div>
 					
-					<br>
+					<br><br>
 					
 					<%-- 주문한 지점 이름 --%>
 					<h3>홍대부평점</h3>
@@ -69,7 +71,9 @@
 		          </div>
 		          
 		          <div class="btnwrite" style="margin-top:30px ; text-align: right;">
-		          	<a href="javascript:goWriteReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>')" id="btnWrite" class="btn btn-outline-secondary" role='button' >작성하기</a>
+		          
+		          	<a href="javascript:goWriteReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>','${odvo.orderdetailno }')" id="btnWrite" class="btn btn-outline-secondary" role='button' >작성하기</a>
+		          
 		          </div>
 		        
 		      </div>

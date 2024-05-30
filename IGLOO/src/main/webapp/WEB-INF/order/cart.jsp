@@ -10,6 +10,11 @@
 
 <jsp:include page="../header.jsp" />
 
+<%-- font 쥬아 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/cart.css" />
 <%-- 직접 만든 JS --%>
@@ -17,7 +22,9 @@
 <script type="text/javascript">
 window.closeModal = function(){
     $('.modal').modal('hide');
-    javascript:history.go(0);
+    setTimeout(function(){
+    	javascript:history.go(0);
+    },1000);
 };
 
 function changetaste() {
@@ -121,7 +128,7 @@ function changetaste() {
 							<div class="mb-5">
 								<div id="divcartno" name="divcartno" style="display:none;">${cartList.cartno}</div>
 								<span class="Productprice" style="display:none;">${cartList.product.price}</span>
-								<div>수량</div>
+								<div style="font-weight:bold; font-size:18pt;">수량</div>
 								<button type="button" class="btn btnminus">
 									<i class="fa-solid fa-minus"></i>
 								</button>
@@ -198,7 +205,7 @@ function changetaste() {
 </form>
 
 <%-- ****** 맛 수정 Modal 시작 ****** --%>
-  <div class="modal fade" id="updatetaste">
+  <div class="modal fade" id="updatetaste" data-backdrop="static">
    <div class="modal-dialog">
    		<div class="modal-content">
 	        <%-- Modal body --%>
