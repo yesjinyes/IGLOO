@@ -3,7 +3,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import product.domain.ProductVO;
 import product.domain.TasteVO;
 public interface ProductDAO {
 	
