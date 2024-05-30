@@ -19,8 +19,45 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/member/ableReview.css" />
 
-<%-- 직접 만든 JS --%>
-<script type="text/javascript" src="<%= ctxPath%>/js/member/ableReview.js"></script> <%-- 리뷰 수정 JS --%>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+    $("input:button").click(function(){
+        alert("리뷰를 작성합니다.");
+
+        goWriteReview(); 
+
+    });
+
+    
+});// end of $(document).ready(function(){})----------------------
+
+
+function goWriteReview(){
+	
+		
+    //리뷰 작성 팝업창 띄우기
+    const url = `<%= ctxPath%>/member/writeReview.ice`;
+
+    // 너비 750, 높이 670 인 팝업창을 화면 가운데 위치시키기
+    const width = 850;
+    const height = 670;
+
+    const left = Math.ceil( (window.screen.width - width)/2 ) //window.screen.width 내 화면 넓이   //Math.ceil() 정수로만듬
+    //           1400 - 650 = 750/2 => 375
+
+    const top = Math.ceil( (window.screen.height - height)/2 ) //window.screen.width 내 화면 넓이   //Math.ceil() 정수로만듬
+    //           900 - 570 = 330/2 => 165
+
+	
+		  
+    window.open(url, "ableReview",
+                `left=${left}, top=${top}, width=${width}, height=${height}`); //팝업띄우기
+
+}//end of function goEditReview(userid, ctxPath)---------------------------------
+</script>
+
 
 
 
@@ -34,23 +71,33 @@
 	<hr>
 	<br>
 	
-	
+	<form name="reviewWriteFrm">
 	<c:if test="${not empty requestScope.odvoList}">
 		<c:forEach var="odvo" items="${requestScope.odvoList }">
 		    <div class="col-md-12">
 		      <div class="review">
 		        
+		        <%-- 아이디 --%>
+				<div class="form-group">
+				  <label for="title">아이디</label>
+				  <div style="display: inline-block; margin: 1% 3% 3% 3%;">${requestScope.userid}</div>
+				  <input type="text" name="userid" value="${requestScope.userid}" style="display: none;"/>
+				</div>
 		        
 		        <%-- 해당 날짜 주문시간과 주문코드 --%>
 				<div class="dateorderlist my-3 ml-4">
+					<div style="display:inline-block; color: #a6a6a6; border-radius:5px; padding:0 5px 0 5px; margin-bottom: 3px;">
+						${odvo.order.ordercode} 
+					</div>
+					<br>
 					<div style="display:inline-block; border: solid 1px lightgray; background-color:lightgray; border-radius:5px; padding:0 5px 0 5px;">
-					${odvo.order.orderdate} 구매
+						${odvo.order.orderdate} 구매
 					</div>
 					
 					<br><br>
 					
 					<%-- 주문한 지점 이름 --%>
-					<h3>홍대부평점</h3>
+					<h3>홍대부평점</h3> <%-- 배열로 랜덤돌리기 --%>
 				</div>
 				
 				
@@ -71,9 +118,8 @@
 		          </div>
 		          
 		          <div class="btnwrite" style="margin-top:30px ; text-align: right;">
-		          
-		          	<a href="javascript:goWriteReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>','${odvo.orderdetailno }')" id="btnWrite" class="btn btn-outline-secondary" role='button' >작성하기</a>
-		          
+		          	<input id="write" type="button" class="btn btn-outline-secondary" value="작성하기" onclick="goWriteReview()"/>
+		          	<input id="send" type="hidden" />
 		          </div>
 		        
 		      </div>
@@ -82,14 +128,22 @@
     </c:if>
     
     
-
+	<%-- 주문목록이 없을경우 / 주문된 상품의 리뷰를 다 작성한 경우 는 추가해야함! --%>
     <c:if test="${empty requestScope.odvoList}">
 		<div style="text-align: center;" class="mt-5">
 			<div id="noreview">작성가능한 리뷰가 존재하지 않습니다.</div>
 		</div>
 	</c:if>
 
-    
+	<%-- 더보기 버튼 --%>
+	<div class="more col-md-12 ">
+    	 <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
+         <button type="button" class="btn btn-outline-secondary" id="btnMoreReview" value="">더보기</button>
+         <span id="totalReview"></span>   
+         <span id="countReview">0</span>
+    </div>
+
+    </form>
     
 </div>
 

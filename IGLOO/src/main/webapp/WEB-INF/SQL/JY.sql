@@ -406,7 +406,7 @@ SELECT tasteno, tastename, tasteimg , ingredients
    
    
    
-    ----주문내역에따른 
+    ----주문내역에따른 xxxxx
     select A.orderdetailno,B.fk_userid,  B.ordercode, E.tasteselectno, F.tastename , F.tasteimg 
     from tbl_orderdetail A join tbl_order B 
     on A.fk_ordercode = B.ordercode 
@@ -418,12 +418,39 @@ SELECT tasteno, tastename, tasteimg , ingredients
 	on E.fk_selectno = C.selectno 
 	join tbl_taste F 
 	on E.fk_tasteno = F.tasteno 
-    where fk_userid = 'jjoung'
    
    
    
-   ---리뷰 update
-
+   select *
+   from tbl_review
    
+   select *
+   from tbl_order
+    --productname, tastename
+    
+    
+    ---리뷰 insert
+    insert into tbl_review(reviewno, fk_userid, fk_ordercode, reviewcontent, writeday)
+					values(seq_tbl_review.nextval, leenr, 'Q-20240525-000001', '쪼만숲이랑 서치케가 제 최애 맛이에요!! :)', sysdate) ;
+                    
+    insert into tbl_review(reviewno, fk_userid, orderdetailno, reviewcontent, writeday)
+					values(seq_tbl_review.nextval, jjoung, ?, ?, ?, default) ;
    
-   
+    ---리뷰 update(status 1)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

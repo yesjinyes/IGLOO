@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -143,7 +144,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 				odvo.setProduct(pvo);
 				
 					
-				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename "
+				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename, F.tasteimg "
 					+ "from tbl_orderdetail A join tbl_order B "
 					+ "on A.fk_ordercode = B.ordercode "
 					+ "join tbl_selectlist C "
@@ -162,14 +163,19 @@ public class ReviewDAO_imple implements ReviewDAO {
 				rs2 = pstmt.executeQuery();
 				
 				List<TasteVO> tasteList = new ArrayList<TasteVO>();
+				List<TasteVO> tasteimgList = new ArrayList<TasteVO>();
 				
 				while(rs2.next()) {
 					TasteVO tvo = new TasteVO();
 					tvo.setTastename(rs2.getString(4));
 					tasteList.add(tvo);
+					
+					tvo.setTasteimg(rs2.getString(5));
+					tasteimgList.add(tvo);
 				}
 				
 				odvo.setTastenamelist(tasteList);
+				odvo.setTasteimglist(tasteimgList);
 				
 				odvoList.add(odvo);
 
@@ -192,62 +198,115 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	
 	
-	
-	// 리뷰쓰기를 위해 주문목록에서 해당 주문상세 불러오기
+	// 리뷰 insert
 	@Override
-	public List<OrderdetailVO> selectOrderDetailOne(String userid) throws SQLException {
+	public int insertReviewOne(Map<String, String> paraMap) throws SQLException {
+
+		int n = 0;
 		
-		List<OrderdetailVO> odvoOne = new ArrayList<OrderdetailVO>();
 		
 		try {
-			
 			conn = ds.getConnection();
 			
-			String sql = " select userid, orderdetailno, tasteimg, tastename, reviewstatus "
-					+ "   from tbl_member I "
-					+ "   join tbl_order A "
-					+ "   on I.userid = A.fk_userid "
-					+ "   join tbl_orderdetail B "
-					+ "   on A.ordercode = B.fk_ordercode "
-					+ "   join tbl_selectlist C "
-					+ "   on B.fk_selectno = C.selectno "
-					+ "   join tbl_tasteselect D "
-					+ "   on C.selectno = D.fk_selectno "
-					+ "   join tbl_product E "
-					+ "   on C.fk_productcodeno = E.productcodeno "
-					+ "   join tbl_taste F "
-					+ "   on D.fk_tasteno = F.tasteno "
-					+ "   where userid = ? and orderdetailno = ? "
-					+ "   order by orderdetailno ";
-		
+			conn.setAutoCommit(false); // 수동커밋으로 전환
+			
+			// 2. 주문 테이블에 채번해온 주문전표, 로그인한 사용자, 현재시각을 insert 하기(수동커밋처리) 
+			String sql = "  insert into tbl_review(reviewno, fk_userid, fk_ordercode, reviewcontent, writeday) "
+						+"					values(seq_tbl_review.nextval, ? , ?, ? , sysdate) "; 
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userid);
-			//pstmt.setInt(2, orderdetailno);
+			pstmt.setString(1, paraMap.get("userid") );
+			pstmt.setString(2, paraMap.get("ordercode") );
+			pstmt.setString(3, paraMap.get("reviewcontent") );
 			
-			while(rs.next()) {
-				
-				OrderVO ovo = new OrderVO();
-				ovo.setFk_userid(rs.getString(1));
-				
-				OrderdetailVO odvo = new OrderdetailVO();
-				int orderdetailno = rs.getInt(2);
-				odvo.setOrderdetailno(orderdetailno);
-				
-				
-				
-				
-				
-				
-			}
-			
-			
+			n = pstmt.executeUpdate();
+         	System.out.println("~~~~~ 확인용 n1 : " + n);
+		 //  ~~~~~ 확인용 n1 : 1	
+		
+         	
 		} finally {
 			close();
-		}	
-			
-			
-		return odvoOne;
+		}
+		return n;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 리뷰쓰기를 위해 주문목록에서 해당 주문상세 불러오기
+//	@Override
+//	public List<OrderdetailVO> selectOrderDetailOne(String userid) throws SQLException {
+//		
+//		List<OrderdetailVO> odvoOne = new ArrayList<OrderdetailVO>();
+//		
+//		try {
+//			
+//			conn = ds.getConnection();
+//			
+//			String sql = " select userid, orderdetailno, tasteimg, tastename, reviewstatus "
+//					+ "   from tbl_member I "
+//					+ "   join tbl_order A "
+//					+ "   on I.userid = A.fk_userid "
+//					+ "   join tbl_orderdetail B "
+//					+ "   on A.ordercode = B.fk_ordercode "
+//					+ "   join tbl_selectlist C "
+//					+ "   on B.fk_selectno = C.selectno "
+//					+ "   join tbl_tasteselect D "
+//					+ "   on C.selectno = D.fk_selectno "
+//					+ "   join tbl_product E "
+//					+ "   on C.fk_productcodeno = E.productcodeno "
+//					+ "   join tbl_taste F "
+//					+ "   on D.fk_tasteno = F.tasteno "
+//					+ "   where userid = ? and orderdetailno = ? "
+//					+ "   order by orderdetailno ";
+//		
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, userid);
+//			//pstmt.setInt(2, orderdetailno);
+//			
+//			while(rs.next()) {
+//				
+//				OrderVO ovo = new OrderVO();
+//				ovo.setFk_userid(rs.getString(1));
+//				
+//				OrderdetailVO odvo = new OrderdetailVO();
+//				int orderdetailno = rs.getInt(2);
+//				odvo.setOrderdetailno(orderdetailno);
+//				
+//				TasteVO tvo = new TasteVO();
+//				tvo.setTasteimg(rs.getString(3));
+//				tvo.setTastename(rs.getString(4));
+//				
+//				
+//				odvo.setOrder(ovo);
+//				odvo.setTaste(tvo);
+//				odvoOne.add(odvo);
+//				
+//				
+//			}
+//			
+//			
+//		} finally {
+//			close();
+//		}	
+//			
+//			
+//		return odvoOne;
+//	}
 
 	
 	
