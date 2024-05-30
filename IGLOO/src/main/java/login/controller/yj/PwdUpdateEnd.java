@@ -36,7 +36,7 @@ public class PwdUpdateEnd extends AbstractController {
       // == 비밀번호 찾기에서 비밀번호 변경으로 이동 == //
       if("POST".equalsIgnoreCase(method) && userid != null) {
          // "비밀번호변경" 버튼을 클릭했을 때
-         String new_pwd = request.getParameter("pwd"); 
+         String new_pwd = request.getParameter("pwd");
          
          // System.out.println("new_pwd:"+new_pwd);
          
