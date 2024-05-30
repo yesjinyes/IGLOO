@@ -17,13 +17,16 @@ public class OrderdetailVO {
 	private int pickupstatus;		// 픽업상태
 	private String pickuptime;		// 픽업완료시간
 	
-	private List<TasteVO> tastenamelist;	// 맛선택 나열
+	private List<TasteVO> tastenamelist;	// 맛선택 나열   
+	private List<TasteVO> tasteimglist;	// 맛선택 나열
 	//////////////////////////////////////////////////////////////
 
 
 	// === select 용 === //
 	private OrderVO order = new OrderVO();
 	private	ProductVO product = new ProductVO();
+	
+
 	private TasteVO taste = new TasteVO();
 	private SelectlistVO selectlist = new SelectlistVO();
 	
@@ -118,7 +121,13 @@ public class OrderdetailVO {
 	public void setTastenamelist(List<TasteVO> tastenamelist) {
 		this.tastenamelist = tastenamelist;
 	}
+	public List<TasteVO> getTasteimglist() {
+		return tasteimglist;
+	}
 
+	public void setTasteimglist(List<TasteVO> tasteimglist) {
+		this.tasteimglist = tasteimglist;
+	}
 	public ProductVO getProduct() {
 		return product;
 	}
