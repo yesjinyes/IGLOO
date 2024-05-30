@@ -30,7 +30,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-    $("button.btn-info").click(function(){
+    $("button.btnPwd").click(function(){
 
 		const pwd = $("input:password[name='pwd']").val();
 	    const pwd2 = $("input:password[id='pwd2']").val();
@@ -76,7 +76,7 @@ $(document).ready(function(){
 <c:if test="${not empty requestScope.userid}" > --%>
  	<form name="pwdUpdateEndFrm">
  		<p>왜 margin 이 안먹냐...</p>
-  		<div id="containerPwd" class="mt-5">
+  		<div id="containerPwd">
   			<div id="pwdUpdate">
 				<img src="<%= ctxPath%>/images/img_yejin/lock.png" style="width: 11%; padding: 0 3% 3% 0;"/>
 				<h2 style="font-weight: bold; display: inline-block;">비밀번호 변경</h2>
@@ -100,8 +100,8 @@ $(document).ready(function(){
 				<input type="hidden" name="userid" value="${requestScope.userid}"/>  
 				
 				<div class="button-box" style="margin-top: 15%;" >
-					<button type="button" class="btn btn-light btn-xs " style="width: 20%;">취소</button>
-					<button type="button" class="btn btn-info btn-xs btnclick" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
+					<button type="button" class="btn btn-light btn-xs btnPwd" style="width: 20%;">취소</button>
+					<button type="button" class="btn btn-info btn-xs btnPwd" style="width: 30%; margin-left:2%;">비밀번호 변경</button>
 					<!-- <input type="button" id="btnExit" class="btnclick btn-md" value="취소"/>
 					<input type="button" id="btnUpdate" class="btnclick btn-md" value="비밀번호 변경"/> -->
 				</div>
