@@ -45,6 +45,7 @@ public class InsertTaste extends AbstractController {
 		}
 		
 		else {
+			System.out.println("확인");
 			HttpSession session = request.getSession();
 			
 			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
@@ -60,6 +61,9 @@ public class InsertTaste extends AbstractController {
 		    	paraMap.put("userid", userid);
 		    	paraMap.put("tasteno_arr", tasteno_arr);
 		    	paraMap.put("pcode", pcode);
+		    	
+		    	System.out.println("tasteno_arr" + tasteno_arr);
+		    	System.out.println("pcode" + pcode);
 		    
 		    	int selectListResult = 0;
 		    	try {
@@ -70,7 +74,7 @@ public class InsertTaste extends AbstractController {
 		    		if(selectListResult == 1) {
 		    			//System.out.println("selectList 띄우기 성공 ^^~~");
 		    			
-		    			paraMap.put("selectno", map.get("selectno")); // selectList 에서 알아낸 selectno를 paraMap 에 넣어주기
+		    			paraMap.put("str_selectno", map.get("str_selectno")); // selectList 에서 알아낸 selectno를 paraMap 에 넣어주기
 		    			
 		    			
 		    			// == TBL_TASTESELECT 에 insert 하는 메소드 생성 == //
@@ -86,7 +90,12 @@ public class InsertTaste extends AbstractController {
 		    			
 		    			if(cartListResult == 1) { // tbl_cart 에 insert 되었는지 확인
 		    				// System.out.println("tbl_cart 에 insert 성공 ~~^^");
+		    				super.setRedirect(true);
+		    				super.setViewPage(request.getContextPath() + "/member/cart.ice");
+		    				return;
 		    			}
+		    			
+		    			
 		    			
 		    			super.setRedirect(false);
 		    			super.setViewPage("/WEB-INF/order/payment.jsp");

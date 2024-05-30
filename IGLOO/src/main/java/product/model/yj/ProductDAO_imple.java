@@ -199,7 +199,7 @@ public class ProductDAO_imple implements ProductDAO {
 			// System.out.println("selectno : " + selectno); // selectno : 12
 			
 			map.put("selectListResult", selectListResult);
-			map.put("selectno", selectno);
+			map.put("str_selectno", selectno);
 			
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -262,7 +262,7 @@ public class ProductDAO_imple implements ProductDAO {
 			pstmt = conn.prepareStatement(sqlInsert);
 			pstmt.setString(1, (String)paraMap.get("userid"));
 			//pstmt.setInt(2, ); // 수량(count)이 들어올 자리... 어떻게 넘길까
-			pstmt.setInt(2, (Integer)paraMap.get("selectno"));
+			pstmt.setInt(2, (Integer)paraMap.get("str_selectno"));
 				
 			cartListResult = pstmt.executeUpdate();
 			

@@ -159,14 +159,14 @@ $(document).ready(function() {
 	
 	
 // == 장바구니 연결하는 함수 == //
-function goCart(ctxPath) {
+function goCart() {
 
-    location.href = `${ctxPath}/member/cart.ice`;
+    //location.href = `${ctxPath}/member/cart.ice`;
 
-/*    const frm = document.orderDetailFrm;
+    const frm = document.orderDetailFrm;
     frm.method = "POST"; 
-    frm.action = "/member/cart.ice";
-    frm.submit();*/
+    frm.action = "/order/insertTaste.ice";
+    frm.submit();
 
 }// end of function goCart(ctxPath) ------------------------
 

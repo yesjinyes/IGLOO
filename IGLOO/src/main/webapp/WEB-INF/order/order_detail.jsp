@@ -72,7 +72,7 @@
 			
 				<%-- 장바구니, 구매하기 버튼 --%>
 				<div id="button" class="mx-auto" align="center">
-					<input type="button" class="btnclick btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
+					<input type="button" class="btnclick btn-lg mr-5" value="장바구니" onclick="goCart()" />
 			        <input type="button"  class="btnclick btn-lg" value="주문하기" onclick="goOrder()" />
 				</div>
 					

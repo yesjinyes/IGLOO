@@ -323,4 +323,3 @@ where fk_selectno = 13;
 
 
 
-SEQ_SELECTNO
