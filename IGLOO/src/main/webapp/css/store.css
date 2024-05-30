@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+*{
+	font-family: "Gamja Flower", sans-serif;
+}
+
+div#hongdae{
+	width: 80%;
+	/* border:solid 1px red; */
+}
+
+div#hongdae > div.representative{
+	text-align: center;
+}
+
+div#hongdae > div.representative > img{
+	border: solid 10px #ccf2ff;
+	height: 300px;
+	width: 80%;
+	border-radius: 100px;
+}
+
+div#hongdae > div#details_location{
+	text-align: center;
+	display: block;
+	border-bottom: 1px solid #ebebeb;
+    padding: 16px 0;
+}
+
+span.info_location{
+	align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 4px;
+}
+
+h2.tit_location{
+	font-size: 45px;
+	font-weight: bold;
+    line-height: 32px;
+    padding: 0 15px;
+    text-align: center;
+}
+
+div.details_contactinfo > span.screen_out{
+	font-size: 30px;
+}
+
+div.details_contactinfo{
+	padding-top: 13px;
+	text-align: center;
+}
+
+div.details_contactinfo > ul.list_infolocation > li{
+	list-style: none;
+}
+
+div.details_contactinfo > ul.list_infolocation > li > a{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
