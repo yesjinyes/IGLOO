@@ -15,12 +15,23 @@
 
 <script type="text/javascript">
 
+function goReset() {
+
+	location.href="javascript:history.back();";
+	/* 
+    $("span.error").hide();
+    $("span#idcheckResult").empty();
+    $("span#emailCheckResult").empty(); */
+} //  end of function goReset() {}----------------------------------
+
+
 $(document).ready(function() {
     $("select#stselect").change(function(){
-       
     	storeAddress();
-    
     })
+    
+    
+    
 })
 
 function goPayment(){
@@ -33,24 +44,19 @@ function goPayment(){
 }// end of function goPayment(){}------------------------------------------------------------
 
 
+
 function storeAddress(){
 	
-	
-     
-     
 	 $.ajax({
          url: "paymentStoreAddress.ice"
-         , data: {"storename":$("option#stname").val()}
+         , data: {"storename":$("select#stselect").val()}
          , type:"post"
          , async:true
          , dataType:"json"     
          , success: function(json){  
-        	 
-        	 console.log($("option#stname").val());
-        	 
-             if($("item.storename") == $("option#stname").val()){ 
-                $("div#staddress").html($("item.storeaddress"));
-             }
+        	 // console.log(JSON.stringify(json));
+             console.log(json.storeaddress);
+        	 $("div#staddress").html(json.storeaddress);
          },
          error: function(request, status, error){
              alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -84,12 +90,16 @@ function storeAddress(){
 	<div style="border: solid 5px black; background-color: #ccf2ff;  border-radius: 10px;" id="imgdiv">
 		<div id="item_detail">
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게주소</div>
-			<select style="margin-bottom: 1%" id="stselect">
+			
+			<select style="margin-bottom: 1%" id="stselect" name="sts">
 				<option>지점을 선택하세요.</option>
-				<c:forEach var="store" items="${requestScope.storename}">	
-					<option id="stname">${store}</option>
+				
+				<c:forEach var="store" items="${requestScope.storename}" varStatus="status">	
+					<option value="${status.count}" id="stname">${store}</option>
 		        </c:forEach>
+		        
 			</select>
+			
 			<div style="background-color: white; border: solid 0px gray; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
 					<div id="staddress" style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;"></div>
