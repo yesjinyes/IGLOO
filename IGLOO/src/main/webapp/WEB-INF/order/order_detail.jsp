@@ -16,9 +16,40 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order_detail.css" />
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("div#image").css({"height":"1100px", "overflow":"hidden"});
+	
+	$("div#foldBtn").click(function(){
+		
+		$("div#image").css({"height":"", "overflow":""});
+		$("div#foldBtn").hide();
+	});
+	
+});
+</script>
+
+<style type="text/css">
+#foldBtn {
+border: solid 1px gray;
+width: 80%;
+height: 60px;
+text-align: center;
+margin-left: 10%;
+background-color: white;
+box-shadow: 0px 0px 50px #e6e6e6;
+padding-top: 1.3%;
+position: relative;
+top: -80px;
+cursor: pointer;
+font-size: 15pt;
+}
+
+</style>
 
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>
-<div class="container contents justify-content-arround">
+<div class="container" style="margin-top: 7%;">
 
 	<form name="orderDetailFrm">
 	
@@ -102,11 +133,11 @@
 			</div>
 		
 		</div>
+		<div id="foldBtn"><span>상세정보 펼쳐보기 ▼</span></div>
 		
 	</form>
 	 
-	<br><br><hr style="border: solid 2px red; width: 70%;">
-	
+	<hr>
 	
 </div>
 
@@ -120,5 +151,5 @@
 
 
 <%-- footer 넣어야 함 --%>
-<%-- <jsp:include page="../footer.jsp" /> --%>
+<jsp:include page="../footer.jsp" />
 

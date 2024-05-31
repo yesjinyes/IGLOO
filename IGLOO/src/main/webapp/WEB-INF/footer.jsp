@@ -56,6 +56,7 @@ div#sns {
 }
 
 
+
 </style>
 
 <script type="text/javascript">
@@ -76,6 +77,8 @@ function goYoutube(){
 		</div>
 	</div>
 </div>
+
+<footer>
 	<div id="footer" style="height: 400px; display: flex;">
 		<div id="wrap">
 			<div id="logo" style="height: 150px;"><img style="width: 20%; margin: 5% 0% 0% 10%;" src="<%=ctxPath%>/images/igloo_logo.png"/></div>
@@ -94,3 +97,5 @@ function goYoutube(){
 				<div id="youtube" onclick="goYoutube()"><img width="48" height="48" src="https://img.icons8.com/doodle/48/youtube-play--v2.png" alt="youtube-play--v2"/></div>
 			</div>
 	</div>
+	
+</footer>

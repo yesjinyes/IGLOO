@@ -33,20 +33,18 @@ public class PaymentStoreAddress extends AbstractController {
 			// === 지점명에 따른 주소를 가져오는 메소드 === //
 			Map<String, String> stAddress = pdao.getStaddress(stname); 
 			
-			String storename  = stAddress.get("storename");
 			String storeaddress  = stAddress.get("storeaddress");
 			
-			JSONArray jsonArr = new JSONArray(); // []
+			// System.out.println(storeaddress);
+			
 			JSONObject jsonObject = new JSONObject(); // {}
 			
-			jsonObject.put("storename", storename);
 			jsonObject.put("storeaddress", storeaddress);
 			
-			jsonArr.put(jsonObject); // [{"storename":지점명}, {"storeaddress":주소}]
 			
-			String json = jsonArr.toString();
+			String json = jsonObject.toString();
 
-			System.out.println("json ==>  " + json);
+			// System.out.println("json ==>  " + json);
 			
 	        request.setAttribute("json", json);
 			
