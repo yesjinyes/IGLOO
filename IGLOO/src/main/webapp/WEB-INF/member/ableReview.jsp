@@ -58,8 +58,7 @@ function goWriteReview(){
 	
 		  
     window.open(url, "ableReview",
-                `left=${left}, top=${top}, width=${width}, height=${height}`); //팝업띄우기
-
+            "left=" + left + ", top=" + top + ", width=" + width + ", height=" + height);
 
 }//end of function goEditReview(userid, ctxPath)---------------------------------
 </script>
@@ -83,12 +82,6 @@ function goWriteReview(){
 		    <div class="col-md-12">
 		      <div class="review">
 		        
-		        <%-- 아이디 --%>
-				<div class="form-group">
-				  <label for="title">아이디</label>
-				  <div style="display: inline-block; margin: 1% 3% 3% 3%;">${requestScope.userid}</div>
-				  <input type="text" name="userid" value="${requestScope.userid}" style="display: none;"/>
-				</div>
 		        
 		        <%-- 해당 날짜 주문시간과 주문코드 --%>
 				<div class="dateorderlist my-3 ml-4">

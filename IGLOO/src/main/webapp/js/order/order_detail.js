@@ -74,6 +74,7 @@ $(document).ready(function() {
 						
 						$("div#resultList").append(html);
 						
+			console.log("수량확인 : ", result)
 
 			totalcost = Number($("span.productprice").text().replace(",", ""));
 			//console.log("totalcost 확인 :" , totalcost)
@@ -89,7 +90,7 @@ $(document).ready(function() {
 			//console.log(str_tasteno);
 			
 			$("form[name='tasteinfo'] > input[name='tasteno']").val(str_tasteno);
-			// alert(str_tasteno);
+		
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 	
 	});// end of $("select[id='taste']").change(function()----------------------
@@ -159,15 +160,13 @@ $(document).ready(function() {
 	
 	
 // == 장바구니 연결하는 함수 == //
-function goCart() {
+function goCart(ctxPath) {
 
-    //location.href = `${ctxPath}/member/cart.ice`;
+    location.href = `${ctxPath}/member/cart.ice`;
 
-	const ctxPath = $("div#ctxPath").text();
-
-    const frm = document.tasteinfo;
-    frm.action = ctxPath + "/order/insertTaste.ice";
-	frm.method = "POST"; 
+    const frm = document.orderDetailFrm;
+    frm.method = "POST"; 
+    frm.action = "/member/cart.ice";
     frm.submit();
 
 }// end of function goCart(ctxPath) ------------------------

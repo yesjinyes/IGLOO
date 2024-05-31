@@ -436,6 +436,20 @@ SELECT tasteno, tastename, tasteimg , ingredients
     insert into tbl_review(reviewno, fk_userid, orderdetailno, reviewcontent, writeday)
 					values(seq_tbl_review.nextval, jjoung, ?, ?, ?, default) ;
    
+    
+    
+    
+    --작성한 리뷰 불러오기
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     ---리뷰 update(status 1)
     
     
