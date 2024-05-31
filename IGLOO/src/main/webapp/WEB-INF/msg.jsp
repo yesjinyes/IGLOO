@@ -15,4 +15,10 @@
 		opener.history.go(0);  // 부모창 새로고침  
 		self.close();
 	}
+	
+	if(${requestScope.n == "1"}){
+		self.close();
+		opener.location.href = "pastReview.ice";
+		
+	}
 </script>    

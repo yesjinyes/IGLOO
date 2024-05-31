@@ -11,17 +11,28 @@ nocache;
 
   
   
-  
+--order테이블
 alter table tbl_order
 add reviewstatus Number(1) default '0' not null;  --작성가능한리뷰(default 0), 작성한리뷰 (1)
 
-
-
 alter table tbl_order
-add constraint CK_tbl_order_reviewstatus check( reviewstatus in(0,1) );
+add constraint CK_tbl_order_reviewstatus check( reviewstatus in(0,1) ); --체크제약
+
+
+
+--review테이블
+alter table tbl_review
+add fk_reviewstatus Number(1) default '0' not null;  --작성가능한리뷰(default 0), 작성한리뷰 (1)alter table tbl_review
+
+
+alter table  tbl_review drop column fk_reviewstatus;
+
 
 select *
-from tbl_order
+from tbl_order;
+
+select *
+from tbl_review;
 
 commit;
 
@@ -435,29 +446,14 @@ SELECT tasteno, tastename, tasteimg , ingredients
                     
     insert into tbl_review(reviewno, fk_userid, orderdetailno, reviewcontent, writeday)
 					values(seq_tbl_review.nextval, jjoung, ?, ?, ?, default) ;
-   
     
     
-    
-    --작성한 리뷰 불러오기
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ---리뷰 update(status 1)
-    
-    
-    
-    
-    
-    
-    
+    ---작성한 리뷰 불러오기
+    select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus
+    from tbl_order A
+    join tbl_review B
+    on A.ordercode = B.fk_ordercode 
+    where B.fk_userid = 'jjoung' and reviewstatus = 1;
     
     
     

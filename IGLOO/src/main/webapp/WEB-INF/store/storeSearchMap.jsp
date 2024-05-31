@@ -45,6 +45,8 @@
 <%-- 구분선 --%>
 <br><br>
 <hr>
+<br>
+
 <%-- 지점 표시 --%>
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <div id="searchDIV"></div>

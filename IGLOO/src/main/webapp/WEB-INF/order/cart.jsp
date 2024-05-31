@@ -10,11 +10,6 @@
 
 <jsp:include page="../header.jsp" />
 
-<%-- font 쥬아 --%>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/cart.css" />
 <%-- 직접 만든 JS --%>
@@ -67,7 +62,7 @@ function changetaste() {
 	  	</label>
 		<label class="ml-5 my-auto">
 			총 금액 : 
-			<span class="cartTotalprice">${requestScope.totalprice}</span>
+			<span class="cartTotalprice" style="font-weight:bold;">${requestScope.totalprice}</span>
 			원
 		</label>
 	</div>
@@ -132,7 +127,7 @@ function changetaste() {
 								<button type="button" class="btn btnminus">
 									<i class="fa-solid fa-minus"></i>
 								</button>
-								<span class="productCnt">${cartList.count}</span>
+								<span class="productCnt" style="font-weight:bold;">${cartList.count}</span>
 								<button type="button" class="btn btnplus">
 									<i class="fa-solid fa-plus"></i>
 								</button>
@@ -158,14 +153,14 @@ function changetaste() {
 	<%-- 주문금액 --%>
 	<div id="orderPrice" class="mt-5 mb-5">
 		<div class="row justify-content-end">
-			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto">주문금액</div>
-			<div class="col-4 col-sm-4 col-md-4 text-success my-auto">
-				<span id="totalPriceinfo" class="totalPrice">0</span>
+			<div class="col-4 col-sm-4 col-md-3 col-lg-2 text-right my-auto" style="font-weight: bold;">주문금액</div>
+			<div class="col-4 col-sm-4 col-md-4 text-success my-auto" style="font-weight: bold;">
+				<span id="totalPriceinfo" class="totalPrice" style="font-weight: bold;">0</span>
 				원
 			</div>
 			<div class="mb-5"></div>
 			<button type="button" class="btn btn-sm col-5 col-sm-4" onclick="javascript:continueOrder()">
-			<span class="choiceCnt">0</span>
+			<span class="choiceCnt" style="font-weight: bold;">0</span>
 			건 주문하기</button>
 			<div class="col-1"></div>
 		</div>
@@ -173,15 +168,15 @@ function changetaste() {
 	
 	<%-- 하단 바 고정 --%>
 	<nav class="footbar row justify-content-end navbar navbar-expand-sm bg-dark text-white navbar-dark fixed-bottom mx-3">
-	  	<p class="my-auto col-md-2">
+	  	<p class="my-auto col-md-2" style="font-weight:bold;">
 	  		총&nbsp;
 	  		<span style="font-weight: bold;" class="choiceCnt">0</span>
-	  		<span>건</span>
+	  		<span style="font-weight:bold;">건</span>
 	  		&nbsp;주문금액
 	  	</p>
 	  	&nbsp;&nbsp;
-	    <p class="my-auto p-0 col-md-3">
-	    	<span class="navtotalPrice">0</span>
+	    <p class="my-auto p-0 col-md-3" style="font-weight:bold;">
+	    	<span class="navtotalPrice" style="font-weight:bold;">0</span>
 			원
 	    </p>
 		<button onclick="javascript:continueOrder()" type="button" style="font-weight: bold; font-size:15pt;" class="orderbtn btn btn-sm btn-secondary ml-3 col-5 col-md-3 col-lg-3 col-xl-3">주문하기</button>
@@ -211,7 +206,7 @@ function changetaste() {
 	        <%-- Modal body --%>
 	        <div class="modal-body">
 	          	<div id="updatetaste_frame">
-					<iframe id="iframe_updatetaste" style="border: none; width: 100%; height: 300px;">  
+					<iframe id="iframe_updatetaste" style="border: solid 1px black; width: 100%; height: 400px;">  
 		            </iframe>
 	          	</div>
 	        </div>
