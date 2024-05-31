@@ -19,11 +19,6 @@
 <jsp:include page="../header.jsp" />
 <jsp:include page="../sidebar.jsp" />
 
-<%-- font 쥬아 --%>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/order_list.css" />
 <%-- 직접 만든 JS --%>
@@ -85,7 +80,7 @@
 			<c:forEach var="orderdetailList" items="${requestScope.orderdetailList}" varStatus="orderdetailStatus">
 				<%-- 해당 날짜 주문시간과 주문코드 --%>
 				<div class="dateorderlist my-3 ml-4">
-					<div>${orderdetailList.order.orderdate}</div>
+					<div style="font-weight:bold;">${orderdetailList.order.orderdate}</div>
 					<div>주문코드 : ${orderdetailList.fk_ordercode}</div>
 				</div>
 					
@@ -120,8 +115,8 @@
 					<div class="selectMenucnt justify-content-center text-center col-xl-2 col-lg-2 p-0">
 						<div class="mt-5">
 							<div class="d-inline-block"></div>
-							<div>수량</div>
-							<span>${orderdetailList.ordercount}</span>
+							<div style="font-weight:bold;">수량</div>
+							<span style="font-weight:bold;">${orderdetailList.ordercount}</span>
 						</div>
 					</div>
 					
@@ -129,7 +124,7 @@
 					<div class="selectOrderprice justify-content-center text-center col-xl-2 col-lg-2 p-0">
 						<div class="mt-5 mb-5">
 							<div class="d-inline-block"></div>
-							<div>
+							<div style="font-weight:bold;">
 								<fmt:formatNumber value="${orderdetailList.orderprice}" pattern="###,###" />
 								원
 							</div>
@@ -142,10 +137,10 @@
 							<div class="d-inline-block"></div>
 							<div>
 								<c:if test="${orderdetailList.pickupstatus == 1}">
-									주문완료
+									<span style="font-weight:bold;">주문완료</span>
 								</c:if>
 								<c:if test="${orderdetailList.pickupstatus == 2}">
-									준비중
+									<span style="font-weight:bold;">준비중</span>
 									<br>
 									<span style="font-size:10pt;">예상 준비시간
 										<br>
@@ -153,10 +148,10 @@
 									</span>
 								</c:if>
 								<c:if test="${orderdetailList.pickupstatus == 3}">
-									픽업대기
+									<span style="font-weight:bold;">픽업대기</span>
 								</c:if>
 								<c:if test="${orderdetailList.pickupstatus == 4}">
-									픽업완료
+									<span style="font-weight:bold;">픽업완료</span>
 								</c:if>
 							</div>
 						</div>

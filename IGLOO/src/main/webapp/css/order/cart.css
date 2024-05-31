@@ -51,6 +51,10 @@ div.selectOneprice{
 	font-weight: bold;
 }
 
+span.choiceproductprice{
+	font-weight: bold;
+}
+
 div.selectMenucnt > div:first-child
 ,div.selectOneprice > div{
 	height: 30%;

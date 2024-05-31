@@ -63,8 +63,8 @@ window.onload = function(){
 }	// end of window.onload = function()-------
 </script>
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>
-<form name="tasteUpdateFrm">
-	<div class="m-3 text-center" style="border:solid 1px black;">
+<form name="tasteUpdateFrm" class="my-auto">
+	<div class="mx-3 my-4 text-center">
 	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:150px;" class="my-1"/>
 	<c:forEach var="selecttvo" items="${requestScope.selectTasteList}" varStatus="status">	
 		<div class="my-2">
