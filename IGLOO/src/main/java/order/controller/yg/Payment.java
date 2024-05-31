@@ -39,13 +39,18 @@ public class Payment extends AbstractController {
 			String str_selectno = request.getParameter("str_selectno");
 			String totalprice = request.getParameter("totalprice");
 			
+//			System.out.println("확인용 str_cartno ==>  "+str_cartno);
+			
 			String[] cartno_arr = str_cartno.split("\\,");
 			
 			// === 제품명 가져오는 메소드 생성하기 === //
 			List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
+			String productname_str = String.join(",",productname);
+
 			
 			// === 지점명을 가져오는 메소드 생성하기 === //
 			List<String> storename = pdao.get_storename();
+			
 			
 			// payment.jsp 에 띄워줄 정보를 set 하는 부분
 			request.setAttribute("storename", storename);
@@ -54,6 +59,7 @@ public class Payment extends AbstractController {
 	        request.setAttribute("str_selectno", str_selectno);
 	        request.setAttribute("totalprice", totalprice);
 	        request.setAttribute("productname", productname);
+	        request.setAttribute("productname_str", productname_str);
 
 	        super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/payment.jsp");
@@ -66,6 +72,7 @@ public class Payment extends AbstractController {
 			System.out.println("확인용  ==>  " + userid);				// 확인용  ==>  jjoung
 			String totalprice = request.getParameter("totalprice");	// 확인용  ==>  8000
 			String cartno = request.getParameter("str_cartno");		// 확인용  ==>  5
+
 			
 			System.out.println("확인용  ==>  " +totalprice);					
 	        System.out.println("확인용  ==>  " +cartno);
