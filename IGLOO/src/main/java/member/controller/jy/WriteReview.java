@@ -73,7 +73,7 @@ public class WriteReview extends AbstractController {
 			paraMap.put("ordercode",ordercode);
 			paraMap.put("reviewcontent",reviewcontent);
 			paraMap.put("writeday",writeday);
-			//status
+			//status 넣는거 아님
 			
 			
 			
@@ -82,8 +82,8 @@ public class WriteReview extends AbstractController {
 			if(n == 1) {
 				
 				request.setAttribute("message", "리뷰 등록 완료!");
-				request.setAttribute("n", "1");
-				request.setAttribute("loc", request.getContextPath()+"/member/pastReview.ice"); //인서트 보내기
+				request.setAttribute("n", "1");  // 우리만의 약쏙
+				request.setAttribute("loc", request.getContextPath()+"/member/pastReview.ice"); //인서트, 업데이트 보내기
 				
 				super.setRedirect(false);
 				super.setViewPage("/WEB-INF/msg.jsp");
