@@ -124,7 +124,7 @@ function goWriteReview(){
     </c:if>
     
     
-	<%-- 주문목록이 없을경우 / 주문된 상품의 리뷰를 다 작성한 경우 는 추가해야함! --%>
+	<%-- 주문목록이 없을경우 --%>
     <c:if test="${empty requestScope.odvoList}">
 		<div style="text-align: center;" class="mt-5">
 			<div id="noreview">작성가능한 리뷰가 존재하지 않습니다.</div>

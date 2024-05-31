@@ -36,55 +36,69 @@
 	<hr>
 	<br>
 	
-    <div class="col-md-12">
-      <div class="review">
-        <div class="sumarry">
-          <div class="img-container">
-            <img src="<%= ctxPath%>/images/img_hj/cup_size/pint.png"/>
-          </div>
-          <div class="option-container">
-            <h3>파인트</h3>
-          	
-            <ul>
-              <li>초코나무숲</li>
-              <li>초코나무숲</li>
-              <li>초코나무숲</li>
-            </ul>
-          </div>
-          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#hiddenContent1" aria-expanded="false" aria-controls="hiddenContent1">▼</button>
-        </div>
-        <div class="content collapse" id="hiddenContent1">
-          <div class="bind">
-          
-          	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
-            <h3>매장명</h3>
-            
-            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
-            <div class="btns">
-              <a href="javascript:goEditReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>')" id="btnEdit" class="btn btn-outline-secondary" role='button' >수정</a>
-              <button id="btnDel" class="btn btn-outline-secondary">삭제</button>
-            </div>
-          </div>
-          
-          <%-- 첨부된 리뷰사진 --%>
-          <div class="reviewImgs">
-			<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없다면 --%>
-			<%-- 리뷰사진 있다면 포문. ${requestScope.첨부사진} --%>
-          </div>
-          
-          <%-- 별점 --%>
-          <div class="star"><%-- ${requestScope.star} --%>☆☆☆☆☆&nbsp;&nbsp; 
-            <span class="date">${requestScope.writedate}</span>
-          </div>
-          
-          <%-- 내용 --%>
-          <div class="text">
-            ${requestScope.reviewcontent}
-          </div>
-        </div>
-      </div>
-  </div>
-
+	<c:if test="${not empty requestScope.pastList}">
+		<c:forEach var="preview" items="${requestScope.pastList }">
+	
+		    <div class="col-md-12">
+		      <div class="review">
+		        <div class="sumarry">
+		          <div class="img-container">
+		            <img src="<%= ctxPath%>/images/img_hj/cup_size/pint.png"/>
+		          </div>
+		          <div class="option-container">
+		            <h3>파인트</h3>
+		          	
+		            <ul>
+		              <li>초코나무숲</li>
+		              <li>초코나무숲</li>
+		              <li>초코나무숲</li>
+		            </ul>
+		          </div>
+		          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#hiddenContent1" aria-expanded="false" aria-controls="hiddenContent1">▼</button>
+		        </div>
+		        <div class="content collapse" id="hiddenContent1">
+		          <div class="bind">
+		          
+		          	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
+		            <h3>매장명</h3>
+		            
+		            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
+		            <div class="btns">
+		              <a href="javascript:goEditReview('${(sessionScope.loginuser).userid}','<%= ctxPath%>')" id="btnEdit" class="btn btn-outline-secondary" role='button' >수정</a>
+		              <button id="btnDel" class="btn btn-outline-secondary">삭제</button>
+		            </div>
+		          </div>
+		          
+		          <%-- 첨부된 리뷰사진 --%>
+		          <div class="reviewImgs">
+					<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없다면 --%>
+					<%-- 리뷰사진 있다면 포문. ${requestScope.첨부사진} --%>
+		          </div>
+		          
+		          <%-- 별점 --%>
+		          <div class="star"><%-- ${requestScope.star} --%>☆☆☆☆☆&nbsp;&nbsp; 
+		            <span class="date">${requestScope.writedate}</span>
+		          </div>
+		          
+		          <%-- 내용 --%>
+		          <div class="text">
+		            ${requestScope.reviewcontent}
+		          </div>
+		        </div>
+		      </div>
+		  </div>
+		  
+		</c:forEach>
+	</c:if>
+	
+	
+	
+	<%-- 작성한 리뷰가 없을경우 --%>
+    <c:if test="${empty requestScope.pastList}">
+		<div style="text-align: center;" class="mt-5">
+			<div id="noreview">리뷰를 작성해주세요!</div>
+		</div>
+	</c:if>
 
    
     
