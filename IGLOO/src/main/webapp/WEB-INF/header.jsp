@@ -32,11 +32,6 @@
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
 <script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
 
-<%-- font 감자꽃 --%>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
-
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/header.css" />
 <%-- 직접 만든 JS --%>
