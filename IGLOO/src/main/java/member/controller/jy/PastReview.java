@@ -32,7 +32,7 @@ public class PastReview extends AbstractController {
 			String userid = loginuser.getUserid();
 
 			
-			//작성한 리뷰 불러오기
+			//작성한 리뷰 불러오기  //이거 아니고 리스트 안에 리스트 써야함!!!!!!!!!!!!!!!
 			List<ReviewVO> pastList = rdao.viewPreviewList(userid);
 			
 			if(pastList.size() > 0) {
