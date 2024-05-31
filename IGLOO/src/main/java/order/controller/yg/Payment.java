@@ -32,8 +32,6 @@ public class Payment extends AbstractController {
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 		
-		
-		
 		String orderplay = request.getParameter("orderplay");
 		
 	    if("POST".equalsIgnoreCase(method) && orderplay == null) { // POST 방식이라면
@@ -46,19 +44,17 @@ public class Payment extends AbstractController {
 			// === 제품명 가져오는 메소드 생성하기 === //
 			List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
 			
+			// === 지점명을 가져오는 메소드 생성하기 === //
+			List<String> storename = pdao.get_storename();
+			
 			// payment.jsp 에 띄워줄 정보를 set 하는 부분
+			request.setAttribute("storename", storename);
 			request.setAttribute("mobile", loginuser.getMobile());
 			request.setAttribute("str_cartno", str_cartno);
 	        request.setAttribute("str_selectno", str_selectno);
 	        request.setAttribute("totalprice", totalprice);
 	        request.setAttribute("productname", productname);
-	        
-	        // System.out.println(loginuser.getMobile());		// 01034392566
-	        // System.out.println(str_cartno);					// 5
-	        // System.out.println(str_selectno);				// 7
-	        // System.out.println(totalprice);					// 8000
-	        // System.out.println(productname);				// [파인트]
-	        
+
 	        super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/payment.jsp");
 	    }
@@ -92,18 +88,6 @@ public class Payment extends AbstractController {
 	        paraMap.put("selectno_arr", selectno_arr); // 맛선택에 따라 발생한 선택일련번호
 	        paraMap.put("cartno_arr", cartno_arr); // 장바구니 번호 
 	        
-	        
-/*		        
-	        // === 장바구니테이블(tbl_cart)에 delete 할 데이터 ===
-	        if(cartno != null) {
-	        	// 특정제품을 바로주문하기를 한 경우라면 str_cartno_join 의 값은 null 이 된다.
-	        	paraMap.put("cartno_arr", cartno_arr);
-	        }
-*/		        
-	        
-	        
-	        
-
 	        // *** Transaction 처리를 해주는 메소드 호출하기 *** //
 	        int isSuccess = pdao.productOrder(paraMap); // ■■■■■■■■■■ order와 ,orderdetail 테이블에 insert 해주는 메소드 ■■■■■■■■■■■
 	        

@@ -12,13 +12,37 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/product/menuDetail.css" />
 
-<%-- 직접 만든 JS --%>
-
 <jsp:include page="../header.jsp" />
+
+<script type="text/javascript">
+function goPrev(){
+	let tasteno = Number(${requestScope.tasteno}) - 1;
+	
+	if(Number(${requestScope.tasteno}) == 1){
+		tasteno = ${requestScope.lastTasteSeq};
+	}
+	
+	location.href="menuDetail.ice?tasteno="+tasteno;
+}
+
+function goNext(){
+	let tasteno = Number(${requestScope.tasteno})+1;
+	
+	if(Number(${requestScope.tasteno}) == ${requestScope.lastTasteSeq} ){
+		tasteno = 1;
+	}
+	
+	location.href="menuDetail.ice?tasteno="+tasteno;
+}
+
+</script>
+
 
 <%-- 여기까지 헤더 --%>
 <div class="container contents">
 
+	<div class="pagemove" style="top: 300px; left: 200px;" onclick="goPrev()">&lt;</div>
+	<div class="pagemove" style="top: 300px; right: 200px;" onclick="goNext()">&gt;</div>
 	<div id="imgdiv">
 		<div id="item_img">
 			<img id="shootingstar" src="<%= ctxPath%>/images/img_narae/icecream_image/${requestScope.tvo.tasteimg}" />
@@ -75,5 +99,3 @@
 <%-- 여기까지 컨텐츠 --%>
 
 <jsp:include page="../footer.jsp" />
-
-<div>2024.05.10 내용 변경</div>

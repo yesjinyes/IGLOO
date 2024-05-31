@@ -89,7 +89,7 @@ $(document).ready(function() {
 			//console.log(str_tasteno);
 			
 			$("form[name='tasteinfo'] > input[name='tasteno']").val(str_tasteno);
-		
+			// alert(str_tasteno);
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 	
 	});// end of $("select[id='taste']").change(function()----------------------
@@ -159,13 +159,15 @@ $(document).ready(function() {
 	
 	
 // == 장바구니 연결하는 함수 == //
-function goCart(ctxPath) {
+function goCart() {
 
-    location.href = `${ctxPath}/member/cart.ice`;
+    //location.href = `${ctxPath}/member/cart.ice`;
 
-    const frm = document.orderDetailFrm;
-    frm.method = "POST"; 
-    frm.action = "/member/cart.ice";
+	const ctxPath = $("div#ctxPath").text();
+
+    const frm = document.tasteinfo;
+    frm.action = ctxPath + "/order/insertTaste.ice";
+	frm.method = "POST"; 
     frm.submit();
 
 }// end of function goCart(ctxPath) ------------------------
@@ -173,84 +175,15 @@ function goCart(ctxPath) {
 
 // === 주문하기 창 이동 === //
 function goOrder(){
-
-	insertTasteselect();
-
-        // const selectnoArr = new Array();    // 선택일련번호
-        // let totalprice = $("span.productprice").text();   // 주문총액
-        // totalprice = totalprice.replaceAll(",","");
-        // // alert("확인용 totalprice : " + totalprice);
-
-        // for(let i=0; i<allcheckcnt; i++){
-        //     // alert($("div#divcartno").eq(i).text());
-        //     if($("input:checkbox[name='choicemenu']").eq(i).prop("checked")){   // 체크된 상태
-        //         cartnoArr.push($("div#divcartno").eq(i).text());
-        //         selectnoArr.push($("div#selectno").eq(i).text());
-        //         // alert("확인용 cartnoArr : " + cartnoArr);   // [5]  [5,6]
-        //         // alert("확인용 selectnoArr : " + selectnoArr);
-                
-        //     }
-        // }   // end of for-------------------
-
-        // const str_cartno = cartnoArr.join();    // 5,6
-        // const str_selectno = selectnoArr.join();
-
-        // alert("확인용 str_cartno : " +  str_cartno);
-        // alert("확인용 str_selectno : " +  str_selectno);
-
-        // const cartno = $("form[name='orderinfo'] > input[name='cartno']").val();
-
-/*
-        $.ajax({
-            url:"order/payment.ice"
-            , type:"post"
-            , data:{"str_cartno":str_cartno
-                , "selectnoArr":selectnoArr
-                , "totalprice":totalprice
-            }
-            , success:function(json){
-                
-            }
-            , error: function(request,status,error){
-                alert("code : " + request.status);
-            }
-        })
-    */  
-        // location.href = `order/payment.ice`;
-    
-/*
 	
-		const frm = document.orderDetailFrm;
-		frm.action = "/IGLOO/member/order/payment.ice";
-		frm.method = "post";
-		frm.submit();
-*/
-}   // end of function goOrder()------------
+	//location.href = `${ctxPath}/member/order/payment.ice`;
 
-
-function insertTasteselect(){
-
-	const tasteno = $("form[name='tasteinfo'] > input[name='tasteno']").val();
-	const pcode = $("form[name='tasteinfo'] > input[name='pcode']").val();
-
-	$.ajax({
-        url:"insertTaste.ice"
-        , type:"post"
-        , data:{"tasteno":tasteno,
-				"pcode":pcode}
-        , dataType:"json"
-        , success:function(json){
-            
-                
-        }
-        , error: function(request, status, error){
-            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-        }
-        
-    })  // end of $.ajax({----------------
-
-}	// end of function insertTasteselect(){-----------------------
+	const frm = document.orderDetailFrm;
+	frm.action = "payment.ice";
+	frm.method = "post";
+	frm.submit();
 	
+} // end of function goOrder()------------
 
 	
 	

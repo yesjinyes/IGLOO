@@ -11,9 +11,17 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/order/payment.css" />
 
-
+<jsp:include page="../header.jsp" />
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $("select#stselect").change(function(){
+       
+    	storeAddress();
+    
+    })
+})
 
 function goPayment(){
 	
@@ -24,10 +32,35 @@ function goPayment(){
 	
 }// end of function goPayment(){}------------------------------------------------------------
 
+
+function storeAddress(){
+	
+	
+     
+     
+	 $.ajax({
+         url: "paymentStoreAddress.ice"
+         , data: {"storename":$("option#stname").val()}
+         , type:"post"
+         , async:true
+         , dataType:"json"     
+         , success: function(json){  
+        	 
+        	 console.log($("option#stname").val());
+        	 
+             if($("item.storename") == $("option#stname").val()){ 
+                $("div#staddress").html($("item.storeaddress"));
+             }
+         },
+         error: function(request, status, error){
+             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+         }
+     }); // end of $.ajax({})-----------------------------
+	
+} // end of function storeAdrress(){}-------------------------------------------------------------------
+
 </script>
 
-
-<jsp:include page="../header.jsp" />
 
 <div class="container contents">
 	
@@ -51,9 +84,15 @@ function goPayment(){
 	<div style="border: solid 5px black; background-color: #ccf2ff;  border-radius: 10px;" id="imgdiv">
 		<div id="item_detail">
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게주소</div>
+			<select style="margin-bottom: 1%" id="stselect">
+				<option>지점을 선택하세요.</option>
+				<c:forEach var="store" items="${requestScope.storename}">	
+					<option id="stname">${store}</option>
+		        </c:forEach>
+			</select>
 			<div style="background-color: white; border: solid 0px gray; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">여기에 select로 가게 주소를 띄워야하는데</div>
+					<div id="staddress" style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;"></div>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">

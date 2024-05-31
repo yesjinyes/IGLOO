@@ -289,8 +289,10 @@ function continueOrder(){
         $("form[name='orderinfo'] > input[name='str_selectno']").val(str_selectno);
         $("form[name='orderinfo'] > input[name='totalprice']").val(totalprice);
 
+        const ctxPath = $("div#ctxPath").text();
+
         const frm = document.orderinfo;
-        frm.action = "order/payment.ice";
+        frm.action = ctxPath + "/order/payment.ice";
         frm.method = "post";
         frm.submit();
 

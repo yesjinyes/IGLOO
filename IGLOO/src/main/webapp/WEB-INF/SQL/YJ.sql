@@ -237,9 +237,7 @@ ON O.ordercode = D.fk_ordercode;
 
 
 -- 비번 3개월 확인용 데이터 수정
-update tbl_member
-set lastpwdchangedate='240125'
-where userid = 'yejin';
+update tbl_member set lastpwdchangedate='240125' where userid = 'yejin';
 commit;
 
 select * from tbl_member;
@@ -287,8 +285,40 @@ where userid = 'yejin';
 
 
 
+----------------------------------------------------------------
+
+select *
+from tbl_order;
 
 
+select * from user_tables;
+
+
+-- 선택내역 테이블 : TBL_SELECTLIST
+--  ㄴ시퀀스 : SEQ_SELECTNO
+
+-- 맛선택 테이블 : TBL_TASTESELECT
+-- ㄴ시퀀스 : SEQ_TASTESELECTNO
+
+-- 맛 테이블 : TBL_TASTE
+
+-- 장바구니 테이블 : TBL_CART
+-- ㄴ시퀀스 : SEQ_CARTNO
+
+select * from user_sequences;
+
+
+select * from tbl_cart;
+
+desc tbl_cart;
+    
+select * 
+from tbl_selectlist 
+order by selectno desc;
+
+select *
+from tbl_tasteselect
+where fk_selectno = 13;
 
 
 

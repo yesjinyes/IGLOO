@@ -27,11 +27,20 @@ $(document).ready(function(){
 function goSearch(){
 		
 	const searchInput = $("input[name='store_search']").val();
-
-	if(searchInput == ""){
+	const headsearch = $("input[name='search']").val();
+	
+	if(searchInput == "" && headsearch == ""){
 		alert("검색어를 입력하세요.");
 		return;
 	}
+	else if(headsearch != ""){
+        const frm = document.searchFrm;
+	
+        frm.action = "<%= ctxPath%>/help/search.ice";
+        frm.method = "get";
+        frm.submit();
+        return;
+    }
 	
 	$.ajax({
 		url: "searchListJSON.ice",
@@ -51,7 +60,7 @@ function goSearch(){
         		
         		$.each(json, function(index, item){
         			
-        			html += `<div class="card">
+        			html += `<div class="card mb-5">
         		   		<div class="card-header" id="heading\${index}">
     	     			<h2 class="mb-0">
     	       			<button style="text-decoration-line:none;" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse\${index}" aria-expanded="false" aria-controls="collapse\${index}">
@@ -149,7 +158,7 @@ function goSearch(){
 <div id="searchDIV"></div>
 
 <%-- 아코디언 --%>
-<div id="accordion_container" style="padding-left: 9%;">
+<div id="accordion_container" class="mb-5" style="padding-left: 9%;">
 	<div class="accordion" id="accordionExample" style="width: 90%;">
   	
   	<c:forEach var="store" items="${requestScope.storeList}" varStatus="status">

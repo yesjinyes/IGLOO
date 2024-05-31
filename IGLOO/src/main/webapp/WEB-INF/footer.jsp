@@ -16,7 +16,6 @@
 div#footer {
 	background-image: url('<%=ctxPath%>/images/img_narae/footerimg.png');
 	 background-size: cover;
-	/*background-color: #111e45;*/
 }
 
 div#sns > div {
@@ -56,6 +55,7 @@ div#sns {
 	margin-left: 20%;
 }
 
+
 </style>
 
 <script type="text/javascript">
@@ -76,9 +76,9 @@ function goYoutube(){
 		</div>
 	</div>
 </div>
-	<div id="footer" style="height: 300px; display: flex;">
+	<div id="footer" style="height: 400px; display: flex;">
 		<div id="wrap">
-			<div id="logo"><img style="width: 20%; margin: 3% 0% 0% 10%;" src="<%=ctxPath%>/images/igloo_logo.png"/></div>
+			<div id="logo" style="height: 150px;"><img style="width: 20%; margin: 5% 0% 0% 10%;" src="<%=ctxPath%>/images/igloo_logo.png"/></div>
 			<div id="info">
 			<span><span>사&nbsp;업&nbsp;자&nbsp;&nbsp;등&nbsp;록&nbsp;&nbsp;번&nbsp;호</span> │ 303-81-09535</span>
 			<span><span>정&nbsp;&nbsp;&nbsp;&nbsp;보</span> │ IGLOO(주) 대표이사 서영학</span>

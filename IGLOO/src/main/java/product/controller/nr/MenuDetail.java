@@ -26,6 +26,11 @@ public class MenuDetail extends AbstractController {
 		
 		TasteVO tvo = pdao.getMenuDetail(tasteno);
 		
+		// 전체 맛 개수 채번
+		String lastTasteSeq = pdao.getLastTasteSeq();
+		
+		request.setAttribute("lastTasteSeq", lastTasteSeq);
+		request.setAttribute("tasteno", tasteno);
 		request.setAttribute("tvo", tvo);
 		
 		super.setRedirect(false);

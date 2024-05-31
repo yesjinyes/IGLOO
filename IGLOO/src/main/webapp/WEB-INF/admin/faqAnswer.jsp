@@ -76,18 +76,29 @@
 		  font-weight: normal;
 	}
 
+  @font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+	}
+
+	.container *{
+	font-family: 'SUITE-Regular';
+	}
+
 </style>
 
 <div class="container mt-5 pt-5">
 
 	<div style="text-align: center; font-weight: bold;"><img style="width: 30%;" src="<%=ctxPath %>/images/img_narae/1대1문의목록.png"/></div>
-	<form name="member_search_frm" class="mt-5">
-		<span style="font-size: 12pt; font-weight: bold; margin-left: 80%;">페이지당 게시글수&nbsp;</span>
+	<form name="member_search_frm" class="mt-5 mb-3" style="margin-left: 90%;">
 		<select name="sizePerPage">
-			<option value="10">10개</option>
-			<option value="5">5개</option>
-			<option value="3">3개</option>      
+			<option value="10">10</option>
+			<option value="5">5</option>
+			<option value="3">3</option>      
 		</select>
+		<span style="font-size: 12pt; font-weight: bold;">개씩 보기</span>
 	</form>
 
 

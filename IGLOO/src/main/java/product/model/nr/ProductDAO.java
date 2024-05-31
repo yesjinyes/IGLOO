@@ -24,6 +24,9 @@ public interface ProductDAO {
 	// 관리자 - 맛등록
 	int registerTaste(TasteVO tvo) throws SQLException;
 
+	// 마지막 맛 가져오기
+	String getLastTasteSeq() throws SQLException;
+
 
 
 

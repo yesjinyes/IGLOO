@@ -213,7 +213,7 @@ public class ProductDAO_imple implements ProductDAO {
 	public int productOrder(Map<String, Object> paraMap) throws SQLException {
 		int isSuccess = 0;
 		
-		int n1=0, n2=0, n3=0, n4=0, n5=0;
+		int n1=0, n2=0, n3=0;
 		
 		try {
 			conn = ds.getConnection();
@@ -447,6 +447,64 @@ public class ProductDAO_imple implements ProductDAO {
 		return productcode +"-" +  today + "-" +  seq;
 	} // end of public String getOrdcode(String productcode) throws SQLException {}--------------------------------------------------------------
 
+	// === 지점명을 가져오는 메소드 생성하기 === //	
+	@Override
+	public List<String> get_storename() throws SQLException {
+		
+		List<String> storename = new ArrayList<>();
+	      
+	    try {
+	    	conn = ds.getConnection();
+	         
+	        String sql = " select storename "
+	        		   + " from tbl_store ";
+	         
+	        pstmt = conn.prepareStatement(sql);
+	         
+	        rs = pstmt.executeQuery();
+	         
+	        while(rs.next()) {
+	        	storename.add(rs.getString(1)); 
+	        }
+	         
+	    } finally {
+	        close();
+	    }
+	      
+	    return storename;   
+	}
+	
+	// === 지점명에 따른 주소를 가져오는 메소드 === //
+	@Override
+	public Map<String, String> getStaddress(String stname) throws SQLException {
+		
+		Map<String, String> stnamecheck = new HashMap<>();
+		
+		try {
+	    	conn = ds.getConnection();
+	         
+	        String sql = " select storename, storeaddress "
+	        		   + " from tbl_store "
+	        		   + " where storename = ? ";
+	        // System.out.println(stname);
+	         
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, stname);
+	        rs = pstmt.executeQuery();
+	        
+	        rs.next();
+	         
+	        stnamecheck.put("storename", rs.getString(1));
+	        stnamecheck.put("storeaddress", rs.getString(2));
+	         
+	    } finally {
+	        close();
+	    }
+	      
+	    return stnamecheck;  
+	} // end of public Map<String, String> getStaddress(String stname) throws SQLException {}------------------------
+
+	
 /////////////////////////////////////////////////////////////////////////
 	
 	// === tbl_map(위,경도) 테이블에 있는 정보를 가져오기(select) === //
@@ -489,6 +547,8 @@ public class ProductDAO_imple implements ProductDAO {
 	    return storeMapList;   
 		
 	}	// end of public List<Map<String, String>> selectStoreMap() throws SQLException---
+
+
 	
 }
 

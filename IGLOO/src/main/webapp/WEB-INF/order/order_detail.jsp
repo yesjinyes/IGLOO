@@ -17,7 +17,7 @@
 <%-- 직접 만든 JS --%>
 <script type="text/javascript" src="<%= ctxPath%>/js/order/order_detail.js"></script>
 
-
+<div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <div class="container contents justify-content-arround">
 
 	<form name="orderDetailFrm">
@@ -72,7 +72,7 @@
 			
 				<%-- 장바구니, 구매하기 버튼 --%>
 				<div id="button" class="mx-auto" align="center">
-					<input type="button" class="btnclick btn-lg mr-5" value="장바구니" onclick="goCart('<%=ctxPath%>')" />
+					<input type="button" class="btnclick btn-lg mr-5" value="장바구니" onclick="goCart()" />
 			        <input type="button"  class="btnclick btn-lg" value="주문하기" onclick="goOrder()" />
 				</div>
 					
@@ -111,10 +111,11 @@
 </div>
 
 
-<%-- 넘겨줄 정보(맛번호) --%>
+<%-- 넘겨줄 정보(장바구니) --%>
 <form name="tasteinfo">
    <input type="text" name="tasteno" value=""/>
    <input type="text" name="pcode" value="${requestScope.pvo.productcodeno}"/>
+   <input type="text" name="str_count" value=""/>
 </form>
 
 

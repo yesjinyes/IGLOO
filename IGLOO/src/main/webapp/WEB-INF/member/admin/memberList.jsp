@@ -67,6 +67,17 @@
 	  border-color: #cce6ff;
 		  font-weight: normal;
 	}
+	
+	@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container * {
+    font-family: 'SUITE-Regular';
+}
    
 </style>
 
@@ -163,15 +174,15 @@
       
       <span onclick="goSearch()"><img style="width: 27px; cursor:pointer;" src="${pageContext.request.contextPath}/images/img_hj/search.png"/></span>
       
-      <span style="font-size: 12pt; font-weight: bold; margin-left: 40%;">페이지당 회원명수&nbsp;-&nbsp;</span>
-      <select name="sizePerPage">
-         <option value="10">10명</option>
-         <option value="5">5명</option>
-         <option value="3">3명</option>      
+      <select name="sizePerPage" style="margin-left: 50%;">
+         <option value="10">10</option>
+         <option value="5">5</option>
+         <option value="3">3</option>      
       </select>
+      <span style="font-size: 12pt; font-weight: bold;">명씩 보기</span>
    </form>
    
-   <table class="table table-bordered" id="memberTbl">
+   <table class="table table-bordered" id="memberTbl" style="text-align: center;">
       <thead>
           <tr style="background-color: #ccf3ff; ">
              <th>번호</th>

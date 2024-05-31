@@ -436,7 +436,41 @@ public class MemberDAO_imple implements MemberDAO {
 		
 	}// end of public MemberVO checkPwd(Map<String, String> paraMap) throws SQLException--------------
 
-//////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
+
+	// == 비밀번호 변경(마이페이지) 시 동일여부 확인 === //
+	@Override
+	public String checkPwd_mypage(Map<String, String> paraMap) throws SQLException {
+
+		String checkpwd_mypage = "";		// 로그인이 성공되어져야만 new 데이터를 넣어줄것!
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid "
+						+ " from tbl_member "
+						+ " where pwd = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Sha256.encrypt(paraMap.get("new_pwd")) );
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				checkpwd_mypage = "fail";
+
+			}	// end of if(rs.next())---------------
+			
+		} finally {
+			close();
+		}
+		
+		return checkpwd_mypage;
+		
+	}// end of public String checkPwd_mypage(Map<String, String> paraMap) throws SQLException-------------
+
+	//////////////////////////////////////////////////////////////////////////
 	
 	
 
