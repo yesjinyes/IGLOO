@@ -57,7 +57,7 @@
           <div class="bind">
           
           	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
-            <h3>${requestScope.shopname}</h3>
+            <h3>매장명</h3>
             
             <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
             <div class="btns">

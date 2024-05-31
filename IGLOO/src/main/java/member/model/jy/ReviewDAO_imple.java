@@ -16,7 +16,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import help.domain.nr.FaqVO;
 import member.domain.MemberVO;
+import member.domain.ReviewVO;
 import order.domain.OrderVO;
 import order.domain.OrderdetailVO;
 import product.domain.ProductVO;
@@ -308,6 +310,9 @@ public class ReviewDAO_imple implements ReviewDAO {
 				odvo.setSelectlist(slvo);
 				odvo.setProduct(pvo);
 				
+				odvoOne.setOrder(ovo);
+				odvoOne.setSelectlist(slvo);
+				odvoOne.setProduct(pvo);
 					
 				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename, F.tasteimg "
 					+ "from tbl_orderdetail A join tbl_order B "
@@ -341,6 +346,8 @@ public class ReviewDAO_imple implements ReviewDAO {
 
 				odvoOne.setTastenamelist(tasteList);
 				odvoOne.setTasteimglist(tasteimgList);
+				
+				
 			}
 			
 		} catch (GeneralSecurityException | UnsupportedEncodingException e ) {
@@ -356,6 +363,56 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	
 	
+	
+	
+	//작성한 리뷰 불러오기
+	@Override
+	public List<ReviewVO> viewPreviewList(String userid) throws SQLException {
+
+		List<ReviewVO> pastList = new ArrayList<ReviewVO>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select q_no, q_title, fk_categoryno, q_content, to_char(q_writeday, 'yyyy-mm-dd HH24:mi:ss'), "
+					   + "a_content, to_char(a_writeday, 'yyyy-mm-dd HH24:mi:ss'), faq_img "
+					   + "from tbl_faq_q A left join tbl_faq_a B "
+					   + "on A.q_no = B.fk_q_no "
+					   + "where fk_userid = ? "
+					   + "order by q_writeday desc";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				FaqVO fvo = new FaqVO();
+				fvo.setQ_no(rs.getInt(1));
+				fvo.setQ_title(rs.getString(2));
+				fvo.setFk_categoryno(rs.getInt(3));
+				fvo.setQ_content(rs.getString(4));
+				fvo.setQ_writeday(rs.getString(5));
+				fvo.setA_content(rs.getString(6));
+				fvo.setA_writeday(rs.getString(7));
+				fvo.setFaq_img(rs.getString(8));
+				
+				//pastList.add(fvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return pastList;
+	}
+
+		
+
+	
+	
+	
 
 	
 	
@@ -372,68 +429,6 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	
 	
-	
-	
-	// 리뷰쓰기를 위해 주문목록에서 해당 주문상세 불러오기
-//	@Override
-//	public List<OrderdetailVO> selectOrderDetailOne(String userid) throws SQLException {
-//		
-//		List<OrderdetailVO> odvoOne = new ArrayList<OrderdetailVO>();
-//		
-//		try {
-//			
-//			conn = ds.getConnection();
-//			
-//			String sql = " select userid, orderdetailno, tasteimg, tastename, reviewstatus "
-//					+ "   from tbl_member I "
-//					+ "   join tbl_order A "
-//					+ "   on I.userid = A.fk_userid "
-//					+ "   join tbl_orderdetail B "
-//					+ "   on A.ordercode = B.fk_ordercode "
-//					+ "   join tbl_selectlist C "
-//					+ "   on B.fk_selectno = C.selectno "
-//					+ "   join tbl_tasteselect D "
-//					+ "   on C.selectno = D.fk_selectno "
-//					+ "   join tbl_product E "
-//					+ "   on C.fk_productcodeno = E.productcodeno "
-//					+ "   join tbl_taste F "
-//					+ "   on D.fk_tasteno = F.tasteno "
-//					+ "   where userid = ? and orderdetailno = ? "
-//					+ "   order by orderdetailno ";
-//		
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, userid);
-//			//pstmt.setInt(2, orderdetailno);
-//			
-//			while(rs.next()) {
-//				
-//				OrderVO ovo = new OrderVO();
-//				ovo.setFk_userid(rs.getString(1));
-//				
-//				OrderdetailVO odvo = new OrderdetailVO();
-//				int orderdetailno = rs.getInt(2);
-//				odvo.setOrderdetailno(orderdetailno);
-//				
-//				TasteVO tvo = new TasteVO();
-//				tvo.setTasteimg(rs.getString(3));
-//				tvo.setTastename(rs.getString(4));
-//				
-//				
-//				odvo.setOrder(ovo);
-//				odvo.setTaste(tvo);
-//				odvoOne.add(odvo);
-//				
-//				
-//			}
-//			
-//			
-//		} finally {
-//			close();
-//		}	
-//			
-//			
-//		return odvoOne;
-//	}
 
 	
 	
