@@ -172,7 +172,7 @@ public class MenuDAO_imple implements MenuDAO {
 	
 	
 	
-	
+	/*
 	//정보
 	@Override
 	public List<TasteVO> icejsonList(Map<String, String> paraMap)  throws Exception{
@@ -181,7 +181,7 @@ public class MenuDAO_imple implements MenuDAO {
 		
 		try {
 			 conn = ds.getConnection();
-			 
+		
 			 String sql =  "  SELECT tasteno, tastename, tasteimg, ingredients "
 			 		+ " FROM "
 			 		+ " ( ";
@@ -228,6 +228,10 @@ public class MenuDAO_imple implements MenuDAO {
 				
 				rs = pstmt.executeQuery();
 
+			 
+			 
+			 
+			 
 						
 			while(rs.next()) {
 				TasteVO tvo = new TasteVO();
@@ -249,7 +253,7 @@ public class MenuDAO_imple implements MenuDAO {
 	}
 
 	
-	
+	*/
 	
 	
 	
@@ -417,6 +421,112 @@ public class MenuDAO_imple implements MenuDAO {
 		}
 		
 		return totalPage;		
+	}
+
+	
+	
+	
+	
+	// 가나다순 메뉴
+	@Override
+	public List<TasteVO> getMenuByName(Map<String, String> paraMap) throws SQLException {
+
+		List<TasteVO> tasteList = new ArrayList<TasteVO>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select rn, tasteno, tastename, tasteimg, ingredients "
+					   + "from "
+					   + "(select rownum rn, tasteno, tastename, tasteimg, ingredients "
+					   + "from tbl_taste "
+					   + "order by 3) "
+					   + "where rn between ? and ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("start"));
+			pstmt.setString(2, paraMap.get("end"));
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				TasteVO tvo = new TasteVO();
+				
+				tvo.setTasteno(rs.getInt(2));
+				tvo.setTastename(rs.getString(3));
+				tvo.setTasteimg(rs.getString(4));
+				tvo.setIngredients(rs.getString(5));
+
+				tasteList.add(tvo);
+			}
+			
+			
+		} finally {
+			close();
+		}
+		
+		return tasteList;
+	}
+
+	
+	
+	// 인기순 메뉴
+	@Override
+	public List<TasteVO> getMenuByOrder(Map<String, String> paraMap) throws SQLException {
+
+		List<TasteVO> tasteList = new ArrayList<TasteVO>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select rn, tasteno, tastename, tasteimg, ingredients, cnt "
+					   + "from "
+					   + "( "
+					   + "select rownum rn, tasteno, tastename, tasteimg, ingredients, cnt "
+					   + "from "
+					   + "( "
+					   + "select V.tasteno, T.tastename, V.tasteimg, V.ingredients, T.cnt "
+					   + "from "
+					   + "( "
+					   + "select tastename, cnt "
+					   + "from "
+					   + "(select D.tastename, count(tastename) cnt "
+					   + "from tbl_orderdetail A join tbl_selectlist B "
+					   + "on A.fk_selectno = B.selectno "
+					   + "join tbl_tasteselect C "
+					   + "on C.fk_selectno = B.selectno "
+					   + "right join tbl_taste D "
+					   + "on C.fk_tasteno = D.tasteno "
+					   + "group by D.tastename)) T "
+					   + "left join tbl_taste V "
+					   + "on T.tastename = V.tastename "
+					   + "order by cnt desc)) "
+					   + "where rn between ? and ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("start"));
+			pstmt.setString(2, paraMap.get("end"));
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				TasteVO tvo = new TasteVO();
+				
+				tvo.setTasteno(rs.getInt(2));
+				tvo.setTastename(rs.getString(3));
+				tvo.setTasteimg(rs.getString(4));
+				tvo.setIngredients(rs.getString(5));
+
+				tasteList.add(tvo);
+			}
+			
+			
+		} finally {
+			close();
+		}
+		
+		return tasteList;
+		
 	}
 	
 	

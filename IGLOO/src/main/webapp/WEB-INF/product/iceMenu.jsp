@@ -25,7 +25,7 @@
 
 
 
-<div class="container pt-5" >
+<div class="container" style="margin-top: 7%;" >
     	<div id="header">
 	      <h2 class="page-header__title">Ice Cream</h2>
 	      <h10>한 입에 물면 달콤하게 사르르 녹는 아이스크림.<br>
@@ -35,12 +35,11 @@
     <div class="align">
 	   <form name="align_frm" >
 	      <span style="font-size: 12pt; font-weight: bold;">메뉴 정렬&nbsp;-&nbsp;</span>
-	      <select name="menuAlign">
+	      <select name="menuAlign" id="menuAlign">
 	         <option value="name">가나다순</option>
 	         <option value="order">인기순</option>      
 	      </select>
 	    
-	    <input type="text" id="menuAlign" value="${requestScope.menuAlign}">
   	</form>
   	</div>
   	
@@ -83,7 +82,7 @@
       <div>
          <p class="text-center">
               <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
-			  <button type="button"  class="btn btn-outline-info btn-lg" id="btnMore" value="">더보기...</button>
+			  <button type="button"  class="btn btn-outline-info btn-lg" id="btnMore" value="">MORE🍦</button>
 			  <span id="totalCount">${requestScope.totalCount}</span>	
 			  <span id="count">0</span>
          </p>
