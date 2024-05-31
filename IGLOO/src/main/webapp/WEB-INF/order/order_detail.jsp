@@ -54,7 +54,7 @@
 
 				<br><hr style="border: solid 1px #81BEF7;">
 			
-				<%-- 선택한 맛, 수량 --%>
+				<%-- 선택한 맛, 수량 (js에 작성)--%>
 				<div id="resultList" style="border: solid 0px black; font-size: 11pt;">
 				</div>
 			
