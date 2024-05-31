@@ -244,32 +244,34 @@ public class ProductDAO_imple implements ProductDAO {
 				
 				List<CartVO> cvoList = new ArrayList<CartVO>();
 				List<ProductVO> pvoList = new ArrayList<ProductVO>();
-				
-				for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
+				if(paraMap.get("cartno_arr") != null) {
 					
-					sql = " select count, price "
-						+ " from tbl_cart C join tbl_selectlist S"
-						+ " on c.fk_selectno = s.selectno"
-						+ " join tbl_product P on s.fk_productcodeno = productcodeno "
-						+ " where cartno = ? ";
-					
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, cartno_arr[i]);
-					
-			        rs = pstmt.executeQuery();
-			    	 
-		        	rs.next();
-		        	
-		        	CartVO cvo = new CartVO();
-		        	cvo.setCount(rs.getInt(1));
-		        	
-		        	ProductVO pvo = new ProductVO();
-		        	pvo.setPrice(rs.getInt(2));
-		        	
-		        	cvoList.add(cvo);
-		        	pvoList.add(pvo);
-		        	// System.out.println("cvoList.get(i)  ===>> "+cvoList.get(i).getCount()); // cvoList.get(i)  ===>> 3
-				} // end of for -------------------------------------------------------
+					for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
+						
+						sql = " select count, price "
+								+ " from tbl_cart C join tbl_selectlist S"
+								+ " on c.fk_selectno = s.selectno"
+								+ " join tbl_product P on s.fk_productcodeno = productcodeno "
+								+ " where cartno = ? ";
+						
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, cartno_arr[i]);
+						
+						rs = pstmt.executeQuery();
+						
+						rs.next();
+						
+						CartVO cvo = new CartVO();
+						cvo.setCount(rs.getInt(1));
+						
+						ProductVO pvo = new ProductVO();
+						pvo.setPrice(rs.getInt(2));
+						
+						cvoList.add(cvo);
+						pvoList.add(pvo);
+						// System.out.println("cvoList.get(i)  ===>> "+cvoList.get(i).getCount()); // cvoList.get(i)  ===>> 3
+					} // end of for -------------------------------------------------------
+				}
 				
 				int cnt = 0;
 				for(int i=0; i<selectno_arr.length; i++) {
@@ -279,7 +281,14 @@ public class ProductDAO_imple implements ProductDAO {
 					pstmt = conn.prepareStatement(sql);
 					
 					pstmt.setString(1, (String)paraMap.get("odrcode"));
-					pstmt.setInt(2, cvoList.get(i).getCount());
+					
+					if(paraMap.get("cartno_arr") == null) {
+					 // request.getParameter("");
+					}
+					else {
+						pstmt.setInt(2, cvoList.get(i).getCount());
+					}
+					
 					pstmt.setString(3, selectno_arr[i]);
 					pstmt.setInt(4, pvoList.get(i).getPrice());
 					
@@ -307,9 +316,6 @@ public class ProductDAO_imple implements ProductDAO {
 				String cartno_join = String.join("','", cartno_arr); // "7','6','4" 
 				
 				cartno_join = "'"+cartno_join+"'"; //  "'7','6','4'"
-				
-            //	System.out.println("~~~~ 확인용 cartno_join => " + cartno_join);
-		    	// ~~~~ 확인용 cartno_join => '7','6','4'
 				
 				sql = " delete from tbl_cart "
 			    	+ " where cartno in ("+cartno_join+") ";
@@ -483,9 +489,9 @@ public class ProductDAO_imple implements ProductDAO {
 		try {
 	    	conn = ds.getConnection();
 	         
-	        String sql = " select storename, storeaddress "
+	        String sql = " select storeaddress "
 	        		   + " from tbl_store "
-	        		   + " where storename = ? ";
+	        		   + " where storeno = ? ";
 	        // System.out.println(stname);
 	         
 	        pstmt = conn.prepareStatement(sql);
@@ -494,8 +500,7 @@ public class ProductDAO_imple implements ProductDAO {
 	        
 	        rs.next();
 	         
-	        stnamecheck.put("storename", rs.getString(1));
-	        stnamecheck.put("storeaddress", rs.getString(2));
+	        stnamecheck.put("storeaddress", rs.getString(1));
 	         
 	    } finally {
 	        close();
