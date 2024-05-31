@@ -202,7 +202,112 @@ commit;
 
 select * from user_sequences;
 
-select tasteno, tastename, tasteimg
+select *
+from tbl_cart;
+
+delete from tbl_taste where tasteno = 29;
+
+desc tbl_cart;
+
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values (SEQ_CARTNO.nextval, 'leenr', 1, 11);
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(SEQ_SELECTNO.nextval, 'P', 'leenr');
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(SEQ_TASTESELECTNO.nextval, 11, 3);
+commit;
+
+alter table tbl_order add fk_storeno number; 
+ALTER TABLE tbl_order ADD fk_storeno VARCHAR(25);
+
+delete from tbl_product where productcodeno = 'T';
+
+
+
+select rn, tasteno, tastename, tasteimg, ingredients
+from
+(select rownum rn, tasteno, tastename, tasteimg, ingredients
+from tbl_taste
+order by 2)
+where rn between 1 and 8;
+
+select *
 from tbl_taste;
 
+select *
+from tbl_orderdetail;
 
+select E.tasteno, F.tastename, cnt
+from
+(
+select A.tasteno, count(tasteno) cnt
+from tbl_taste A left join tbl_tasteselect B
+on A.tasteno = B.fk_tasteno
+left join tbl_selectlist C
+on B.fk_selectno = C.selectno
+left join tbl_orderdetail D
+on D.fk_selectno = C.selectno
+group by A.tasteno) E
+left join tbl_taste F
+on E.tasteno = F.tasteno
+order by cnt desc;
+
+SELECT tasteno, tastename, tasteimg, ingredients
+FROM
+(SELECT ROW_NUMBER() OVER(ORDER BY NVL(REVIEW_CNT, 0) DESC) AS rno, NVL(REVIEW_CNT, 0) AS REVIEW_CNT, tastename, tasteno, tasteimg, ingredients 
+ FROM
+ (
+SELECT D.TASTENO, D.TASTENAME, D.TASTEIMG, D.INGREDIENTS, R.CNT AS REVIEW_CNT 
+FROM TBL_TASTE D 
+ LEFT JOIN 
+( 
+ SELECT V.TASTENO, COUNT(*) AS CNT 
+ FROM 
+(
+SELECT A.ORDERDETAILNO, D.TASTENO
+FROM TBL_ORDERDETAIL A
+JOIN TBL_SELECTLIST B ON A.FK_SELECTNO = B.SELECTNO
+JOIN TBL_TASTESELECT C ON B.SELECTNO = C.FK_SELECTNO
+JOIN TBL_TASTE D ON C.FK_TASTENO = D.TASTENO
+) V
+GROUP BY V.TASTENO
+)R ON D.TASTENO = R.TASTENO
+) T
+);
+
+select rn, tasteno, tastename, tasteimg, ingredients, cnt
+from
+(
+select rownum rn, tasteno, tastename, tasteimg, ingredients, cnt
+from
+(
+select V.tasteno, T.tastename, V.tasteimg, V.ingredients, T.cnt
+from
+(
+select tastename, cnt
+from
+(select D.tastename, count(tastename) cnt
+from tbl_orderdetail A join tbl_selectlist B
+on A.fk_selectno = B.selectno
+join tbl_tasteselect C
+on C.fk_selectno = B.selectno
+right join tbl_taste D
+on C.fk_tasteno = D.tasteno
+group by D.tastename)) T
+left join tbl_taste V
+on T.tastename = V.tastename
+order by cnt desc))
+where rn between 9 and 16;
+
+
+select *
+from tbl_order;
+
+select rn, tasteno, tastename, tasteimg, ingredients
+from
+(select rownum rn, tasteno, tastename, tasteimg, ingredients
+from tbl_taste
+order by 3)
+where rn between 1 and 8;
+
+desc tbl_order;
+
+update tbl_order set reviewstatus = 0;
+commit;

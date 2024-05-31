@@ -21,7 +21,7 @@ public interface MenuDAO {
 
 
 	//정보
-	List<TasteVO> icejsonList(Map<String, String> paraMap) throws Exception;
+	// List<TasteVO> icejsonList(Map<String, String> paraMap) throws Exception;
 
 
 
@@ -37,6 +37,16 @@ public interface MenuDAO {
 
 
 	int getTotalPage(Map<String, String> paraMap) throws SQLException;
+
+
+
+	// 가나다순 메뉴
+	List<TasteVO> getMenuByName(Map<String, String> paraMap) throws SQLException;
+
+
+
+	// 인기순 메뉴
+	List<TasteVO> getMenuByOrder(Map<String, String> paraMap) throws SQLException;
 
 
 
