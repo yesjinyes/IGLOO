@@ -8,7 +8,6 @@ import member.model.jy.ReviewDAO_imple;
 
 public class UpdateReviewStatus extends AbstractController {
 
-	
 	private ReviewDAO rdao = null;
 	
 	public UpdateReviewStatus() {
@@ -18,8 +17,10 @@ public class UpdateReviewStatus extends AbstractController {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
 
+		
+		
+		
 	}
 
 }

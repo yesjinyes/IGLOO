@@ -30,8 +30,9 @@ public class PastReview extends AbstractController {
 		if(super.checkLogin(request)) {
 			
 			String userid = loginuser.getUserid();
+
 			
-			//작성한 리뷰 보이기
+			//작성한 리뷰 불러오기
 			List<ReviewVO> pastList = rdao.viewPreviewList(userid);
 			
 			if(pastList.size() > 0) {

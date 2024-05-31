@@ -89,7 +89,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 					   + "on C.fk_productcodeno = D.productcodeno "
 					   + "join tbl_member E "
 					   + "on B.fk_userid = E.userid "
-					   + " where userid = ? "
+					   + " where userid = ? and reviewstatus = 0 "
 					   + "order by 1 desc ";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -201,8 +201,8 @@ public class ReviewDAO_imple implements ReviewDAO {
 	@Override
 	public int insertReviewOne(Map<String, String> paraMap) throws SQLException {
 
-		int n = 0;
-		
+		int n1 = 0;
+		int n2 = 0;
 		
 		try {
 			conn = ds.getConnection();
@@ -218,15 +218,35 @@ public class ReviewDAO_imple implements ReviewDAO {
 			pstmt.setString(2, paraMap.get("ordercode") );
 			pstmt.setString(3, paraMap.get("reviewcontent") );
 			
-			n = pstmt.executeUpdate();
+			n1 = pstmt.executeUpdate();
          //	System.out.println("~~~~~ 확인용 n1 : " + n);
 		 //  ~~~~~ 확인용 n1 : 1	
+			
+			if(n1 == 1) {
+				
+				sql = "update tbl_order set reviewstatus = 1 "
+					+ "where ordercode = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, paraMap.get("ordercode"));
+				
+				n2 = pstmt.executeUpdate();
+				
+				if(n2 == 1) {
+					conn.commit();
+				}
+				
+				else {
+					conn.rollback();
+				}
+				
+			}
 		
          	
 		} finally {
 			close();
 		}
-		return n;
+		return n2;
 	}
 
 	
@@ -375,12 +395,11 @@ public class ReviewDAO_imple implements ReviewDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = "select q_no, q_title, fk_categoryno, q_content, to_char(q_writeday, 'yyyy-mm-dd HH24:mi:ss'), "
-					   + "a_content, to_char(a_writeday, 'yyyy-mm-dd HH24:mi:ss'), faq_img "
-					   + "from tbl_faq_q A left join tbl_faq_a B "
-					   + "on A.q_no = B.fk_q_no "
-					   + "where fk_userid = ? "
-					   + "order by q_writeday desc";
+			String sql = "  select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus "
+					+ "    from tbl_order A "
+					+ "    join tbl_review B "
+					+ "    on A.ordercode = B.fk_ordercode  "
+					+ "    where B.fk_userid = ? and reviewstatus = 1 ";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
@@ -388,17 +407,22 @@ public class ReviewDAO_imple implements ReviewDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				FaqVO fvo = new FaqVO();
-				fvo.setQ_no(rs.getInt(1));
-				fvo.setQ_title(rs.getString(2));
-				fvo.setFk_categoryno(rs.getInt(3));
-				fvo.setQ_content(rs.getString(4));
-				fvo.setQ_writeday(rs.getString(5));
-				fvo.setA_content(rs.getString(6));
-				fvo.setA_writeday(rs.getString(7));
-				fvo.setFaq_img(rs.getString(8));
 				
-				//pastList.add(fvo);
+				ReviewVO rvo = new ReviewVO();
+				rvo.setReviewno(rs.getInt(1));
+				rvo.setFk_ordercode(rs.getString(3));
+				rvo.setReviewcontent(rs.getString(4));
+				rvo.setWriteday(rs.getString(5));
+				
+				MemberVO mvo = new MemberVO();
+				mvo.setUserid(rs.getString(2));
+				rvo.setMvo(mvo);
+				
+				OrderVO ovo = new OrderVO();
+				ovo.setReviewstatus(rs.getInt(6));
+				rvo.setOvo(ovo);
+				
+				pastList.add(rvo);
 			}
 			
 		} finally {
