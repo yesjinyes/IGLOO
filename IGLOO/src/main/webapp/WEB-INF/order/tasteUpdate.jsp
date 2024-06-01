@@ -62,10 +62,18 @@ window.onload = function(){
    
 }	// end of window.onload = function()-------
 </script>
+
+<%-- 직접 만든 CSS --%>
+<style type="text/css">
+*{
+	font-size: 30pt;
+}
+</style>
+
 <div id="ctxPath" style="display:none;"><%= ctxPath%></div>
 <form name="tasteUpdateFrm" class="my-auto">
 	<div class="mx-3 my-4 text-center">
-	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:150px;" class="my-1"/>
+	<img src="<%= ctxPath%>/images/igloo_logo.png" style="width:350px;" class="my-1"/>
 	<c:forEach var="selecttvo" items="${requestScope.selectTasteList}" varStatus="status">	
 		<div class="my-2">
 		<span>선택한 맛${status.count} : </span>

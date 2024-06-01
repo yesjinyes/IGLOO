@@ -201,12 +201,12 @@ function changetaste() {
 
 <%-- ****** 맛 수정 Modal 시작 ****** --%>
   <div class="modal fade" id="updatetaste" data-backdrop="static">
-   <div class="modal-dialog">
+   <div class="modal-dialog modal-lg">
    		<div class="modal-content">
 	        <%-- Modal body --%>
 	        <div class="modal-body">
 	          	<div id="updatetaste_frame">
-					<iframe id="iframe_updatetaste" style="border: solid 1px black; width: 100%; height: 400px;">  
+					<iframe id="iframe_updatetaste" style="border: solid 1px black; width: 100%; height: 800px;">  
 		            </iframe>
 	          	</div>
 	        </div>

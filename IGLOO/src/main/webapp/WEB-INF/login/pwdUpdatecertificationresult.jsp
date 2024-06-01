@@ -12,6 +12,7 @@
 <style>
 *{
 	font-family: "Gamja Flower", sans-serif;
+	font-size: 30pt;
 }
 </style>
 
@@ -58,7 +59,7 @@ button#btnSubmit{
 </style>
 
 <div>
-	<div id="certificationResult">인증이 성공되었습니다.</div>
+	<div id="certificationResult" style="font-size:30pt;">인증이 성공되었습니다.</div>
 	<c:if test="${requestScope.userid != null}" >
 		<button type="button" id="btnSubmit" onclick="window.parent.changePwd()">비밀번호 변경</button>
 	</c:if>

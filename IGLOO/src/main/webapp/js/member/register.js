@@ -15,6 +15,15 @@ $(document).ready(function(){
     $("button#checkagreeContents").click(function(){
         // alert("확인용 => 이용약관 자세히보기 버튼 클릭");
         $("iframe#iframe_agree").toggle();
+
+        // 약관이 보일때 버튼의 모습을 다르게 주기
+        // console.log($("iframe#iframe_agree").is(":visible"));
+        if($("iframe#iframe_agree").is(":visible")){
+            $("button#checkagreeContents").html(`<i class="fa-solid fa-chevron-up"></i>`);
+        }
+        else{
+            $("button#checkagreeContents").html(`<i class="fa-solid fa-chevron-down"></i>`);
+        }
     })
 
 	$("span.error").hide();
@@ -296,6 +305,7 @@ $(document).ready(function(){
 
     // === jQuery UI 의 datepicker === //
     $('input#datepicker').datepicker({
+        
         dateFormat: 'yy-mm-dd'  //Input Display Format 변경
         ,showOtherMonths: true   //빈 공간에 현재월의 앞뒤월의 날짜를 표시
         ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
@@ -332,7 +342,8 @@ $(document).ready(function(){
             ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
             ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
             ,changeYear: true //콤보박스에서 년 선택 가능
-            ,changeMonth: true //콤보박스에서 월 선택 가능                
+            ,changeMonth: true //콤보박스에서 월 선택 가능   
+            ,maxDate: new Date()             
         //  ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시됨. both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시됨.  
         //  ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
         //  ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
@@ -408,7 +419,7 @@ $(document).ready(function(){
 
                 if(json.isExists){      // DB 에 존재하는 아이디인 경우     
                     $("span#idcheckResult").html(" - " + $("input#userid").val()
-                        + " 은 이미 사용중 이므로 다른 아이디를 입력하세요");
+                        + " 은 이미 사용중 이므로 다른 아이디를 입력하세요").css({"color":"red"});
                     $("input#userid").val("").focus();
                 }
                 else{                   // DB 에 존재하지 않는 아이디인 경우
@@ -441,7 +452,7 @@ $(document).ready(function(){
     $("span#emailcheck").click(function(){
 
         if($("input#email").val() == "" || $("input#email").val() == null){
-            $("span#emailcheck").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
+            $("span#emailCheckResult ").html(" - 입력한 값이 존재하지 않습니다. ").css({"color":"red"});
             return;
         }
 

@@ -51,9 +51,13 @@ button#btnSubmit{
 	border-radius: 5px;
 	padding: 5px;
 }
+
+*{
+	font-size: 30pt;
+}
 </style>
 
 <div>
-	<div id="tasteUpdateResult">수정이 완료되었습니다.</div>
+	<div id="tasteUpdateResult" style="font-size:30pt;">수정이 완료되었습니다.</div>
 	<button type="button" id="btnSubmit" onclick="window.parent.changetaste()">장바구니로 이동</button>
 </div>

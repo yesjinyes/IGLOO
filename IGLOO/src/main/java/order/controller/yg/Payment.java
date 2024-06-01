@@ -9,17 +9,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
+import member.model.nr.MemberDAO;
+import member.model.nr.MemberDAO_imple;
 import product.model.hj.ProductDAO;
 import product.model.hj.ProductDAO_imple;
 
 public class Payment extends AbstractController {
 
 	private ProductDAO pdao = null;
+	private MemberDAO mdao = null;
 	
 	public Payment() {
 		pdao = new ProductDAO_imple();
+		mdao = new MemberDAO_imple();
 	}
-		
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		/*
@@ -34,23 +38,24 @@ public class Payment extends AbstractController {
 		
 		String orderplay = request.getParameter("orderplay");
 		
-	    if("POST".equalsIgnoreCase(method) && orderplay == null) { // POST 방식이라면
-			String str_cartno = request.getParameter("str_cartno");
-			String str_selectno = request.getParameter("str_selectno");
-			String totalprice = request.getParameter("totalprice");
+	    if("POST".equalsIgnoreCase(method) && orderplay == null) { // POST 방식이라면 ==> 결제창으로 이동하는 순간 이부분이 실행됨(구매하기 누르기 전)
 			
-//			System.out.println("확인용 str_cartno ==>  "+str_cartno);
+	    	String str_cartno = request.getParameter("str_cartno");     // 장바구니 고유 번호
+			String str_selectno = request.getParameter("str_selectno"); // 맛 선택 일련번호
+			String totalprice = request.getParameter("totalprice");     // 결제 총금액
 			
 			String[] cartno_arr = str_cartno.split("\\,");
+			
+			// 문자를 보내주기 위해 정보를 넘겨주는 것
+			MemberVO mvo = mdao.selectOneMember(loginuser.getUserid());
+			request.setAttribute("mvo", mvo);
 			
 			// === 제품명 가져오는 메소드 생성하기 === //
 			List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
 			String productname_str = String.join(",",productname);
 
-			
 			// === 지점명을 가져오는 메소드 생성하기 === //
 			List<String> storename = pdao.get_storename();
-			
 			
 			// payment.jsp 에 띄워줄 정보를 set 하는 부분
 			request.setAttribute("storename", storename);
@@ -64,7 +69,7 @@ public class Payment extends AbstractController {
 	        super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/payment.jsp");
 	    }
-	    else if("POST".equalsIgnoreCase(method) && "play".equals(orderplay)) {
+	    else if("POST".equalsIgnoreCase(method) && "play".equals(orderplay)) { // 구매하기를 누르면 play 가 제출면서 이 부분이 실행됨(구매하기 누른 후)
 	    	
 			loginuser = (MemberVO)session.getAttribute("loginuser");
 			
@@ -102,13 +107,16 @@ public class Payment extends AbstractController {
 	        // **** 주문이 완료되었을시 세션에 저장되어져 있는 loginuser 정보를 갱신하고
 	        //      이어서 주문이 완료되었다라는 email 보내주기  **** //
 	        if(isSuccess==1) {
-	        	// 세션에 저장되어져 있는 loginuser 정보를 갱신... 수업때는 이거 했는데 실제로 이거 해야하는지는 생각해보자
-	        	System.out.println("■■■■■■■■■■■■■■여기서부터 이제 들어왔다면 결제하는 페이지로 이동시켜야한다■■■■■■■■■■■■■■■");
-	        	//////////////////////////////////////////////////////////////////////////////////
-	        	// === 주문이 완료되었다는 email 보내기 시작 === //
 	        	
-	        	// === 주문이 완료되었다는 email 보내기 끝 === //
-	        	//////////////////////////////////////////////////////////////////////////////////
+		    	String message = "장바구니 페이지로 이동합니다.";
+		        String loc = "http://localhost:9090/IGLOO/member/cart.ice";
+		            
+		        request.setAttribute("message", message);
+		        request.setAttribute("loc", loc);
+		           
+		        // super.setRedirect(false);   
+		        super.setViewPage("/WEB-INF/msg.jsp");
+	        	
 	        }
 	    }
 	    else {	// GET 방식이라면
