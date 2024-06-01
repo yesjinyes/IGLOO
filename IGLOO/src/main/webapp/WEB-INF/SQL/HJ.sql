@@ -1101,6 +1101,7 @@ SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pick
         FROM tbl_order
     )
     ON fk_ordercode = ordercode
+    where orderdate >= '2024-04-31'
 )
 JOIN
 (
@@ -1108,7 +1109,7 @@ JOIN
     FROM TBL_MEMBER
 )
 ON fk_userid = userid
-where fk_userid = 'jjoung' and ORDERDATE > '2000.05.20'
+where fk_userid = 'jjoung' -- and ORDERDATE >= to_date(to_char('2024.04.31','yyyy-mm-dd'),'yy-mm-dd')
 order by selectno desc ;
 
 -----------------------------------------------------------------
@@ -1181,10 +1182,12 @@ order by tasteselectno;
 update tbl_tasteselect set fk_tasteno = ? 
 where fk_selectno = ? 
 
+-- {(제품 - [선택내역) - 맛선택 - 맛] - 회원} - (주문 - 주문상세)
+-- === 기간설정 === --
 SELECT ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename 
  FROM 
  ( 
- SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename 
+    SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
     FROM 
     ( 
         SELECT selectno, fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename 
@@ -1232,9 +1235,10 @@ SELECT ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, p
     JOIN 
     ( 
         SELECT ordercode, orderdate 
-        FROM tbl_order 
+        FROM tbl_order
     ) 
-    ON fk_ordercode = ordercode 
+    ON fk_ordercode = ordercode
+    where orderdate >= to_date('2024.04.30','yyyy-MM-dd')
 ) 
 JOIN 
 ( 
@@ -1242,5 +1246,20 @@ JOIN
     FROM TBL_MEMBER 
 ) 
 ON fk_userid = userid 
-where fk_userid = 'jjoung' and ORDERDATE > ?
+where fk_userid = 'jjoung'
 order by selectno desc ;
+
+
+
+select add_months(sysdate, -1), sysdate
+from dual;
+
+select add_months(sysdate, -3), sysdate
+from dual;
+
+select add_months(sysdate, -6), sysdate
+from dual;
+
+select add_months(sysdate, -12), sysdate
+from dual;
+

@@ -172,52 +172,42 @@ function func_currentDate(){
 
 // === 날짜 찾는 함수 === //
 function func_lastmonthDate(choice){
-   const now = new Date();
-     
-     let year = now.getFullYear();
-     let month = now.getMonth() + 1 - choice;
-     let date = now.getDate();
-  
-    if(month < 0){
-        year -= 1;
-        month += 12;
-    }
-     if(month < 10){      // 10 이하인 경우
-       month = "0" + month;
-    }
-     if(date < 10){      // 10 이하인 경우
-       date = "0" + date;
-    }
-  
-    const newDate = new Date(year, month - 1, date);
 
-     const day = newDate.getDay();   // 현재요일명(0~6) ( 일 ~ 토 )
-  
-     let dayName;
-     switch(day){
-       case 0:
-           dayName = "일"
-           break;
-        case 1:   
-           dayName = "월"
-           break;
-        case 2:   
-           dayName = "화"
-           break;
-        case 3:   
-           dayName = "수"
-           break;
-        case 4:   
-           dayName = "목"
-           break;
-        case 5:   
-           dayName = "금"
-           break;
-        case 6:   
-           dayName = "토"
-           break;
-    }   // end of switch(day)-------------
-  return `${year}.${month}.${date} (${dayName})`;
+    let date = dayjs();
+    date = date.subtract(choice,"M").format("YYYY-MM-DD (ddd)");
+
+    const dateParts = date.split(" ");
+
+    let koreanDay;
+    switch (dateParts[1]) {
+    case "(Sun)":
+        koreanDay = "(일)";
+        break;
+    case "(Mon)":
+        koreanDay = "(월)";
+        break;
+    case "(Tue)":
+        koreanDay = "(화)";
+        break;
+    case "(Wed)":
+        koreanDay = "(수)";
+        break;
+    case "(Thu)":
+        koreanDay = "(목)";
+        break;
+    case "(Fri)":
+        koreanDay = "(금)";
+        break;
+    case "(Sat)":
+        koreanDay = "(토)";
+        break;
+    }
+
+    dateParts[1] = koreanDay;
+    const koreanDateString = dateParts.join(" ");
+
+    return koreanDateString;
+
 }   // end of func_lastmonthDate(choice){--------
 
 ///////////////////////////////////////////////////////////
@@ -254,7 +244,7 @@ function submitfrm(){
                             <div class="Oneorderdate">
                             
                                     <div class="dateorderlist my-3 ml-4">
-                                        <div>${item.orderdate}</div>
+                                        <div style="font-weight:bold;">${item.orderdate}</div>
                                         <div>주문코드 : ${item.ordercode}</div>
                                     </div>
                                     <div id="orderlist" class="row justify-content-center mb-3">
@@ -276,14 +266,14 @@ function submitfrm(){
                                         <div class="selectMenucnt justify-content-center text-center col-xl-2 col-lg-2 p-0">
                                             <div class="mt-5">
                                                 <div class="d-inline-block"></div>
-                                                <div>수량</div>
-                                                <span>${item.ordercount}</span>
+                                                <div style="font-weight:bold;">수량</div>
+                                                <span style="font-weight:bold;">${item.ordercount}</span>
                                             </div>
                                         </div>
                                         <div class="selectOrderprice justify-content-center text-center col-xl-2 col-lg-2 p-0">
                                             <div class="mt-5 mb-5">
                                                 <div class="d-inline-block"></div>
-                                                <div>
+                                                <div style="font-weight:bold;">
                                                     ${Number(item.orderprice).toLocaleString()}     <!-- #,###-->
                                                     원
                                                 </div>
@@ -294,16 +284,21 @@ function submitfrm(){
                                                 <div class="d-inline-block"></div>
                                                 <div>`;
                                                 if(item.pickupstatus == "1"){
-                                                    v_html += `주문완료`;
+                                                    v_html += `<span style="font-weight:bold;">주문완료</span>`;
                                                 }
                                                 else if(item.pickupstatus == "2"){
-                                                    v_html += `준비중`;
+                                                    v_html += `<span style="font-weight:bold;">준비중</span>
+                                                                <br>
+                                                                <span style="font-size:10pt;">예상 준비시간
+                                                                    <br>
+                                                                    ${item.pickuptime}
+                                                                </span>`;
                                                 }
                                                 else if(item.pickupstatus == "3"){
-                                                    v_html += `픽업대기`;
+                                                    v_html += `<span style="font-weight:bold;">픽업대기</span>`;
                                                 }
                                                 else if(item.pickupstatus == "4"){
-                                                    v_html += `픽업완료`;
+                                                    v_html += `<span style="font-weight:bold;">픽업완료</span>`;
                                                 }
                                                 v_html +=  `
                                                 </div>
