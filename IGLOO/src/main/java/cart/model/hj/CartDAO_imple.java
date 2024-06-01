@@ -1168,6 +1168,7 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "        FROM tbl_order "
 	         		+ "    ) "
 	         		+ "    ON fk_ordercode = ordercode "
+	         		+ "		where orderdate >=  ? "
 	         		+ " ) "
 	         		+ " JOIN "
 	         		+ " ( "
@@ -1175,13 +1176,14 @@ public class CartDAO_imple implements CartDAO {
 	         		+ "    FROM TBL_MEMBER "
 	         		+ " ) "
 	         		+ " ON fk_userid = userid "
-	         		+ " where fk_userid = ? and ORDERDATE > ?"
+	         		+ " where fk_userid = ? "
 	         		+ " order by selectno desc ";
 	         
 	         pstmt = conn.prepareStatement(sql); 
 	         
-	         pstmt.setString(1, paraMap.get("userid"));
-	         pstmt.setString(2, paraMap.get("orderListPeriod"));
+	         pstmt.setString(1, paraMap.get("orderListPeriod"));
+	         pstmt.setString(2, paraMap.get("userid"));
+	         
 	         
 	         rs = pstmt.executeQuery();
 	         

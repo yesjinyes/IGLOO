@@ -87,8 +87,15 @@ public class OrderlistJSON extends AbstractController {
 	            paraMap.put("userid", userid);
 	            paraMap.put("orderListPeriod", orderListPeriod);	// 기간 설정 값
 	            
+	            // System.out.println("확인용 userid : " + userid);
+	            // System.out.println("확인용 orderListPeriod : " + orderListPeriod);
+	            // 확인용 userid : jjoung
+	            // 확인용 orderListPeriod : 2024/04/31
+	            
 	            // === 주문조회 기간 설정 검색 === //
 	            orderdetailList = cdao.searchorderListPeriod(paraMap);
+	            // System.out.println(orderdetailList);
+	            
 	         }
          }catch(SQLException e) {
         	 
