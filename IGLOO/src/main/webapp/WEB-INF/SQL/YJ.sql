@@ -310,6 +310,8 @@ select * from user_sequences;
 
 select * from tbl_cart order by cartno desc;
 
+select *
+from tbl_cart;
 desc tbl_cart;
     
 select * 

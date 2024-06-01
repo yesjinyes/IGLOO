@@ -26,13 +26,16 @@ public class Order_detail extends AbstractController {
 		if("GET".equalsIgnoreCase(method)) {
 			String pcode = request.getParameter("pcode");
 			
-			ProductVO pvo = pdao.getproductEach(pcode);
-			
-			request.setAttribute("pvo", pvo);
-			
 			// == 맛 목록을 조회해오기 == //
 			List<TasteVO> tasteList = pdao.selectTasteList();
+			
+			// == 제품 한 개만 불러오기 == //
+			ProductVO pvo = pdao.getproductEach(pcode);
+
 			request.setAttribute("tasteList", tasteList);
+			request.setAttribute("pvo", pvo);
+			
+			super.goBackURL(request);
 		}
 		
 		if("POST".equalsIgnoreCase(method)) {
@@ -51,13 +54,7 @@ public class Order_detail extends AbstractController {
 				super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/msg.jsp");
 			}
-		/*
-			else {
-				
-				
-				
-			}
-			*/
+		
 		}// end of if("POST".equalsIgnoreCase(method))-----------------
 		
 		
