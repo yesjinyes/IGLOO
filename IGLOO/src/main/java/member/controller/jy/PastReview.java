@@ -1,6 +1,8 @@
 package member.controller.jy;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import member.domain.MemberVO;
 import member.domain.ReviewVO;
 import member.model.jy.ReviewDAO;
 import member.model.jy.ReviewDAO_imple;
+import order.domain.OrderdetailVO;
 
 public class PastReview extends AbstractController {
 
@@ -27,13 +30,23 @@ public class PastReview extends AbstractController {
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
+		
+		
 		if(super.checkLogin(request)) {
 			
-			String userid = loginuser.getUserid();
+			String userid = loginuser.getUserid(); // 사용자ID
+			String ordercode = request.getParameter("ordercode");
+			String reviewno = request.getParameter("reviewno");
+			
+			Map<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("userid", userid);
+			paraMap.put("ordercode",ordercode);
+			paraMap.put("reviewno",reviewno);
 
 			
-			//작성한 리뷰 불러오기  //이거 아니고 리스트 안에 리스트 써야함!!!!!!!!!!!!!!!
-			List<ReviewVO> pastList = rdao.viewPreviewList(userid);
+			//작성한 리뷰 불러오기  //리스트 안에 리스트 써야함!!!!!!!!!!!!!!!
+			List<ReviewVO> pastList = rdao.selectPreviewListAll(paraMap);
+			//System.out.println(pastList.get(0).getTastenamelist().get(0).getTastename()); 
 			
 			if(pastList.size() > 0) {
 				request.setAttribute("pastList", pastList);

@@ -22,7 +22,8 @@ public interface ReviewDAO {
 
 	
 	//작성한 리뷰 불러오기
-	List<ReviewVO> viewPreviewList(String userid) throws SQLException;
+	List<ReviewVO> selectPreviewListAll(Map<String, String> paraMap) throws SQLException;
+
 
 
 	

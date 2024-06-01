@@ -158,7 +158,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 					+ "on E.fk_selectno = C.selectno "
 					+ "join tbl_taste F "
 					+ "on E.fk_tasteno = F.tasteno "
-					+ "where orderdetailno = ?";
+					+ "where orderdetailno = ? ";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, orderdetailno);
@@ -387,7 +387,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	//작성한 리뷰 불러오기
 	@Override
-	public List<ReviewVO> viewPreviewList(String userid) throws SQLException {
+	public List<ReviewVO> selectPreviewListAll(Map<String, String> paraMap) throws SQLException {
 
 		List<ReviewVO> pastList = new ArrayList<ReviewVO>();
 		
@@ -395,14 +395,20 @@ public class ReviewDAO_imple implements ReviewDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = "  select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus "
-					+ "    from tbl_order A "
-					+ "    join tbl_review B "
-					+ "    on A.ordercode = B.fk_ordercode  "
-					+ "    where B.fk_userid = ? and reviewstatus = 1 ";
+			String sql = "  select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg, E.orderdetailno "
+					+ "    from tbl_order A join tbl_review B "
+					+ "    on A.ordercode = B.fk_ordercode "
+					+ "    join tbl_orderdetail E "
+					+ "    on A.ordercode = E.fk_ordercode "
+					+ "    join tbl_selectlist C "
+					+ "    on E.fk_selectno = C.selectno "
+					+ "    join tbl_product D "
+					+ "    on C.fk_productcodeno = D.productcodeno "
+					+ "    where B.fk_userid = ? and A.reviewstatus = 1 and B.reviewno = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userid);
+			pstmt.setString(1, paraMap.get("userid"));
+			pstmt.setInt(2, Integer.parseInt(paraMap.get("reviewno")) );
 			
 			rs = pstmt.executeQuery();
 			
@@ -422,15 +428,62 @@ public class ReviewDAO_imple implements ReviewDAO {
 				ovo.setReviewstatus(rs.getInt(6));
 				rvo.setOvo(ovo);
 				
-				pastList.add(rvo);
+				ProductVO pvo = new ProductVO();
+				pvo.setProductname(rs.getString(7));
+				pvo.setProductimg(rs.getString(8));
+				rvo.setPvo(pvo);
+				
+				OrderdetailVO odvo = new OrderdetailVO();
+				odvo.setOrderdetailno(rs.getInt(9));
+				rvo.setOdvo(odvo);
+				
+				
+				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename, F.tasteimg "
+						+ "from tbl_orderdetail A join tbl_order B "
+						+ "on A.fk_ordercode = B.ordercode "
+						+ "join tbl_selectlist C "
+						+ "on A.fk_selectno = C.selectno "
+						+ "join tbl_product D "
+						+ "on C.fk_productcodeno = D.productcodeno "
+						+ "join tbl_tasteselect E "
+						+ "on E.fk_selectno = C.selectno "
+						+ "join tbl_taste F "
+						+ "on E.fk_tasteno = F.tasteno "
+						+ "where orderdetailno = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, odvo.getOrderdetailno());
+					
+					rs2 = pstmt.executeQuery();
+					
+					List<TasteVO> tasteList = new ArrayList<TasteVO>();
+					List<TasteVO> tasteimgList = new ArrayList<TasteVO>();
+					
+					while(rs2.next()) {
+						TasteVO tvo = new TasteVO();
+						tvo.setTastename(rs2.getString(4));
+						tasteList.add(tvo);
+						
+						tvo.setTasteimg(rs2.getString(5));
+						tasteimgList.add(tvo);
+					}
+					
+					odvo.setTastenamelist(tasteList);
+					odvo.setTasteimglist(tasteimgList);
+					rvo.setOdvo(odvo);
+					
+					pastList.add(rvo);
+
+				}
+				
+			} finally {
+				close();
 			}
-			
-		} finally {
-			close();
-		}
 		
 		return pastList;
 	}
+
+	
 
 		
 

@@ -167,7 +167,7 @@ function storeAddress(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게 사장님께</div>
 			<div style="background-color: white; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<textarea placeholder="사장님께 전할 말" id="message" rows="5" cols="60"></textarea>
+					<textarea style="width:100%;" placeholder="사장님께 전할 말" id="message" maxlength="50" rows="5" cols="60"></textarea>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -200,21 +200,15 @@ function storeAddress(){
 	</div>
 	
 	<%-- ==== 휴대폰 SMS(문자) 보내기 ==== --%>
-		<div type="hidden" class="border my-5 text-center" style="width: 60%; margin: 0 auto;">
-		     <div style="display: flex;">
-		        <div style="border: solid 0px red; width: 81%; margin: auto;">
-		           <textarea rows="4" id="smsContent" style="width: 100%;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 ${requestScope.totalprice} 원이 결제되었습니다.</textarea>
-		        </div>
-		     </div>
-		</div>
+	<textarea rows="4" id="smsContent" style="width: 100%; display:none">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 ${requestScope.totalprice} 원이 결제되었습니다.</textarea>
 	
 <form name="order">
-	<input type="text" name="orderplay" value="play" />
-	<input type="text" name="str_cartno" value="${requestScope.str_cartno}" />
-	<input type="text" name="str_selectno" value="${requestScope.str_selectno}"/>
-	<input type="text" name="totalprice" value="${requestScope.totalprice}"/>
-	<input type="text" name="storenameigloo" id="storenameInput" value=""/>
-	<input type="text" name="require" id="requiremessage" value=""/>
+	<input type="hidden" name="orderplay" value="play" />
+	<input type="hidden" name="str_cartno" value="${requestScope.str_cartno}" />
+	<input type="hidden" name="str_selectno" value="${requestScope.str_selectno}"/>
+	<input type="hidden" name="totalprice" value="${requestScope.totalprice}"/>
+	<input type="hidden" name="storenameigloo" id="storenameInput" value=""/>
+	<input type="hidden" name="require" id="requiremessage" value=""/>
 </form>
 	
 <script>

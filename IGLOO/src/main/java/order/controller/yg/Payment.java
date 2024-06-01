@@ -44,6 +44,7 @@ public class Payment extends AbstractController {
 			String str_selectno = request.getParameter("str_selectno"); // 맛 선택 일련번호
 			String totalprice = request.getParameter("totalprice");     // 결제 총금액
 			
+			
 			String[] cartno_arr = str_cartno.split("\\,");
 			
 			// 문자를 보내주기 위해 정보를 넘겨주는 것
@@ -71,23 +72,27 @@ public class Payment extends AbstractController {
 	    }
 	    else if("POST".equalsIgnoreCase(method) && "play".equals(orderplay)) { // 구매하기를 누르면 play 가 제출면서 이 부분이 실행됨(구매하기 누른 후)
 	    	
+	    	String storenameOne = request.getParameter("storenameigloo");  // 선택한 지점명
+	    	String require = request.getParameter("require");              // 사장님께 전할말씀
+	    	
+	    	// System.out.println(storenameOne + " " + require);
+	    	
 			loginuser = (MemberVO)session.getAttribute("loginuser");
 			
 			String userid = loginuser.getUserid();
-			System.out.println("확인용  ==>  " + userid);				// 확인용  ==>  jjoung
+			// System.out.println("확인용  ==>  " + userid);				// 확인용  ==>  jjoung
+			
 			String totalprice = request.getParameter("totalprice");	// 확인용  ==>  8000
 			String cartno = request.getParameter("str_cartno");		// 확인용  ==>  5
-
-			
-			System.out.println("확인용  ==>  " +totalprice);					
-	        System.out.println("확인용  ==>  " +cartno);
+			// System.out.println("확인용  ==>  " +totalprice);					
+	        // System.out.println("확인용  ==>  " +cartno);
 	        
 			String productcode = pdao.getProductcodeno(userid);
-			System.out.println("확인용  ==>  " +productcode);			// 확인용  ==>  P
+			// System.out.println("확인용  ==>  " +productcode);			// 확인용  ==>  P
 			
 			String ordercode = pdao.getOrdcode(productcode);
 			String odrcode =  ordercode;
-			System.out.println("확인용  ==>  " + odrcode);	    		// 확인용  ==>  P-20240530-14
+			// System.out.println("확인용  ==>  " + odrcode);	    		// 확인용  ==>  P-20240530-14
 			String str_selectno = request.getParameter("str_selectno");
 			String[] selectno_arr = str_selectno.split(",");
 			String[] cartno_arr = cartno.split(",");
@@ -99,6 +104,8 @@ public class Payment extends AbstractController {
 	        paraMap.put("totalprice", totalprice);  // 주문총액
 	        paraMap.put("selectno_arr", selectno_arr); // 맛선택에 따라 발생한 선택일련번호
 	        paraMap.put("cartno_arr", cartno_arr); // 장바구니 번호 
+	        paraMap.put("storenameOne", storenameOne);  // 선택한 지점명
+	        paraMap.put("require", require);  // 사장님께 전할말씀 
 	        
 	        // *** Transaction 처리를 해주는 메소드 호출하기 *** //
 	        int isSuccess = pdao.productOrder(paraMap); // ■■■■■■■■■■ order와 ,orderdetail 테이블에 insert 해주는 메소드 ■■■■■■■■■■■

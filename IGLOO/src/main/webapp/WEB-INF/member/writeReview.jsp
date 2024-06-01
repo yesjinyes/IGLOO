@@ -34,7 +34,7 @@
 $(document).ready(function(){
 	
 	$('#carouselExampleIndicators').carousel({
-  	  interval :1000
+  	  interval :800
  	});
 	
 	

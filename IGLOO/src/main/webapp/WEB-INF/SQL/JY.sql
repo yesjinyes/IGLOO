@@ -448,15 +448,24 @@ SELECT tasteno, tastename, tasteimg , ingredients
 					values(seq_tbl_review.nextval, jjoung, ?, ?, ?, default) ;
     
     
-    ---작성한 리뷰 불러오기
-    select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus
-    from tbl_order A
-    join tbl_review B
+    ---작성한 리뷰 불러오기(아이디,상태,리뷰no/아이디,리뷰no,작성일자,내용,컵이름,컵이미지)
+    select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg
+    from tbl_order A join tbl_review B
     on A.ordercode = B.fk_ordercode 
-    where B.fk_userid = 'jjoung' and reviewstatus = 1;
+    join tbl_orderdetail E
+    on A.ordercode = E.fk_ordercode 
+    join tbl_selectlist C
+    on E.fk_selectno = C.selectno
+    join tbl_product D
+    on C.fk_productcodeno = D.productcodeno
+    where B.fk_userid = 'jjoung' and reviewstatus = 1 and reviewno = 32;
     
-    
-    
+    --(/맛이름)
+    select B.reviewno, 
+    from tbl_order A join tbl_review B
+    on A.ordercode = B.fk_ordercode 
+    join 
+    where reviewno = 32;
     
     
     

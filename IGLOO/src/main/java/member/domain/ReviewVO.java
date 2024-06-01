@@ -2,6 +2,9 @@ package member.domain;
 
 import order.domain.OrderVO;
 import order.domain.OrderdetailVO;
+import product.domain.ProductVO;
+import product.domain.SelectlistVO;
+import product.domain.TasteVO;
 
 public class ReviewVO {
 	
@@ -13,7 +16,7 @@ public class ReviewVO {
 	private String writeday;
 	
 	
-	// ---- select용 -----
+	// === select 용 === //
 	public MemberVO getMvo() {
 		return mvo;
 	}
@@ -43,6 +46,16 @@ public class ReviewVO {
 	private OrderdetailVO odvo;
 	
 	//매장vo??
+	
+	
+	
+	public ProductVO getPvo() {
+		return pvo;
+	}
+	public void setPvo(ProductVO pvo) {
+		this.pvo = pvo;
+	}
+	private ProductVO pvo;
 	
 	
 	
