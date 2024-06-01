@@ -1,9 +1,7 @@
 package order.controller.yg;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import common.controller.AbstractController;
@@ -28,14 +26,10 @@ public class PaymentStoreAddress extends AbstractController {
 		
 			String stname = request.getParameter("storename");
 			
-			// System.out.println(request.getParameter("storename"));
-			
 			// === 지점명에 따른 주소를 가져오는 메소드 === //
 			Map<String, String> stAddress = pdao.getStaddress(stname); 
 			
 			String storeaddress  = stAddress.get("storeaddress");
-			
-			// System.out.println(storeaddress);
 			
 			JSONObject jsonObject = new JSONObject(); // {}
 			
@@ -44,8 +38,6 @@ public class PaymentStoreAddress extends AbstractController {
 			
 			String json = jsonObject.toString();
 
-			// System.out.println("json ==>  " + json);
-			
 	        request.setAttribute("json", json);
 			
 		//	super.setRedirect(false); 

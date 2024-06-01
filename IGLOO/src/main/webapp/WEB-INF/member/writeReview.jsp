@@ -34,7 +34,7 @@
 $(document).ready(function(){
 	
 	$('#carouselExampleIndicators').carousel({
-  	  interval :10
+  	  interval :1000
  	});
 	
 	
@@ -84,6 +84,8 @@ function goRegister() {
 		frm.method = "post";
 		frm.submit();
 		
+		// opener.location.href="<%=ctxPath%>/member/pastReview.ice";
+		// window.close(); // 현재 창을 닫음
     }
 	
 	
@@ -114,12 +116,12 @@ function goRegister() {
 				<c:forEach var="Img" items="${requestScope.odvoOne.tasteimglist}" varStatus="status">
 					<c:if test="${status.index == 0}">
 					    <div class="carousel-item active">
-					      <img style="border: solid 10px #ccf2ff; width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_taste/${Img.tasteimg}" class="d-block" alt="...">
+					      <img style=" width: 200px; height: 200px; border-radius: 100px;" src="<%=ctxPath%>/images/img_taste/${Img.tasteimg}" class="d-block" alt="...">
 					    </div>
 					</c:if>
 					<c:if test="${status.index != 0 }">
 						<div class="carousel-item">
-					      <img style="border: solid 10px #ccf2ff; width: 60%; height: 650px; border-radius: 100px;" src="<%=ctxPath%>/images/img_taste/${Img.tasteimg}" class="d-block" alt="...">
+					      <img style=" width: 200px; height: 200px; border-radius: 100px;" src="<%=ctxPath%>/images/img_taste/${Img.tasteimg}" class="d-block" alt="...">
 					    </div>
 					</c:if>	    
 				</c:forEach>
@@ -192,14 +194,17 @@ function goRegister() {
 		    </div>
 			    
 		  </div>
+		  
+		  
+		  	<input type="text" name="odrcode" value="${requestScope.ordercode}"/>
+			<input type="text" style="display: none;"/>
 	</form>	  
 		  
 		  
 		  
-<form name="ordercodeFrm">
-	<input type="text" name="odrcode" />
-	<input type="text" style="display: none;"/>
-</form>
+
+
+
 		
 	
 </div>

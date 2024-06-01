@@ -27,6 +27,30 @@
 
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/help/help.css" />
+<style type="text/css">
+	.page-link {
+	  color: #000 !important; 
+	  background-color: #fff;
+	  border: 1px solid #cce6ff !important; 
+	  font-weight: normal;
+	}
+	
+	.page-item.active .page-link {
+	 z-index: 1;
+	 color: #555 !important;
+	 font-weight:bold;
+	 background-color: #cce6ff !important;
+	 border-color: #cce6ff !important;
+	 	  font-weight: normal;
+	}
+	
+	.page-link:focus, .page-link:hover {
+	  color: #000 !important;
+	  background-color: #fafafa !important; 
+	  border-color: #cce6ff !important;
+		  font-weight: normal;
+	}
+</style>
 
 <%-- 직접 만든 JS --%>
 <script type="text/javascript">

@@ -1,28 +1,15 @@
 
 $(document).ready(function(){
 
+	$('#menuAlign').val("name");
 
-  
-  
-    let menuAlign = $('#menuAlign').val();
-    
-    if (menuAlign && menuAlign !== "") {
-        $("select[name='menuAlign']").val(menuAlign);
-    }
-   
-    
-    
-    
-    
-    $("select[name='menuAlign']").bind("change", function(){
-        const frm = document.align_frm;
-        //frm.action = "displayIceJSON.ice";  // form 태그에 action 이 명기되지 않았으면 현보이는 URL 경로로 submit 되어진다. 
-    //	frm.method = "get";  // form 태그에 method 를 명기하지 않으면 "get" 방식이다. 
-        frm.submit();
-    });
-    
-    
-    
+	$('select#menuAlign').change(function(){
+		$("div#displayAlign").empty();
+		$("span#count").html(0);
+		displayAlign("1");
+	});
+	
+
     // **** 특정 아이스크림을 클릭하면 그것의 상세정보를 보여주도록 한다. **** //
     $("div.hoverBorder").click( e => {
             alert($(e.target).html());
@@ -41,15 +28,6 @@ $(document).ready(function(){
 
 
 
-
-
-
-
-
-
-
-
-
     //$("span#totalCount").hide();
     //$("span#count").hide();
    
@@ -65,7 +43,7 @@ $(document).ready(function(){
            $("div#displayAlign").empty();
            $("span#end").empty();
            displayAlign("1");
-           $(this).text("더보기...");
+           $(this).text("MORE🍦");
        }
        else {
             displayAlign($(this).val());
@@ -89,74 +67,30 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
                             // start가 17 이라면  17~24  까지 상품 8개를 보여준다.
                             // start가 25 이라면  25~32  까지 상품 8개를 보여준다.
                             // start가 33 이라면  33~36  까지 상품 4개를 보여준다.(마지막 상품)
-                            
+	
+	const menuAlign = $("select[name='menuAlign']").val();
+
    $.ajax({
        url:"displayIceJSON.ice",
-   //  type:"get",
        data:{
-            
+             "menuAlign": menuAlign,
              "start":start,  //  "1"  "9"  "17"  "25"  "33"
              "len":lenAlign},  //   8    8     8     8     8 
        dataType:"json",
        success:function(json){
            	
-           console.log(json);
-           console.log(typeof json); // object
-           
-           const str_json = JSON.stringify(json); // JSON 객체를 string 타입으로 변경시켜주는 것. 
-           console.log(typeof str_json); // string
-           console.log(str_json); 
-           
-           const obj_json = JSON.parse(str_json); // JSON 모양으로 되어진 string 을 실제 JSON 객체로 변경시켜주는 것. 
-           console.log(typeof obj_json); // object
-           console.log(obj_json);
-       
-       
-       /*
-          json ==> [{"pnum":36,"discountPercent":17,"pname":"노트북30","pcompany":"삼성전자","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"59.jpg","pqty":100,"pimage2":"60.jpg","pcontent":"30번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":35,"discountPercent":17,"pname":"노트북29","pcompany":"레노버","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"57.jpg","pqty":100,"pimage2":"58.jpg","pcontent":"29번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":34,"discountPercent":17,"pname":"노트북28","pcompany":"아수스","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"55.jpg","pqty":100,"pimage2":"56.jpg","pcontent":"28번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":33,"discountPercent":17,"pname":"노트북27","pcompany":"애플","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"53.jpg","pqty":100,"pimage2":"54.jpg","pcontent":"27번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":32,"discountPercent":17,"pname":"노트북26","pcompany":"MSI","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"51.jpg","pqty":100,"pimage2":"52.jpg","pcontent":"26번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":31,"discountPercent":17,"pname":"노트북25","pcompany":"삼성전자","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"49.jpg","pqty":100,"pimage2":"50.jpg","pcontent":"25번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":30,"discountPercent":17,"pname":"노트북24","pcompany":"한성컴퓨터","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"47.jpg","pqty":100,"pimage2":"48.jpg","pcontent":"24번 노트북","price":1200000,"sname":"HIT"}
-                   ,{"pnum":29,"discountPercent":17,"pname":"노트북23","pcompany":"DELL","cname":"전자제품","saleprice":1000000,"point":60,"pinputdate":"2024-05-14","pimage1":"45.jpg","pqty":100,"pimage2":"46.jpg","pcontent":"23번 노트북","price":1200000,"sname":"HIT"}
-                   ]
-
-          또는
-          
-          json ==> []
-       */
        
           let v_html = ``;
 
           if(start == "1" && json.length == 0) {
                // 처음부터 데이터가 존재하지 않는 경우
-               /* !!!! 주의 !!!!
-                   if(start == "1" && json == null) 이 아님!!!
-                   if(start == "1" && json.length) 로 해야 함!!!
-               */
+ 
                v_html = `현재 상품 준비중 입니다...`;
                $("div#displayAlign").html(v_html);
            }
            
            else if(json.length > 0) {
                // 데이터가 존재하는 경우 
-
-           /*	
-                   // 자바스크립트 사용하는 경우
-                   json.forEach(function(item, index, array){
-                       
-                   });
-                   
-                   // jQuery 를 사용하는 경우
-                   $.each(json, function(index, item){
-                       
-                   });
-               */	
-                
-                    
-                
 
                $.each(json, function(index, item){
                    v_html += `<div class='col-md-3'>
@@ -198,5 +132,6 @@ function displayAlign(start) { // start가  1 이라면   1~ 8  까지 상품 8�
        error: function(request, status, error){
            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
        } 
-   });						 
+   });	
+			 
 }

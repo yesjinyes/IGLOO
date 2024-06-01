@@ -9,7 +9,6 @@ body {
 div.container {
 	border: solid 0px blue;
 	width: 80%;
-	margin-top: 250px;
 	
 }
 
@@ -127,7 +126,9 @@ div.container  div.pn{
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
-
+.btnMore {
+	width: 15%;
+}
 
 
 

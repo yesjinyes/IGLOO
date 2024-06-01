@@ -52,9 +52,6 @@ public class AbleReview extends AbstractController {
 		
 		
 		
-
-		
-		
 		super.setViewPage("/WEB-INF/member/ableReview.jsp");
 
 		}

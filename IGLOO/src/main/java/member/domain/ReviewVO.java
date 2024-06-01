@@ -27,7 +27,7 @@ public class ReviewVO {
 	public OrderVO getOvo() {
 		return ovo;
 	}
-	public void setMvo(OrderVO ovo) {
+	public void setOvo(OrderVO ovo) {
 		this.ovo = ovo;
 	}
 	private OrderVO ovo;

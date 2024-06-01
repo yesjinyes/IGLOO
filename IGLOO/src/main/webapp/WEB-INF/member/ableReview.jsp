@@ -30,13 +30,13 @@ $(document).ready(function(){
 
 function goWriteReview(){
 	
-	let ordercode = $(event.target).parent().parent().find("#ordercodeDiv").text();
+	let ordercode = $(event.target).parent().parent().find("#ordercodeDiv").text(); //디비에서 가져온 주문번호
 	
 //	alert(ordercode);  
 //	$("input:text[name='odrcode']").val();
 	/*
-	const frm = document.ordercodeFrm;
-	frm.odrcode.value = ordercode;
+	const frm = document.ordercodeFrm; //writeReview컨트롤러로 보낼 주문번호에 담음
+	frm.odrcode.value = ordercode; 
 	frm.action = "<%= ctxPath%>/member/writeReview.ice";
 	frm.method = "get";
 	frm.submit();
@@ -76,7 +76,6 @@ function goWriteReview(){
 	<hr>
 	<br>
 	
-	<form name="reviewWriteFrm">
 	<c:if test="${not empty requestScope.odvoList}">
 		<c:forEach var="odvo" items="${requestScope.odvoList }">
 		    <div class="col-md-12">
@@ -125,7 +124,7 @@ function goWriteReview(){
     </c:if>
     
     
-	<%-- 주문목록이 없을경우 / 주문된 상품의 리뷰를 다 작성한 경우 는 추가해야함! --%>
+	<%-- 주문목록이 없을경우 --%>
     <c:if test="${empty requestScope.odvoList}">
 		<div style="text-align: center;" class="mt-5">
 			<div id="noreview">작성가능한 리뷰가 존재하지 않습니다.</div>
@@ -140,7 +139,6 @@ function goWriteReview(){
          <span id="countReview">0</span>
     </div>
 
-    </form>
     
 </div>
 
