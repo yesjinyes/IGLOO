@@ -437,7 +437,7 @@ public class MemberDAO_imple implements MemberDAO {
 	}// end of public MemberVO checkPwd(Map<String, String> paraMap) throws SQLException--------------
 
 	//////////////////////////////////////////////////////////////////////////
-
+/*
 	// == 비밀번호 변경(마이페이지) 시 동일여부 확인 === //
 	@Override
 	public String checkPwd_mypage(Map<String, String> paraMap) throws SQLException {
@@ -469,7 +469,7 @@ public class MemberDAO_imple implements MemberDAO {
 		return checkpwd_mypage;
 		
 	}// end of public String checkPwd_mypage(Map<String, String> paraMap) throws SQLException-------------
-
+*/
 	//////////////////////////////////////////////////////////////////////////
 	
 	
