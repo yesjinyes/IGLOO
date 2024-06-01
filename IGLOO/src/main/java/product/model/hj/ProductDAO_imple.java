@@ -249,10 +249,10 @@ public class ProductDAO_imple implements ProductDAO {
 					for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
 						
 						sql = " select count, price "
-								+ " from tbl_cart C join tbl_selectlist S"
-								+ " on c.fk_selectno = s.selectno"
-								+ " join tbl_product P on s.fk_productcodeno = productcodeno "
-								+ " where cartno = ? ";
+						    + " from tbl_cart C join tbl_selectlist S"
+						    + " on c.fk_selectno = s.selectno"
+						    + " join tbl_product P on s.fk_productcodeno = productcodeno "
+						    + " where cartno = ? ";
 						
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, cartno_arr[i]);
