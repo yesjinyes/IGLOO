@@ -89,49 +89,8 @@ function goOrderEnd(){
 	    frm.submit();
 	    
 	   
-    
-    
-<%--
-    const userid = "${sessionScope.loginuser.userid}";
-    console.log(userid);
-
-    $.ajax({
-        url : "<%=ctxPath%>/member/cart.ice",
-        data : {"str_cartno" : "${requestScope.str_cartno}"},
-        type : "post",             
-        async : true,                     
-        dataType : "json",                             // Javascript Standard Object Notation.  dataType은 /MyMVC/member/coinUpdateLoginUser.up 로 부터 실행되어진 결과물을 받아오는 데이터타입을 말한다. 
-                                                       // 만약에 dataType:"xml" 으로 해주면 /MyMVC/member/coinUpdateLoginUser.up 로 부터 받아오는 결과물은 xml 형식이어야 한다. 
-                                                       // 만약에 dataType:"json" 으로 해주면 /MyMVC/member/coinUpdateLoginUser.up 로 부터 받아오는 결과물은 json 형식이어야 한다.              
-
-        success : function(json){
-            // console.log("~~~ 확인용 json => ", json);
-            // ~~~ 확인용 json =>  {loc: '/MyMVC/index.up', message: '손영관님의300,000원 결제가 완료되었습니다.', n: 1}
-                alert(json.message);
-                location.href=json.loc;
-             // location.href=history.go(0);
-
-        },
-        
-        error: function(request, status, error){
-            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-        }
-
-    });
---%>
-
 } // end of function goCoinUpdate(userid,coinmoney){}-------------------------------------------
 // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 여기까지 결제 관련 메소드 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-
-/* function goPayment(){
-	
-	const frm = document.order;
-    frm.action = "payment.ice";
-    frm.method = "post";
-    frm.submit();
-	
-}// end of function goPayment(){}------------------------------------------------------------
- */
 
 function storeAddress(){
 	
@@ -152,6 +111,8 @@ function storeAddress(){
      }); // end of $.ajax({})-----------------------------
 	
 } // end of function storeAdrress(){}-------------------------------------------------------------------
+
+
 
 </script>
 
@@ -206,7 +167,7 @@ function storeAddress(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게 사장님께</div>
 			<div style="background-color: white; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<textarea placeholder="사장님께 전할 말" name="message" rows="5" cols="60"></textarea>
+					<textarea placeholder="사장님께 전할 말" id="message" rows="5" cols="60"></textarea>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -239,7 +200,7 @@ function storeAddress(){
 	</div>
 	
 	<%-- ==== 휴대폰 SMS(문자) 보내기 ==== --%>
-		<div class="border my-5 text-center" style="width: 60%; margin: 0 auto;">
+		<div type="hidden" class="border my-5 text-center" style="width: 60%; margin: 0 auto;">
 		     <div style="display: flex;">
 		        <div style="border: solid 0px red; width: 81%; margin: auto;">
 		           <textarea rows="4" id="smsContent" style="width: 100%;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 ${requestScope.totalprice} 원이 결제되었습니다.</textarea>
@@ -252,7 +213,28 @@ function storeAddress(){
 	<input type="text" name="str_cartno" value="${requestScope.str_cartno}" />
 	<input type="text" name="str_selectno" value="${requestScope.str_selectno}"/>
 	<input type="text" name="totalprice" value="${requestScope.totalprice}"/>
+	<input type="text" name="storenameigloo" id="storenameInput" value=""/>
+	<input type="text" name="require" id="requiremessage" value=""/>
 </form>
+	
+<script>
+
+$("#stselect").change(function() {
+	
+	var selectedText = $(this).find("option:selected").text();
+
+    $("#storenameInput").val(selectedText);
+
+});
+
+$("#message").on("input", function() {
+
+	var textAreaValue = $(this).val();
+
+    $("#requiremessage").val(textAreaValue);
+});
+
+</script>
 	
 </div>
 
