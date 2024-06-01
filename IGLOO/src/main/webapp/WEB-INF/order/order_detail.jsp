@@ -86,13 +86,16 @@ font-size: 15pt;
 				<br><hr style="border: solid 1px #81BEF7;">
 			
 				<%-- 선택한 맛, 수량 (js에 작성)--%>
-				<div id="resultList" style="border: solid 0px black; font-size: 11pt;">
-				</div>
+				<!-- <form name="selectTastenoAndQty"> -->
+					<div id="resultList" style="border: solid 0px black; font-size: 11pt;">
+					
+					</div>
+				<!-- </form> -->
 			
 				<%-- 총합계 금액 --%>
 				<div class="row justify-content-center" >
-					<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
-					<div class="col-2"></div>
+					<div class="col-3 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
+					<div class="col-3"></div>
 					<div class="col-6 text-right">
 						<span class="productprice" style="font-weight: bold; font-size: 20pt; border: solid 0px red;">0</span>
 						<span style="font-weight: bold; font-size: 20pt; border: solid 0px blue;">원</span>
@@ -136,7 +139,7 @@ font-size: 15pt;
 		<div id="foldBtn"><span>상세정보 펼쳐보기 ▼</span></div>
 		
 	</form>
-	 
+
 	<hr>
 	
 </div>
@@ -144,12 +147,12 @@ font-size: 15pt;
 
 <%-- 넘겨줄 정보(장바구니) --%>
 <form name="tasteinfo">
-   <input type="text" name="tasteno" value=""/>
+   <!-- <input type="text" name="tasteno" value=""/> -->
    <input type="text" name="pcode" value="${requestScope.pvo.productcodeno}"/>
-   <input type="text" name="str_count" value=""/>
+   <input type="text" name="str_totalcount" value=""/>
+   <input type="text" name="str_totalprice" value=""/>
 </form>
 
 
 <%-- footer 넣어야 함 --%>
 <jsp:include page="../footer.jsp" />
-
