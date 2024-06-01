@@ -65,6 +65,7 @@ public class WriteReview extends AbstractController {
 			String userid = loginuser.getUserid(); // 사용자ID
 			String reviewcontent = request.getParameter("reviewcontent");
 			String writeday = request.getParameter("writeday");
+			String reviewno = request.getParameter("reviewno");
 			
 			
 			// 작성한 리뷰 insert
@@ -73,6 +74,7 @@ public class WriteReview extends AbstractController {
 			paraMap.put("ordercode",ordercode);
 			paraMap.put("reviewcontent",reviewcontent);
 			paraMap.put("writeday",writeday);
+			paraMap.put("reviewno",reviewno);
 			//status 넣는거 아님
 			
 			
