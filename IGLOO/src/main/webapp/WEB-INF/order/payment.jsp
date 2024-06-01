@@ -32,8 +32,11 @@ $(document).ready(function() {
     
 })
 
+// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 여기부터 결제 관련 메소드 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
 function goPaymentpopup(){
 
+	 
 	// alert(${ctxPath});
     // alert(`확인용 부모창의 함수 호출함.\n 결제금액 : ${coinmoney}원, 사용자id : ${userid}`);
     
@@ -41,7 +44,6 @@ function goPaymentpopup(){
     // 너비 1000, 높이 600 인 팝업창을 화면 가운데 위치시키기
     const width = 1000;
     const height = 600;
-
     
     const left = Math.ceil( (window.screen.width - width)/2 ); // 정수로 만든다.
     const top = Math.ceil( (window.screen.height - height)/2 ); // 정수로 만든다.
@@ -53,22 +55,51 @@ function goPaymentpopup(){
                
 } //  end of function goPaymentpopup(){}----------------------------------------
 
-function goOrderEnd(str_cartno){
-     console.log(`~~ 확인용 userid : ${sessionScope.loginuser.userid}`);
-    // ~~ 확인용 userid : sonyg, coinmoney : 300000원    이게 나오고 창이 꺼져버린다.
 
+function goOrderEnd(){
+
+	let dataObj;
+   
+	 dataObj = {"mobile":"${requestScope.mvo.mobile}",
+             "smsContent":$("textarea#smsContent").val()};
+	 $.ajax({
+          url:"${pageContext.request.contextPath}/admin/smsSend.ice",
+          type:"get",
+          data:dataObj,
+          dataType:"json",
+          success:function(json){ 
+             // json 은 {"group_id":"R2GWPBT7UoW308sI","success_count":1,"error_count":0} 처럼 된다. 
+             
+             if(json.success_count == 1) {
+                $("div#smsResult").html("<span style='color:red; font-weight:bold;'>문자전송이 성공하였습니다.</span>");
+             }
+             else if(json.error_count != 0) {
+                $("div#smsResult").html("<span style='color:red; font-weight:bold;'>문자전송이 실패하였습니다.</span>");
+             }
+          },
+          error: function(request, status, error){
+             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+          }
+       });
+	 
+
+	    const frm = document.order;
+	    frm.action = "payment.ice";
+	    frm.method = "post";
+	    frm.submit();
+	    
+	   
     
+    
+<%--
     const userid = "${sessionScope.loginuser.userid}";
     console.log(userid);
 
     $.ajax({
-        url : "<%=ctxPath%>/order/payment.ice",
-        data : {"str_cartno" : "${requestScope.str_cartno}"},              // data 속성은 http://localhost:9090/MyMVC/member/coinUpdateLoginUser.up 로 전송해야할 데이터를 말한다.
-        type : "post",                                 // type 을 생략하면 type : "get" 이다.
-             
-        async : true,                                  // async:true 가 비동기 방식을 말한다. async 을 생략하면 기본값이 비동기 방식인 async:true 이다.
-                                                       // async:false 가 동기 방식이다. 지도를 할때는 반드시 동기방식인 async:false 을 사용해야만 지도가 올바르게 나온다.
-                     
+        url : "<%=ctxPath%>/member/cart.ice",
+        data : {"str_cartno" : "${requestScope.str_cartno}"},
+        type : "post",             
+        async : true,                     
         dataType : "json",                             // Javascript Standard Object Notation.  dataType은 /MyMVC/member/coinUpdateLoginUser.up 로 부터 실행되어진 결과물을 받아오는 데이터타입을 말한다. 
                                                        // 만약에 dataType:"xml" 으로 해주면 /MyMVC/member/coinUpdateLoginUser.up 로 부터 받아오는 결과물은 xml 형식이어야 한다. 
                                                        // 만약에 dataType:"json" 으로 해주면 /MyMVC/member/coinUpdateLoginUser.up 로 부터 받아오는 결과물은 json 형식이어야 한다.              
@@ -87,9 +118,10 @@ function goOrderEnd(str_cartno){
         }
 
     });
+--%>
 
 } // end of function goCoinUpdate(userid,coinmoney){}-------------------------------------------
-
+// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 여기까지 결제 관련 메소드 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 /* function goPayment(){
 	
@@ -205,6 +237,15 @@ function storeAddress(){
 			</div>
 		</div>
 	</div>
+	
+	<%-- ==== 휴대폰 SMS(문자) 보내기 ==== --%>
+		<div class="border my-5 text-center" style="width: 60%; margin: 0 auto;">
+		     <div style="display: flex;">
+		        <div style="border: solid 0px red; width: 81%; margin: auto;">
+		           <textarea rows="4" id="smsContent" style="width: 100%;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 ${requestScope.totalprice} 원이 결제되었습니다.</textarea>
+		        </div>
+		     </div>
+		</div>
 	
 <form name="order">
 	<input type="text" name="orderplay" value="play" />

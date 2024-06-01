@@ -62,10 +62,12 @@ $(document).ready(function() {
 			2. jQuery를 이용한 방법
 			$(opener.location).attr("href", "javascript:부모창스크립트 함수명();");
 		*/
-		<%--	opener.location.href = "javascript:goCoinUpdate('<%= ctxPath%>','${requestScope.userid}','${requestScope.coinmoney}')"; --%> 
-			window.opener.goOrderEnd('${requestScope.mobile}','${requestScope.str_cartno}');
-		<%--  $(opener.location).attr("href", "javascript:goCoinUpdate('<%= ctxPath%>', '${requestScope.userid}','${requestScope.coinmoney}')"; --%>
+		<%-- opener.location.href = "javascript:goCoinUpdate('<%= ctxPath%>','${requestScope.userid}','${requestScope.coinmoney}')"; --%> 
+			window.opener.goOrderEnd();
+		<%-- $(opener.location).attr("href", "javascript:goCoinUpdate('<%= ctxPath%>', '${requestScope.userid}','${requestScope.coinmoney}')"; --%>
 			
+		
+            alert("결제에 성공하였습니다. 아이스크림에 가치를 더하다. -IGLOO- ");
 		    self.close();
 			
         } else {

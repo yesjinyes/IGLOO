@@ -20,13 +20,16 @@ public class IglooPurchaseEnd extends AbstractController {
 			String totalprice = request.getParameter("totalprice");
 			String productname = request.getParameter("productname");
 			
+//			System.out.println("userid ==> " + userid);           // leenr
+//			System.out.println("totalprice ==> " + totalprice);   // 18000
+//			System.out.println("productname ==> " + productname); // 쿼터, 파인트
+			
 			HttpSession session = request.getSession();
 			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 			
 			if(loginuser.getUserid().equals(userid)) {
-				// 로그인한 사용자가 자신의 코인을 수정하는 경우
+				// 로그인한 사용자가 자신의 물건을 결제하는 경우
 				
-				// request.setAttribute("productPrice", 8000);
 				request.setAttribute("email", loginuser.getEmail());
 				request.setAttribute("name", loginuser.getName());
 				request.setAttribute("mobile", loginuser.getMobile());
@@ -37,19 +40,33 @@ public class IglooPurchaseEnd extends AbstractController {
 				
 				request.setAttribute("address", address);
 				request.setAttribute("postcode", loginuser.getPostcode());
-				
-				
-//				System.out.println("~~~ 확인용 email => " + loginuser.getEmail());
-//				System.out.println("~~~ 확인용 email => " + loginuser.getMobile());
-				
 				request.setAttribute("userid", userid);
+				/*
+						System.out.println("email  ==> " + loginuser.getEmail());
+						System.out.println("name  ==> " + loginuser.getName());
+						System.out.println("Mobile  ==> " + loginuser.getMobile());
+						System.out.println("totalprice  ==> " + totalprice);
+						System.out.println("productname  ==> " + productname);
+						System.out.println("address  ==> " + address);
+						System.out.println("Postcode  ==> " + loginuser.getPostcode());
+						System.out.println("userid  ==> " + userid);
+						
+						email  ==> 2nrlee@naver.com
+						name  ==> 이나래
+						Mobile  ==> 01063755956
+						totalprice  ==> 18000
+						productname  ==> 쿼터,파인트
+						address  ==> 서울 관악구 남부순환로234길 6234 (봉천동)
+						Postcode  ==> 08789
+						userid  ==> leenr
+				*/
 				
 				// super.setRedirect(false);
 				super.setViewPage("/WEB-INF/member/paymentGateway.jsp");
 			}
 			else {
 				// 로그인한 사용자가 다른 사용자의 코인을 충전하려고 결제를 시도하는 경우 
-	            String message = "다른 사용자의 코인충전 결제 시도는 불가합니다.";
+	            String message = "다른 사용자의 결제 시도는 불가합니다.";
 	            String loc = "javascript:history.back()";
 	            
 	            request.setAttribute("message", message);
