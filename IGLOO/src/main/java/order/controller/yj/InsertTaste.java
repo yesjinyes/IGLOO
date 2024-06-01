@@ -1,12 +1,11 @@
 package order.controller.yj;
-
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,9 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
 import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
-
 public class InsertTaste extends AbstractController {
-
 	private ProductDAO pdao = null;
 	
 	public InsertTaste() {
@@ -28,8 +25,6 @@ public class InsertTaste extends AbstractController {
 		
 		
 		String method = request.getMethod();
-		String pcode = request.getParameter("pcode");
-		//System.out.println("pcode : " + pcode);
 		
 		if(!"POST".equalsIgnoreCase(method)) {
 			String message = "비정상적인 경로로 들어왔습니다.";
@@ -43,74 +38,153 @@ public class InsertTaste extends AbstractController {
 			
 			return;
 		}
-		
+
 		else {
 			// System.out.println("확인");
 			HttpSession session = request.getSession();
-			
+
 			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 			
 		    if(loginuser != null) {
-		    	
-		    	String userid = loginuser.getUserid();
-		    	String tasteno = request.getParameter("tasteno");
-		    	pcode = request.getParameter("pcode");
-		    	
-		    	// System.out.println("확인용 tasteno : " + tasteno);
-		    	// 확인용 tasteno : 18,18,15
-		    	
-		    	String[] tasteno_arr = tasteno.split(",");
-		    	
-		    	Map<String, Object> paraMap = new HashMap<>();
-		    	paraMap.put("userid", userid);
-		    	paraMap.put("tasteno_arr", tasteno_arr);
-		    	paraMap.put("pcode", pcode);
-		    	
-		    	// System.out.println("tasteno_arr" + tasteno_arr);
-		    	// System.out.println("확인용 pcode : " + pcode);
-		    	// 확인용 pcode : P
 
+		    	String userid = loginuser.getUserid();
+		    	String pcode = request.getParameter("pcode");
+		    	
+		    	// 맛번호, 수량은 선택한 상품이 몇개일지 모르기 때문에 배열에 담아줬다.
+		    	String[] tastenoArr = request.getParameterValues("tasteselectListNo"); // 맛번호를 담아주는 배열
+		    	String[] countArr = request.getParameterValues("tasteselectListCount"); // 수량을 담아주는 배열
+		    	
+		    	String str_totalcount = request.getParameter("str_totalcount"); // 총수량
+		    	String str_totalprice = request.getParameter("str_totalprice"); // 총합계금액
+		    	
+		    	String[] str_tastenoarr; // tastenoArr 에 대한 값을 저장하기 위한 배열
+		    	
+		    	// == 맛번호, 수량, 담아주는 맛정보List == //
+		    	List<Map<String, Integer>> tasteinfoList = new ArrayList<>();
+		    	
+		    	// 맛번호, 수량 짝꿍 만들어주기
+		    	for(int i = 0; i < tastenoArr.length; i++) {
+		    		
+		    		Map<String, Integer> map = new HashMap<>();
+		    		
+		    		str_tastenoarr = tastenoArr[i].split(","); // 1,3,27 형태의 tastenoArr 를 , 으로 split
+		    		
+		    		
+		    		for(int j = 0; j < str_tastenoarr.length; j++) { // 선택된 맛 개수만큼 반복 (파인트면 3, 쿼터면 4)
+		    			map.put("taste"+(j+1), Integer.parseInt(str_tastenoarr[j])); // map 에 split 된 값 넣어주기
+		    		}
+		    		map.put("count", Integer.parseInt(countArr[i])); // map에 수량 담아주기
+			    	
+		    		System.out.println("i:" + i);
+		    		System.out.println("맛:" + tastenoArr[i]);
+		    		System.out.println("수량:" + countArr[i]);
+		    		System.out.println();
+		    		/*
+		    		 	i:0
+						맛:1,1,1
+						수량:3
+						
+						i:1
+						맛:3,3,3
+						수량:4
+		    		 */
+		    		
+		    		tasteinfoList.add(map);
+		    	}
+		    	
+		    	// System.out.println("tasteinfoList : "+ tasteinfoList);
+		    	// tasteinfoList : [{taste3=25, taste2=7, taste1=5, count=3}, {taste3=15, taste2=6, taste1=2, count=6}]
+		    	
+		    	///////////////////////////////////////////////////////////////////////////////////////////////
+		    	int tasteListSize = tasteinfoList.size(); // 맛선택 개수만큼 반복하기 위해 생성
+		    	
 		    	int selectListResult = 0;
+		    	
 		    	try {
 		    		// == TBL_SELECTLIST 에 insert 하는 메소드 생성 == //
-		    		Map<String, Integer> map  = pdao.insertSelectList(paraMap);
-		    		selectListResult = map.get("selectListResult");
+		    		List<Map<String, Integer>> resultList  = pdao.insertSelectList(tasteListSize, userid, pcode);
+//		    		selectListResult = map.get("selectListResult");
+		    		System.out.println();
 		    		
-		    		if(selectListResult == 1) {
-		    			//System.out.println("selectList 띄우기 성공 ^^~~");
+		    		// resultList 값 확인 위한 test
+//		    		for(Map<String, Integer> selectnoMap : resultList) { 
+//		    			//System.out.println("str_selectno 값 꺼내지나 확인 : "+ selectnoMap.get("str_selectno"));
+//		    			/*
+//		    			 	str_selectno 값 꺼내지나 확인 : 60
+//							str_selectno 값 꺼내지나 확인 : 61
+//		    			 */
+//		    			
+//		    		}// end of for------------------------------------
+		    		
 		    			
-		    			// System.out.println("확인용 str_selectno : " + paraMap.get("str_selectno"));
-		    			// 확인용 str_selectno : 24
+		    		///////////////////////////////////////////////////////////////////////
+		    		
+		    		// resultList 에 값이 잘 들어왔는지 확인하고, 잘 들어왔으면 insert 하기
+		    		/*  resultList 의 값은 아래와 같다
+		    		 	{str_selectno=45, selectListResult=1}
+						{str_selectno=46, selectListResult=1}
+		    		 */
+		    		boolean success = true;
+		    		for(Map<String, Integer> selectListMap : resultList) {
+		    			if(selectListMap.get("selectListResult") != 1) {
+		    				success = false;
+		    				break;
+		    			}
+		    		}
+		    		// System.out.println("success:" + success);
+		    		// succeess:true
+		    		
+		    		// TBL_SELECTLIST 에 insert 할 조건이 충족됐다면
+		    		if(success == true) { 
+		    		
+		    			// System.out.println("selectList 띄우기 성공 ^^~~");
 		    			
-		    			int selectno = map.get("str_selectno");
-		    			// System.out.println("확인용 selectno : " + selectno);
-		    			// 확인용 selectno : 26
-		    			
-		    			paraMap.put("selectno", selectno);
-		    			
-		    			// == TBL_TASTESELECT 에 insert 하는 메소드 생성 == //
-		    			int tasteListResult = pdao.insertTasteList(paraMap);
-		    			
-		    			if(tasteListResult == tasteno_arr.length) { // tbl_tasteselect 에 insert 되었는지 확인
-		    				//System.out.println("tasteList insert 성공~~^^");
+		    			for(Map<String, Integer> selectnoMap : resultList) { // resultList 값 확인
+			    			System.out.println("str_selectno 값 꺼내지나 확인 : "+ selectnoMap.get("str_selectno"));
+			    			/*
+			    			 	str_selectno 값 꺼내지나 확인 : 54
+								str_selectno 값 꺼내지나 확인 : 55
+			    			 */
+			    			// 이 안에서.... 뭔가를 해야될 듯 싶다
+			    			
+			    			// ■■■■■ 위에 있는 i 값이랑 selectno 를 어떻게 연결시킬건지?? ■■■■■
+			    			Map<String, String> mapinfo = new HashMap<>();
+			    			mapinfo.put("userid", userid);
+			    			mapinfo.put("str_selectno", String.valueOf(selectnoMap.get("str_selectno")) );
+			    			
+			    			
+			    			
+			    			
+			    			
+			    			
+			    			
 		    			}
 		    			
 		    			
-		    			// == TBL_CART 에 insert 하는 메소드 생성 == //
-		    			int cartListResult = pdao.insertCartList(paraMap);
+		    			/////////////////////////////////////////////////////////////////////////////////////
 		    			
-		    			if(cartListResult == 1) { // tbl_cart 에 insert 되었는지 확인
-		    				// System.out.println("tbl_cart 에 insert 성공 ~~^^");
-		    				super.setRedirect(true);
-		    				super.setViewPage(request.getContextPath() + "/member/cart.ice");
-		    				return;
-		    			}
-		    			
-		    			
-		    			
-		    			super.setRedirect(false);
-		    			super.setViewPage("/WEB-INF/order/payment.jsp");
-		    			
+//		    			// == TBL_TASTESELECT 에 insert 하는 메소드 생성 == //
+//		    			int tasteListResult = pdao.insertTasteList(paraMap);
+//		    			
+//		    			if(tasteListResult == tasteno_arr.length) { // tbl_tasteselect 에 insert 되었는지 확인
+//		    				//System.out.println("tasteList insert 성공~~^^");
+//		    			}
+//		    			
+//		    			
+//		    			// == TBL_CART 에 insert 하는 메소드 생성 == //
+//		    			int cartListResult = pdao.insertCartList(paraMap);
+//		    			
+//		    			if(cartListResult == 1) { // tbl_cart 에 insert 되었는지 확인
+//		    				// System.out.println("tbl_cart 에 insert 성공 ~~^^");
+//		    				super.setRedirect(true);
+//		    				super.setViewPage(request.getContextPath() + "/member/cart.ice");
+//		    				return;
+//		    			}
+//		    			
+//		    			
+//		    			super.setRedirect(false);
+//		    			super.setViewPage("/WEB-INF/order/payment.jsp");
+//		    			
 //		    			super.setRedirect(true);
 //		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
 		    		}
@@ -135,24 +209,23 @@ public class InsertTaste extends AbstractController {
 		    }// end of if(loginuser != null)--------------------
 		    
 		    else {
-		    	//System.out.println("로그인이 되지 않았음.");
-		    	
+		    	System.out.println("로그인이 되지 않았음.");
 		    	String message = "주문하시려면 먼저 로그인을 해주세요.";
 		        String loc = request.getContextPath() + "/login/login.ice";
 
 		        request.setAttribute("message", message);
 		        request.setAttribute("loc", loc);
 		        
-				super.setRedirect(false);
+		        super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/msg.jsp");
-		    	
+
 		    }
-		    
+
 		}// end of else --------------------------------------
 		
 		
 		
 		
 	}// end of public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception--------------
-
 }
+
