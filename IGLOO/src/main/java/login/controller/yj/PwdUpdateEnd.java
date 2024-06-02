@@ -82,7 +82,7 @@ public class PwdUpdateEnd extends AbstractController {
     	  // '마이페이지 > 비번변경' 할 때만 사이드바 생기도록 조건 거는 key값 생성
     	  request.setAttribute("mypage", "mypage"); 
     	  
-    	  ///////////////////////////////////////////////////////////////////
+/*    	  ///////////////////////////////////////////////////////////////////
     	  String checkPwd_mypage = mdao.checkPwd_mypage(paraMap);
      	  System.out.println(checkPwd_mypage); // 이전과 같은 비밀번호를 입력했을 때는 fail, 새로운 비밀번호를 입력했을 때는 통과
      	  if("fail".equals(checkPwd_mypage)) {
@@ -98,11 +98,9 @@ public class PwdUpdateEnd extends AbstractController {
      		 return;
      		 
      	 }
-    	  
-    	  
-    	  
-//    	  super.setRedirect(false);
-//        super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
+*/    	  
+    	  super.setRedirect(false);
+    	  super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
     	  
       }
       

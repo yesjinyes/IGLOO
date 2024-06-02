@@ -26,36 +26,32 @@ function goReset() {
 
 
 $(document).ready(function() {
-    $("select#stselect").change(function(){
+   
+	$("select#stselect").change(function(){
     	storeAddress();
-    })
+    });
     
-})
+    
+    $("#button input[type='button']").click(function() {
+        var selectedValue = $("#stselect").val();
+        var warningMsg = $("#warning");
+
+        // 선택된 값이 지점을 선택하세요. 라는 값이거나 선택된 값이 없을 경우
+        if (selectedValue === "" || selectedValue === "지점을 선택하세요.") {
+            warningMsg.text("반드시 선택하셔야 합니다.");
+            $("#warning").attr("tabindex", -1).focus();
+            
+        } else {
+           // 팝업창 띄우기
+            const url = `<%=ctxPath%>/member/iglooPurchaseEnd.ice?userid=${sessionScope.loginuser.userid}&productname=${requestScope.productname_str}&totalprice=${requestScope.totalprice}`;
+            
+            window.open(url, "iglooPurchaseEnd", "width=1000, height=600, left=400, top=200");
+        }
+    }); //  end of $("#button input[type='button']").click(function() {}-----------------------------------
+    
+}); // end of $(document).ready(function() {}--------------------------------------------
 
 // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 여기부터 결제 관련 메소드 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-
-function goPaymentpopup(){
-
-	 
-	// alert(${ctxPath});
-    // alert(`확인용 부모창의 함수 호출함.\n 결제금액 : ${coinmoney}원, 사용자id : ${userid}`);
-    
-    // >>> 포트원(구 아임포트) 결제 팝업창 띄우기 <<<
-    // 너비 1000, 높이 600 인 팝업창을 화면 가운데 위치시키기
-    const width = 1000;
-    const height = 600;
-    
-    const left = Math.ceil( (window.screen.width - width)/2 ); // 정수로 만든다.
-    const top = Math.ceil( (window.screen.height - height)/2 ); // 정수로 만든다.
-
-    const url = `<%=ctxPath%>/member/iglooPurchaseEnd.ice?userid=${sessionScope.loginuser.userid}&productname=${requestScope.productname_str}&totalprice=${requestScope.totalprice}`;
-    
-    window.open(url, "iglooPurchaseEnd",
-               `left=${left}, top=${top}, width=${width}, height=${height}`);
-               
-} //  end of function goPaymentpopup(){}----------------------------------------
-
-
 function goOrderEnd(){
 
 	let dataObj;
@@ -94,21 +90,33 @@ function goOrderEnd(){
 
 function storeAddress(){
 	
-	 $.ajax({
-         url: "paymentStoreAddress.ice"
-         , data: {"storename":$("select#stselect").val()}
-         , type:"post"
-         , async:true
-         , dataType:"json"     
-         , success: function(json){  
-        	 // console.log(JSON.stringify(json));
-             // console.log(json.storeaddress);
-	         $("div#staddress").html(json.storeaddress);
-         },
-         error: function(request, status, error){
-             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-         }
-     }); // end of $.ajax({})-----------------------------
+	 var selectedValue = $("#stselect").val();
+
+     // 선택된 값이 지점을 선택하세요. 라는 값이거나 선택된 값이 없을 경우
+     if (!(selectedValue == "지점을 선택하세요.")) {
+		
+    	 $.ajax({
+	         url: "paymentStoreAddress.ice"
+	         , data: {"storename":$("select#stselect").val()}
+	         , type:"post"
+	         , async:true
+	         , dataType:"json"     
+	         , success: function(json){  
+	        	 // console.log(JSON.stringify(json));
+	             // console.log(json.storeaddress);
+		         $("div#staddress").html(json.storeaddress);
+	         },
+	         error: function(request, status, error){
+	             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	         }
+	         
+	     }); // end of $.ajax({})-----------------------------
+	     
+     }
+     else{
+    	 $("#staddress").text("");
+     }// end of if-------------------------------
+	
 	
 } // end of function storeAdrress(){}-------------------------------------------------------------------
 
@@ -148,7 +156,7 @@ function storeAddress(){
 		        </c:forEach>
 		        
 			</select>
-			
+			<span style="color:red;" id="warning"></span>
 			<div style="background-color: white; border: solid 0px gray; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
 					<div id="staddress" style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;"></div>
@@ -167,7 +175,7 @@ function storeAddress(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">가게 사장님께</div>
 			<div style="background-color: white; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<textarea placeholder="사장님께 전할 말" id="message" rows="5" cols="60"></textarea>
+					<textarea style="width:100%;" placeholder="사장님께 전할 말" id="message" maxlength="50" rows="5" cols="60"></textarea>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -194,27 +202,21 @@ function storeAddress(){
 			</div>
 			<div id="button" class="mx-auto">
 				<input type="reset" class="btn btn-lg mr-5" value="취소하기" onclick="goReset()" />
-	            <input type="button"  class="btn btn-lg" value="구매하기" onclick="goPaymentpopup()" />
+	            <input type="button"  class="btn btn-lg" value="구매하기" />
 			</div>
 		</div>
 	</div>
 	
 	<%-- ==== 휴대폰 SMS(문자) 보내기 ==== --%>
-		<div type="hidden" class="border my-5 text-center" style="width: 60%; margin: 0 auto;">
-		     <div style="display: flex;">
-		        <div style="border: solid 0px red; width: 81%; margin: auto;">
-		           <textarea rows="4" id="smsContent" style="width: 100%;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 ${requestScope.totalprice} 원이 결제되었습니다.</textarea>
-		        </div>
-		     </div>
-		</div>
+	<textarea rows="4" id="smsContent" style="width: 100%; display: none;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 <fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" /> 원이 결제되었습니다.</textarea>
 	
 <form name="order">
-	<input type="text" name="orderplay" value="play" />
-	<input type="text" name="str_cartno" value="${requestScope.str_cartno}" />
-	<input type="text" name="str_selectno" value="${requestScope.str_selectno}"/>
-	<input type="text" name="totalprice" value="${requestScope.totalprice}"/>
-	<input type="text" name="storenameigloo" id="storenameInput" value=""/>
-	<input type="text" name="require" id="requiremessage" value=""/>
+	<input type="hidden" name="orderplay" value="play" />
+	<input type="hidden" name="str_cartno" value="${requestScope.str_cartno}" />
+	<input type="hidden" name="str_selectno" value="${requestScope.str_selectno}"/>
+	<input type="hidden" name="totalprice" value="${requestScope.totalprice}"/>
+	<input type="hidden" name="storenameigloo" id="storenameInput" value=""/>
+	<input type="hidden" name="require" id="requiremessage" value=""/>
 </form>
 	
 <script>

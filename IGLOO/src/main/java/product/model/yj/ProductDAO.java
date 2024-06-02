@@ -17,13 +17,13 @@ public interface ProductDAO {
 	ProductVO getproductEach(String pcode) throws SQLException;
 
 	// == TBL_SELECTLIST 에 insert 하는 메소드 생성 == //
-	Map<String, Integer> insertSelectList(Map<String, Object> paraMap) throws SQLException;
+	List<Map<String, Integer>> insertSelectList(int tasteListSize, String userid, String pcode) throws SQLException;
 
 	// == TBL_TASTESELECT 에 insert 하는 메소드 생성 == //
-	int insertTasteList(Map<String, Object> paraMap) throws SQLException;
+	//int insertTasteList(Map<String, Object> paraMap) throws SQLException;
 
 	// == TBL_CART 에 insert 하는 메소드 생성 == //
-	int insertCartList(Map<String, Object> paraMap) throws SQLException;
+	//int insertCartList(Map<String, Object> paraMap) throws SQLException;
 	
 	
 

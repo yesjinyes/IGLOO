@@ -274,7 +274,7 @@ function submitfrm(){
                                             <div class="mt-5 mb-5">
                                                 <div class="d-inline-block"></div>
                                                 <div style="font-weight:bold;">
-                                                    ${Number(item.orderprice).toLocaleString()}     <!-- #,###-->
+                                                    ${Number(item.orderproductprice).toLocaleString()}     <!-- #,###-->
                                                     원
                                                 </div>
                                             </div>

@@ -221,7 +221,7 @@ public class ProductDAO_imple implements ProductDAO {
 			conn.setAutoCommit(false); // 수동커밋으로 전환
 			
 			// 2. 주문 테이블에 insert 하기(수동커밋처리)
-			String sql = " insert into tbl_order(ordercode, fk_userid, totalprice) values(?, ?, ?) ";
+			String sql = " insert into tbl_order(ordercode, fk_userid, totalprice, storename, requiremessage) values(?, ?, ?, ?, ?) ";
 
 			// System.out.println((String)paraMap.get("odrcode")); // P-20240530-15
 			// System.out.println((String)paraMap.get("userid"));  // jjoung
@@ -231,6 +231,8 @@ public class ProductDAO_imple implements ProductDAO {
 			pstmt.setString(1, (String)paraMap.get("odrcode"));
 			pstmt.setString(2, (String)paraMap.get("userid"));
 			pstmt.setInt(3, Integer.parseInt((String)paraMap.get("totalprice")));
+			pstmt.setString(4, (String)paraMap.get("storenameOne"));
+			pstmt.setString(5, (String)paraMap.get("require"));
 			
 			n1 = pstmt.executeUpdate();
 			// System.out.println(" n1 확인용 ===>   " + n1); // n1 확인용 ===>   1
@@ -432,7 +434,7 @@ public class ProductDAO_imple implements ProductDAO {
 		String today = smdatefm.format(now);
 		
 		// 주문코드를 위한 시퀀스 번호 select 해오기
-		int seq = 0;
+		String seq = "";
 		try {
 	         conn = ds.getConnection();
 	         
@@ -445,7 +447,7 @@ public class ProductDAO_imple implements ProductDAO {
 	         
 	         rs.next();
 	         
-	         seq = rs.getInt(1);
+	         seq = rs.getString(1);
 	         
 	      } finally {
 	         close();

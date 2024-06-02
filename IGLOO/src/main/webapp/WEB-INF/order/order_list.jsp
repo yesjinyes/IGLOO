@@ -127,7 +127,11 @@
 						<div class="mt-5 mb-5">
 							<div class="d-inline-block"></div>
 							<div style="font-weight:bold;">
-								<fmt:formatNumber value="${orderdetailList.orderprice}" pattern="###,###" />
+								<c:forEach var="orderproductpriceList" items="${requestScope.orderproductpriceList}" varStatus="odrStatus">
+									<c:if test="${odrStatus.index == orderdetailStatus.index}">
+										<fmt:formatNumber value="${orderproductpriceList}" pattern="###,###" />
+									</c:if>
+								</c:forEach>
 								원
 							</div>
 						</div>
@@ -187,7 +191,7 @@
 </div>
 
 <%-- 넘겨줄 정보 --%>
-<form name="sendinfo">
+<form name="sendinfo" style="display:none;">
 	<input type="text" name="searchorderList" value=""/>
 	<input type="text" name="orderListPeriod" value=""/>
 </form>

@@ -1,5 +1,4 @@
 package product.model.yj;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,17 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import product.domain.ProductVO;
 import product.domain.TasteVO;
 
 public class ProductDAO_imple implements ProductDAO {
-
 	private DataSource ds;	// DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection Pool)이다.
 	private Connection conn;
 	private PreparedStatement pstmt;
@@ -85,17 +81,14 @@ public class ProductDAO_imple implements ProductDAO {
 	      //System.out.println("확인용 이미지 : "+ productList);
 	      
 	      return productList;
-
 	}// end of public List<ProductVO> getproductList() throws SQLException
-
+	
 	///////////////////////////////////////////////////////////////
-
+	
 	// == 맛 목록 조회해오기 == //
 	@Override
 	public List<TasteVO> selectTasteList() throws SQLException {
-
 		  List<TasteVO> tasteList = new ArrayList<>();
-
 	      try {
 	         conn = ds.getConnection();
 	         
@@ -119,9 +112,8 @@ public class ProductDAO_imple implements ProductDAO {
 	      }
 	      
 	      return tasteList;
-
 	}// end of public List<TasteVO> selectTasteList() throws SQLException
-
+	
 	///////////////////////////////////////////////////////////////
 	
 	// == 제품 한 개만 불러오기 == //
@@ -159,47 +151,51 @@ public class ProductDAO_imple implements ProductDAO {
 	      return pvo;
 	      
 	}// end of public ProductVO getproductEach(String pcode) throws SQLException-------------
-
+	
 	///////////////////////////////////////////////////////////////
 	
-	// == tbl_selectList 에 insert == //
+	// == TBL_SELECTLIST 에 insert == //
 	@Override
-	public Map<String, Integer> insertSelectList(Map<String, Object> paraMap) throws SQLException {
+	public List<Map<String, Integer>> insertSelectList(int tasteListSize, String userid, String pcode) throws SQLException {
 		
-		Map<String, Integer> map = new HashMap<>();
+		List<Map<String, Integer>> resultList = new ArrayList<Map<String,Integer>>();
 		
 		int selectListResult = 0;
 		
 		try {
 			conn = ds.getConnection();
-/*
-	-- 선택내역 테이블 : TBL_SELECTLIST
-	-- 맛선택 테이블 : TBL_TASTESELECT
- */
-			String sqlInsert =  " insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) "
-							  + " values(seq_selectno.nextval, ?, ?) ";
+		
+			// == 맛선택 개수만큼 반복 == //
+			for(int i=0; i<tasteListSize; i++) {
 			
-			pstmt = conn.prepareStatement(sqlInsert);
-			pstmt.setString(1, (String)paraMap.get("pcode"));
-			pstmt.setString(2, (String)paraMap.get("userid"));
-			
-			selectListResult = pstmt.executeUpdate();
-			
-			String sqlSelect = " select max(selectno) "
-							  + " from tbl_selectList ";
-			
-			pstmt = conn.prepareStatement(sqlSelect);
-			
-			rs = pstmt.executeQuery();
-			
-			int selectno = 0;
-			if(rs.next()) {
-				selectno = rs.getInt(1);
+				String sqlInsert =  " insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) "
+								  + " values(seq_selectno.nextval, ?, ?) ";
+				
+				pstmt = conn.prepareStatement(sqlInsert);
+				pstmt.setString(1, pcode);
+				pstmt.setString(2, userid);
+				
+				selectListResult = pstmt.executeUpdate();
+				
+				String sqlSelect = " select max(selectno) "
+								  + " from tbl_selectList ";
+				
+				pstmt = conn.prepareStatement(sqlSelect);
+				
+				rs = pstmt.executeQuery();
+				
+				int selectno = 0;
+				if(rs.next()) {
+					selectno = rs.getInt(1);
+				}
+				//System.out.println("selectno : " + selectno); // selectno : 12
+				
+				Map<String, Integer> map = new HashMap<>();
+				map.put("selectListResult", selectListResult); // TBL_SELECTLIST 에 insert 되었는지 확인하는 int 값
+				map.put("str_selectno", selectno); // insert 되는 str_selectno 값
+				
+				resultList.add(map); // resultList 에 selectListResult, str_selectno 담아줌
 			}
-			// System.out.println("selectno : " + selectno); // selectno : 12
-			
-			map.put("selectListResult", selectListResult);
-			map.put("str_selectno", selectno);
 			
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -207,77 +203,79 @@ public class ProductDAO_imple implements ProductDAO {
 			close();
 		}
 		
-		return map;
+		return resultList;
 		
 	}// end of public Map<String, Integer> insertSelectList(Map<String, Object> paraMap) throws SQLException--------------
-
-	///////////////////////////////////////////////////////////////
-	
-	// == tbl_tasteSelect에 insert == //
-	@Override
-	public int insertTasteList(Map<String, Object> paraMap) throws SQLException {
-		
-		int tasteListResult = 0;
-		
-		try {
-			conn = ds.getConnection();
-
-			String sqlInsert =  " insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) "
-					    	  + " values(seq_tasteselectno.nextval, ?, ?)";
-			
-			String[] tasteno_arr = (String[])paraMap.get("tasteno_arr");
-			
-			for(String tasteno : tasteno_arr) {
-				pstmt = conn.prepareStatement(sqlInsert);
-				pstmt.setInt(1, (int) paraMap.get("selectno"));
-				pstmt.setInt(2, Integer.parseInt(tasteno));
-				
-				tasteListResult += pstmt.executeUpdate();
-			}// end of for --------
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		
-		return tasteListResult;
-		
-	}// end of public int insertTasteList(Map<String, Object> paraMap) throws SQLException----------
 	
 	///////////////////////////////////////////////////////////////
-
+	
+	// == TBL_TASTESELECT에 insert == //
+//	@Override
+//	public int insertTasteList(Map<String, Integer> selectnoMap) throws SQLException {
+//		
+//		int tasteListResult = 0;
+//		
+//		try {
+//			conn = ds.getConnection();
+//			String sqlInsert =  " insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) "
+//					    	  + " values(seq_tasteselectno.nextval, ?, ?)";
+//			
+//			List<Map<String, Integer>> tasteinfoList = new ArrayList<>();
+//			Map<String, Integer> map = new HashMap<>();
+//			
+//			
+////			for(int i=0; i<)
+////			map.get("")
+//			//String[] tastenoArr = (String[])tasteinfoList.get("count");
+//			
+//			
+//			for(String tasteno : tastenoArr) {
+//				pstmt = conn.prepareStatement(sqlInsert);
+//				pstmt.setInt(1, (int) selectnoMap.get("str_selectno"));
+//				pstmt.setInt(2, Integer.parseInt(tasteno));
+//
+//				tasteListResult += pstmt.executeUpdate();
+//			}// end of for --------
+//			
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close();
+//		}
+//		
+//		return tasteListResult;
+//		
+//	}// end of public int insertTasteList(Map<String, Object> paraMap) throws SQLException----------
+	
+	
+	///////////////////////////////////////////////////////////////
 	// == TBL_CART 에 insert 하는 메소드 생성 == //
-	@Override
-	public int insertCartList(Map<String, Object> paraMap) throws SQLException {
-		
-		int cartListResult = 0;
-		
-		try {
-			conn = ds.getConnection();
-
-			String sqlInsert =  " insert into tbl_cart(cartno, fk_userid, fk_selectno) "
-							  + " values(seq_cartno.nextval, ?, ?) ";
-			
-			pstmt = conn.prepareStatement(sqlInsert);
-			pstmt.setString(1, (String)paraMap.get("userid"));
-			//pstmt.setInt(2, ); // 수량(count)이 들어올 자리... 어떻게 넘길까
-			pstmt.setInt(2, (int) paraMap.get("selectno"));
-				
-			cartListResult = pstmt.executeUpdate();
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		
-		return cartListResult;
-		
-	}// public int insertCartList(Map<String, Object> paraMap) throws SQLException-----------------
-
-
-
-
+//	@Override
+//	public int insertCartList(String userid, ) throws SQLException {
+//		
+//		Map<String, Integer> selectnoMap = new HashMap<>();
+//		
+//		int cartListResult = 0;
+//		
+//		try {
+//			conn = ds.getConnection();
+//			String sqlInsert =  " insert into tbl_cart(cartno, fk_userid, count, fk_selectno) "
+//							  + " values(seq_cartno.nextval, ?, ?) ";
+//			
+//			pstmt = conn.prepareStatement(sqlInsert);
+//			pstmt.setString(1, userid);
+//			//pstmt.setInt(2, ); // 수량(count)이 들어올 자리... 어떻게 넘길까
+//			pstmt.setInt(2, selectnoMap.get("str_selectno"));
+//
+//			cartListResult = pstmt.executeUpdate();
+//
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close();
+//		}
+//		
+//		return cartListResult;
+//		
+//	}// public int insertCartList(Map<String, Object> paraMap) throws SQLException-----------------
 }
-

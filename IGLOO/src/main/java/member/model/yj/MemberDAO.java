@@ -37,7 +37,7 @@ public interface MemberDAO {
 	String checkPwd(Map<String, String> paraMap) throws SQLException;
 
 	// == 비밀번호 변경(마이페이지) 시 동일여부 확인 === //
-	String checkPwd_mypage(Map<String, String> paraMap) throws SQLException;
+	// String checkPwd_mypage(Map<String, String> paraMap) throws SQLException;
 
 	
 }

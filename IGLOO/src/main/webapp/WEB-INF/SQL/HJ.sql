@@ -540,14 +540,16 @@ from tbl_order
 where fk_userid = 'jjoung' and ORDERDATE > '2024.05.10';
 
 ------------------------------------------------------------------------------------
-insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'Q', 'igloo');
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'H', 'igloo');
 commit;
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 49, 8);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 49, 5);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 49, 13);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 49, 1);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 1);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 5);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 13);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 3);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 19);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 17);
 commit;
-insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'igloo', 2, 49);
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'igloo', 1, 62);
 commit;
 insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
 commit;
