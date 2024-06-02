@@ -1330,3 +1330,74 @@ commit;
 update TBL_LOGINHISTORY set logindate = '2024-05-10'
 where logindate is null and historyno between 1  and 2;
 commit;
+
+------------------------------------------------------------------------------------
+
+ SELECT ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
+	         		 FROM
+	         		 (
+	         		 SELECT selectno, fk_userid, ordercode, orderdate, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
+	         		    FROM
+	         		    (
+	         		        SELECT selectno, fk_ordercode, fk_userid, orderprice, pickupstatus, pickuptime, ordercount, productname, productimg, tastename
+	         		        FROM
+	         		        (
+	         		            SELECT selectno, fk_userid, productname, productimg, tastename
+	         		            FROM
+	         		            (
+	         		                SELECT productcodeno, productname, productimg
+	         		                FROM tbl_product
+	         		            )
+	         		            JOIN
+	         		            (
+	         		                SELECT selectno, fk_productcodeno, fk_userid, tastename
+	         		                FROM (
+	         		                    SELECT selectno, fk_productcodeno, fk_userid
+	         		                    FROM tbl_selectlist
+	         		                )
+	         		                JOIN
+	         		                (
+	         		                    SELECT fk_selectno, tastename
+	         		                    FROM
+	         		                    (
+	         		                        SELECT fk_selectno, fk_tasteno
+	         		                        FROM tbl_tasteselect
+	         	                    )
+	         		                    JOIN
+	         		                    (
+	         		                        SELECT tasteno, tastename
+	         		                        FROM tbl_taste
+	         		                    )
+	         		                    ON fk_tasteno = tasteno
+	         		                )
+	         		                ON selectno = fk_selectno
+	         		            )
+	         		            ON productcodeno = fk_productcodeno
+	         		        )
+	         		        JOIN
+	         		        (
+	         		            SELECT fk_ordercode, orderprice, pickupstatus, pickuptime, ordercount, fk_selectno
+	         		            FROM tbl_orderdetail
+	         		        )
+	         		        ON selectno = fk_selectno
+	         		    )
+	         		    JOIN
+	         		    (
+	         		        SELECT ordercode, orderdate
+	         		        FROM tbl_order
+	         		    )
+	         		    ON fk_ordercode = ordercode
+	         		 )
+	         		 JOIN
+	         		 (
+	         		    SELECT userid
+	         		    FROM TBL_MEMBER
+	         		 )
+	         		ON fk_userid = userid
+	         		WHERE userid = 'igloo'
+	         		order by selectno desc
+
+
+select *
+ from tbl_orderdetail
+WHERE fk_ordercode = 'F-20240602-000045'
