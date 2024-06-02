@@ -1,29 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 $(document).ready(function() {
 	var index = 1;
 
@@ -102,11 +76,12 @@ $(document).ready(function() {
 						</div>`;
 						
 						$("div#resultList").append(html);
-			''
+			
 						var tasteselectList = `<input type="text" index="`+index+`" id="tasteselectListNo`+index+`" name="tasteselectListNo" value="`+tastenoarr+`" />
 											   <input type="text" index="`+index+`" id="tasteselectListCount`+index+`" name="tasteselectListCount" value="1" />`
 						
 						$("form[name='tasteinfo']").append(tasteselectList);
+						$("form[name='orderinfo']").append(tasteselectList);
 						index++;
 						// const resultContainerIndex = $("div#resultContainer").index();
 						// console.log("resultContainerIndex : ", resultContainerIndex);
@@ -130,15 +105,16 @@ $(document).ready(function() {
 			const totalcount = $("span#totalcount").text();
 			// console.log("확인용 총수량 totalcount :  ",totalcount);
 
-			// const countEach = Number($("span#result").text());
-			// console.log("리스트 한개당 수량 countEach : ", countEach);
-		
+
 			// == form 으로 합계금액(str_totalprice) 넘기기 == // 
 			const productpriceTest = $("span.productprice").text().split(",").join("");
 			//console.log("확인용 그냥 productpriceTest : ", productpriceTest); 
 
 			$("form[name='tasteinfo'] > input[name='tasteno']").val(str_tasteno); // 선택한 맛 폼으로 넘기기
 			$("form[name='tasteinfo'] > input[name='str_totalprice']").val(productpriceTest); // 총합계금액 폼으로 넘기기
+
+			$("form[name='orderinfo'] > input[name='tasteno']").val(str_tasteno); // 선택한 맛 폼으로 넘기기
+			$("form[name='orderinfo'] > input[name='str_totalprice']").val(productpriceTest); // 총합계금액 폼으로 넘기기
 			
 		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
 
@@ -161,6 +137,7 @@ $(document).ready(function() {
 		
 		var plus = Number($(e.target).parent().find("span#result").text());
 		plus++;
+		
 		$(e.target).parent().find("span#result").text(plus);
 
 		$(e.target).parent().parent().parent().parent().find("input[name='tasteselectListCount']").val(plus);
@@ -171,11 +148,12 @@ $(document).ready(function() {
 		console.log("plusno : "+ plusno);
 
 		$("form[name='tasteinfo'] > input#tasteselectListCount"+plusno).val(plus);
+		$("form[name='orderinfo'] > input#tasteselectListCount"+plusno).val(plus);
 
-		
 		// form 으로 총합계금액 넘기기 
 		const productpriceTest = $("span.productprice").text().split(",").join("");
 		$("form[name='tasteinfo'] > input[name='str_count']").val(productpriceTest);
+		$("form[name='orderinfo'] > input[name='str_count']").val(productpriceTest);
 
 	});// end of $(document).on('click', '.plus', function() {})------------ 
 
@@ -203,12 +181,14 @@ $(document).ready(function() {
 			console.log("minusno : "+ minusno);
 
 			$("form[name='tasteinfo'] > input#tasteselectListCount"+minusno).val(minus);
+			$("form[name='orderinfo'] > input#tasteselectListCount"+minusno).val(minus);
 
 		}
 
 		// == form 으로 총합계금액 넘기기 == //
 		const productpriceTest = $("span.productprice").text().split(",").join("");
 		$("form[name='tasteinfo'] > input[name='str_count']").val(productpriceTest);
+		$("form[name='orderinfo'] > input[name='str_count']").val(productpriceTest);
 
 	});// end of $(document).on('click', '.plus', function() {})------------ 
 	
@@ -235,6 +215,9 @@ $(document).ready(function() {
 		$("form[name='tasteinfo'] > input#tasteselectListNo"+deleteno).remove();
 		$("form[name='tasteinfo'] > input#tasteselectListCount"+deleteno).remove();
 
+		$("form[name='orderinfo'] > input#tasteselectListNo"+deleteno).remove();
+		$("form[name='orderinfo'] > input#tasteselectListCount"+deleteno).remove();
+
 	});// end of $(document).on('click', '#delete', function()---------------
 
 });// end of $(document).ready(function() {})----------------------------------------------
@@ -258,6 +241,7 @@ function goCart() {
 // === 주문하기 창 이동 === //
 function goOrder(){
 console.log("주문버튼 클릭");
+
 	// == '주문하기' 버튼 클릭 시 총수량 전송하기 == //
 	var arr = $("span#result").text();
 
@@ -266,34 +250,19 @@ console.log("주문버튼 클릭");
 		str_totalcount += Number(arr[i]);
 	}// end of for----------------
 
-console.log("돼라1");
 
 	//  총수량 전송하기 
-	$("form[name='tasteinfo'] > input[name='str_totalcount']").val(str_totalcount);
+	$("form[name='orderinfo'] > input[name='str_totalcount']").val(str_totalcount);
 
-console.log("돼라2");
-	var test = $("form[name='tasteinfo'] > input.tasteclass").attr("index");
+	var test = $("form[name='orderinfo'] > input.tasteclass").attr("index");
 	console.log("class 확인:",test);
-	console.log("index:" + index);
+	//console.log("index:" + index);
 
 	const ctxPath = $("div#ctxPath").text();
 	
-	const frm = document.tasteinfo;
-	frm.action = ctxPath + "/order/insertTaste.ice";
-	frm.method = "POST";
-console.log("돼라3");
-	frm.submit();
-	
-console.log("돼라4");
-
-/*	const ctxPath = $("div#ctxPath").text();
-	
-	const frm = document.tasteinfo;
-	frm.action = ctxPath + "/order/payment.ice";
+	const frm = document.orderinfo;
+	frm.action = ctxPath + "/order/orderTaste.ice";
 	frm.method = "POST";
 	frm.submit();
-*/
-
-
-
+	
 } // end of function goOrder()------------
