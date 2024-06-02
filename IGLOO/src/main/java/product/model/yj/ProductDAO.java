@@ -23,6 +23,12 @@ public interface ProductDAO {
 
 	// == TBL_CART 에 insert 하는 메소드 생성 == //
 	int insertCartList(String userid, List<Map<String, Integer>> tasteinfoList, List<Map<String, Integer>> resultList) throws SQLException;
+
+	// === 지점명을 가져오는 메소드 생성하기 === //
+	List<String> get_storename() throws SQLException;
+
+	// === 제품명 가져오는 메소드 생성하기 === //
+	String get_productname(String pcode) throws SQLException;
 	
 }
 

@@ -302,6 +302,60 @@ public class ProductDAO_imple implements ProductDAO {
 		return cartListResult;
 		
 	}// public int insertCartList(Map<String, Object> paraMap) throws SQLException-----------------
+
+	// === 지점명을 가져오는 메소드 생성하기 === //
+	@Override
+	public List<String> get_storename() throws SQLException {
+		
+		List<String> storename = new ArrayList<>();
+	      
+	    try {
+	    	conn = ds.getConnection();
+	         
+	        String sql = " select storename "
+	        		   + " from tbl_store ";
+	         
+	        pstmt = conn.prepareStatement(sql);
+	         
+	        rs = pstmt.executeQuery();
+	         
+	        while(rs.next()) {
+	        	storename.add(rs.getString(1)); 
+	        }
+	         
+	    } finally {
+	        close();
+	    }
+	      
+	    return storename;  
+	}
+
+	@Override
+	public String get_productname(String pcode) throws SQLException {
+		ProductVO pvo = new ProductVO();
+		 String pdname = "";
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select productname "
+		         		+ " from tbl_product "
+		         		+ " where productcodeno = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, pcode);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         rs.next();
+	         
+	         pdname = rs.getString(1); 
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return pdname;
+	}
 }
 
 

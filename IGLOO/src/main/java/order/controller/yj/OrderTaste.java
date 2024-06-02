@@ -9,15 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
+import member.model.nr.MemberDAO;
+import member.model.nr.MemberDAO_imple;
 import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
+
 
 public class OrderTaste extends AbstractController {
 	
 	private ProductDAO pdao = null;
+	private MemberDAO mdao = null;
 	
 	public OrderTaste() {
 	      pdao = new ProductDAO_imple();
+	      mdao = new MemberDAO_imple();
 	}
 	
 	@Override
@@ -116,10 +121,35 @@ public class OrderTaste extends AbstractController {
 		    			if(tasteListResult == 1) {
 		    				//System.out.println("tasteList 띄우기 성공 ^^~~");
 		    				
+		    				
+		    				// 문자를 보내주기 위해 정보를 넘겨주는 것
+		    				MemberVO mvo = mdao.selectOneMember(loginuser.getUserid());
+		    				request.setAttribute("mvo", mvo);
+		    				
+		    				// === 지점명을 가져오는 메소드 생성하기 === //
+		    				List<String> storename = pdao.get_storename();
+		    				
+		    				// === 제품명 가져오는 메소드 생성하기 === //
+		    				String productname = pdao.get_productname(pcode);
+		    				
+		    				// payment.jsp 에 띄워줄 정보를 set 하는 부분
+		    				request.setAttribute("storename", storename);
+		    				request.setAttribute("mobile", loginuser.getMobile());
+		    				request.setAttribute("productname_str", productname);
+		    				request.setAttribute("productname", productname);
+		    				request.setAttribute("pcode", pcode);
+		    				
 		    				// == 주문하기 뷰단으로 연결 == //
 			    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
-			    			request.setAttribute("str_totalprice", str_totalprice); // 총합계금액
-		    			
+			    			request.setAttribute("totalprice", str_totalprice); // 총합계금액
+/*		    			
+			    			System.out.println(storename);
+			    			System.out.println(loginuser.getMobile());
+			    			System.out.println(pcode);
+			    			System.out.println(productname);
+			    			System.out.println(str_totalcount);
+			    			System.out.println(str_totalprice);
+*/			    			
 			    			super.setRedirect(false);
 	    					super.setViewPage("/WEB-INF/order/payment.jsp");
 			    			
