@@ -121,7 +121,6 @@ public class OrderTaste extends AbstractController {
 		    			if(tasteListResult == 1) {
 		    				//System.out.println("tasteList 띄우기 성공 ^^~~");
 		    				
-		    				
 		    				// 문자를 보내주기 위해 정보를 넘겨주는 것
 		    				MemberVO mvo = mdao.selectOneMember(loginuser.getUserid());
 		    				request.setAttribute("mvo", mvo);
@@ -142,7 +141,7 @@ public class OrderTaste extends AbstractController {
 		    				// == 주문하기 뷰단으로 연결 == //
 			    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
 			    			request.setAttribute("totalprice", str_totalprice); // 총합계금액
-/*		    			
+/*		    			    
 			    			System.out.println(storename);
 			    			System.out.println(loginuser.getMobile());
 			    			System.out.println(pcode);

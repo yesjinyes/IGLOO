@@ -253,8 +253,8 @@ public class ProductDAO_imple implements ProductDAO {
 				List<CartVO> cvoList = new ArrayList<CartVO>();
 				List<ProductVO> pvoList = new ArrayList<ProductVO>();
 				
-				int cnt = 0;
 				if(paraMap.get("cartno_arr") != null) {
+					
 					for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
 						
 						sql = " select count, price "
@@ -280,50 +280,31 @@ public class ProductDAO_imple implements ProductDAO {
 						pvoList.add(pvo);
 						// System.out.println("cvoList.get(i)  ===>> "+cvoList.get(i).getCount()); // cvoList.get(i)  ===>> 3
 					} // end of for -------------------------------------------------------
-					
-					for(int i=0; i<selectno_arr.length; i++) {
-						sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice) "
-								+ " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
-						
-						pstmt = conn.prepareStatement(sql);
-						
-						pstmt.setString(1, (String)paraMap.get("odrcode"));
-						pstmt.setInt(2, cvoList.get(i).getCount());
-						pstmt.setString(3, selectno_arr[i]);
-						pstmt.setInt(4, pvoList.get(i).getPrice()*cvoList.get(i).getCount());
-						
-						pstmt.executeUpdate();
-						cnt++;
-						
-					}// end of for---------------------------
 				}
-				else {
-					
-				}
+				
+				int cnt = 0;
 				for(int i=0; i<selectno_arr.length; i++) {
 					sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice) "
-							+ " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
+						 + " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
 					
 					pstmt = conn.prepareStatement(sql);
 					
 					pstmt.setString(1, (String)paraMap.get("odrcode"));
 					
 					if(paraMap.get("cartno_arr") == null) {
-						pstmt.setInt(2, Integer.parseInt((String)paraMap.get("totalcount")));
-						pstmt.setString(3, selectno_arr[i]);
-						pstmt.setInt(4, pvoList.get(i).getPrice()*Integer.parseInt((String)paraMap.get("totalcount")));
-					
-					System.out.println((String)paraMap.get("odrcode"));
-					System.out.println(Integer.parseInt((String)paraMap.get("totalcount")));
-					System.out.println(selectno_arr[i]);
-					System.out.println(pvoList.get(i).getPrice()*cvoList.get(i).getCount());
+					    pstmt.setInt(2, Integer.parseInt((String)paraMap.get("totalcount")));
 					}
+					else {
+						pstmt.setInt(2, cvoList.get(i).getCount());
+					}
+					
+					pstmt.setString(3, selectno_arr[i]);
+					pstmt.setInt(4, pvoList.get(i).getPrice()*cvoList.get(i).getCount());
 					
 					pstmt.executeUpdate();
 					cnt++;
 					
 				}// end of for---------------------------
-				
 				
 				if(cnt == selectno_arr.length) { // 위에 과정이 완료 되었으면 n2 cnt == selectno_arr.length 일 것.
 					n2 = 1;

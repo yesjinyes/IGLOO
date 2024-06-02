@@ -86,6 +86,7 @@ public class Payment extends AbstractController {
 
 			Map<String, Object> paraMap = new HashMap<>();
 			if(cartno == null) {
+				
 				String totalprice = request.getParameter("totalprice");
 				String productcode = request.getParameter("pcode");
 				
@@ -96,7 +97,7 @@ public class Payment extends AbstractController {
 				String totalcount = request.getParameter("str_totalcount");
 				paraMap.put("odrcode", odrcode);	// 주문코드(명세서번호) s+날짜+sequence
 				paraMap.put("totalprice", totalprice);	
-				paraMap.put("totalcount", totalcount);	
+				paraMap.put("totalcount", totalcount);
 			}
 			else {
 				String totalprice = request.getParameter("totalprice");	// 확인용  ==>  8000
