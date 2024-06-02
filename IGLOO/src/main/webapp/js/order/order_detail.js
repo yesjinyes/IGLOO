@@ -69,16 +69,16 @@ $(document).ready(function() {
 										<button type="button" index="`+index+`" id="delete" style="background-color: #f6fafe; font-weight: bold; float: right; font-size: 15pt; border: none;">x</button>
 									</div> 
 								</div> 
-							<!--	<input type="text" name="tasteselectListNo" value="`+tastenoarr+`" />
-								<input type="text" name="tasteselectListCount" value="1" />  -->
+							<!--	<input type="hidden" name="tasteselectListNo" value="`+tastenoarr+`" />
+								<input type="hidden" name="tasteselectListCount" value="1" />  -->
 								<hr id="line" style="border: solid 1px #81BEF7; width: 100%;">
 							</div>
 						</div>`;
 						
 						$("div#resultList").append(html);
 			
-						var tasteselectList = `<input type="text" index="`+index+`" id="tasteselectListNo`+index+`" name="tasteselectListNo" value="`+tastenoarr+`" />
-											   <input type="text" index="`+index+`" id="tasteselectListCount`+index+`" name="tasteselectListCount" value="1" />`
+						var tasteselectList = `<input type="hidden" index="`+index+`" id="tasteselectListNo`+index+`" name="tasteselectListNo" value="`+tastenoarr+`" />
+											   <input type="hidden" index="`+index+`" id="tasteselectListCount`+index+`" name="tasteselectListCount" value="1" />`
 						
 						$("form[name='tasteinfo']").append(tasteselectList);
 						$("form[name='orderinfo']").append(tasteselectList);

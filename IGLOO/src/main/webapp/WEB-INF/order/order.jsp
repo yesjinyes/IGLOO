@@ -36,7 +36,7 @@
    <br><br>
       <div class="row mb-5">
           <c:forEach var="productList" items="${requestScope.productList}" varStatus="status">
-            <div class="card col-md-3">
+            <div class="card col mr-2 ml-3">
             	<img name="productimg" src="${pageContext.request.contextPath}/images/registerimage/${productList.productimg}" class="card-img-top productimg" style="height: 50%;" alt="...">
                 <div class="card-body">
                 	<h5 class="card-title productname">${productList.productname}</h5>
@@ -44,12 +44,14 @@
                   	<p class="card-text productprice" style="font-weight: bold; font-size: 15pt;"><fmt:formatNumber value="${productList.price}" pattern="###,###" />원</p>
                   
                   	<input type="hidden" name="pcode" value="${productList.productcodeno}" />
-                  	<button type="button" class="btnOrder stretched-link" style="float: right">주문하기</button>
+                  	<button type="button" class="btnOrder stretched-link" style="float: right; border-radius: 7%;">주문하기</button>
                 </div>
             </div>
-            <c:if test="${status.index % 4 == 3}">
+            
+             <c:if test="${status.index % 4 == 3}">
      			</div><div class="row mb-5">
  		 	</c:if>
+ 		 	
           </c:forEach>
       </div>
      
