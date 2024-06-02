@@ -49,7 +49,7 @@ $(document).ready(function(){
 			goPwdUpdate();
 		}
 		
-	})	// end of $("input:text[name='email']").binde("keydown", function(e){})-----
+	});	// end of $("input:text[name='email']").binde("keydown", function(e){})-----
     
     
     
