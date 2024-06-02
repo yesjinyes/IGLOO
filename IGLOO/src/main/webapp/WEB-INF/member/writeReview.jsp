@@ -182,9 +182,9 @@ function goRegister() {
 	        </div>
 	        
 	        <%-- 리뷰동의 --%>
-	        <div class="agree" style="border: solid 1px red;">
-		        <input type="checkbox" class="sf_check_agree_privacy" style="border: solid 1px red;">
-		        <p class="title" style="border: solid 1px red;">리뷰 수집 및 사용 권한 동의</p>
+	        <div class="agree" style="border: solid 0px red;">
+		        <input type="checkbox" class="sf_check_agree_privacy" style="border: solid 0px red;">
+		        <p class="title" style="border: solid 0px red;">리뷰 수집 및 사용 권한 동의</p>
 	        </div>
 	        
 	        <%-- 리뷰 등록버튼 --%>

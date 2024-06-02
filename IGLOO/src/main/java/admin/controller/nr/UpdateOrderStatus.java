@@ -27,6 +27,8 @@ public class UpdateOrderStatus extends AbstractController {
 		String pickupTime = request.getParameter("pickupTime");
 		String status = request.getParameter("status");
 		
+		// System.out.println("pickupTime: "+pickupTime);
+		
 		// System.out.println(orderdetailno+", "+pickupTime+", "+status); //확인 완료
 		// pickupTime은 설정하지 않을 시 null이 아닌 ""으로 넘어옴.
 		
