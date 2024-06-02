@@ -191,7 +191,7 @@
 </div>
 
 <%-- 넘겨줄 정보 --%>
-<form name="sendinfo">
+<form name="sendinfo" style="display:none;">
 	<input type="text" name="searchorderList" value=""/>
 	<input type="text" name="orderListPeriod" value=""/>
 </form>
