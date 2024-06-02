@@ -131,19 +131,19 @@ function goWriteReview(){
 		</div>
 	</c:if>
 
-	<%-- 더보기 버튼 --%>
+	<%-- 더보기 버튼
 	<div class="more col-md-12 ">
     	 <span id="end" style="display:block; margin:20px; font-size: 14pt; font-weight: bold; color: red;"></span> 
          <button type="button" class="btn btn-outline-secondary" id="btnMoreReview" value="">더보기</button>
          <span id="totalReview"></span>   
          <span id="countReview">0</span>
     </div>
-
+	 --%>
     
 </div>
 
 <form name="ordercodeFrm">
-	<input type="text" name="odrcode" />
+	<input type="text" name="odrcode" style="display: none;"/>
 	<input type="text" style="display: none;"/>
 </form>
 

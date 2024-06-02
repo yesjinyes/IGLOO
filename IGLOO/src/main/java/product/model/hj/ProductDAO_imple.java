@@ -223,8 +223,6 @@ public class ProductDAO_imple implements ProductDAO {
 			// 2. 주문 테이블에 insert 하기(수동커밋처리)
 			String sql = " insert into tbl_order(ordercode, fk_userid, totalprice, storename, requiremessage) values(?, ?, ?, ?, ?) ";
 
-			// System.out.println((String)paraMap.get("odrcode")); // P-20240530-15
-			// System.out.println((String)paraMap.get("userid"));  // jjoung
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -236,7 +234,15 @@ public class ProductDAO_imple implements ProductDAO {
 			
 			n1 = pstmt.executeUpdate();
 			// System.out.println(" n1 확인용 ===>   " + n1); // n1 확인용 ===>   1
-            
+
+			
+			/*
+			System.out.println((String)paraMap.get("odrcode")); // P-20240530-15
+			System.out.println((String)paraMap.get("userid"));  // jjoung
+			System.out.println(Integer.parseInt((String)paraMap.get("totalprice")));  // jjoung
+			System.out.println((String)paraMap.get("storenameOne"));  // jjoung
+			System.out.println((String)paraMap.get("require"));  // jjoung
+            */
 			// 3. 주문상세 테이블에 insert 하기(수동커밋처리)
 			if(n1 == 1) {
 				
@@ -246,8 +252,9 @@ public class ProductDAO_imple implements ProductDAO {
 				
 				List<CartVO> cvoList = new ArrayList<CartVO>();
 				List<ProductVO> pvoList = new ArrayList<ProductVO>();
+				
+				int cnt = 0;
 				if(paraMap.get("cartno_arr") != null) {
-					
 					for(int i=0; i<selectno_arr.length; i++) { // count(주문량) 를 구해오기 위한 반복문
 						
 						sql = " select count, price "
@@ -273,31 +280,50 @@ public class ProductDAO_imple implements ProductDAO {
 						pvoList.add(pvo);
 						// System.out.println("cvoList.get(i)  ===>> "+cvoList.get(i).getCount()); // cvoList.get(i)  ===>> 3
 					} // end of for -------------------------------------------------------
+					
+					for(int i=0; i<selectno_arr.length; i++) {
+						sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice) "
+								+ " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
+						
+						pstmt = conn.prepareStatement(sql);
+						
+						pstmt.setString(1, (String)paraMap.get("odrcode"));
+						pstmt.setInt(2, cvoList.get(i).getCount());
+						pstmt.setString(3, selectno_arr[i]);
+						pstmt.setInt(4, pvoList.get(i).getPrice()*cvoList.get(i).getCount());
+						
+						pstmt.executeUpdate();
+						cnt++;
+						
+					}// end of for---------------------------
 				}
-				
-				int cnt = 0;
+				else {
+					
+				}
 				for(int i=0; i<selectno_arr.length; i++) {
 					sql =  " insert into tbl_orderdetail(orderdetailno, fk_ordercode, ordercount, fk_selectno, orderprice) "
-						 + " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
+							+ " values(SEQ_ORDERDETAILNO.nextval, ?, ?, ?, ?) ";
 					
 					pstmt = conn.prepareStatement(sql);
 					
 					pstmt.setString(1, (String)paraMap.get("odrcode"));
 					
 					if(paraMap.get("cartno_arr") == null) {
-					 // request.getParameter("");
-					}
-					else {
-						pstmt.setInt(2, cvoList.get(i).getCount());
-					}
+						pstmt.setInt(2, Integer.parseInt((String)paraMap.get("totalcount")));
+						pstmt.setString(3, selectno_arr[i]);
+						pstmt.setInt(4, pvoList.get(i).getPrice()*Integer.parseInt((String)paraMap.get("totalcount")));
 					
-					pstmt.setString(3, selectno_arr[i]);
-					pstmt.setInt(4, pvoList.get(i).getPrice()*cvoList.get(i).getCount());
+					System.out.println((String)paraMap.get("odrcode"));
+					System.out.println(Integer.parseInt((String)paraMap.get("totalcount")));
+					System.out.println(selectno_arr[i]);
+					System.out.println(pvoList.get(i).getPrice()*cvoList.get(i).getCount());
+					}
 					
 					pstmt.executeUpdate();
 					cnt++;
 					
 				}// end of for---------------------------
+				
 				
 				if(cnt == selectno_arr.length) { // 위에 과정이 완료 되었으면 n2 cnt == selectno_arr.length 일 것.
 					n2 = 1;

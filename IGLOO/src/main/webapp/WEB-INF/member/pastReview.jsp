@@ -115,14 +115,14 @@ function goDeleteReview(){
 				<div class="content collapse" id="${rvo.fk_ordercode }">
 		          <div class="bind">
 			          <div class="flexitem">
-				          	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
-				            <h3>매장명</h3>
+				          	<%-- 주문매장 이름
+				            <h3>매장명</h3>--%>
 				            
-				            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
+				            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 
 				            <div class="btns">
 					          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
 					          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
-				           </div>
+				           </div>--%>
 			          </div>  
 		          
 		          <%-- 첨부된 리뷰사진 --%>
@@ -132,9 +132,9 @@ function goDeleteReview(){
 		          </div>
 		          
 		          <%-- 별점 --%>
-		          <div class="star"><%-- ${requestScope.star} --%>☆☆☆☆☆&nbsp;&nbsp; 
-		            <%--<span class="date">${rvo.writedate}</span> --%>
-		          </div>
+		          <%-- <div class="star">${requestScope.star} ☆☆☆☆☆&nbsp;&nbsp; 
+		            <span class="date">${rvo.writedate}</span> 
+		          </div>--%>
 		          
 		          <%-- 내용 --%>
 		          <div class="text">${rvo.reviewcontent}</div>
@@ -161,7 +161,7 @@ function goDeleteReview(){
   
   
 <form name="ordercodeFrm">
-	<input type="text" name="odrcode" />
+	<input type="text" name="odrcode" style="display: none;"/>
 	<input type="text" style="display: none;"/>
 </form>
   

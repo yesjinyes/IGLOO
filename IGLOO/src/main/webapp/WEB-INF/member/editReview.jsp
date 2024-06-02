@@ -110,7 +110,7 @@ function goEditRegister() {
        <div class="review">
         <div class="sumarry">
           <div class="img-container">
-            <img src="<%= ctxPath%>/images/img_narae/cup_size/${requestScope.rvoOne.pvo.productimg}"/>
+            <img src="<%= ctxPath%>/images/img_narae/cup_size/${requestScope.rvoOne.productimg}"/>
           </div>
           <div class="option-container">
             <h3>${requestScope.rvoOne.pvo.productname}</h3>
