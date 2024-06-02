@@ -9,7 +9,9 @@ $(document).ready(function(){
 	$('select#menuAlign').change(function(){
 		$("div#displayAlign").empty();
 		$("span#count").html(0);
+		$("span#end").empty();
 		displayAlign("1");
+		$("button#btnMore").text("MORE🍦");
 	});
 	
 
