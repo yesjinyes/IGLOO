@@ -284,7 +284,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				
 				
 				OrderdetailVO odvo = new OrderdetailVO();
@@ -387,7 +387,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	//작성한 리뷰 불러오기
 	@Override
-	public List<ReviewVO> selectPreviewListAll(Map<String, String> paraMap) throws SQLException {
+	public List<ReviewVO> selectPreviewListAll(String userid) throws SQLException {
 
 		List<ReviewVO> pastList = new ArrayList<ReviewVO>();
 		
@@ -404,16 +404,16 @@ public class ReviewDAO_imple implements ReviewDAO {
 					+ "    on E.fk_selectno = C.selectno "
 					+ "    join tbl_product D "
 					+ "    on C.fk_productcodeno = D.productcodeno "
-					+ "    where B.fk_userid = ? and A.reviewstatus = 1 and B.reviewno = ? ";
+					+ "    where B.fk_userid = ? and A.reviewstatus = 1  ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, paraMap.get("userid"));
-			pstmt.setInt(2, Integer.parseInt(paraMap.get("reviewno")) );
+			pstmt.setString(1,userid);
+			//pstmt.setInt(2, Integer.parseInt(paraMap.get("reviewno")) );
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				
+				pastList = new ArrayList<ReviewVO>();
 				ReviewVO rvo = new ReviewVO();
 				rvo.setReviewno(rs.getInt(1));
 				rvo.setFk_ordercode(rs.getString(3));
@@ -484,36 +484,148 @@ public class ReviewDAO_imple implements ReviewDAO {
 	}
 
 	
+	
+	
+	// 해당리뷰(1개)에 대한 상세(리스트) 메소드
+	@Override
+	public ReviewVO rvoOne(String ordercode) throws SQLException {
+		
+		ReviewVO rvoOne = new ReviewVO();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "  select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg, E.orderdetailno "
+					+ "    from tbl_order A join tbl_review B "
+					+ "    on A.ordercode = B.fk_ordercode "
+					+ "    join tbl_orderdetail E "
+					+ "    on A.ordercode = E.fk_ordercode "
+					+ "    join tbl_selectlist C "
+					+ "    on E.fk_selectno = C.selectno "
+					+ "    join tbl_product D "
+					+ "    on C.fk_productcodeno = D.productcodeno "
+					+ "    where B.fk_ordercode = ? and A.reviewstatus = 1  ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,ordercode);
+			//pstmt.setInt(2, Integer.parseInt(paraMap.get("reviewno")) );
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				ReviewVO rvo = new ReviewVO();
+				rvo.setReviewno(rs.getInt(1));
+				rvo.setFk_ordercode(rs.getString(3));
+				rvo.setReviewcontent(rs.getString(4));
+				rvo.setWriteday(rs.getString(5));
+				
+				MemberVO mvo = new MemberVO();
+				mvo.setUserid(rs.getString(2));
+				rvo.setMvo(mvo);
+				
+				OrderVO ovo = new OrderVO();
+				ovo.setReviewstatus(rs.getInt(6));
+				rvo.setOvo(ovo);
+				
+				ProductVO pvo = new ProductVO();
+				pvo.setProductname(rs.getString(7));
+				pvo.setProductimg(rs.getString(8));
+				rvo.setPvo(pvo);
+				
+				OrderdetailVO odvo = new OrderdetailVO();
+				odvo.setOrderdetailno(rs.getInt(9));
+				rvo.setOdvo(odvo);
+				
+				rvoOne.setOdvo(odvo);
+				rvoOne.setMvo(mvo);
+				rvoOne.setOvo(ovo);
+				rvoOne.setPvo(pvo);
+				
+				sql = "select A.orderdetailno, B.ordercode, E.tasteselectno, F.tastename, F.tasteimg "
+						+ "from tbl_orderdetail A join tbl_order B "
+						+ "on A.fk_ordercode = B.ordercode "
+						+ "join tbl_selectlist C "
+						+ "on A.fk_selectno = C.selectno "
+						+ "join tbl_product D "
+						+ "on C.fk_productcodeno = D.productcodeno "
+						+ "join tbl_tasteselect E "
+						+ "on E.fk_selectno = C.selectno "
+						+ "join tbl_taste F "
+						+ "on E.fk_tasteno = F.tasteno "
+						+ "where orderdetailno = ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, odvo.getOrderdetailno());
+					
+					rs2 = pstmt.executeQuery();
+					
+					List<TasteVO> tasteList = new ArrayList<TasteVO>();
+					List<TasteVO> tasteimgList = new ArrayList<TasteVO>();
+					
+					while(rs2.next()) {
+						TasteVO tvo = new TasteVO();
+						tvo.setTastename(rs2.getString(4));
+						tasteList.add(tvo);
+						
+						tvo.setTasteimg(rs2.getString(5));
+						tasteimgList.add(tvo);
+					}
+					
+					odvo.setTastenamelist(tasteList);
+					odvo.setTasteimglist(tasteimgList);
+					
+					rvoOne.setOdvo(odvo);
+
+				}
+				
+			} finally {
+				close();
+			}
+		
+		return rvoOne;
+	
+		
+		
+	}
+
+	
+	
+	
+	// 수정한 리뷰 update
+	@Override
+	public int updateReviewOne(Map<String, String> paraMap) throws SQLException {
+		
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();	
+			
+			String sql = " update tbl_review set reviewcontent = ? "
+					   + " where fk_userid = ? and fk_ordercode = ? "; 
+					
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("reviewcontent") );		
+			pstmt.setString(2, paraMap.get("userid") );
+			pstmt.setString(3, paraMap.get("ordercode"));
+			
+			
+	        n = pstmt.executeUpdate();		// return 타입은 int
+	        
+		}  finally {
+			close();
+		}	// end of try~finally---------------------
+		
+		return n;
+	
+	}
+
+	
 
 		
 
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-
-
-	
-	
-	
-	
 	
 }

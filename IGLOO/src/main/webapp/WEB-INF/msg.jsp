@@ -18,7 +18,7 @@
 	
 	if(${requestScope.n == "1"}){
 		self.close();
-		opener.location.href = "pastReview.ice";
+	    window.opener.location.href="${requestScope.loc}";
 		
 	}
 </script>    
