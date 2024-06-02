@@ -95,9 +95,11 @@ div.img-container > img{
 	padding: 15px;
 	margin-top: 20px;
 }
-.flexitem{
+/*
+.bind{
 	display: flex;
 }
+*/
 div.bind > h3{
 	border: solid 0px pink;
 	text-decoration: underline;
