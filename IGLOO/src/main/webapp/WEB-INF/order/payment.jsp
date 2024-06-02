@@ -44,7 +44,7 @@ $(document).ready(function() {
             
         } else {
            // 팝업창 띄우기
-            const url = `<%=ctxPath%>/member/iglooPurchaseEnd.ice?userid=${sessionScope.loginuser.userid}&productname=${requestScope.productname_str}&totalprice=${requestScope.totalprice}`;
+            const url = `<%=ctxPath%>/member/iglooPurchaseEnd.ice?pcode=${requestScope.pcode}&userid=${sessionScope.loginuser.userid}&productname=${requestScope.productname_str}&totalprice=${requestScope.totalprice}`;
             
             window.open(url, "iglooPurchaseEnd", "width=1000, height=600, left=400, top=200");
         }
@@ -78,7 +78,6 @@ function goOrderEnd(){
              alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
           }
        });
-	 
 
 	    const frm = document.order;
 	    frm.action = "payment.ice";
@@ -168,7 +167,7 @@ function storeAddress(){
 			<div style="margin-bottom: 1%; font-size: 13pt; font-weight: bold;">내 연락처</div>
 			<div style="background-color: white; border-radius: 10px; display: flex; align-items: center;" >
 				<div style="margin: 2%;">
-					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">${requestScope.mobile.substring(0,3)}-${requestScope.mobile.substring(3,7)}-${requestScope.mobile.substring(7)}</div>
+					<div style="font-size: 11pt; font-weight: bold; color: gray; margin-top: 1%;">${sessionScope.loginuser.mobile.substring(0,3)}-${sessionScope.loginuser.mobile.substring(3,7)}-${sessionScope.loginuser.mobile.substring(7)}</div>
 				</div>
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
@@ -212,14 +211,19 @@ function storeAddress(){
 	<textarea rows="4" id="smsContent" style="width: 100%; display: none;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 <fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" /> 원이 결제되었습니다.</textarea>
 	
 <form name="order">
-	<input type="hidden" name="orderplay" value="play" />
-	<input type="hidden" name="str_cartno" value="${requestScope.str_cartno}" />
-	<input type="hidden" name="str_selectno" value="${requestScope.str_selectno}"/>
-	<input type="hidden" name="totalprice" value="${requestScope.totalprice}"/>
-	<input type="hidden" name="storenameigloo" id="storenameInput" value=""/>
-	<input type="hidden" name="require" id="requiremessage" value=""/>
-</form>
+	<input type="text" name="orderplay" value="play" />
+	<input type="text" name="str_cartno" value="${requestScope.str_cartno}" />
+	<input type="text" name="str_selectno" value="${requestScope.str_selectno}"/>
+	<input type="text" name="totalprice" value="${requestScope.totalprice}"/>
 	
+	<input type="text" name="str_totalprice" value="${requestScope.totalprice}"/>
+	<input type="text" name="str_totalcount" value="${requestScope.str_totalcount}"/>
+	<input type="text" name="pcode" value="${requestScope.pcode}"/>
+	
+	<input type="text" name="storenameigloo" id="storenameInput" value=""/>
+	<input type="text" name="require" id="requiremessage" value=""/>
+</form>
+
 <script>
 
 $("#stselect").change(function() {
