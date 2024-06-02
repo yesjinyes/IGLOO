@@ -85,7 +85,7 @@ function changePwd() {
               	<%-- === 아이디 저장 === --%>
               	<tr>
               		<td colspan="2">
-              			<input type="checkbox" id="saveid" />&nbsp;<label for="saveid">아이디저장</label>
+              			<input type="checkbox" id="saveid" />&nbsp;<label for="saveid" style="cursor:pointer;">아이디저장</label>
               		</td>
               	</tr>
               	<%-- === 로그인 === --%>
