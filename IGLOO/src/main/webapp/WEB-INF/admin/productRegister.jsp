@@ -414,7 +414,7 @@ border-style: hidden;
 		                   // ~~~ 확인용 : {"result":1}
 		                   if(json.result == 1) {
 		                	   alert("등록 성공!");
-		                     location.href="${pageContext.request.contextPath}/order/order.ice"; 
+		                     location.href="${pageContext.request.contextPath}/admin/productRegister.ice"; 
 		                   }
 		               },
 		               error: function(request, status, error){
