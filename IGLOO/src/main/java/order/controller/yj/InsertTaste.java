@@ -1,20 +1,9 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 맛선택을 List 로 담아주는 중..... 
-
-
 package order.controller.yj;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import common.controller.AbstractController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +12,7 @@ import member.domain.MemberVO;
 import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
 public class InsertTaste extends AbstractController {
+	
 	private ProductDAO pdao = null;
 	
 	public InsertTaste() {
@@ -135,17 +125,18 @@ public class InsertTaste extends AbstractController {
 		    			if(tasteListResult == 1) {
 		    				//System.out.println("tasteList 띄우기 성공 ^^~~");
 		    				
+		    				// == 주문하기 뷰단으로 연결 == //
 		    				
 		    				
 		    				
+		    				
+		    				
+		    				
+		    				// == 장바구니 뷰단으로 연결 == //
 		    				int cartListResult = pdao.insertCartList(userid, tasteinfoList, resultList);
 		    				
 		    				if(cartListResult == 1) {
-		    					System.out.println("cartList 띄우기 성공 ^^~~");
-		    					
-//		    					super.setRedirect(false);
-//		    					super.setViewPage("/WEB-INF/order/cart.jsp");
-//		    					return;
+		    					//System.out.println("cartList 띄우기 성공 ^^~~");
 		    					
 				    			super.setRedirect(true);
 		    					super.setViewPage(request.getContextPath() + "/member/cart.ice");
@@ -163,7 +154,7 @@ public class InsertTaste extends AbstractController {
 		    		
 //		    			super.setRedirect(false);
 //		    			super.setViewPage("/WEB-INF/order/payment.jsp");
-//		    			
+		    			
 //		    			super.setRedirect(true);
 //		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
 		    		}
