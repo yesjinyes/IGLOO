@@ -57,27 +57,27 @@ public class Order_list extends AbstractController {
 				
 				String[] totaltastelist = null;
 				List <String[]> JJINtotaltastelist = new ArrayList<>();
-				List <Integer> orderproductpriceList = new ArrayList<>();
+				// List <Integer> orderproductpriceList = new ArrayList<>();
 				
-				int orderproductprice= 0;
+				// int orderproductprice= 0;
 				for(int i=0; i<orderdetailList.size(); i++) {
-					
+					/*
 					int cnt = orderdetailList.get(i).getOrdercount();
 					int price = orderdetailList.get(i).getOrderprice();
 					orderproductprice = cnt * price;
-					
+					*/
 					totaltastelist = new String[orderdetailList.get(i).getTastenamelist().size()];
 					for(int j=0; j<orderdetailList.get(i).getTastenamelist().size(); j++) {
 						totaltastelist[j] = (orderdetailList.get(i).getTastenamelist().get(j).getTastename());
 					}
 					JJINtotaltastelist.add(totaltastelist);
 					// System.out.println(JJINtotaltastelist);
-					orderproductpriceList.add(orderproductprice);
+					// orderproductpriceList.add(orderproductprice);
 					
 				}	// end of for----------
 				
 				request.setAttribute("jjintotaltastelist", JJINtotaltastelist);
-				request.setAttribute("orderproductpriceList", orderproductpriceList);
+				// request.setAttribute("orderproductpriceList", orderproductpriceList);
 				
 				// super.setRedirect(false);
 		        super.setViewPage("/WEB-INF/order/order_list.jsp");
