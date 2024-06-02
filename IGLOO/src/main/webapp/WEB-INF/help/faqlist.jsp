@@ -15,6 +15,12 @@
 		$("div#answer").hide();
 		$("div#hidebtn").hide();
 		
+		$("div#faqImgDiv").css("width", "10%");
+		
+		$("div#faqImgDiv").click(function(){
+			$(event.target).css("width", "");
+		});
+		
 		$("div#togglebtn").click(function(e){
 			
 			$(e.target).parent().parent().parent().find("#answer").show();
@@ -69,7 +75,7 @@
 				</div>
 				<div id="q_content">
 					<div>${faq.q_content}</div>
-					<c:if test="${not empty faq.faq_img}"><div style="text-align: center; margin-top: 3%;"><img style="width: 50%;" src="<%=ctxPath %>/images/img_narae/faq_img/${faq.faq_img}"/></div></c:if>
+					<c:if test="${not empty faq.faq_img}"><div id="faqImgDiv" style="text-align: center; margin-top: 3%;"><img id="faqImg" style="width: 50%;" src="<%=ctxPath %>/images/img_narae/faq_img/${faq.faq_img}"/>🔍</div></c:if>
 				</div>
 			</div>
 			

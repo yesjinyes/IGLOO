@@ -79,7 +79,7 @@ function goYoutube(){
 </div>
 
 <footer>
-	<div id="footer" style="height: 400px; display: flex;">
+	<div id="footer" style="height: 400px; display: flex; margin-top: 10%;">
 		<div id="wrap">
 			<div id="logo" style="height: 150px;"><img style="width: 20%; margin: 5% 0% 0% 10%;" src="<%=ctxPath%>/images/igloo_logo.png"/></div>
 			<div id="info">

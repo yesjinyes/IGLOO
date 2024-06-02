@@ -23,7 +23,6 @@ public class Help extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		super.goBackURL(request);
 		
 		
 		String category = request.getParameter("category");
