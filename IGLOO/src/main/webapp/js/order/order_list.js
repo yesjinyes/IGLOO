@@ -222,6 +222,7 @@ function submitfrm(){
         , data:{"searchorderList":searchorderList
             , "orderListPeriod":orderListPeriod
         }
+        , async:true
         , dataType:"json"
         , success:function(json){
             const str_json = JSON.stringify(json);  // json 객체를 string 타입으로 변경
