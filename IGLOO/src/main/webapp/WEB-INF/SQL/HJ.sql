@@ -540,16 +540,17 @@ from tbl_order
 where fk_userid = 'jjoung' and ORDERDATE > '2024.05.10';
 
 ------------------------------------------------------------------------------------
-insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'H', 'igloo');
+insert into tbl_selectlist(selectno, fk_productcodeno, fk_userid) values(seq_selectno.nextval, 'P', 'igloo');
 commit;
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 1);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 5);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 13);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 3);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 19);
-insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 62, 17);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 94, 21);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 94, 8);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 94, 10);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 92, 21);
+insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) values(seq_tasteselectno.nextval, 92, 2);
+
+
 commit;
-insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'igloo', 1, 62);
+insert into tbl_cart(cartno, fk_userid, count, fk_selectno) values(seq_cartno.nextval,'igloo', 1, 94);
 commit;
 insert into tbl_order(ordercode, fk_userid, totalprice) values('P' || '-' || to_char(sysdate, 'yyyymmdd') || '-' || lpad(seq_ordercode.nextval,6,'0'), 'jjoung', 8000);
 commit;
@@ -1266,3 +1267,66 @@ from dual;
 select add_months(sysdate, -12), sysdate
 from dual;
 
+-- === 작성한 리뷰목록 === --
+select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg, E.orderdetailno
+					    from tbl_order A join tbl_review B
+				    on A.ordercode = B.fk_ordercode
+					    join tbl_orderdetail E
+					    on A.ordercode = E.fk_ordercode
+					   join tbl_selectlist C
+				    on E.fk_selectno = C.selectno
+					   join tbl_product D
+					   on C.fk_productcodeno = D.productcodeno
+					   where B.fk_userid = 'jjoung' and A.reviewstatus = 1 ;
+
+-- === 리뷰테이블 초기화 하기 === --
+delete from TBL_REVIEW where reviewno > 0;
+commit;
+
+-- === 리뷰작성상태 변경하기 === --
+update tbl_order set reviewstatus = 0
+where fk_userid = 'jjoung';
+commit;
+
+-------------------------------------------------------------------------------
+
+select count(*), to_char(logindate,'yyyy-mm-dd')
+from tbl_loginhistory
+group by LOGINDATE;
+
+-- === 일자별 로그인 기록 == --
+select count(*) as todaylogincnt, logindate
+from
+(
+select to_char(logindate,'yyyy-mm-dd') as logindate
+from tbl_loginhistory
+where logindate > sysdate -13
+    )
+group by LOGINDATE
+order by logindate asc;
+
+-- === null 값 loginhistory 변경 === --
+update TBL_LOGINHISTORY set logindate = '2024-05-17'
+where logindate is null and historyno between 48 and 75;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-16'
+where logindate is null and historyno between 30 and 47;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-15'
+where logindate is null and historyno between 23 and 29;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-14'
+where logindate is null and historyno between 17  and 22;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-13'
+where logindate is null and historyno between 10  and 16;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-12'
+where logindate is null and historyno between 7  and 9;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-11'
+where logindate is null and historyno between 3  and 6;
+commit;
+update TBL_LOGINHISTORY set logindate = '2024-05-10'
+where logindate is null and historyno between 1  and 2;
+commit;

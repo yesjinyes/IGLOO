@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -372,5 +375,51 @@ public class MemberDAO_imple implements MemberDAO {
 		return result;
 		
 	}	// end of public int pwdUpdate(Map<String, String> paraMap) throws SQLException--------
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	// === 최근2주 방문 통계 === //
+	@Override
+	public List<Map<String, String>> loginhistoryList() throws SQLException {
+		
+		List<Map<String, String>> loginhistoryList = new ArrayList<>();
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " select count(*) as todaylogincnt, logindate "
+					+ " from "
+					+ " ( "
+					+ " 	select to_char(logindate,'yyyy-mm-dd') as logindate "
+					+ " 	from tbl_loginhistory "
+					+ "		where logindate > sysdate -13 "
+					+ " ) "
+					+ " group by LOGINDATE "
+					+ " order by logindate ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Map<String,String> loginhistory = new HashMap<>();
+				
+				loginhistory.put("todaylogincnt", rs.getString("todaylogincnt"));
+				loginhistory.put("logindate", rs.getString("logindate"));
+				
+				loginhistoryList.add(loginhistory);
+				
+			}	// end of while----------------------
+			
+			
+		}finally {
+			close();
+		}
+		
+		return loginhistoryList;
+		
+	}	// end of public List<Map<String, String>> loginhistoryList() throws SQLException--------------------
 
 }
