@@ -210,7 +210,7 @@ public class MemberDAO_imple implements MemberDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				
 				member = new MemberVO();
 				
