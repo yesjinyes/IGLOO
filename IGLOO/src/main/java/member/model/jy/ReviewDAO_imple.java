@@ -594,34 +594,34 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	
 	// 수정한 리뷰 update
-	@Override
-	public int updateReviewOne(Map<String, String> paraMap) throws SQLException {
-		
-		int n = 0;
-		
-		try {
-			
-			conn = ds.getConnection();	
-			
-			String sql = " update tbl_review set reviewcontent = ? "
-					   + " where fk_userid = ? and fk_ordercode = ? "; 
-					
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, paraMap.get("reviewcontent") );		
-			pstmt.setString(2, paraMap.get("userid") );
-			pstmt.setString(3, paraMap.get("ordercode"));
-			
-			
-	        n = pstmt.executeUpdate();		// return 타입은 int
-	        
-		}  finally {
-			close();
-		}	// end of try~finally---------------------
-		
-		return n;
-	
-	}
+//	@Override
+//	public int updateReviewOne(Map<String, String> paraMap) throws SQLException {
+//		
+//		int n = 0;
+//		
+//		try {
+//			
+//			conn = ds.getConnection();	
+//			
+//			String sql = " update tbl_review set reviewcontent = ? "
+//					   + " where fk_userid = ? and fk_ordercode = ? "; 
+//					
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			pstmt.setString(1, paraMap.get("reviewcontent") );		
+//			pstmt.setString(2, paraMap.get("userid") );
+//			pstmt.setString(3, paraMap.get("ordercode"));
+//			
+//			
+//	        n = pstmt.executeUpdate();		// return 타입은 int
+//	        
+//		}  finally {
+//			close();
+//		}	// end of try~finally---------------------
+//		
+//		return n;
+//	
+//	}
 
 	
 
