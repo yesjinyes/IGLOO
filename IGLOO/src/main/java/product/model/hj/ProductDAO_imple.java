@@ -292,7 +292,7 @@ public class ProductDAO_imple implements ProductDAO {
 					}
 					
 					pstmt.setString(3, selectno_arr[i]);
-					pstmt.setInt(4, pvoList.get(i).getPrice());
+					pstmt.setInt(4, pvoList.get(i).getPrice()*cvoList.get(i).getCount());
 					
 					pstmt.executeUpdate();
 					cnt++;
