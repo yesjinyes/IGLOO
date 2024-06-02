@@ -63,6 +63,3 @@ public class Order_detail extends AbstractController {
 
 	}
 }
-
-
-

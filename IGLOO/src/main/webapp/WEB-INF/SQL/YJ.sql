@@ -310,8 +310,23 @@ select * from user_sequences;
 
 select * from tbl_cart order by cartno desc;
 
+--------------------------
+--- insert 확인용 ----
 select *
-from tbl_cart;
+from tbl_cart
+order by cartno desc;
+
+select *
+from tbl_selectlist
+order by selectno desc;
+
+select *
+from tbl_tasteselect
+order by tasteselectno desc;
+--------------------------
+
+
+
 desc tbl_cart;
     
 select * 

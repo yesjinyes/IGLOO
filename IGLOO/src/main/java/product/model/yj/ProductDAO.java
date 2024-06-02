@@ -1,3 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 package product.model.yj;
 import java.sql.SQLException;
 import java.util.List;
@@ -7,7 +28,6 @@ import product.domain.ProductVO;
 import product.domain.TasteVO;
 public interface ProductDAO {
 	
-	// == 상품에 대한 정보 알아오는 메소드 == //
 	List<ProductVO> getproductList() throws SQLException;
 	
 	// == 맛 목록 조회해오기 == //
@@ -20,13 +40,10 @@ public interface ProductDAO {
 	List<Map<String, Integer>> insertSelectList(int tasteListSize, String userid, String pcode) throws SQLException;
 
 	// == TBL_TASTESELECT 에 insert 하는 메소드 생성 == //
-	//int insertTasteList(Map<String, Object> paraMap) throws SQLException;
+	int insertTasteList(List<Map<String, Integer>> resultList, List<Map<String, Integer>> tasteinfoList) throws SQLException;
 
 	// == TBL_CART 에 insert 하는 메소드 생성 == //
-	//int insertCartList(Map<String, Object> paraMap) throws SQLException;
-	
-	
-
-	
+	int insertCartList(String userid, List<Map<String, Integer>> tasteinfoList, List<Map<String, Integer>> resultList) throws SQLException;
 	
 }
+
