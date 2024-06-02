@@ -169,9 +169,11 @@ function goUpdate(e) {
 	
 
 	const status = $("input:hidden[name='status']").val();
+	
+	console.log(status);
 
 	if(status == '2'){
-		$("input:hidden[name='pickupTime']").val($("span#pickuptime").html());
+		$("input:hidden[name='pickupTime']").val($(event.target).parent().parent().find("#pickuptime").html());
 	}
 	else {
 		$("input:hidden[name='pickupTime']").val("");
