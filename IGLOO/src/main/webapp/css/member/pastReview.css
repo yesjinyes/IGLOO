@@ -95,7 +95,7 @@ div.img-container > img{
 	padding: 15px;
 	margin-top: 20px;
 }
-.bind{
+.flexitem{
 	display: flex;
 }
 div.bind > h3{

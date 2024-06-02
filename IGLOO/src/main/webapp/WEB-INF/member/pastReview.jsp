@@ -30,20 +30,20 @@ $(document).ready(function(){
 
 function goEditReview(){
 	
-	let reviewno = $(event.target).parent().parent().find("#reviewnoDiv").text(); //디비에서 가져온 리뷰번호
+	let ordercode = $(event.target).parent().parent().parent().find("#ordercodeDiv").text(); //디비에서 가져온 리뷰번호
 	
 //	alert(ordercode);  
 //	$("input:text[name='odrcode']").val();
 	/*
 	const frm = document.ordercodeFrm; //writeReview컨트롤러로 보낼 주문번호에 담음
 	frm.odrcode.value = ordercode; 
-	frm.action = "<%= ctxPath%>/member/writeReview.ice";
+	frm.action = "<%= ctxPath%>/member/editReview.ice";
 	frm.method = "get";
 	frm.submit();
 */
 	
 	//리뷰 수정 팝업창 띄우기
-    const url = "<%= ctxPath%>/member/editReview.ice?reviewno="+reviewno;
+    const url = "<%= ctxPath%>/member/editReview.ice?odrcode="+ordercode;
 
     // 너비 750, 높이 670 인 팝업창을 화면 가운데 위치시키기
     const width = 850;
@@ -62,18 +62,20 @@ function goEditReview(){
     
     
 }//end of function goEditReview()---------------------------------
-
+/*
 function goDeleteReview(){
 	
-	const frm = document.reviewnoFrm; //DeleteReview컨트롤러로 보낼 리뷰번호
-	frm.reviewno.value = reviewno; 
-	frm.action = "<%= ctxPath%>/member/deleteReview.ice";
+	let ordercode = $(event.target).parent().parent().parent().find("#ordercodeDiv").text(); //디비에서 가져온 리뷰번호
+	
+	const frm = document.ordercodeFrm; //DeleteReview컨트롤러로 보낼 리뷰번호
+	frm.odrcode.value = ordercode; 
+	frm.action = "<%= ctxPath%>/member/deleteReview.ice?odrcode="+ordercode;
 	frm.method = "post";
 	frm.submit();
 	
 	
 }//end of function goDeleteReview()---------------------------------
-
+*/
 
 </script>
 
@@ -96,7 +98,7 @@ function goDeleteReview(){
 		    <div class="col-md-12">
 		      <div class="review">
 		        <div class="sumarry">
-		          <div class="reviewno"  id="reviewnoDiv">${rvo.reviewno }</div>
+		        <div id="ordercodeDiv" >${rvo.fk_ordercode }</div>
 		          <div class="img-container">
 		            <img src="<%= ctxPath%>/images/img_hj/cup_size/${rvo.pvo.productimg}"/>
 		          </div>
@@ -108,20 +110,20 @@ function goDeleteReview(){
 	  					</c:forEach>
 		            </ul>
 		          </div>
-		          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#hiddenContent1" aria-expanded="false" aria-controls="hiddenContent1">▼</button>
-		        </div>
-		        <div class="content collapse" id="hiddenContent1">
+		          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#${rvo.fk_ordercode }" aria-expanded="false" aria-controls="${rvo.fk_ordercode }">▼</button>
+				</div>
+				<div class="content collapse" id="${rvo.fk_ordercode }">
 		          <div class="bind">
-		          
-		          	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
-		            <h3>매장명</h3>
-		            
-		            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
-		            <div class="btns">
-			          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
-			          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
-		           </div>
-		            
+			          <div class="flexitem">
+				          	<%-- 주문매장 이름.  배열로 랜덤돌리기 --%>
+				            <h3>매장명</h3>
+				            
+				            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 
+				            <div class="btns">
+					          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
+					          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
+				           </div>--%>
+			          </div>  
 		          
 		          <%-- 첨부된 리뷰사진 --%>
 		          <div class="reviewImgs">
@@ -131,13 +133,11 @@ function goDeleteReview(){
 		          
 		          <%-- 별점 --%>
 		          <div class="star"><%-- ${requestScope.star} --%>☆☆☆☆☆&nbsp;&nbsp; 
-		            <span class="date">${rvo.writedate}</span>
+		            <%--<span class="date">${rvo.writedate}</span> --%>
 		          </div>
 		          
 		          <%-- 내용 --%>
-		          <div class="text">
-		            ${rvo.reviewcontent}
-		          </div>
+		          <div class="text">${rvo.reviewcontent}</div>
 		        </div>
 		      </div>
 		  </div>
@@ -156,12 +156,12 @@ function goDeleteReview(){
 
    
     
+  
   </div>
   
   
-  
-<form name="reviewnoFrm">
-	<input type="text" name="reviewno" />
+<form name="ordercodeFrm">
+	<input type="text" name="odrcode" />
 	<input type="text" style="display: none;"/>
 </form>
   

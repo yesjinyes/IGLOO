@@ -101,18 +101,18 @@ public class OrderlistJSON extends AbstractController {
         	 
          }	// end of try~catch-------------
          
-         int orderproductprice= 0;
+         // int orderproductprice= 0;
 			
          JSONArray jsonArr_info = new JSONArray();
          for(int i=0; i<orderdetailList.size(); i++) {
         	 JSONObject jsonObj_info = new JSONObject(); 
              JSONArray jsonarrtaste = new JSONArray();
-               
+             /*  
              int cnt = orderdetailList.get(i).getOrdercount();
              int price = orderdetailList.get(i).getOrderprice();
              orderproductprice = cnt * price;
              jsonObj_info.put("orderproductprice", orderproductprice);
-             
+             */
              jsonObj_info.put("ordercode", orderdetailList.get(i).getFk_ordercode());
              jsonObj_info.put("orderdate", orderdetailList.get(i).getOrder().getOrderdate());
              jsonObj_info.put("orderprice", orderdetailList.get(i).getOrderprice());
