@@ -236,12 +236,12 @@ ON O.ordercode = D.fk_ordercode;
 
 
 
--- 비번 3개월 확인용 데이터 수정
+-- 비번 3개월 확인용 데이터 수정 --
 update tbl_member set lastpwdchangedate='240125' where userid = 'yejin';
 commit;
 
 select * from tbl_member;
-
+-----------------------------------
 
 
 
@@ -325,7 +325,7 @@ from tbl_tasteselect
 order by tasteselectno desc;
 --------------------------
 
-
+commit;
 
 desc tbl_cart;
     
@@ -340,4 +340,5 @@ where fk_selectno = 13;
 
 select * from tbl_order;
 
-
+delete from tbl_cart where fk_userid='yy6037';
+commit;

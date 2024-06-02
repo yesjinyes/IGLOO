@@ -11,11 +11,12 @@ import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
 import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
-public class InsertTaste extends AbstractController {
+
+public class OrderTaste extends AbstractController {
 	
 	private ProductDAO pdao = null;
 	
-	public InsertTaste() {
+	public OrderTaste() {
 	      pdao = new ProductDAO_imple();
 	}
 	
@@ -56,9 +57,9 @@ public class InsertTaste extends AbstractController {
 		    	String str_totalcount = request.getParameter("str_totalcount"); // 총수량
 		    	String str_totalprice = request.getParameter("str_totalprice"); // 총합계금액
 		    	
-		    	
 		    	// == 맛번호, 수량, 담아주는 맛정보List == //
 		    	List<Map<String, Integer>> tasteinfoList = new ArrayList<>();
+		    	
 		    	
 		    	// 맛번호, 수량 짝꿍 만들어주기
 		    	for(int i = 0; i < tastenoArr.length; i++) {
@@ -86,35 +87,25 @@ public class InsertTaste extends AbstractController {
 		    		
 		    		tasteinfoList.add(map);
 		    	}
-		    	
-		    	// System.out.println("tasteinfoList : "+ tasteinfoList);
-		    	// tasteinfoList : [{taste3=25, taste2=7, taste1=5, count=3}, {taste3=15, taste2=6, taste1=2, count=6}]
-		    	
 		    	///////////////////////////////////////////////////////////////////////////////////////////////
+		    	///////////////////////////////////////////////////////////////////////////////////////////////
+
 		    	int tasteListSize = tasteinfoList.size(); // 맛선택 개수만큼 반복하기 위해 생성
 		    	
 		    	try {
 		    		// == TBL_SELECTLIST 에 insert 하는 메소드 생성 == //
 		    		List<Map<String, Integer>> resultList  = pdao.insertSelectList(tasteListSize, userid, pcode);
-//		    		selectListResult = map.get("selectListResult");
-		    		System.out.println();
 
-		    		///////////////////////////////////////////////////////////////////////
-		    		
-		    		// resultList 에 값이 잘 들어왔는지 확인하고, 잘 들어왔으면 insert 하기
-		    		//  resultList 의 값은 아래와 같다
-		    		// 	{str_selectno=45, selectListResult=1}
-					//	{str_selectno=46, selectListResult=1}
-		    		 
+		    		/////////////////////////////////////////////
+		    	
 		    		boolean success = true;
+		    		
 		    		for(Map<String, Integer> selectListMap : resultList) {
 		    			if(selectListMap.get("selectListResult") != 1) {
 		    				success = false;
 		    				break;
 		    			}
 		    		}
-		    		// System.out.println("success:" + success);
-		    		// succeess:true
 		    		
 		    		// TBL_SELECTLIST 에 insert 할 조건이 충족됐다면
 		    		if(success == true) { 
@@ -126,37 +117,15 @@ public class InsertTaste extends AbstractController {
 		    				//System.out.println("tasteList 띄우기 성공 ^^~~");
 		    				
 		    				// == 주문하기 뷰단으로 연결 == //
+			    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
+			    			request.setAttribute("str_totalprice", str_totalprice); // 총합계금액
 		    				
+		    				super.setRedirect(true);
+	    					super.setViewPage(request.getContextPath() + "/order/payment.ice");
+	    					return;
 		    				
-		    				
-		    				
-		    				
-		    				
-		    				// == 장바구니 뷰단으로 연결 == //
-		    				int cartListResult = pdao.insertCartList(userid, tasteinfoList, resultList);
-		    				
-		    				if(cartListResult == 1) {
-		    					//System.out.println("cartList 띄우기 성공 ^^~~");
-		    					
-				    			super.setRedirect(true);
-		    					super.setViewPage(request.getContextPath() + "/member/cart.ice");
-		    					return;
-		    				}
-		    				
-		    				
-		    				
-		    			}
+		    			}// end of if(tasteListResult == 1)-------------------------------
 		    			
-		    			/////////////////////////////////////////////////////////////////////////////////////
-		    			
-		    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
-		    			request.setAttribute("str_totalprice", str_totalprice); // 총합계금액
-		    		
-//		    			super.setRedirect(false);
-//		    			super.setViewPage("/WEB-INF/order/payment.jsp");
-		    			
-//		    			super.setRedirect(true);
-//		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
 		    		}
 		    		
 		    	} catch(SQLException e) {
@@ -194,8 +163,7 @@ public class InsertTaste extends AbstractController {
 		}// end of else --------------------------------------
 		
 		
-		
-		
 	}// end of public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception--------------
+
 }
 
