@@ -29,7 +29,7 @@
 <%-- 직접 만든 CSS --%>
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/member/writeReview.css" />   
 
-<%-- 직접 만든 JS --%>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -66,18 +66,18 @@ function goRegister() {
 	
 	
 
-	var formData = new FormData($("form[name='reviewRegisterFrm']")[0]);
+//	var formData = new FormData($("form[name='reviewRegisterFrm']")[0]);
 
-	const input_file = $("input[name='fileUpload']").get(0);
-	let fileSize = input_file.files[0].size;
+//	const input_file = $("input[name='fileUpload']").get(0);
+//	let fileSize = input_file.files[0].size;
 	
 	// 첨부한 파일의 총량이 20MB 초과시 //   
-    if( fileSize > 20*1024*1024 ) {
-        alert("첨부한 파일의 크기가 20MB를 넘어 1:1 문의를 등록할 수 없습니다.");
-        return; // 종료
-    } 
+//    if( fileSize > 20*1024*1024 ) {
+//        alert("첨부한 파일의 크기가 20MB를 넘어 1:1 문의를 등록할 수 없습니다.");
+//        return; // 종료
+//    } 
 	
-    else{
+//    else{
     	
 		const frm = document.reviewRegisterFrm;
 		frm.action = "writeReview.ice";
@@ -86,7 +86,7 @@ function goRegister() {
 		
 		// opener.location.href="<%=ctxPath%>/member/pastReview.ice";
 		// window.close(); // 현재 창을 닫음
-    }
+//    }
 	
 	
 	/*
@@ -159,12 +159,12 @@ function goRegister() {
 		        <%-- 주문한지점 이름 --%>
 				<h3>홍대부평점</h3>
 				
-				<%-- 리뷰사진첨부 --%>
+				<%-- 리뷰사진첨부 
 	            <div class="reviewImgs">
 					<div class="form-group" style="width: 35%;">
 					  <label for="fileUpload" style="margin-bottom: 2%;">파일첨부</label>
 					  <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" accept='image/*' style="margin-right: 5%;">
-					</div>
+					</div>--%>
 					
 	            	<%-- 첨부 사진 없는경우 
 	            	<c:if test="${empty requestScope.사진}"> 
@@ -176,7 +176,7 @@ function goRegister() {
 		          
 		        <%-- 후기입력칸 --%>
 		        <div class="form-floating">
-				  <textarea class="form-control" placeholder="리뷰를 작성해주세요:)" id="reviewcontent" style="height: 100px"></textarea>
+				  <textarea class="form-control" placeholder="리뷰를 작성해주세요:)" id="reviewcontent" name="reviewcontent" style="height: 100px"></textarea>
 				  <label for="reviewcontent"></label>
 			   </div>
 	        </div>
@@ -193,7 +193,6 @@ function goRegister() {
 	        	<input id="register" type="button" class="btn btn-outline-secondary" value="등록" onclick="goRegister()"/>
 		    </div>
 			    
-		  </div>
 		  
 		  
 		  	<input type="text" name="odrcode" value="${requestScope.ordercode}"/>

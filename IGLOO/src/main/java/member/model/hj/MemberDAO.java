@@ -1,6 +1,7 @@
 package member.model.hj;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import member.domain.MemberVO;
@@ -27,5 +28,8 @@ public interface MemberDAO {
 
 	// === 비밀번호 찾기 경로 비밀번호 변경 === //
 	int pwdUpdate(Map<String, String> paraMap) throws SQLException;
+
+	// === 최근2주 방문 통계 === //
+	List<Map<String, String>> loginhistoryList() throws SQLException;
 
 }

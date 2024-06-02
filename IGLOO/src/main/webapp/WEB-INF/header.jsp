@@ -172,6 +172,8 @@ function goSearch() {
 				          		<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<%= ctxPath%>/admin/productRegister.ice">제품 등록</a>
 				          		<a class="dropdown-item" href="<%= ctxPath%>/admin/faqAnswer.ice">문의 답변 등록</a>
+				          		<div class="dropdown-divider"></div>
+				          		<a class="dropdown-item" href="<%= ctxPath%>/admin/todayvisitStatistics.ice">최근 2주 방문 통계</a>
 			        		</div>
 				      	</div>
 				      	<div class="col-5 mt-2" style="boredr: solid 1px blue;">

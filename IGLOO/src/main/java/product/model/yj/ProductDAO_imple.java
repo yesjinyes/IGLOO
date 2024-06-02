@@ -1,3 +1,29 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+//▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 package product.model.yj;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -151,7 +177,7 @@ public class ProductDAO_imple implements ProductDAO {
 	      return pvo;
 	      
 	}// end of public ProductVO getproductEach(String pcode) throws SQLException-------------
-	
+
 	///////////////////////////////////////////////////////////////
 	
 	// == TBL_SELECTLIST 에 insert == //
@@ -209,73 +235,99 @@ public class ProductDAO_imple implements ProductDAO {
 	
 	///////////////////////////////////////////////////////////////
 	
-	// == TBL_TASTESELECT에 insert == //
-//	@Override
-//	public int insertTasteList(Map<String, Integer> selectnoMap) throws SQLException {
-//		
-//		int tasteListResult = 0;
-//		
-//		try {
-//			conn = ds.getConnection();
-//			String sqlInsert =  " insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) "
-//					    	  + " values(seq_tasteselectno.nextval, ?, ?)";
-//			
-//			List<Map<String, Integer>> tasteinfoList = new ArrayList<>();
-//			Map<String, Integer> map = new HashMap<>();
-//			
-//			
-////			for(int i=0; i<)
-////			map.get("")
-//			//String[] tastenoArr = (String[])tasteinfoList.get("count");
-//			
-//			
-//			for(String tasteno : tastenoArr) {
-//				pstmt = conn.prepareStatement(sqlInsert);
-//				pstmt.setInt(1, (int) selectnoMap.get("str_selectno"));
-//				pstmt.setInt(2, Integer.parseInt(tasteno));
-//
-//				tasteListResult += pstmt.executeUpdate();
-//			}// end of for --------
-//			
-//		} catch(SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close();
-//		}
-//		
-//		return tasteListResult;
-//		
-//	}// end of public int insertTasteList(Map<String, Object> paraMap) throws SQLException----------
-	
+	// == TBL_TASTESELECT에 insert 하는 method 생성 == //
+	@Override
+	public int insertTasteList(List<Map<String, Integer>> resultList, List<Map<String, Integer>> tasteinfoList) throws SQLException {
+		
+		int tasteListResult = 1; //insert 전체 성공여부
+		
+		try {
+			conn = ds.getConnection();
+
+			List<Integer> insertTasteListResult = new ArrayList<>();
+
+			// 이중 for 문..
+			for(int i = 0; i < resultList.size(); i++) {
+				
+				int selectno = resultList.get(i).get("str_selectno");
+				
+				System.out.println("i : "+ i);
+				System.out.println("selectno : "+ selectno);
+				
+				for(int j = 0; j < tasteinfoList.get(i).size() - 1; j++) { // map에 담긴 1234, 중에 맨 마지막인 수량은 필요가 없으니까 -1 을 해주었음
+					int tasteno = tasteinfoList.get(i).get("taste" + (j+1)); // tasteinfoList 의 첫번째 map 에서 taste1인 값을 가져온것
+					
+					String sqlInsert =  " insert into tbl_tasteselect(tasteselectno, fk_selectno, fk_tasteno) "
+					    	  		  + " values(seq_tasteselectno.nextval, ?, ?)";
+
+					pstmt = conn.prepareStatement(sqlInsert);
+					pstmt.setInt(1, selectno);
+					pstmt.setInt(2, tasteno);
+					
+					int result = pstmt.executeUpdate();
+					
+					insertTasteListResult.add(result);
+				}
+			}
+			
+			//insert 성공여부
+			for(int n : insertTasteListResult) {
+				if(n != 1) {
+					tasteListResult = 0;
+				}
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return tasteListResult;
+		
+	}// end of public int insertTasteList(Map<String, Object> paraMap) throws SQLException----------
+		
 	
 	///////////////////////////////////////////////////////////////
+
 	// == TBL_CART 에 insert 하는 메소드 생성 == //
-//	@Override
-//	public int insertCartList(String userid, ) throws SQLException {
-//		
-//		Map<String, Integer> selectnoMap = new HashMap<>();
-//		
-//		int cartListResult = 0;
-//		
-//		try {
-//			conn = ds.getConnection();
-//			String sqlInsert =  " insert into tbl_cart(cartno, fk_userid, count, fk_selectno) "
-//							  + " values(seq_cartno.nextval, ?, ?) ";
-//			
-//			pstmt = conn.prepareStatement(sqlInsert);
-//			pstmt.setString(1, userid);
-//			//pstmt.setInt(2, ); // 수량(count)이 들어올 자리... 어떻게 넘길까
-//			pstmt.setInt(2, selectnoMap.get("str_selectno"));
-//
-//			cartListResult = pstmt.executeUpdate();
-//
-//		} catch(SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close();
-//		}
-//		
-//		return cartListResult;
-//		
-//	}// public int insertCartList(Map<String, Object> paraMap) throws SQLException-----------------
+	@Override
+	public int insertCartList(String userid, List<Map<String, Integer>> tasteinfoList, List<Map<String, Integer>> resultList) throws SQLException {
+		
+		int cartListResult = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sqlInsert =  " insert into tbl_cart(cartno, fk_userid, count, fk_selectno) "
+							  + " values(seq_cartno.nextval, ?, ?, ?) ";
+			
+			
+			for(int i=0; i<resultList.size(); i++) {
+				
+				int count =  tasteinfoList.get(i).get("count");
+				int selectno = resultList.get(i).get("str_selectno");
+				
+				// System.out.println("count 확인 : " + count);
+				// System.out.println("selectno 확인 : " + selectno); 
+				
+				pstmt = conn.prepareStatement(sqlInsert);
+				pstmt.setString(1, userid);
+				pstmt.setInt(2, count);
+				pstmt.setInt(3, selectno);
+				
+				cartListResult = pstmt.executeUpdate();
+				
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cartListResult;
+		
+	}// public int insertCartList(Map<String, Object> paraMap) throws SQLException-----------------
 }
+
+

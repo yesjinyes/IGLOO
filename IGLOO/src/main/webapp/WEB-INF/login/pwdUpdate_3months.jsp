@@ -27,64 +27,69 @@ $(document).ready(function(){
 	// == 취소 클릭한 경우 (메인페이지로 이동)== //
 	$("button.btn-light").click(function() {
 		location.href = "<%= ctxPath%>/index.ice"
-	});//end of $("button.btn-light").click(function() {})----------
+	});
+	
 	
 	// == 비밀번호 변경 클릭한 경우 == //
     $("button.btn-info").click(function(){
-    	
-		const pwd1 = $("input:password[name='pwd1']").val();
-	    const pwd2 = $("input:password[name='pwd2']").val();
-	    const pwd3 = $("input:password[name='pwd3']").val();
-
-	    // 입력한 '현재 비밀번호'가 올바르지 않은 경우
-/*   	    if(pwd1.trim() == "") { // 현재 비밀번호와 일치하지 않을 때.. 의 조건을 넣고싶은데 requestScope 쓰는 방법... 확인하기
-	    	alert("현재 비밀번호를 다시 입력해주세요.");
-	    	$("input:password[name='pwd1']").val("");
-	    	$("input:password[name='pwd1']").focus();
-	    	return;
-	    }  */
-	 
-	    // 비밀번호 입력란이 공란일 경우 
-	    if(pwd2.trim()== "" || pwd3.trim()== "") {
-	    	alert("새로 설정할 비밀번호를 입력해주세요.");
-	    }
-	    
-	    // 새롭게 입력한 비밀번호 2개가 서로 일치하는지 확인
-	    else if(pwd2 != pwd3) {
-			alert("새로 입력한 암호가 일치하지 않습니다.");
-			$("input:password[name='pwd2']").val("");
-			$("input:password[name='pwd3']").val("");
-			$("input:password[name='pwd2']").focus();
-			return;
-		}
-       
-		// 암호 정규표현식 체크
-        else {
-			const regExp_pwd = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g); 
-            // 숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규표현식 객체 생성 
-              
-            const bool = regExp_pwd.test(pwd2);   
-             
-            if(!bool) {
-                // 암호가 정규표현식에 위배된 경우
-                alert("암호는 8글자 이상 15글자 이하에 영문자,숫자,특수기호가 혼합되어야만 합니다.");
-                $("input:password[name='pwd2']").val("");
-                $("input:password[name='pwd3']").val("");
-                $("input:password[name='pwd2']").focus();
-                return; // 종료
-            }
-            else {
-                // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
-                const frm = document.pwdUpdate3monthsFrm;
-                frm.action = "<%= ctxPath%>/login/pwdUpdate_3months.ice";
-                frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
-                frm.submit();
-            }
-        }
-		
-    });// end of $("button.btn-success").click(function(){})-------------
+    	goPwdUpdate_3months();
+    });
     
- }); // end of $(document).ready(function(){})-------------
+    
+ 	// == 엔터키 눌러도 버튼 클릭되도록 == //
+	$("input#pwd3").bind("keyup", function(e){
+		if(e.keyCode == 13){
+			goPwdUpdate_3months();
+		}
+	});
+    
+}); // end of $(document).ready(function(){})-------------
+ 
+function goPwdUpdate_3months() {
+	
+    const pwd2 = $("input:password[name='pwd2']").val();
+    const pwd3 = $("input:password[name='pwd3']").val();
+
+    // 비밀번호 입력란이 공란일 경우 
+    if(pwd2.trim()== "" || pwd3.trim()== "") {
+    	alert("새로 설정할 비밀번호를 입력해주세요.");
+    }
+    
+    // 새롭게 입력한 비밀번호 2개가 서로 일치하는지 확인
+    else if(pwd2 != pwd3) {
+		alert("새로 입력한 암호가 일치하지 않습니다.");
+		$("input:password[name='pwd2']").val("");
+		$("input:password[name='pwd3']").val("");
+		$("input:password[name='pwd2']").focus();
+		return;
+	}
+		    
+		// 암호 정규표현식 체크
+    else {
+		const regExp_pwd = new RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g); 
+         // 숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규표현식 객체 생성 
+           
+        const bool = regExp_pwd.test(pwd2);   
+          
+        if(!bool) {
+             // 암호가 정규표현식에 위배된 경우
+             alert("암호는 8글자 이상 15글자 이하에 영문자,숫자,특수기호가 혼합되어야만 합니다.");
+             $("input:password[name='pwd2']").val("");
+             $("input:password[name='pwd3']").val("");
+             $("input:password[name='pwd2']").focus();
+             return; // 종료
+        }
+        else {
+             // 암호가 정규포현식에 맞는 경우 => pwdUpdateEndFrm form 태그로 보낸다.
+             const frm = document.pwdUpdate3monthsFrm;
+             frm.action = "<%= ctxPath%>/login/pwdUpdate_3months.ice";
+             frm.method = "post"; <%-- post 방식일 때만 DB 를 바꾼다. --%>
+             frm.submit();
+        }
+    }
+	 
+ }// end of function goPwdUpdate_3months()-----------------------
+ 
 </script>
 
 <form name="pwdUpdate3monthsFrm">
@@ -116,7 +121,7 @@ $(document).ready(function(){
 	    
 				<div class="input-form-box">
 					<span style="font-size: 13pt;">새 비밀번호 확인</span>
-					<input type="password" name="pwd3" class="form-control" placeholder="비밀번호 재입력"/>
+					<input type="password" id="pwd3" name="pwd3" class="form-control" placeholder="비밀번호 재입력"/>
 				</div>
 	    
 				<div class="button-box" style="margin-top: 13%;" >
