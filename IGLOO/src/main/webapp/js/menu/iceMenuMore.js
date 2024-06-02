@@ -3,6 +3,9 @@ $(document).ready(function(){
 
 	$('#menuAlign').val("name");
 
+	$("span#totalCount").hide();
+	$("span#count").hide();
+
 	$('select#menuAlign').change(function(){
 		$("div#displayAlign").empty();
 		$("span#count").html(0);
