@@ -115,8 +115,8 @@ public class Payment extends AbstractController {
 	        //      이어서 주문이 완료되었다라는 email 보내주기  **** //
 	        if(isSuccess==1) {
 	        	
-		    	String message = "장바구니 페이지로 이동합니다.";
-		        String loc = "http://localhost:9090/IGLOO/member/cart.ice";
+		    	String message = "주문조회 페이지로 이동합니다.";
+		        String loc = "http://localhost:9090/IGLOO/member/mypage.ice";
 		            
 		        request.setAttribute("message", message);
 		        request.setAttribute("loc", loc);

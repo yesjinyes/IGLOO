@@ -412,7 +412,7 @@ SELECT tasteno, tastename, tasteimg , ingredients
    on C.fk_productcodeno = E.productcodeno
    join tbl_taste F
    on D.fk_tasteno = F.tasteno
-   where userid = 'jjoung' and orderdetailno = 1
+   where userid = 'jjoung' 
    order by orderdetailno ;
    
    
@@ -449,7 +449,7 @@ SELECT tasteno, tastename, tasteimg , ingredients
     
     
     ---작성한 리뷰 불러오기(아이디,상태,리뷰no/아이디,리뷰no,작성일자,내용,컵이름,컵이미지)
-    select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg
+    select A.ordercode, E.orderdetailno, B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg
     from tbl_order A join tbl_review B
     on A.ordercode = B.fk_ordercode 
     join tbl_orderdetail E
@@ -458,7 +458,7 @@ SELECT tasteno, tastename, tasteimg , ingredients
     on E.fk_selectno = C.selectno
     join tbl_product D
     on C.fk_productcodeno = D.productcodeno
-    where B.fk_userid = 'jjoung' and reviewstatus = 1 and reviewno = 32;
+    ;
     
     --(/맛이름)
     select B.reviewno, 
@@ -468,8 +468,28 @@ SELECT tasteno, tastename, tasteimg , ingredients
     where reviewno = 32;
     
     
+   select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg, E.orderdetailno 
+					    from tbl_order A join tbl_review B 
+					    on A.ordercode = B.fk_ordercode 
+					    join tbl_orderdetail E 
+					    on A.ordercode = E.fk_ordercode 
+					    join tbl_selectlist C 
+					    on E.fk_selectno = C.selectno 
+					    join tbl_product D 
+					    on C.fk_productcodeno = D.productcodeno 
+					    where B.fk_userid = 'jjoung' and reviewstatus = 1 
     
     
     
+    update tbl_review set reviewcontent = '안녕ㅇㅇㅇ'
+	where fk_userid = 'jjoung' and fk_ordercode = 'P-20240601-33';
     
     
+    -- === 리뷰테이블 초기화 하기 === --
+delete from TBL_REVIEW where reviewno > 0;
+commit;
+
+-- === 리뷰작성상태 변경하기 === --
+update tbl_order set reviewstatus = 0
+where fk_userid = 'jjoung';
+commit;

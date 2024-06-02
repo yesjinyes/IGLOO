@@ -434,7 +434,7 @@ public class ProductDAO_imple implements ProductDAO {
 		String today = smdatefm.format(now);
 		
 		// 주문코드를 위한 시퀀스 번호 select 해오기
-		int seq = 0;
+		String seq = "";
 		try {
 	         conn = ds.getConnection();
 	         
@@ -447,7 +447,7 @@ public class ProductDAO_imple implements ProductDAO {
 	         
 	         rs.next();
 	         
-	         seq = rs.getInt(1);
+	         seq = rs.getString(1);
 	         
 	      } finally {
 	         close();

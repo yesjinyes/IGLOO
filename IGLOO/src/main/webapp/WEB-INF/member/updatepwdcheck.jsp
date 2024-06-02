@@ -83,7 +83,7 @@ function func_form_reset_empty() {
 	
 	<form name="idFindFrm">
 	   <ul style="list-style-type: none;">
-	      <li style="margin: 25px 0">
+	      <li id="pwd" style="margin: 25px 0">
 	          <label>비밀번호</label>
 	          <input type="password" name="pwd" size="25" autocomplete="off" /> 
 	      </li>
@@ -99,7 +99,7 @@ function func_form_reset_empty() {
 <c:if test="${requestScope.check}">
 	<c:choose>
     	<c:when test="${requestScope.pwdcheck}">
-    	<script>document.getElementById("check").style.display = "none";</script>
+    	<script>document.getElementById("check").style.display = "none"; document.getElementById("pwd").style.display = "none";</script>
 			비밀번호가 확인되었습니다.<br>
 			수정하기를 원하시면 아래 버튼을 클릭해주세요.
 			<br>

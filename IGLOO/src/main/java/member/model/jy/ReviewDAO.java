@@ -14,7 +14,7 @@ public interface ReviewDAO {
 	List<OrderdetailVO> selectOrderListAll(String userid) throws SQLException;
 	
 	// 해당주문내역(1개)에 대한 상세(리스트) 메소드
-	OrderdetailVO odvoOne(String ordercode) throws SQLException;
+	OrderdetailVO odvoOne(String orderdetailno) throws SQLException;
 	
 	
 	// 작성한 리뷰 insert
@@ -22,7 +22,13 @@ public interface ReviewDAO {
 
 	
 	//작성한 리뷰 불러오기
-	List<ReviewVO> selectPreviewListAll(Map<String, String> paraMap) throws SQLException;
+	List<ReviewVO> selectPreviewListAll(String userid) throws SQLException;
+
+	// 해당리뷰(1개)에 대한 상세(리스트) 메소드
+	ReviewVO rvoOne(String ordercode) throws SQLException;
+
+	// 수정한 리뷰 update
+	int updateReviewOne(Map<String, String> paraMap) throws SQLException;
 
 
 
