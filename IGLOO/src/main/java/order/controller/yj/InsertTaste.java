@@ -135,24 +135,32 @@ public class InsertTaste extends AbstractController {
 		    			if(tasteListResult == 1) {
 		    				//System.out.println("tasteList 띄우기 성공 ^^~~");
 		    				
+		    				
+		    				
+		    				
 		    				int cartListResult = pdao.insertCartList(userid, tasteinfoList, resultList);
 		    				
 		    				if(cartListResult == 1) {
 		    					System.out.println("cartList 띄우기 성공 ^^~~");
 		    					
-		    					super.setRedirect(false);
-		    					super.setViewPage("/WEB-INF/order/cart.jsp");
-
-//				    			super.setRedirect(true);
-//		    					super.setViewPage(request.getContextPath() + "/member/cart.ice");
+//		    					super.setRedirect(false);
+//		    					super.setViewPage("/WEB-INF/order/cart.jsp");
+//		    					return;
+		    					
+				    			super.setRedirect(true);
+		    					super.setViewPage(request.getContextPath() + "/member/cart.ice");
+		    					return;
 		    				}
+		    				
+		    				
 		    				
 		    			}
 		    			
 		    			/////////////////////////////////////////////////////////////////////////////////////
 		    			
-    					
-		    			
+		    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
+		    			request.setAttribute("str_totalprice", str_totalprice); // 총합계금액
+		    		
 //		    			super.setRedirect(false);
 //		    			super.setViewPage("/WEB-INF/order/payment.jsp");
 //		    			
