@@ -437,11 +437,13 @@ public class MenuDAO_imple implements MenuDAO {
 			conn = ds.getConnection();
 			
 			String sql = "select rn, tasteno, tastename, tasteimg, ingredients "
-					   + "from "
-					   + "(select rownum rn, tasteno, tastename, tasteimg, ingredients "
-					   + "from tbl_taste "
-					   + "order by 3) "
-					   + "where rn between ? and ?";
+					+ "from "
+					+ "(select rownum rn, tasteno, tastename, tasteimg, ingredients "
+					+ "from "
+					+ "(select tasteno, tastename, tasteimg, ingredients "
+					+ " from tbl_taste "
+					+ " order by 3)) "
+					+ " where rn between ? and ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, paraMap.get("start"));

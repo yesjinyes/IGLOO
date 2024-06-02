@@ -29,6 +29,7 @@ $(document).ready(function() {
    
 	$("select#stselect").change(function(){
     	storeAddress();
+    	$("#warning").hide();
     });
     
     
@@ -39,7 +40,7 @@ $(document).ready(function() {
         // 선택된 값이 지점을 선택하세요. 라는 값이거나 선택된 값이 없을 경우
         if (selectedValue === "" || selectedValue === "지점을 선택하세요.") {
             warningMsg.text("반드시 선택하셔야 합니다.");
-            $("#warning").attr("tabindex", -1).focus();
+            $("#warning").attr("tabindex", -1).focus().show();
             
         } else {
            // 팝업창 띄우기

@@ -57,7 +57,7 @@ font-size: 15pt;
 		<div class="row justify-content-center">
 		
 			<div id="imgdiv" style="border: solid 0px red;" class="col-md-4">
-				<img src="<%= ctxPath%>/images/img_yejin/cup_size/${requestScope.pvo.productimg}" class="img-fluid" style="border: solid 0px blue;" alt="...">
+				<img src="${pageContext.request.contextPath}/images/registerimage/${requestScope.pvo.productimg}" class="img-fluid" style="border: solid 0px blue;" alt="...">
 			</div>
 			
 			<div id="item_detail" style="border: solid 1.5px #81BEF7; padding: 4% 5%; margin-left: 5%;" class="col-md-6">
@@ -107,7 +107,7 @@ font-size: 15pt;
 				<%-- 장바구니, 구매하기 버튼 --%>
 				<div id="button" class="mx-auto" align="center">
 					<input type="button" class="btnclick btn-lg mr-5" value="장바구니" onclick="goCart()" />
-			        <input type="button"  class="btnclick btn-lg" value="주문하기" onclick="goOrder()" />
+			        <input type="button"  class="btnclick btn-lg" value="바로 구매하기" onclick="goOrder()" />
 				</div>
 					
 			</div>
@@ -121,7 +121,7 @@ font-size: 15pt;
 		<div id="image">
 			<div class="row justify-content-center">
 				<div class="col-md-7" style="font-weight: bold;"> 
-					<img class="img-fluid" src="<%= ctxPath%>/images/img_yejin/cup_detail/${requestScope.pvo.productimgBelow}">
+					<img class="img-fluid" src="${pageContext.request.contextPath}/images/registerimage/${requestScope.pvo.productimgBelow}">
 				</div>
 				
 				
@@ -147,12 +147,17 @@ font-size: 15pt;
 
 <%-- 넘겨줄 정보(장바구니) --%>
 <form name="tasteinfo">
-   <!-- <input type="text" name="tasteno" value=""/> -->
    <input type="text" name="pcode" value="${requestScope.pvo.productcodeno}"/>
-   <input type="text" name="str_totalcount" value=""/>
+   <input type="text" name="str3_totalcount" value=""/>
    <input type="text" name="str_totalprice" value=""/>
 </form>
 
+<%-- 넘겨줄 정보(구매하기) --%>
+<form name="orderinfo">
+	<input type="text" name="pcode" value="${requestScope.pvo.productcodeno}"/>
+    <input type="text" name="str_totalcount" value=""/>
+    <input type="text" name="str_totalprice" value=""/>
+</form>
 
-<%-- footer 넣어야 함 --%>
+
 <jsp:include page="../footer.jsp" />
