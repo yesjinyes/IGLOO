@@ -1,34 +1,34 @@
-//package member.controller.jy;
-//
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import common.controller.AbstractController;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-//import member.domain.MemberVO;
-//import member.domain.ReviewVO;
-//import member.model.jy.ReviewDAO;
-//import member.model.jy.ReviewDAO_imple;
-//import order.domain.OrderdetailVO;
-//
-//public class EditReview extends AbstractController {
-//
-//	
-//	private ReviewDAO rdao = null;
-//	
-//	public EditReview() {
-//		rdao = new ReviewDAO_imple();
-//	}
-//
-//	
-//	@Override
-//	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		
-//		
-//		String method = request.getMethod();
+package member.controller.jy;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import common.controller.AbstractController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import member.domain.MemberVO;
+import member.domain.ReviewVO;
+import member.model.jy.ReviewDAO;
+import member.model.jy.ReviewDAO_imple;
+import order.domain.OrderdetailVO;
+
+public class EditReview extends AbstractController {
+
+	
+	private ReviewDAO rdao = null;
+	
+	public EditReview() {
+		rdao = new ReviewDAO_imple();
+	}
+
+	
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		String method = request.getMethod();
 //		String ordercode = request.getParameter("odrcode");
 //		String reviewcontent = request.getParameter("reviewcontent");
 //		
@@ -37,7 +37,7 @@
 //		HttpSession session = request.getSession();
 //		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 //		
-//		if("get".equalsIgnoreCase(method)) {
+		if("get".equalsIgnoreCase(method)) {
 //			
 //			
 //			// 해당리뷰(1개)에 대한 상세(리스트) 메소드
@@ -50,9 +50,9 @@
 //			request.setAttribute("rvoOne", rvoOne);	
 //			request.setAttribute("ordercode", ordercode);
 //			request.setAttribute("reviewcontent", reviewcontent);
-//			
-//			super.setViewPage("/WEB-INF/member/editReview.jsp"); //셀렉트 보내기
-//			
+			
+			super.setViewPage("/WEB-INF/member/editReview.jsp"); //셀렉트 보내기
+			
 //		}
 //		
 //		
@@ -102,13 +102,13 @@
 //				super.setRedirect(false);
 //				super.setViewPage("/WEB-INF/msg.jsp");
 //			}
-//
-//		
+
+		
 //		}
-//	
-//		
-//		
-//
-//	}
-//
-//}
+	
+		}
+		
+
+	}
+
+}
