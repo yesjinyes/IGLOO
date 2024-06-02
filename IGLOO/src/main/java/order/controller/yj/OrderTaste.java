@@ -119,9 +119,10 @@ public class OrderTaste extends AbstractController {
 		    				// == 주문하기 뷰단으로 연결 == //
 			    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
 			    			request.setAttribute("str_totalprice", str_totalprice); // 총합계금액
-		    				
-		    				super.setRedirect(true);
-	    					super.setViewPage(request.getContextPath() + "/order/payment.ice");
+		    			
+			    			super.setRedirect(false);
+	    					super.setViewPage("/WEB-INF/order/payment.jsp");
+			    			
 	    					return;
 		    				
 		    			}// end of if(tasteListResult == 1)-------------------------------
