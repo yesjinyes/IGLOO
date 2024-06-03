@@ -210,7 +210,7 @@ function storeAddress(){
 	<%-- ==== 휴대폰 SMS(문자) 보내기 ==== --%>
 	<textarea rows="4" id="smsContent" style="width: 100%; display: none;">${sessionScope.loginuser.name}님 구매해주신 ${requestScope.productname} 상품 금액 <fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" /> 원이 결제되었습니다.</textarea>
 	
-<form name="order">
+<form name="order" style="display:none;">
 	<input type="text" name="orderplay" value="play" />
 	<input type="text" name="str_cartno" value="${requestScope.str_cartno}" />
 	<input type="text" name="str_selectno" value="${requestScope.str_selectno}"/>
