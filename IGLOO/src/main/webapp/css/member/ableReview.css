@@ -3,7 +3,6 @@
 
 div#container{
 	width: 80%;
-	margin-top: 100px;
 	margin-bottom: 100px;
 }
 
@@ -27,7 +26,6 @@ div#container > div > div#content{
 
 body {
 	background-color:#f6fafe !important;
-	margin-top: 30%;
 }
 
 .review {
