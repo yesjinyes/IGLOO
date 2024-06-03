@@ -42,7 +42,7 @@
 <body>
 	<div id="hongdae" class="mx-auto mt-3">
 		<div class="representative">
-			<img src="<%=ctxPath%>/images/img_hj/store/igloo_hongdae.jpg" alt="...">
+			<img class="img-fluid" src="<%=ctxPath%>/images/img_hj/store/igloo_hongdae.jpg" alt="...">
 		</div>
 
 		<div class="details_location mt-5">
