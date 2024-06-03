@@ -236,7 +236,7 @@ function goRandom() {
 			<c:forEach var="product" items="${requestScope.productList}">
 				<span class="cup" style="width: 15%; margin-right: 2%; cursor: pointer;" onclick="goProduct('${product.productcodeno}')">
 					<span class="cupBackground" style="display: block; width: 100%; height: 270px; border-top-left-radius: 150px; border-top-right-radius: 150px;">
-						<img style="width: 50%; margin-top: 18%;" src="<%=ctxPath%>/images/img_narae/cup_size/${product.productimg}"/>
+						<img style="width: 50%; margin-top: 18%;" src="${pageContext.request.contextPath}/images/registerimage/${product.productimg}"/>
 					</span>
 					<span class="productname" style="display: block; padding-top: 5%; font-size: 20pt;">${product.productname}</span>
 					<hr style="border: solid 1px #e3e3e3;">
