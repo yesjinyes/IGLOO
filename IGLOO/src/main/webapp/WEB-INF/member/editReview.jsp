@@ -38,7 +38,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	
+	const content = $("textarea[name='reviewcontent']").val();
+	$("textarea[name='reviewcontent']").val(content);
 	
 	$("input#reset").click(()=>{
 		if(confirm("리뷰수정을 취소하시겠습니까?")) {
@@ -110,7 +111,7 @@ function goEditRegister() {
        <div class="review">
         <div class="sumarry">
           <div class="img-container">
-            <img src="<%= ctxPath%>/images/img_narae/cup_size/${requestScope.rvoOne.productimg}"/>
+            <img src="<%= ctxPath%>/images/img_narae/cup_size/${requestScope.rvoOne.pvo.productimg}"/>
           </div>
           <div class="option-container">
             <h3>${requestScope.rvoOne.pvo.productname}</h3>
@@ -129,11 +130,10 @@ function goEditRegister() {
           <div class="reviewImgs">
 			<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없을때 --%>
           </div>
-          <div class="star">☆☆☆☆☆&nbsp;&nbsp;
-            <span class="date">2024.05.14</span>
+            <span class="date">${requestScope.rvoOne.writeday }</span>
           </div>
           <div class="form-floating">
-			  <textarea class="form-control" placeholder="Leave a comment here" id="reviewcontent" name="reviewcontent" style="height: 100px">${requestScope.rvoOne.reviewcontent}</textarea>
+			  <textarea class="form-control" id="reviewcontent" name="reviewcontent" style="height: 100px">${requestScope.rvoOne.reviewcontent}</textarea>
 			  <label for="floatingTextarea2"></label>
 		  </div>
         </div>
@@ -144,7 +144,7 @@ function goEditRegister() {
       </div>
       
       
-    <input type="text" name="odrcode" value="${requestScope.ordercode}"/>
+    <input type="hidden" name="odrcode" value="${requestScope.ordercode}"/>
 	<input type="text" style="display: none;"/>
 	
  </form>	

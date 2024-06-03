@@ -3,15 +3,12 @@ package member.controller.jy;
 import java.util.List;
 
 import common.controller.AbstractController;
-import help.domain.nr.FaqVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import member.domain.MemberVO;
-import member.domain.ReviewVO;
 import member.model.jy.ReviewDAO;
 import member.model.jy.ReviewDAO_imple;
-import myshop.domain.CartVO;
 import order.domain.OrderdetailVO;
 
 public class AbleReview extends AbstractController {

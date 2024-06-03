@@ -28,7 +28,11 @@ public interface ReviewDAO {
 	ReviewVO rvoOne(String ordercode) throws SQLException;
 
 	// 수정한 리뷰 update
-	//int updateReviewOne(Map<String, String> paraMap) throws SQLException;
+	int updateReviewOne(Map<String, String> paraMap) throws SQLException;
+
+	
+	// 리뷰 한개 부러오기
+	ReviewVO getReview(String ordercode) throws SQLException;
 
 
 
