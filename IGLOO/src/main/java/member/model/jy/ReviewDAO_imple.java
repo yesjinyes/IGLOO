@@ -396,7 +396,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 			
 			conn = ds.getConnection();
 			
-			String sql = "  select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, B.writeday, A.reviewstatus, D.productname, D.productimg, E.orderdetailno "
+			String sql = "  select B.reviewno, B.fk_userid, B.fk_ordercode, B.reviewcontent, to_char(B.writeday, 'yyyy-mm-dd'), A.reviewstatus, D.productname, D.productimg, E.orderdetailno "
 					+ "    from tbl_order A join tbl_review B "
 					+ "    on A.ordercode = B.fk_ordercode "
 					+ "    join tbl_orderdetail E "

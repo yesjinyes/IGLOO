@@ -23,7 +23,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	
+	$("div#ordercodeDiv").hide();
     
 });// end of $(document).ready(function(){})----------------------
 
@@ -98,19 +98,22 @@ function goDeleteReview(){
 		    <div class="col-md-12">
 		      <div class="review">
 		        <div class="sumarry">
-		        <div id="ordercodeDiv" >${rvo.fk_ordercode }</div>
-		          <div class="img-container">
-		            <img src="<%= ctxPath%>/images/img_hj/cup_size/${rvo.pvo.productimg}"/>
-		          </div>
-		          <div class="option-container">
-		            <h3>${rvo.pvo.productname }</h3>
-		          	<ul class="list-group list-group-flush">
-		            	<c:forEach var="taste" items="${rvo.odvo.tastenamelist}" varStatus="jjinStatus">
-		  							<li class="list-group-item">${taste.tastename}</li>
-	  					</c:forEach>
-		            </ul>
-		          </div>
-		          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#${rvo.fk_ordercode }" aria-expanded="false" aria-controls="${rvo.fk_ordercode }">▼</button>
+			        <div id="ordercodeDiv">${rvo.fk_ordercode }</div>
+			        <%-- 작성일자 --%>
+			        <div class="date" style="text-align: center;">작성일자<br>${rvo.writeday }</div>
+		        
+			          <div class="img-container">
+			            <img src="<%= ctxPath%>/images/img_hj/cup_size/${rvo.pvo.productimg}"/>
+			          </div>
+			          <div class="option-container">
+			            <h3>${rvo.pvo.productname }</h3>
+			          	<ul class="list-group list-group-flush">
+			            	<c:forEach var="taste" items="${rvo.odvo.tastenamelist}" varStatus="jjinStatus">
+			  							<li class="list-group-item">${taste.tastename}</li>
+		  					</c:forEach>
+			            </ul>
+			          </div>
+			          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#${rvo.fk_ordercode }" aria-expanded="false" aria-controls="${rvo.fk_ordercode }">▼</button>
 				</div>
 				<div class="content collapse" id="${rvo.fk_ordercode }">
 		          	<%-- 주문매장 이름
@@ -155,7 +158,7 @@ function goDeleteReview(){
   
   
 <form name="ordercodeFrm">
-	<input type="text" name="odrcode"/>
+	<input type="hidden" name="odrcode"/>
 	<input type="text" style="display: none;"/>
 </form>
   
