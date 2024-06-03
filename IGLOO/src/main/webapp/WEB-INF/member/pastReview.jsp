@@ -23,7 +23,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	
+	$("div#ordercodeDiv").hide();
     
 });// end of $(document).ready(function(){})----------------------
 
@@ -98,42 +98,44 @@ function goDeleteReview(){
 		    <div class="col-md-12">
 		      <div class="review">
 		        <div class="sumarry">
-		        <div id="ordercodeDiv" >${rvo.fk_ordercode }</div>
-		          <div class="img-container">
-		            <img src="<%= ctxPath%>/images/img_hj/cup_size/${rvo.pvo.productimg}"/>
-		          </div>
-		          <div class="option-container">
-		            <h3>${rvo.pvo.productname }</h3>
-		          	<ul class="list-group list-group-flush">
-		            	<c:forEach var="taste" items="${rvo.odvo.tastenamelist}" varStatus="jjinStatus">
-		  							<li class="list-group-item">${taste.tastename}</li>
-	  					</c:forEach>
-		            </ul>
-		          </div>
-		          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#${rvo.fk_ordercode }" aria-expanded="false" aria-controls="${rvo.fk_ordercode }">▼</button>
+			        <div id="ordercodeDiv">${rvo.fk_ordercode }</div>
+			        <%-- 작성일자 --%>
+			        <div class="date" style="text-align: center;">작성일자<br>${rvo.writeday }</div>
+		        
+			          <div class="img-container">
+			            <img src="<%= ctxPath%>/images/img_hj/cup_size/${rvo.pvo.productimg}"/>
+			          </div>
+			          <div class="option-container">
+			            <h3>${rvo.pvo.productname }</h3>
+			          	<ul class="list-group list-group-flush">
+			            	<c:forEach var="taste" items="${rvo.odvo.tastenamelist}" varStatus="jjinStatus">
+			  							<li class="list-group-item">${taste.tastename}</li>
+		  					</c:forEach>
+			            </ul>
+			          </div>
+			          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#${rvo.fk_ordercode }" aria-expanded="false" aria-controls="${rvo.fk_ordercode }">▼</button>
 				</div>
 				<div class="content collapse" id="${rvo.fk_ordercode }">
-		          <div class="bind">
-			          <div class="flexitem">
-				          	<%-- 주문매장 이름
-				            <h3>매장명</h3>--%>
-				            
-				            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 
-				            <div class="btns">
-					          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
-					          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
-				           </div>--%>
-			          </div>  
+		          	<%-- 주문매장 이름
+		            <h3>매장명</h3>--%>
+		            
+		            
+		            <%-- 내용 --%>
+		            <div class="text" style="border: solid 0px red;">${rvo.reviewcontent}</div>
+		            
+		            
+		            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
+		            <div class="btns" style="border: solid 0px blue;">
+			          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
+			          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
+		           </div>
+			           
 		          
 		          
 		          <%-- 별점 --%>
 		          <%-- <div class="star">${requestScope.star} ☆☆☆☆☆&nbsp;&nbsp; 
 		            <span class="date">${rvo.writedate}</span> 
 		          </div>--%>
-		          
-		          <%-- 내용 --%>
-		          <div class="text">${rvo.reviewcontent}</div>
-		        </div>
 		      </div>
 		  </div>
 		  </div>
@@ -156,7 +158,7 @@ function goDeleteReview(){
   
   
 <form name="ordercodeFrm">
-	<input type="text" name="odrcode" style="display: none;"/>
+	<input type="hidden" name="odrcode"/>
 	<input type="text" style="display: none;"/>
 </form>
   

@@ -37,7 +37,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-    $("button.btnPwd").click(function(){
+    $("button#btnUpdate").click(function(){
 	
     	goPwdUpdate();
 
