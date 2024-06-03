@@ -4,6 +4,10 @@ div.container {
 	margin-top: 5%;
 }
 
+.toggle {
+	width: 10%;
+}
+
 button#faqbtn {
 	border: none;
 	border-radius: 10px;

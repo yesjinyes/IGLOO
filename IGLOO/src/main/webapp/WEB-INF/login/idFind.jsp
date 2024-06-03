@@ -30,7 +30,6 @@
 <style>
 *{
 	font-family: "Gamja Flower", sans-serif;
-	font-size: 30pt;
 }
 </style>
 
