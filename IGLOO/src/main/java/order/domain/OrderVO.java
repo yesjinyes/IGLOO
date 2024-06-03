@@ -17,8 +17,15 @@ public class OrderVO {
 	private int totalprice;							// 주문총액
 	private String orderdate = sdft.format(now);	// 주문일자
 	private int reviewstatus;						// 리뷰작성상태
+	private String storename;
 	//////////////////////////////////////////////////////////////
 	
+	public String getStorename() {
+		return storename;
+	}
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
 	// === select 용 === //
 	private CartVO cart = new CartVO();
 	private MemberVO member = new MemberVO();

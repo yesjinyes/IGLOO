@@ -267,7 +267,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 			String sql = "select A.orderdetailno, B.ordercode, A.ordercount, C.selectno, A.orderprice, A.pickupstatus, A.pickuptime, "
 					   + "       B.fk_userid, B.totalprice, to_char(B.orderdate, 'yyyy-mm-dd') orderdate, "
 					   + "       D.productcodeno, D.productname, D.productimg, D.price, "
-					   + "       E.name, E.email, E.mobile, E.postcode, E.address, E.detailAddress, E.extraaddress, E.gender, E.birthday "
+					   + "       E.name, E.email, E.mobile, E.postcode, E.address, E.detailAddress, E.extraaddress, E.gender, E.birthday, storename "
 					   + "from tbl_orderdetail A join tbl_order B "
 					   + "on A.fk_ordercode = B.ordercode "
 					   + "join tbl_selectlist C "
@@ -294,6 +294,7 @@ public class ReviewDAO_imple implements ReviewDAO {
 				
 				OrderVO ovo = new OrderVO();
 				ovo.setOrdercode(rs.getString(2));
+				ovo.setStorename(rs.getString(24));
 				
 				odvo.setOrdercount(rs.getInt(3));
 				

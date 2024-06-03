@@ -64,6 +64,10 @@ function goRegister() {
         return;
     }
 	
+	if(!$("input:checkbox[name='check']").prop("checked")){
+		alert("리뷰 수집 및 사용 권한 동의를 해주세요.");
+		return;
+	}
 	
 
 //	var formData = new FormData($("form[name='reviewRegisterFrm']")[0]);
@@ -157,7 +161,7 @@ function goRegister() {
 	        <div class="content" >
 	        	
 		        <%-- 주문한지점 이름 --%>
-				<h3>홍대부평점</h3>
+				<h3>${requestScope.odvoOne.order.storename}</h3>
 				
 				<%-- 리뷰사진첨부 
 	            <div class="reviewImgs">
@@ -172,7 +176,6 @@ function goRegister() {
 				    </c:if>--%>
 	            </div>
 		          
-		        <div class="star">☆☆☆☆☆&nbsp;&nbsp;</div>
 		          
 		        <%-- 후기입력칸 --%>
 		        <div class="form-floating">
@@ -183,7 +186,7 @@ function goRegister() {
 	        
 	        <%-- 리뷰동의 --%>
 	        <div class="agree" style="border: solid 0px red;">
-		        <input type="checkbox" class="sf_check_agree_privacy" style="border: solid 0px red;">
+		        <input type="checkbox" name="check" class="sf_check_agree_privacy" style="border: solid 0px red;">
 		        <p class="title" style="border: solid 0px red;">리뷰 수집 및 사용 권한 동의</p>
 	        </div>
 	        
@@ -195,7 +198,7 @@ function goRegister() {
 			    
 		  
 		  
-		  	<input type="text" name="odrcode" value="${requestScope.ordercode}"/>
+		  	<input type="hidden" name="odrcode" value="${requestScope.ordercode}"/>
 			<input type="text" style="display: none;"/>
 	</form>	  
 		  
