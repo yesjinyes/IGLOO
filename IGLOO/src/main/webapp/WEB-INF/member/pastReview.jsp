@@ -125,11 +125,6 @@ function goDeleteReview(){
 				           </div>--%>
 			          </div>  
 		          
-		          <%-- 첨부된 리뷰사진 --%>
-		          <div class="reviewImgs">
-					<i class="fa-solid fa-image fa-10x"></i><%-- 리뷰사진 없다면 --%>
-					<%-- 리뷰사진 있다면 포문. ${requestScope.첨부사진} --%>
-		          </div>
 		          
 		          <%-- 별점 --%>
 		          <%-- <div class="star">${requestScope.star} ☆☆☆☆☆&nbsp;&nbsp; 
