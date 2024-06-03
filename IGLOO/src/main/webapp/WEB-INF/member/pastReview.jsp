@@ -127,7 +127,7 @@ function goDeleteReview(){
 		            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
 		            <div class="btns" style="border: solid 0px blue;">
 			          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
-			          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
+			          	<%--<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>--%>
 		           </div>
 			           
 		          
