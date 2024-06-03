@@ -166,7 +166,7 @@
         <div id="Registeragree" class="mb-3 mx-3 row">
             <div class="check-circle ml-3 my-auto col-7">
             	<input type="checkbox" id="agree"/>
-                <label for="agree" class="ml-2 my-auto">
+                <label for="agree" class="ml-2 my-auto" style="cursor:pointer;">
                 	<span>[필수]</span>&nbsp;인증약관 동의
                 </label>
             </div>

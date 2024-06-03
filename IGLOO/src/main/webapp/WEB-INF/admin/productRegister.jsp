@@ -414,12 +414,12 @@ border-style: hidden;
 		                   // ~~~ 확인용 : {"result":1}
 		                   if(json.result == 1) {
 		                	   alert("등록 성공!");
-		                     location.href="${pageContext.request.contextPath}/admin/productRegister.ice"; 
+		                     location.href="${pageContext.request.contextPath}/order/order.ice"; 
 		                   }
 		               },
 		               error: function(request, status, error){
 		               // alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-		                  alert("첨부된 파일의 크기의 총합이 20MB 를 초과하여 제품등록이 실패했습니다.ㅜㅜ");
+		                  alert("첨부된 파일의 크기의 총합이 20MB 를 초과하여 제품등록이 실패했습니다.");
 		              }
 		           });
 				   
