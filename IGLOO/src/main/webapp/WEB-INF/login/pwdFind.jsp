@@ -31,7 +31,6 @@
 <style>
 *{
 	font-family: "Gamja Flower", sans-serif;
-	font-size: 30pt;
 }
 </style>
 
@@ -154,23 +153,23 @@ function goFind(){
 <div class="my-3 text-center" id="div_findResult">
 	
 	<c:if test="${requestScope.isUserExist == false}">
-   		<span style="color: red; font-size:30pt;">해당 정보의 사용자가 존재하지 않습니다.</span>
+   		<span style="color: red;">해당 정보의 사용자가 존재하지 않습니다.</span>
    	</c:if>
    
    	<c:if test="${requestScope.isUserExist == true && requestScope.sendMailSuccess == true}">
-   		<span style="font-size:30pt;">
+   		<span>
    			인증코드가
-   			<span style="color: blue; font-size:30pt;">${requestScope.email}</span>로 발송되었습니다.
+   			<span style="color: blue;">${requestScope.email}</span>로 발송되었습니다.
    			<br>
            	인증코드를 입력해주세요
        	</span>
        	<br><br>
        	<input type="text" name="input_confirmCode"/>
-       	<button type="button" class="btn btn-sm btn-info mb-1" style="font-size:30pt;">인증하기</button>
+       	<button type="button" class="btn btn-sm btn-info mb-1">인증하기</button>
     </c:if> 
     
     <c:if test="${requestScope.isUserExist == true && requestScope.sendMailSuccess == false}">
-    	<span style="color: red; font-size:30pt;">메일발송이 실패했습니다</span>
+    	<span style="color: red;">메일발송이 실패했습니다</span>
 	</c:if>
 </div>
 

@@ -595,34 +595,74 @@ public class ReviewDAO_imple implements ReviewDAO {
 	
 	
 	// 수정한 리뷰 update
-//	@Override
-//	public int updateReviewOne(Map<String, String> paraMap) throws SQLException {
-//		
-//		int n = 0;
-//		
-//		try {
-//			
-//			conn = ds.getConnection();	
-//			
-//			String sql = " update tbl_review set reviewcontent = ? "
-//					   + " where fk_userid = ? and fk_ordercode = ? "; 
-//					
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			pstmt.setString(1, paraMap.get("reviewcontent") );		
-//			pstmt.setString(2, paraMap.get("userid") );
-//			pstmt.setString(3, paraMap.get("ordercode"));
-//			
-//			
-//	        n = pstmt.executeUpdate();		// return 타입은 int
-//	        
-//		}  finally {
-//			close();
-//		}	// end of try~finally---------------------
-//		
-//		return n;
-//	
-//	}
+	@Override
+	public int updateReviewOne(Map<String, String> paraMap) throws SQLException {
+		
+		int n = 0;
+		
+		try {
+			
+			conn = ds.getConnection();	
+			
+			String sql = " update tbl_review set reviewcontent = ? "
+					   + " where fk_userid = ? and fk_ordercode = ? "; 
+					
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("reviewcontent") );		
+			pstmt.setString(2, paraMap.get("userid") );
+			pstmt.setString(3, paraMap.get("ordercode"));
+			
+			
+	        n = pstmt.executeUpdate();		// return 타입은 int
+	        
+		}  finally {
+			close();
+		}	// end of try~finally---------------------
+		
+		return n;
+	
+	}
+
+	
+	
+	
+	// 리뷰 한 개 
+	@Override
+	public ReviewVO getReview(String ordercode) throws SQLException {
+
+		ReviewVO rvo = new ReviewVO();
+
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select reviewno, fk_userid, fk_ordercode, reviewcontent, to_char(writeday, 'yyyy-mm-dd') "
+					   + "from tbl_review "
+					   + "where fk_ordercode = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ordercode);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			
+			rvo.setReviewno(rs.getInt(1));
+			rvo.setFk_userid(rs.getString(2));
+			rvo.setFk_ordercode(rs.getString(3));
+			rvo.setReviewcontent(rs.getString(4));
+			rvo.setWriteday(rs.getString(5));
+			
+			
+			
+		} finally {
+			close();
+		}
+		
+		return rvo;
+	}
 
 	
 

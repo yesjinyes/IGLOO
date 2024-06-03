@@ -37,7 +37,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-    $("button.btnPwd").click(function(){
+    $("button#btnUpdate").click(function(){
 	
     	goPwdUpdate();
 
@@ -50,8 +50,6 @@ $(document).ready(function(){
 		}
 		
 	});	// end of $("input:text[name='email']").binde("keydown", function(e){})-----
-    
-    
     
  }); // end of $(document).ready(function(){})-------------
  
@@ -99,7 +97,7 @@ $(document).ready(function(){
 
 
 <%-- userid 가 넘어온 경우에 비밀번호 변경 뷰단 띄움 --%>
-<%-- <c:if test="${not empty requestScope.userid}" > --%>
+<c:if test="${not empty requestScope.userid}" >
  	<form name="pwdUpdateEndFrm">
  	
   		<div id="containerPwd">
@@ -137,15 +135,15 @@ $(document).ready(function(){
 	    
 	</form>
 	
-<%-- </c:if> --%>
+</c:if>
 
 
-<%-- 비밀번호 찾기에서 비밀번호 변경하는 경우에만 사이드바 넣은것. 닫기 --%>
-<%-- <c:if test="${not empty requestScope.mypage}">
+<%-- 인증 받아서 비밀번호 변경하는 경우에만 사이드바 넣은것. 닫기 --%>
+<c:if test="${not empty requestScope.mypage}">
 			</div>
 		</div>
 	</div>
 </c:if>
- --%>
+
 
 <jsp:include page="../footer.jsp"></jsp:include>

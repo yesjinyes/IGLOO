@@ -113,27 +113,26 @@ function goDeleteReview(){
 		          <button class="toggleBtn" type="button" data-toggle="collapse" data-target="#${rvo.fk_ordercode }" aria-expanded="false" aria-controls="${rvo.fk_ordercode }">▼</button>
 				</div>
 				<div class="content collapse" id="${rvo.fk_ordercode }">
-		          <div class="bind">
-			          <div class="flexitem">
-				          	<%-- 주문매장 이름
-				            <h3>매장명</h3>--%>
-				            
-				            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 
-				            <div class="btns">
-					          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
-					          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
-				           </div>--%>
-			          </div>  
+		          	<%-- 주문매장 이름
+		            <h3>매장명</h3>--%>
+		            
+		            
+		            <%-- 내용 --%>
+		            <div class="text" style="border: solid 0px red;">${rvo.reviewcontent}</div>
+		            
+		            
+		            <%-- 수정, 삭제 버튼.  모든 버튼 이벤트 alert말고 컨펌으로 바꾸기 --%>
+		            <div class="btns" style="border: solid 0px blue;">
+			          	<input id="edit" type="button" class="btn btn-outline-secondary" value="수정하기" onclick="goEditReview()"/>
+			          	<input id="delete" type="button" class="btn btn-outline-secondary" value="삭제" onclick="goDeleteReview()"/>
+		           </div>
+			           
 		          
 		          
 		          <%-- 별점 --%>
 		          <%-- <div class="star">${requestScope.star} ☆☆☆☆☆&nbsp;&nbsp; 
 		            <span class="date">${rvo.writedate}</span> 
 		          </div>--%>
-		          
-		          <%-- 내용 --%>
-		          <div class="text">${rvo.reviewcontent}</div>
-		        </div>
 		      </div>
 		  </div>
 		  </div>
@@ -156,7 +155,7 @@ function goDeleteReview(){
   
   
 <form name="ordercodeFrm">
-	<input type="text" name="odrcode" style="display: none;"/>
+	<input type="text" name="odrcode"/>
 	<input type="text" style="display: none;"/>
 </form>
   
