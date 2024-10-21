@@ -330,6 +330,8 @@ public class ProductDAO_imple implements ProductDAO {
 	    return storename;  
 	}
 
+	
+	// === 제품명 가져오는 메소드 생성하기 === //
 	@Override
 	public String get_productname(String pcode) throws SQLException {
 		ProductVO pvo = new ProductVO();
@@ -355,6 +357,14 @@ public class ProductDAO_imple implements ProductDAO {
 	      }
 	      
 	      return pdname;
+	}
+
+	
+	// === 선택한 맛 가져오는 메소드 생성하기 === //
+	@Override
+	public String get_tasteList(List<Map<String, Integer>> resultList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

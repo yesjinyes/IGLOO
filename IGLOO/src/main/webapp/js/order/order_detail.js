@@ -17,14 +17,14 @@ $(document).ready(function() {
 
 
 			var test = $("select[class='selectedtaste'] option:selected").val();
-			console.log("확인:"+test);
+			// console.log("확인:"+test);
 			
 			for(let i=1; i<=tastecount; i++) {
 				tasteList.push('taste'+ i);
 
 				tastenoarr.push(Number($("select[id='taste"+i+"'] option:selected").val()));
 			}// end of for------------------
-			console.log("tastenoarr:",tastenoarr);
+			// console.log("tastenoarr:",tastenoarr);
 
 
 			const tastenoArr = new Array();
@@ -234,15 +234,24 @@ function goCart() {
 	frm.action = ctxPath + "/order/insertTaste.ice";
 	frm.method = "POST"; 
     frm.submit();
-
+	
 }// end of function goCart(ctxPath) ------------------------
 
 
 // === 주문하기 창 이동 === //
 function goOrder(){
-console.log("주문버튼 클릭");
+	// console.log("주문버튼 클릭");
 
-	// == '주문하기' 버튼 클릭 시 총수량 전송하기 == //
+	// 주문상세 페이지에서 주문하기 창으로 끌고와야 하는 데이터
+	// => 상품명(productname), 선택일련번호(selectno), 맛이름(tastename), 총합계(totalprice)
+	
+	
+	 
+	
+
+
+
+/*	// == '주문하기' 버튼 클릭 시 총수량 전송하기 == //
 	var arr = $("span#result").text();
 
 	var str_totalcount = 0;
@@ -262,7 +271,12 @@ console.log("주문버튼 클릭");
 	
 	const frm = document.orderinfo;
 	frm.action = ctxPath + "/order/orderTaste.ice";
-	frm.method = "POST";
+	frm.method = "GET";
 	frm.submit();
+*/	
+
+
+
+	
 	
 } // end of function goOrder()------------

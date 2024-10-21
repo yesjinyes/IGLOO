@@ -335,10 +335,43 @@ order by selectno desc;
 
 select *
 from tbl_tasteselect
-where fk_selectno = 13;
-
+where fk_selectno = 306;
 
 select * from tbl_order;
 
 delete from tbl_cart where fk_userid='yy6037';
 commit;
+
+select *
+from tbl_member
+where userid = 'yy6037';
+
+/* TBL_SELECTLIST (선택내역 테이블) 선택일련번호, 제품코드, 회원아이디 */
+select * from tbl_selectlist;
+
+
+/* 상품명, 상품선택번호, 회원아이디, 맛이름 *//
+select A.productname, B.selectno, B.fk_userid, D.tastename
+from tbl_product A
+join tbl_selectlist B
+on A.productcodeno = B.fk_productcodeno
+join tbl_tasteselect C
+on B.selectno = C.fk_selectno
+join tbl_taste D
+on C.fk_tasteno = D.tasteno
+order by B.selectno desc;
+/*  
+    파인트	347	yy6037	에스프레소 위드 크림
+    파인트	347	yy6037	이글루요거트
+    파인트	347	yy6037	슈팅톡톡
+    쿼터	    346	yy6037	디노 사우루스 젤리  
+*/
+
+
+/* TBL_TASTESELECT (맛선택 테이블)  - 맛선택일련번호, 선택일련번호, 맛종류번호*/
+select A.tasteselectno, A.fk_selectno, A.fk_tasteno, B.tastename
+from tbl_tasteselect A
+join tbl_taste B
+on A.fk_tasteno = B.tasteno
+order by A.fk_selectno desc;
+

@@ -148,11 +148,11 @@ font-size: 15pt;
 <%-- 넘겨줄 정보(장바구니) --%>
 <form name="tasteinfo">
    <input type="hidden" name="pcode" value="${requestScope.pvo.productcodeno}"/>
-   <input type="hidden" name="str3_totalcount" value=""/>
+   <input type="hidden" name="str_totalcount" value=""/>
    <input type="hidden" name="str_totalprice" value=""/>
 </form>
 
-<%-- 넘겨줄 정보(구매하기) --%>
+<%-- 넘겨줄 정보(바로 구매하기) --%>
 <form name="orderinfo">
 	<input type="hidden" name="pcode" value="${requestScope.pvo.productcodeno}"/>
     <input type="hidden" name="str_totalcount" value=""/>
