@@ -14,6 +14,7 @@ import member.model.nr.MemberDAO_imple;
 import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
 
+// == 주문상세 페이지에서 '바로 주문하기' 클릭 시 이동하는 controller == //
 
 public class OrderTaste extends AbstractController {
 	
@@ -32,7 +33,7 @@ public class OrderTaste extends AbstractController {
 		String method = request.getMethod();
 		
 		if(!"POST".equalsIgnoreCase(method)) {
-			String message = "비정상적인 경로로 들어왔습니다.";
+			String message = "(OrderTaste.java GET 방식으로 전송됨)비정상적인 경로로 들어왔습니다.";
 			String loc = "javascript:history.back()";
 			
 			request.setAttribute("message", message);
@@ -131,6 +132,9 @@ public class OrderTaste extends AbstractController {
 		    				// === 제품명 가져오는 메소드 생성하기 === //
 		    				String productname = pdao.get_productname(pcode);
 		    				
+		    				// === 선택한 맛 가져오는 메소드 생성하기 === //
+		    				//String tasteList = pdao.get_tasteList(resultList);
+		    				
 		    				// payment.jsp 에 띄워줄 정보를 set 하는 부분
 		    				request.setAttribute("storename", storename);
 		    				request.setAttribute("mobile", loginuser.getMobile());
@@ -140,17 +144,28 @@ public class OrderTaste extends AbstractController {
 		    				
 		    				// == 주문하기 뷰단으로 연결 == //
 			    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
-			    			request.setAttribute("totalprice", str_totalprice); // 총합계금액
-/*		    			    
+			    			request.setAttribute("str_totalprice", str_totalprice); // 총금액
+		    			    
+			    			/*
 			    			System.out.println(storename);
 			    			System.out.println(loginuser.getMobile());
 			    			System.out.println(pcode);
 			    			System.out.println(productname);
 			    			System.out.println(str_totalcount);
 			    			System.out.println(str_totalprice);
-*/			    			
-			    			super.setRedirect(false);
-	    					super.setViewPage("/WEB-INF/order/payment.jsp");
+			    			*/
+			    			
+			    			if("POST".equalsIgnoreCase(method)) {
+			    				super.setRedirect(true);
+			    				System.out.println("method-ordertaste:" + method);
+//			    				System.out.println(request.getContextPath() + "/order/payment.ice");
+//			    				super.setViewPage(request.getContextPath() + "/order/payment.ice", "POST");
+
+			    				super.setRedirect(false);
+		    					super.setViewPage("/WEB-INF/order/payment.jsp");
+			    				
+			    				
+			    			}
 			    			
 	    					return;
 		    				

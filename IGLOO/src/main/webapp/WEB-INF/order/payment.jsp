@@ -180,22 +180,23 @@ function storeAddress(){
 			</div>
 			<hr style="border: solid 1px #81BEF7;">
 			
-			<div style="margin-bottom: 0%; font-size: 13pt; font-weight: bold;">결제 금액</div>
-			<div style="background-color: white; border-radius: 10px;" >
+			<!-- <div style="margin-bottom: 0%; font-size: 13pt; font-weight: bold;">결제 금액</div> -->
+			<div style="background-color: white; border-radius: 10px; padding-bottom: 0.1%; margin-bottom: 5%;" >
 				<div style="margin: 5% 5%;">
 					<div class="row justify-content-between mb-3">
-						<div class="col-4 text-left" style="font-weight: bold; font-size: 20pt;">합계</div>
-						<div class="col-4"></div>
-						<div class="col-4 text-right" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />원</div> 
+						<div class="col-5 text-left mt-3" style="font-weight: bold; font-size: 20pt;">결제 금액</div>
+						<div class="col-3"></div>
+						<div class="col-4 text-right mt-3" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />원</div> 
 						<br>
 					</div>
 					
 					<hr style="border: solid 1px gainsboro;">
 
-					<div class="row justify-content-between mb-3">
-						<div class="col-4 text-left" style=" font-size: 10pt;">주문상품</div>
-						<div class="col-4"></div>
-						<div class="col-4 text-right" style="font-size: 10pt;">${requestScope.productname}</div>
+					<div class="text-left" style=" font-size: 13pt; font-weight: bold;">주문상품</div>
+					
+					<div class="row justify-content-between mt-3">
+						<div class="col-3" style="font-size: 12pt;">${requestScope.productname}</div>
+						<div class="col-9" style="font-size: 12pt;">${requestScope.tasteList} 선택한 맛이 나올 자리</div>
 						<br>
 					</div>
 				</div>	
@@ -223,6 +224,7 @@ function storeAddress(){
 	<input type="text" name="storenameigloo" id="storenameInput" value=""/>
 	<input type="text" name="require" id="requiremessage" value=""/>
 </form>
+
 
 <script>
 

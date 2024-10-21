@@ -32,44 +32,94 @@ public class Payment extends AbstractController {
 			System.out.println("확인용 totalprice : " + request.getParameter("totalprice"));          전부 잘 넘어 왔습니다.
 		*/
 		String method = request.getMethod();
+		System.out.println("method-payment:" + method);
 		
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 		
 		String orderplay = request.getParameter("orderplay");
 		
-	    if("POST".equalsIgnoreCase(method) && orderplay == null) { // POST 방식이라면 ==> 결제창으로 이동하는 순간 이부분이 실행됨(구매하기 누르기 전)
-			
-	    	// 장바구니의 구매하기에서 이동해왔을 경우
+	    if("POST".equalsIgnoreCase(method) && orderplay == null) { 
+	    	// ★ OrderTaste.java 에서 POST 방식으로 보내도 Payment.java 에서 계속 GET 방식으로 받아져서 (이유는 못찾음..) if("GET"~~) 코드 작성
+	    	// POST 방식이라면 ==> 결제창으로 이동하는 순간 이부분이 실행됨(구매하기 누르기 전)
+	    	
 	    	String str_cartno = request.getParameter("str_cartno");     // 장바구니 고유 번호
 			String str_selectno = request.getParameter("str_selectno"); // 맛 선택 일련번호
 			String totalprice = request.getParameter("totalprice");     // 결제 총금액
 			
-			String[] cartno_arr = str_cartno.split("\\,");
-			
-			// 문자를 보내주기 위해 정보를 넘겨주는 것
-			MemberVO mvo = mdao.selectOneMember(loginuser.getUserid());
-			request.setAttribute("mvo", mvo);
-			
-			// === 제품명 가져오는 메소드 생성하기 === //
-			List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
-			String productname_str = String.join(",",productname);
+			// 장바구니의 구매하기에서 이동해왔을 경우
+			if(str_cartno != null) {
+				
+				// System.out.println("str_cartno != null 장바구니에서 이동됨");
+				
+				String[] cartno_arr = str_cartno.split("\\,");
+				
+				// 문자를 보내주기 위해 정보를 넘겨주는 것
+				MemberVO mvo = mdao.selectOneMember(loginuser.getUserid());
+				request.setAttribute("mvo", mvo);
+				
+				// === 제품명 가져오는 메소드 생성하기 === //
+				List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
+				String productname_str = String.join(",",productname);
 
-			// === 지점명을 가져오는 메소드 생성하기 === //
-			List<String> storename = pdao.get_storename();
-			
-			// payment.jsp 에 띄워줄 정보를 set 하는 부분
-			request.setAttribute("storename", storename);
-			request.setAttribute("mobile", loginuser.getMobile());
-			
-			request.setAttribute("str_cartno", str_cartno);
-	        request.setAttribute("str_selectno", str_selectno);
-	        request.setAttribute("totalprice", totalprice);
-	        request.setAttribute("productname", productname);
-	        request.setAttribute("productname_str", productname_str);
+				// === 선택한 맛 리스트 가져오는 메소드 생성하기 === //
+				// List<String> tasteList = pdao.get_tasteList(str_selectno);
+				
+				// === 지점명을 가져오는 메소드 생성하기 === //
+				List<String> storename = pdao.get_storename();
+				
+				// payment.jsp 에 띄워줄 정보를 set 하는 부분
+				request.setAttribute("storename", storename);
+				request.setAttribute("mobile", loginuser.getMobile());
+				
+				request.setAttribute("str_cartno", str_cartno);
+		        request.setAttribute("str_selectno", str_selectno);
+		        request.setAttribute("totalprice", totalprice);
+		        request.setAttribute("productname", productname);
+		        request.setAttribute("productname_str", productname_str);
 
-	        super.setRedirect(false);
-			super.setViewPage("/WEB-INF/order/payment.jsp");
+		        super.setRedirect(false);
+				super.setViewPage("/WEB-INF/order/payment.jsp");
+			}
+			
+			else if(str_cartno == null) { // 주문상세에서 바로 구매하기를 클릭했을 경우
+				
+				System.out.println("str_cartno == null 바로구매하기에서 이동됨");
+				
+				
+				
+				
+				
+	/*		
+				String[] cartno_arr = str_cartno.split("\\,");
+				
+				// 문자를 보내주기 위해 정보를 넘겨주는 것
+				MemberVO mvo = mdao.selectOneMember(loginuser.getUserid());
+				request.setAttribute("mvo", mvo);
+				
+				// === 제품명 가져오는 메소드 생성하기 === //
+				List<String> productname = pdao.get_productname_tbl_product(cartno_arr);
+				String productname_str = String.join(",",productname);
+
+				// === 지점명을 가져오는 메소드 생성하기 === //
+				List<String> storename = pdao.get_storename();
+				
+				// payment.jsp 에 띄워줄 정보를 set 하는 부분
+				request.setAttribute("storename", storename);
+				request.setAttribute("mobile", loginuser.getMobile());
+			
+				request.setAttribute("str_cartno", str_cartno);
+		        request.setAttribute("str_selectno", str_selectno);
+		        request.setAttribute("totalprice", totalprice);
+		        request.setAttribute("productname", productname);
+		        request.setAttribute("productname_str", productname_str);
+
+		        super.setRedirect(false);
+				super.setViewPage("/WEB-INF/order/payment.jsp");
+				
+		*/
+			}
+			
 	    }
 	    else if("POST".equalsIgnoreCase(method) && "play".equals(orderplay)) { // 구매하기를 누르면 play 가 제출면서 이 부분이 실행됨(구매하기 누른 후)
 	    	
@@ -138,7 +188,7 @@ public class Payment extends AbstractController {
 	    }
 	    else {	// GET 방식이라면
 	    	
-	    	String message = "비정상적인 경로로 들어왔습니다";
+	    	String message = "(payment.java 경고)비정상적인 경로로 들어왔습니다";
 	        String loc = "javascript:history.back()";
 	            
 	        request.setAttribute("message", message);
@@ -148,14 +198,6 @@ public class Payment extends AbstractController {
 	        super.setViewPage("/WEB-INF/msg.jsp");
 	        
 	    }
-	    
-	    
-	    
-		
-		
-		
-		
-		
 		
 
 	}
