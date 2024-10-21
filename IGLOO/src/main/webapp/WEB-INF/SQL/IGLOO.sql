@@ -17,6 +17,8 @@ create user SEMI_ORAUSER1 identified by gclass default tablespace users;
 grant connect, resource, create view, unlimited tablespace to SEMI_ORAUSER1;
 -- Grant을(를) 성공했습니다.
 
+select * from all_users;
+
 --------------------------------------------------------------------------------
 
 show user;
@@ -227,3 +229,13 @@ commit;
 select storeID, storeName, storeUrl, storeImg, storeAddress, lat, lng, zindex
 from tbl_map
 order by zindex asc;
+
+
+select * from user_tables;
+
+select * from tbl_selectlist;
+
+select * from tbl_cart;
+
+
+

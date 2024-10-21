@@ -10,6 +10,7 @@ public abstract class AbstractController implements InterCommand {
 	private boolean isRedirect = false;
 	
 	private String viewPage;
+	private String method;
 	
 	// === Getter, Setter === //
 	public boolean isRedirect() {
@@ -26,6 +27,11 @@ public abstract class AbstractController implements InterCommand {
 
 	public void setViewPage(String viewPage) {
 		this.viewPage = viewPage;
+	}
+	
+	public void setViewPage(String viewPage, String method) {
+		this.viewPage = viewPage;
+		this.method = method;
 	}
 		
 	////////////////////////////////////////////////
