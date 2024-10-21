@@ -13,6 +13,8 @@ import product.model.yj.ProductDAO;
 import product.model.yj.ProductDAO_imple;
 public class InsertTaste extends AbstractController {
 	
+// == 주문상세 페이지에서 '장바구니' 클릭 시 이동하는 controller == //	
+	
 	private ProductDAO pdao = null;
 	
 	public InsertTaste() {
@@ -26,7 +28,7 @@ public class InsertTaste extends AbstractController {
 		String method = request.getMethod();
 		
 		if(!"POST".equalsIgnoreCase(method)) {
-			String message = "비정상적인 경로로 들어왔습니다.";
+			String message = "(insertTaste.java GET 방식으로 전송됨)비정상적인 경로로 들어왔습니다.";
 			String loc = "javascript:history.back()";
 			
 			request.setAttribute("message", message);
@@ -53,9 +55,17 @@ public class InsertTaste extends AbstractController {
 		    	String[] tastenoArr = request.getParameterValues("tasteselectListNo"); // 맛번호를 담아주는 배열
 		    	String[] countArr = request.getParameterValues("tasteselectListCount"); // 수량을 담아주는 배열
 		    	
+		    	
+//		    	if(tastenoArr == null) {
+//		    		
+//		    		System.out.println("총수량 0개여서 return 됨 => 장바구니에 담을 메뉴를 선택해주세요 경고 띄우기!");
+//		    		super.goBackURL(request);
+//		    		return;
+//		    	}
+		    	
+		    	
 		    	String str_totalcount = request.getParameter("str_totalcount"); // 총수량
 		    	String str_totalprice = request.getParameter("str_totalprice"); // 총합계금액
-		    	
 		    	
 		    	// == 맛번호, 수량, 담아주는 맛정보List == //
 		    	List<Map<String, Integer>> tasteinfoList = new ArrayList<>();
@@ -71,11 +81,12 @@ public class InsertTaste extends AbstractController {
 		    			map.put("taste"+(j+1), Integer.parseInt(str_tastenoarr[j])); // map 에 split 된 값 넣어주기
 		    		}
 		    		map.put("count", Integer.parseInt(countArr[i])); // map에 수량 담아주기
-		    		
+		    		/*
 		    		System.out.println("i:" + i);
 		    		System.out.println("맛:" + tastenoArr[i]);
 		    		System.out.println("수량:" + countArr[i]);
 		    		System.out.println();
+		    		*/
 		    		
 		    		/*
 		    		 	i:0
@@ -97,7 +108,6 @@ public class InsertTaste extends AbstractController {
 		    		// == TBL_SELECTLIST 에 insert 하는 메소드 생성 == //
 		    		List<Map<String, Integer>> resultList  = pdao.insertSelectList(tasteListSize, userid, pcode);
 //		    		selectListResult = map.get("selectListResult");
-		    		System.out.println();
 
 		    		///////////////////////////////////////////////////////////////////////
 		    		
@@ -113,8 +123,6 @@ public class InsertTaste extends AbstractController {
 		    				break;
 		    			}
 		    		}
-		    		// System.out.println("success:" + success);
-		    		// succeess:true
 		    		
 		    		// TBL_SELECTLIST 에 insert 할 조건이 충족됐다면
 		    		if(success == true) { 
@@ -125,17 +133,10 @@ public class InsertTaste extends AbstractController {
 		    			if(tasteListResult == 1) {
 		    				//System.out.println("tasteList 띄우기 성공 ^^~~");
 		    				
-		    				// == 주문하기 뷰단으로 연결 == //
-		    				
-		    				
-		    				
-		    				
-		    				
-		    				
 		    				// == 장바구니 뷰단으로 연결 == //
 		    				int cartListResult = pdao.insertCartList(userid, tasteinfoList, resultList);
 		    				
-		    				if(cartListResult == 1) {
+		    				if(cartListResult == 1) { // 장바구니에 담은 리스트가 있는 경우
 		    					//System.out.println("cartList 띄우기 성공 ^^~~");
 		    					
 				    			super.setRedirect(true);
@@ -143,20 +144,13 @@ public class InsertTaste extends AbstractController {
 		    					return;
 		    				}
 		    				
-		    				
-		    				
 		    			}
 		    			
 		    			/////////////////////////////////////////////////////////////////////////////////////
 		    			
 		    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
 		    			request.setAttribute("str_totalprice", str_totalprice); // 총합계금액
-		    		
-//		    			super.setRedirect(false);
-//		    			super.setViewPage("/WEB-INF/order/payment.jsp");
-		    			
-//		    			super.setRedirect(true);
-//		    			super.setViewPage(request.getContextPath() + "/member/order/payment.ice");
+		    	
 		    		}
 		    		
 		    	} catch(SQLException e) {
@@ -192,8 +186,6 @@ public class InsertTaste extends AbstractController {
 		    }
 
 		}// end of else --------------------------------------
-		
-		
 		
 		
 	}// end of public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception--------------

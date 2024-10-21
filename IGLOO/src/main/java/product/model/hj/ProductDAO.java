@@ -29,6 +29,9 @@ public interface ProductDAO {
 
 	// === 제품명 가져오는 메소드 생성하기 === //
 	List<String> get_productname_tbl_product(String[] cartno_arr) throws SQLException;
+	
+	// === 선택한 맛 리스트 가져오는 메소드 생성하기 === //
+	// List<String> get_tasteList(String str_selectno);
 
 	// === tbl_map(위,경도) 테이블에 있는 정보를 가져오기(select) === //
 	List<Map<String, String>> selectStoreMap() throws SQLException;
@@ -38,5 +41,6 @@ public interface ProductDAO {
 
 	// === 지점명에 따른 주소를 가져오는 메소드 === //
 	Map<String, String> getStaddress(String stname) throws SQLException;
+
 
 }

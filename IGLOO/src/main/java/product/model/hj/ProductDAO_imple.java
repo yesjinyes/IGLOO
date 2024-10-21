@@ -562,6 +562,39 @@ public class ProductDAO_imple implements ProductDAO {
 		
 	}	// end of public List<Map<String, String>> selectStoreMap() throws SQLException---
 
+	
+/*	
+	// === 선택한 맛 리스트 가져오는 메소드 생성하기 === //
+	@Override
+	public List<String> get_tasteList(String str_selectno) {
+		
+		String sql = "";
+		List<String> total = new ArrayList<>();
+		try {
+	         conn = ds.getConnection();
+	         for(int i=0; i<cartno_arr.length; i++) {
+	        	 sql = " select P.productname "
+	        		 + " from tbl_cart C JOIN tbl_selectlist S "
+	        		 + " ON C.fk_selectno = S.selectno "
+	        		 + " JOIN tbl_product P ON S.fk_productcodeno = P.productcodeno "
+	        		 + " where C.cartno = ? ";
+	        	 
+	        	 pstmt = conn.prepareStatement(sql);
+	        	 pstmt.setString(1, cartno_arr[i]);
+	        	 
+	        	 rs = pstmt.executeQuery();
+	        	 
+	        	 rs.next();
+	        	 
+	        	 cartno_list.add(rs.getString(1));
+	         }
+	      } finally {
+	         close();
+	      }
+	      return cartno_list;
+		
+	}// end of public List<String> get_tasteList(String str_selectno)
+*/
 
 	
 }
