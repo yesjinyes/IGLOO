@@ -157,6 +157,9 @@ font-size: 15pt;
 	<input type="hidden" name="pcode" value="${requestScope.pvo.productcodeno}"/>
     <input type="hidden" name="str_totalcount" value=""/>
     <input type="hidden" name="str_totalprice" value=""/>
+    <input type="text" id="row_count" name="row_count" value=""/>
+    <input type="text" id="tasteArr" name="tasteArr" value=""/>
+	    
 </form>
 
 

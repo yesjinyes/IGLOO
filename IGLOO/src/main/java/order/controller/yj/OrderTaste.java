@@ -63,8 +63,17 @@ public class OrderTaste extends AbstractController {
 		    	String str_totalcount = request.getParameter("str_totalcount"); // 총수량
 		    	String str_totalprice = request.getParameter("str_totalprice"); // 총합계금액
 		    	
+		    	String tasteArr = request.getParameter("tasteArr"); // 선택한 맛 담아주는 배열
+		    	System.out.println("배열확인 => "  + tasteArr);
+
+		    	String[] tasteArrSplit = tasteArr.split(",");
+		    	
+		    	
+		    	
+		    	
 		    	// == 맛번호, 수량, 담아주는 맛정보List == //
 		    	List<Map<String, Integer>> tasteinfoList = new ArrayList<>();
+		    	
 		    	
 		    	
 		    	// 맛번호, 수량 짝꿍 만들어주기
@@ -78,11 +87,12 @@ public class OrderTaste extends AbstractController {
 		    			map.put("taste"+(j+1), Integer.parseInt(str_tastenoarr[j])); // map 에 split 된 값 넣어주기
 		    		}
 		    		map.put("count", Integer.parseInt(countArr[i])); // map에 수량 담아주기
-		    		
-		    		System.out.println("i:" + i);
-		    		System.out.println("맛:" + tastenoArr[i]);
-		    		System.out.println("수량:" + countArr[i]);
-		    		System.out.println();
+		    		/*
+			    		System.out.println("i:" + i);
+			    		System.out.println("맛:" + tastenoArr[i]);
+			    		System.out.println("수량:" + countArr[i]);
+			    		System.out.println();
+		    		*/
 		    		
 		    		/*
 		    		 	i:0
@@ -133,7 +143,7 @@ public class OrderTaste extends AbstractController {
 		    				String productname = pdao.get_productname(pcode);
 		    				
 		    				// === 선택한 맛 가져오는 메소드 생성하기 === //
-		    				//String tasteList = pdao.get_tasteList(resultList);
+		    				// String tasteList = pdao.get_tasteList(resultList);
 		    				
 		    				// payment.jsp 에 띄워줄 정보를 set 하는 부분
 		    				request.setAttribute("storename", storename);
@@ -141,19 +151,24 @@ public class OrderTaste extends AbstractController {
 		    				request.setAttribute("productname_str", productname);
 		    				request.setAttribute("productname", productname);
 		    				request.setAttribute("pcode", pcode);
-		    				
+		    				request.setAttribute("tasteArrSplit", tasteArrSplit);
+		    			
 		    				// == 주문하기 뷰단으로 연결 == //
 			    			request.setAttribute("str_totalcount", str_totalcount); // 총수량
 			    			request.setAttribute("str_totalprice", str_totalprice); // 총금액
 		    			    
 			    			/*
-			    			System.out.println(storename);
-			    			System.out.println(loginuser.getMobile());
-			    			System.out.println(pcode);
-			    			System.out.println(productname);
-			    			System.out.println(str_totalcount);
-			    			System.out.println(str_totalprice);
+				    			System.out.println(storename);
+				    			System.out.println(loginuser.getMobile());
+				    			System.out.println(pcode);
+				    			System.out.println(productname);
+				    			System.out.println(str_totalcount);
+				    			System.out.println(str_totalprice);
+				    			System.out.println(tasteArrSplit);
 			    			*/
+			    			
+			    			
+			    			
 			    			
 			    			if("POST".equalsIgnoreCase(method)) {
 			    				super.setRedirect(true);

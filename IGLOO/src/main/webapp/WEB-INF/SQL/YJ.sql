@@ -334,7 +334,7 @@ from tbl_selectlist
 order by selectno desc;
 
 select *
-from tbl_tasteselect
+from tbl_tasteselect;
 where fk_selectno = 306;
 
 select * from tbl_order;
@@ -366,6 +366,19 @@ order by B.selectno desc;
     파인트	347	yy6037	슈팅톡톡
     쿼터	    346	yy6037	디노 사우루스 젤리  
 */
+
+
+select A.productname, B.selectno, D.tastename
+from tbl_product A
+join tbl_selectlist B
+on A.productcodeno = B.fk_productcodeno
+join tbl_tasteselect C
+on B.selectno = C.fk_selectno
+join tbl_taste D
+on C.fk_tasteno = D.tasteno
+order by B.selectno desc;
+
+
 
 
 /* TBL_TASTESELECT (맛선택 테이블)  - 맛선택일련번호, 선택일련번호, 맛종류번호*/

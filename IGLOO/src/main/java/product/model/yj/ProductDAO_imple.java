@@ -360,12 +360,7 @@ public class ProductDAO_imple implements ProductDAO {
 	}
 
 	
-	// === 선택한 맛 가져오는 메소드 생성하기 === //
-	@Override
-	public String get_tasteList(List<Map<String, Integer>> resultList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
 
 

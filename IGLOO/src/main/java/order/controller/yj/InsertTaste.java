@@ -56,6 +56,8 @@ public class InsertTaste extends AbstractController {
 		    	String[] countArr = request.getParameterValues("tasteselectListCount"); // 수량을 담아주는 배열
 		    	
 		    	
+		    	
+		    	// == 맛선택을 안하고 '장바구니' 클릭했을 경우 경고창 띄우기 == //
 //		    	if(tastenoArr == null) {
 //		    		
 //		    		System.out.println("총수량 0개여서 return 됨 => 장바구니에 담을 메뉴를 선택해주세요 경고 띄우기!");

@@ -30,8 +30,6 @@ public interface ProductDAO {
 	// === 제품명 가져오는 메소드 생성하기 === //
 	String get_productname(String pcode) throws SQLException;
 
-	// === 선택한 맛 가져오는 메소드 생성하기 === //
-	String get_tasteList(List<Map<String, Integer>> resultList);
 	
 }
 

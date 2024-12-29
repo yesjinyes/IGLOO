@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var index = 1;
-
+	var row_count = 0;
 	var count = 1;
 	var price = Number($("input[name='productprice']").val());
 	var totalcost = Number($("span.productprice").text().replace(",", ""));
@@ -51,13 +51,13 @@ $(document).ready(function() {
 			count = 1;
 			
 			// == 선택한 맛 리스트 쌓아주기 == //
-			let html = `<div id="resultContainer`+index+`" style="border: solid 0px orange;">
+			let html = `<div id="resultContainer`+index+`" style="border: solid 1px orange;">
 							<div class="resultEach" style="display: inline-block; width: 100%; ">
 								<div style="display: flex;">
 									<div style="border: solid 0px blue; width: 63%; margin: 0 3%;">
 										<div id="selecttasteList">
 											<p id="tasteresult">` + result + `</p>
-											<input type="hidden" name="selecttasteList"/>
+											<input id="tasteArray`+row_count+`" type="text" name="selecttasteList" value="` + result + `"/>
 										</div>
 									</div>
 									<div class="num" style="border: solid 0px red; width:37%; float: right; text-align: center; vertical-align: center;" >
@@ -96,10 +96,10 @@ $(document).ready(function() {
 			
 			// == 선택한 맛이 담겨있는 곳 == //
 			const resulttest = result.split("/");
-			//console.log(resulttest);
+			console.log("선택한 맛배열 확인"+resulttest);
 			
 			const str_tasteno = tastenoArr.join(",");
-			//console.log(str_tasteno);
+			console.log(str_tasteno);
 			
 			// == 총수량 구하기 == //
 			const totalcount = $("span#totalcount").text();
@@ -114,12 +114,18 @@ $(document).ready(function() {
 			$("form[name='tasteinfo'] > input[name='str_totalprice']").val(productpriceTest); // 총합계금액 폼으로 넘기기
 
 			$("form[name='orderinfo'] > input[name='tasteno']").val(str_tasteno); // 선택한 맛 폼으로 넘기기
-			$("form[name='orderinfo'] > input[name='str_totalprice']").val(productpriceTest); // 총합계금액 폼으로 넘기기
-			
-		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
+			$("form[name='orderinfo'] > input[name='selecttaste']").val(resulttest); // 선택한 맛 폼으로 넘기기
 
+			$("form[name='orderinfo'] > input[name='str_totalprice']").val(productpriceTest); // 총합계금액 폼으로 넘기기
+
+			row_count += 1;
+		}// end of if(!selecttaste.includes('맛을 선택하세요')){}----------------------
+		
+		console.log(row_count);
+		$("form[name='orderinfo'] > input[name='row_count']").val(row_count);
+		
 	});// end of $("select[id='taste']").change(function()----------------------
-	  
+	
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -145,15 +151,17 @@ $(document).ready(function() {
 
 		// 플러스 버튼 클릭 시 리스트별 수량 변경
 		var plusno = $(e.target).attr("index");
-		console.log("plusno : "+ plusno);
+		// console.log("plusno : "+ plusno);
 
 		$("form[name='tasteinfo'] > input#tasteselectListCount"+plusno).val(plus);
 		$("form[name='orderinfo'] > input#tasteselectListCount"+plusno).val(plus);
 
 		// form 으로 총합계금액 넘기기 
 		const productpriceTest = $("span.productprice").text().split(",").join("");
-		$("form[name='tasteinfo'] > input[name='str_count']").val(productpriceTest);
-		$("form[name='orderinfo'] > input[name='str_count']").val(productpriceTest);
+		//console.log("총금액 확인 => " + productpriceTest);
+
+		$("form[name='tasteinfo'] > input[name='str_totalprice']").val(productpriceTest);
+		$("form[name='orderinfo'] > input[name='str_totalprice']").val(productpriceTest);
 
 	});// end of $(document).on('click', '.plus', function() {})------------ 
 
@@ -178,7 +186,7 @@ $(document).ready(function() {
 		
 			//  마이너스 버튼 클릭 시 리스트별 수량 변경
 			var minusno = $(e.target).attr("index");
-			console.log("minusno : "+ minusno);
+			// console.log("minusno : "+ minusno);
 
 			$("form[name='tasteinfo'] > input#tasteselectListCount"+minusno).val(minus);
 			$("form[name='orderinfo'] > input#tasteselectListCount"+minusno).val(minus);
@@ -243,40 +251,41 @@ function goOrder(){
 	// console.log("주문버튼 클릭");
 
 	// 주문상세 페이지에서 주문하기 창으로 끌고와야 하는 데이터
-	// => 상품명(productname), 선택일련번호(selectno), 맛이름(tastename), 총합계(totalprice)
+	// 선택일련번호(selectno), 맛이름(tastename), 총합계(totalprice)
 	
 	
-	 
-	
-
-
-
-/*	// == '주문하기' 버튼 클릭 시 총수량 전송하기 == //
+	// == 총수량 전송하기 == //
 	var arr = $("span#result").text();
 
 	var str_totalcount = 0;
 	for(let i=0; i<arr.length; i++) {
 		str_totalcount += Number(arr[i]);
 	}// end of for----------------
+	
+	// $("form[name='orderinfo'] > input[name='str_totalcount']").val(str_totalcount);
+	// console.log("최종수량 전송확인 => "+str_totalcount);
 
 
-	//  총수량 전송하기 
-	$("form[name='orderinfo'] > input[name='str_totalcount']").val(str_totalcount);
+	// == 선택한 맛 넘기기 == //
+	var row_count = $("input#row_count").val();
+	// console.log("row_count 확인 => " + row_count);
 
-	var test = $("form[name='orderinfo'] > input.tasteclass").attr("index");
-	console.log("class 확인:",test);
-	//console.log("index:" + index);
+	var arr = [];
+
+	for(let i=0; i<row_count; i++) {
+		arr.push($("input#tasteArray"+i+"").val());
+	}
+	// console.log("arr:" + arr);
+
+	$("form[name='orderinfo'] > input#tasteArr").val(arr);
+
 
 	const ctxPath = $("div#ctxPath").text();
 	
 	const frm = document.orderinfo;
 	frm.action = ctxPath + "/order/orderTaste.ice";
-	frm.method = "GET";
+	frm.method = "POST";
 	frm.submit();
-*/	
 
-
-
-	
 	
 } // end of function goOrder()------------

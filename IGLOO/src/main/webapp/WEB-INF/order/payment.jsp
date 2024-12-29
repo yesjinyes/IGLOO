@@ -184,9 +184,20 @@ function storeAddress(){
 			<div style="background-color: white; border-radius: 10px; padding-bottom: 0.1%; margin-bottom: 5%;" >
 				<div style="margin: 5% 5%;">
 					<div class="row justify-content-between mb-3">
-						<div class="col-5 text-left mt-3" style="font-weight: bold; font-size: 20pt;">결제 금액</div>
-						<div class="col-3"></div>
-						<div class="col-4 text-right mt-3" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />원</div> 
+						<div class="col-4 text-left mt-3" style="font-weight: bold; font-size: 20pt;">결제 금액</div>
+						<div class="col-2"></div>
+
+						<!-- 가격이 나타나는 부분 -->
+						<c:choose>
+							<c:when test="${requestScope.totalprice != null}">
+								<div class="col-6 text-right mt-3" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.totalprice}" pattern="###,###" />원</div> 
+							</c:when>
+							
+							<c:otherwise>
+								<div class="col-6 text-right mt-3" style="font-weight: bold; font-size: 20pt;"><fmt:formatNumber value="${requestScope.str_totalprice}" pattern="###,###" />원</div> 
+							</c:otherwise>
+						</c:choose>
+	
 						<br>
 					</div>
 					
@@ -195,8 +206,12 @@ function storeAddress(){
 					<div class="text-left" style=" font-size: 13pt; font-weight: bold;">주문상품</div>
 					
 					<div class="row justify-content-between mt-3">
-						<div class="col-3" style="font-size: 12pt;">${requestScope.productname}</div>
-						<div class="col-9" style="font-size: 12pt;">${requestScope.tasteList} 선택한 맛이 나올 자리</div>
+						<%-- <div class="col-3" style="font-size: 12pt;">${requestScope.productname}</div> --%>
+						
+							<c:forEach var="tmp" items="${requestScope.tasteArrSplit}">
+								<div class="col-9" style="font-size: 12pt;">${tmp}</div>
+							</c:forEach>
+							
 						<br>
 					</div>
 				</div>	
