@@ -203,17 +203,19 @@ function storeAddress(){
 					
 					<hr style="border: solid 1px gainsboro;">
 
+					<!-- 주문목록 -->
 					<div class="text-left" style=" font-size: 13pt; font-weight: bold;">주문상품</div>
-					
+
+					<!-- 바로 주문하기 클릭 후 주문목록 띄우기 -->
 					<div class="row justify-content-between mt-3">
-						<%-- <div class="col-3" style="font-size: 12pt;">${requestScope.productname}</div> --%>
-						
-							<c:forEach var="tmp" items="${requestScope.tasteArrSplit}">
-								<div class="col-9" style="font-size: 12pt;">${tmp}</div>
-							</c:forEach>
-							
+						<c:forEach var="tmp" items="${requestScope.tasteArrSplit}">
+							<div class="col-2">컵사이즈</div>
+							<div class="col-8" style="font-size: 12pt;">${tmp}</div>
+							<div class="col-2">수량</div>
+						</c:forEach>
 						<br>
 					</div>
+					
 				</div>	
 			</div>
 			<div id="button" class="mx-auto">
