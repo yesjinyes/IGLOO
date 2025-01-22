@@ -209,7 +209,7 @@ function storeAddress(){
 					<!-- 바로 주문하기 클릭 후 주문목록 띄우기 -->
 					<div class="row justify-content-between mt-3">
 						<c:forEach var="tmp" items="${requestScope.tasteArrSplit}">
-							<div class="col-2">컵사이즈</div>
+							<div class="col-2">${requestScope.pcode}</div>
 							<div class="col-8" style="font-size: 12pt;">${tmp}</div>
 							<div class="col-2">수량</div>
 						</c:forEach>

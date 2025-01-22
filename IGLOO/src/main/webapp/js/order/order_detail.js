@@ -51,7 +51,7 @@ $(document).ready(function() {
 			count = 1;
 			
 			// == 선택한 맛 리스트 쌓아주기 == //
-			let html = `<div id="resultContainer`+index+`" style="border: solid 1px orange;">
+			let html = `<div id="resultContainer`+index+`" style="border: solid 0px orange;">
 							<div class="resultEach" style="display: inline-block; width: 100%; ">
 								<div style="display: flex;">
 									<div style="border: solid 0px blue; width: 63%; margin: 0 3%;">
